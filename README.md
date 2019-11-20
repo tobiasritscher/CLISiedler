@@ -24,7 +24,7 @@ This project is licensed under the ZHAW License - see [ZHAW](http://www.zhaw.ch)
 
 ## Class Diagram
 
-![Flowchart](Klassendiagramm.pdf)
+![Flowchart](Klassendiagramm.png)
 
 ## Screenshot
 
