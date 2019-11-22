@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SiedlerGame {
+    private Dice dice = new Dice();
 
     public SiedlerGame(int winPoints, int players) {
         // TODO: Implement
