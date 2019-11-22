@@ -9,6 +9,10 @@ import java.util.Map;
 
 public class SiedlerGame {
     private Dice dice = new Dice();
+    private Player playerBlue = new Player(Faction.BLUE); // TODO implement into SiedlerGame constructor
+    private Player playerGreen = new Player(Faction.GREEN); // TODO implement into SiedlerGame constructor
+    private Player playerRed = new Player(Faction.RED); // TODO implement into SiedlerGame constructor
+    private Player playerYellow = new Player(Faction.YELLOW); // TODO implement into SiedlerGame constructor
 
     public SiedlerGame(int winPoints, int players) {
         // TODO: Implement
@@ -59,11 +63,17 @@ public class SiedlerGame {
 
     public boolean buildSettlement(Point position) {
         // TODO: Implement
+
+        // TODO: It would go something like this:
+        playerBlue.buildSettlement(position);
         return false;
     }
 
     public boolean buildCity(Point position) {
         // TODO: OPTIONAL task - Implement
+
+        // TODO: It would go something like this:
+        playerBlue.getSettlementsBuilt().get(0).setToCity(); // TODO doesn't work that way yet, help me out
         return false;
     }
 

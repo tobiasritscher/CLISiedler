@@ -1,14 +1,17 @@
 package ch.zhaw.catan;
 
-public class ResourceCard extends Card {
-    private String resourceType;
+import ch.zhaw.catan.Config.Resource;
 
-    public ResourceCard (String resourceType){
+
+public class ResourceCard extends Card {
+    private Resource resourceType;
+
+    public ResourceCard(Resource resourceType) {
         super();
         this.resourceType = resourceType;
     }
 
     public String getResourceType() {
-        return resourceType;
+        return String.valueOf(resourceType);
     }
 }
