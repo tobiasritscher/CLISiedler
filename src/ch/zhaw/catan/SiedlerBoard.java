@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class SiedlerBoard extends HexBoard<Land, String, String, String> {
 
-    public  SiedlerBoard(SiedlerBoard board){
+    public  void setFields (SiedlerBoard board){
         Map<Point, Land> assignment = Config.getStandardLandPlacement();
 
         for (Map.Entry<Point, Land> entry : assignment.entrySet()) {
