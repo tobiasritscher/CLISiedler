@@ -34,4 +34,6 @@ public class Player {
     }
 
     public ArrayList<Road> getRoadsBuilt() { return roadsBuilt; }
+
+    public void buildRoad(Point position) { roadsBuilt.add(new Road(position)); }
 }
