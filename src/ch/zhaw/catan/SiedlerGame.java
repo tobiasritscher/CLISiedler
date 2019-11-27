@@ -9,7 +9,7 @@ import java.util.*;
 public class SiedlerGame {
     private Dice dice = new Dice();
     private int winPoints;
-    private ArrayList<Player> players;
+    private ArrayList<Player> players = new ArrayList<>();
     private int currentPlayer = 0;
 
     public SiedlerGame(int winPoints, int players) {
@@ -18,6 +18,7 @@ public class SiedlerGame {
     }
 
     public ArrayList<Player> getPlayers() {
+        createPlayers(4);
         return players;
     }
 

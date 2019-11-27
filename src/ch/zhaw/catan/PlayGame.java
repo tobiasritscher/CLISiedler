@@ -24,6 +24,8 @@ public class PlayGame {
     }
 
     private void run() {
+
+
         TextIO textIO = TextIoFactory.getTextIO();
         TextTerminal<?> textTerminal = textIO.getTextTerminal();
 
@@ -78,5 +80,6 @@ public class PlayGame {
     }
     public static void main(String[] Args) {
         new PlayGame().run();
+
     }
 }
