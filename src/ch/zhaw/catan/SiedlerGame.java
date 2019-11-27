@@ -8,7 +8,6 @@ import java.awt.Point;
 import java.util.*;
 
 public class SiedlerGame {
-    Scanner scanner = new Scanner(System.in);
     private Dice dice = new Dice();
     private Player playerBlue = new Player(Faction.BLUE); // TODO implement into SiedlerGame constructor
     private Player playerGreen = new Player(Faction.GREEN); // TODO implement into SiedlerGame constructor
