@@ -11,10 +11,6 @@ public class SiedlerGame {
     private Dice dice = new Dice();
     private int winPoints;
     private ArrayList<Player> players;
-    private Player playerBlue;
-    private Player playerGreen;
-    private Player playerRed;
-    private Player playerYellow;
 
     public SiedlerGame(int winPoints, int players) {
         createPlayers(players);
@@ -23,7 +19,7 @@ public class SiedlerGame {
 
     public void switchToNextPlayer() {
         // TODO: Implement
-        }
+    }
 
     public void switchToPreviousPlayer() {
         // TODO: Implement
@@ -63,7 +59,7 @@ public class SiedlerGame {
         // TODO: Implement
         /**
          *   TODO: how to call: siedlerGame.throwDice(dice.roll());
-          */
+         */
 
 
         return null;
@@ -73,7 +69,7 @@ public class SiedlerGame {
         // TODO: Implement
 
         // TODO: It would go something like this:
-        playerBlue.buildSettlement(position);
+//        playerBlue.buildSettlement(position);
         return false;
     }
 
@@ -81,7 +77,7 @@ public class SiedlerGame {
         // TODO: OPTIONAL task - Implement
 
         // TODO: It would go something like this:
-        playerBlue.getSettlementsBuilt().get(0).setToCity(); // TODO doesn't work that way yet, help me out
+//        playerBlue.getSettlementsBuilt().get(0).setToCity(); // TODO doesn't work that way yet, help me out
         return false;
     }
 
@@ -100,31 +96,19 @@ public class SiedlerGame {
         return null;
     }
 
-    private void createPlayers(int number) {
-        if (number == 2) {
-            playerBlue = new Player(Config.Faction.BLUE);
-            playerGreen = new Player(Config.Faction.GREEN);
-            players = new ArrayList<>();
-            players.add(playerBlue);
-            players.add(playerGreen);
-        } else if (number == 3) {
-            playerBlue = new Player(Config.Faction.BLUE);
-            playerGreen = new Player(Config.Faction.GREEN);
-            playerRed = new Player(Config.Faction.RED);
-            players = new ArrayList<>();
-            players.add(playerBlue);
-            players.add(playerGreen);
-            players.add(playerRed);
-        } else if (number == 4) {
-            playerBlue = new Player(Config.Faction.BLUE);
-            playerGreen = new Player(Config.Faction.GREEN);
-            playerRed = new Player(Config.Faction.RED);
-            playerYellow = new Player(Config.Faction.YELLOW);
-            players = new ArrayList<>();
-            players.add(playerBlue);
-            players.add(playerGreen);
-            players.add(playerRed);
-            players.add(playerYellow);
+    private void createPlayers(int numberOfPlayers) {
+        if (numberOfPlayers == 2) {
+            players.add(new Player(Config.Faction.BLUE));
+            players.add(new Player(Config.Faction.GREEN));
+        } else if (numberOfPlayers == 3) {
+            players.add(new Player(Config.Faction.BLUE));
+            players.add(new Player(Config.Faction.GREEN));
+            players.add(new Player(Config.Faction.RED));
+        } else if (numberOfPlayers == 4) {
+            players.add(new Player(Config.Faction.BLUE));
+            players.add(new Player(Config.Faction.GREEN));
+            players.add(new Player(Config.Faction.RED));
+            players.add(new Player(Config.Faction.YELLOW));
         } else {
             System.out.println("Error only between 2 and 4 players are allowed");
         }
