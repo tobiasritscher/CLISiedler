@@ -1,6 +1,6 @@
 package ch.zhaw.catan;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import ch.zhaw.catan.Config.Faction;
 
