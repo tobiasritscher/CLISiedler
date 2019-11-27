@@ -17,6 +17,10 @@ public class SiedlerGame {
         this.winPoints = winPoints;
     }
 
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
     public void switchToNextPlayer() {
         // TODO: Implement
     }
@@ -112,5 +116,8 @@ public class SiedlerGame {
         } else {
             System.out.println("Error only between 2 and 4 players are allowed");
         }
+    }
+    public Point point(int x, int y){
+        //TODO converts x and y into a point
     }
 }

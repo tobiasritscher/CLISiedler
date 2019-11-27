@@ -7,8 +7,11 @@ import org.beryx.textio.TextTerminal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+
 public class PlayGame {
-    private Scanner scanner = new Scanner(System.in);
+    SiedlerGame siedlerGame = new SiedlerGame(7,numberOfPlayers());
+    private Scanner scanner;
     Config config = new Config();
 
 
@@ -41,10 +44,18 @@ public class PlayGame {
     }
 
     public int numberOfPlayers() {
+        scanner = new Scanner(System.in);
         System.out.println("How many players will be playing?");
         return scanner.nextInt();
     }
 
+    public void firstPhase(){
+        for(int i = 0; i < siedlerGame.getPlayer().size(); i++){
+            System.out.println(siedlerGame.getPlayer().get(i) + "please pick a x and y coordinate for your first settlement");
+            // TODO finish this shit
+
+        }
+    }
     public static void main(String[] Args) {
         new PlayGame().run();
     }
