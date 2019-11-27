@@ -8,6 +8,7 @@ import ch.zhaw.catan.Config.Faction;
 public class Player {
     private ArrayList<Card> cardsInPossession;
     private ArrayList<Settlement> settlementsBuilt;
+    private ArrayList<Road> roadsBuilt;
     private Faction faction;
 
     public Player(Faction faction) {
@@ -31,4 +32,6 @@ public class Player {
     public String getFaction() {
         return String.valueOf(faction);
     }
+
+    public ArrayList<Road> getRoadsBuilt() { return roadsBuilt; }
 }
