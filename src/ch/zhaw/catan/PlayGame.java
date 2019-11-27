@@ -3,10 +3,10 @@ import java.util.Scanner;
 public class PlayGame {
     Scanner scanner = new Scanner(System.in);
     Config config = new Config();
-    private Player playerBlue; //= new Player(Config.Faction.BLUE);
-    private Player playerGreen;// = new Player(Config.Faction.GREEN);
-    private Player playerRed;// = new Player(Config.Faction.RED);
-    private Player playerYellow;// = new Player(Config.Faction.YELLOW);
+    private Player playerBlue;
+    private Player playerGreen;
+    private Player playerRed;
+    private Player playerYellow;
 
     public int numberOfPlayers(){
         System.out.println("How many players will be playing?");
