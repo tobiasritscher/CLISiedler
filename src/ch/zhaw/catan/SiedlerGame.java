@@ -3,7 +3,6 @@ package ch.zhaw.catan;
 import ch.zhaw.catan.Config.Faction;
 import ch.zhaw.catan.Config.Resource;
 import ch.zhaw.hexboard.HexBoard;
-
 import java.awt.Point;
 import java.util.*;
 
@@ -117,7 +116,5 @@ public class SiedlerGame {
             System.out.println("Error only between 2 and 4 players are allowed");
         }
     }
-    public Point point(int x, int y){
-        //TODO converts x and y into a point
-    }
+
 }

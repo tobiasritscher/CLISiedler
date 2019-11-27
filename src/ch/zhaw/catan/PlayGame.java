@@ -4,6 +4,7 @@ import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -52,8 +53,9 @@ public class PlayGame {
     public void firstPhase(){
         for(int i = 0; i < siedlerGame.getPlayer().size(); i++){
             System.out.println(siedlerGame.getPlayer().get(i) + "please pick a x and y coordinate for your first settlement");
-            // TODO finish this shit
-
+            Scanner x = new Scanner(System.in);
+            Scanner y = new Scanner(System.in);
+            Point point = new Point(x.nextInt(),y.nextInt());
         }
     }
     public static void main(String[] Args) {
