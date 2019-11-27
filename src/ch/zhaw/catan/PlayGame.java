@@ -53,6 +53,10 @@ public class PlayGame {
 
     }
 
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
     public static void main(String[] Args) {
 
     }
