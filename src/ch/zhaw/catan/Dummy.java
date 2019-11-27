@@ -24,18 +24,16 @@ public class Dummy {
         SiedlerBoard board = new SiedlerBoard();
         board.setFields(board);
         SiedlerBoardTextView view = new SiedlerBoardTextView(board);
-       /* board.addField(new Point(2, 2), Land.FOREST);
+       board.addField(new Point(2, 2), Land.FOREST);
         board.setCorner(new Point(3, 3), "RR");
         board.setEdge(new Point(2, 0), new Point(3, 1), "r");
-        board.addFieldAnnotation(new Point(2, 2), new Point(3, 1), "AA");*/
-      /*  Map<Point, Label> lowerFieldLabel = new HashMap<>();
+        board.addFieldAnnotation(new Point(2, 2), new Point(3, 1), "AA");
+      Map<Point, Label> lowerFieldLabel = new HashMap<>();
         lowerFieldLabel.put(new Point(2, 2), new Label('0', '9'));
-        SiedlerBoardTextView view = new SiedlerBoardTextView(board);
 
         for (Map.Entry<Point, Label> e : lowerFieldLabel.entrySet()) {
             view.setLowerFieldLabel(e.getKey(), e.getValue());
         }
-*/
         boolean running = true;
         while (running) {
             switch (getEnumValue(textIO, Actions.class)) {

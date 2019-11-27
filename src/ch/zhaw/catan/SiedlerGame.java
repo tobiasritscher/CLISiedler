@@ -15,9 +15,14 @@ public class SiedlerGame {
     private Player playerRed = new Player(Faction.RED); // TODO implement into SiedlerGame constructor
     private Player playerYellow = new Player(Faction.YELLOW); // TODO implement into SiedlerGame constructor
 
+
+    private int winPoints;
+    private int players;
+
     public SiedlerGame(int winPoints, int players) {
         // TODO: Implement
-
+        this.winPoints = winPoints;
+        this.players = players;
     }
 
     public void switchToNextPlayer() {
