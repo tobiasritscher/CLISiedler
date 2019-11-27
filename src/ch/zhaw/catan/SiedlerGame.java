@@ -9,14 +9,16 @@ import java.util.*;
 
 public class SiedlerGame {
     private Dice dice = new Dice();
+    private int winPoints;
+    private ArrayList<Player> players;
     private Player playerBlue = new Player(Faction.BLUE); // TODO implement into SiedlerGame constructor
     private Player playerGreen = new Player(Faction.GREEN); // TODO implement into SiedlerGame constructor
     private Player playerRed = new Player(Faction.RED); // TODO implement into SiedlerGame constructor
     private Player playerYellow = new Player(Faction.YELLOW); // TODO implement into SiedlerGame constructor
 
     public SiedlerGame(int winPoints, int players) {
-        // TODO: Implement
-
+        createPlayers(players);
+        this.winPoints = winPoints;
     }
 
     public void switchToNextPlayer() {
@@ -59,6 +61,11 @@ public class SiedlerGame {
 
     public Map<Faction, List<Resource>> throwDice(int dicethrow) {
         // TODO: Implement
+        /**
+         *   TODO: how to call: siedlerGame.throwDice(dice.roll());
+          */
+
+
         return null;
     }
 
@@ -91,5 +98,35 @@ public class SiedlerGame {
     public Faction getWinner() {
         // TODO: Implement
         return null;
+    }
+
+    private void createPlayers(int number) {
+        if (number == 2) {
+            playerBlue = new Player(Config.Faction.BLUE);
+            playerGreen = new Player(Config.Faction.GREEN);
+            players = new ArrayList<>();
+            players.add(playerBlue);
+            players.add(playerGreen);
+        } else if (number == 3) {
+            playerBlue = new Player(Config.Faction.BLUE);
+            playerGreen = new Player(Config.Faction.GREEN);
+            playerRed = new Player(Config.Faction.RED);
+            players = new ArrayList<>();
+            players.add(playerBlue);
+            players.add(playerGreen);
+            players.add(playerRed);
+        } else if (number == 4) {
+            playerBlue = new Player(Config.Faction.BLUE);
+            playerGreen = new Player(Config.Faction.GREEN);
+            playerRed = new Player(Config.Faction.RED);
+            playerYellow = new Player(Config.Faction.YELLOW);
+            players = new ArrayList<>();
+            players.add(playerBlue);
+            players.add(playerGreen);
+            players.add(playerRed);
+            players.add(playerYellow);
+        } else {
+            System.out.println("Error only between 2 and 4 players are allowed");
+        }
     }
 }
