@@ -2,12 +2,13 @@ package ch.zhaw.catan;
 
 import ch.zhaw.catan.Config.Faction;
 import ch.zhaw.catan.Config.Resource;
+import ch.zhaw.hexboard.HexBoard;
 
 import java.awt.Point;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SiedlerGame {
+    Scanner scanner = new Scanner(System.in);
     private Dice dice = new Dice();
     private Player playerBlue = new Player(Faction.BLUE); // TODO implement into SiedlerGame constructor
     private Player playerGreen = new Player(Faction.GREEN); // TODO implement into SiedlerGame constructor
@@ -16,11 +17,12 @@ public class SiedlerGame {
 
     public SiedlerGame(int winPoints, int players) {
         // TODO: Implement
+
     }
 
     public void switchToNextPlayer() {
         // TODO: Implement
-    }
+        }
 
     public void switchToPreviousPlayer() {
         // TODO: Implement
