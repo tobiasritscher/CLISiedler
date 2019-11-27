@@ -9,11 +9,6 @@ import java.util.*;
 
 public class SiedlerGame {
     private Dice dice = new Dice();
-    private Player playerBlue = new Player(Faction.BLUE); // TODO implement into SiedlerGame constructor
-    private Player playerGreen = new Player(Faction.GREEN); // TODO implement into SiedlerGame constructor
-    private Player playerRed = new Player(Faction.RED); // TODO implement into SiedlerGame constructor
-    private Player playerYellow = new Player(Faction.YELLOW); // TODO implement into SiedlerGame constructor
-
 
     private int winPoints;
     private int players;
@@ -26,6 +21,7 @@ public class SiedlerGame {
 
     public void switchToNextPlayer() {
         // TODO: Implement
+
         }
 
     public void switchToPreviousPlayer() {
@@ -34,6 +30,7 @@ public class SiedlerGame {
 
     public List<Faction> getPlayer() {
         // TODO: Implement
+
         return null;
     }
 
