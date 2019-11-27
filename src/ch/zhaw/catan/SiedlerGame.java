@@ -19,7 +19,7 @@ public class SiedlerGame {
 
     public void switchToNextPlayer() {
         // TODO: Implement
-        }
+    }
 
     public void switchToPreviousPlayer() {
         // TODO: Implement
@@ -59,7 +59,7 @@ public class SiedlerGame {
         // TODO: Implement
         /**
          *   TODO: how to call: siedlerGame.throwDice(dice.roll());
-          */
+         */
 
 
         return null;
