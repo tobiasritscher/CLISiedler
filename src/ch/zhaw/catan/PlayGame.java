@@ -11,11 +11,12 @@ public class PlayGame {
     private Scanner scanner = new Scanner(System.in);
     Config config = new Config();
 
-    public enum Actions{
+
+    public enum Actions {
         NEW_GAME, QUIT
     }
 
-    private void run(){
+    private void run() {
         TextIO textIO = TextIoFactory.getTextIO();
         TextTerminal<?> textTerminal = textIO.getTextTerminal();
 
