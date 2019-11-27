@@ -1,6 +1,6 @@
 package ch.zhaw.catan;
 
-import java.awt.*;
+import java.awt.Point;
 
 public class Settlement {
     private int winPoints = 1;
@@ -18,5 +18,9 @@ public class Settlement {
 
     public Point getPosition(){
         return position;
+    }
+
+    public boolean getIsCity() {
+        return isCity;
     }
 }
