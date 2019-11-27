@@ -1,10 +1,8 @@
 package ch.zhaw.catan;
 
 import java.awt.Point;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -24,6 +22,8 @@ import java.util.stream.Collectors;
 public class Config {
   // NUMBER OF PLAYERS (Note: the max. number is defined by the Faction enum)
   public static final int MIN_NUMBER_OF_PLAYERS = 2;
+
+
 
   // PLAYER ID (Faction)
   public enum Faction {

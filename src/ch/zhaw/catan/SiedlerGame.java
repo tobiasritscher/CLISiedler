@@ -10,6 +10,7 @@ public class SiedlerGame {
     private Dice dice = new Dice();
     private int winPoints;
     private ArrayList<Player> players;
+    private int currentPlayer = 0;
 
     public SiedlerGame(int winPoints, int players) {
         createPlayers(players);
@@ -22,14 +23,25 @@ public class SiedlerGame {
 
     public void switchToNextPlayer() {
         // TODO: Implement
+        if(currentPlayer <= 3 ){
+            currentPlayer++;
+        }else if(currentPlayer == 4){
+            currentPlayer = 1;
+        }
     }
 
     public void switchToPreviousPlayer() {
         // TODO: Implement
+        if(currentPlayer >= 2){
+            currentPlayer--;
+        }else if(currentPlayer == 1){
+            currentPlayer = 4;
+        }
     }
 
     public List<Faction> getPlayer() {
         // TODO: Implement
+
         return null;
     }
 
