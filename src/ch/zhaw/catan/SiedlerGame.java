@@ -11,10 +11,10 @@ public class SiedlerGame {
     private Dice dice = new Dice();
     private int winPoints;
     private ArrayList<Player> players;
-    private Player playerBlue = new Player(Faction.BLUE); // TODO implement into SiedlerGame constructor
-    private Player playerGreen = new Player(Faction.GREEN); // TODO implement into SiedlerGame constructor
-    private Player playerRed = new Player(Faction.RED); // TODO implement into SiedlerGame constructor
-    private Player playerYellow = new Player(Faction.YELLOW); // TODO implement into SiedlerGame constructor
+    private Player playerBlue;
+    private Player playerGreen;
+    private Player playerRed;
+    private Player playerYellow;
 
     public SiedlerGame(int winPoints, int players) {
         createPlayers(players);
