@@ -30,10 +30,12 @@ public class PlayGame {
         while (running) {
             switch (getEnumValue(textIO, PlayGame.Actions.class)) {
                 case NEW_GAME:
+
                     numberOfPlayers = numberOfPlayers();
                     siedlerGame = new SiedlerGame(7, numberOfPlayers);
                     siedlerGame.createPlayers(numberOfPlayers);
-                    firstPhase();
+
+                    //firstPhase();
                     //TODO: Hier wird ein neues Spiel instanziert
                     break;
                 case QUIT:
@@ -51,9 +53,10 @@ public class PlayGame {
     }
 
     public int numberOfPlayers() {
-        scanner = new Scanner(System.in);
-        textTerminal.print("How many players will be playing?");
-        return scanner.nextInt();
+        return textIO.newIntInputReader()
+                .withMinVal(2)
+                .withMaxVal(4)
+                .read("How many players will be playing?");
     }
 
     public void firstPhase() {
