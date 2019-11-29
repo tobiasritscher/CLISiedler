@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SiedlerGame {
-    private Dice dice = new Dice();
+    private Dice dice = new Dice(); // TODO: should be moved to playGame class
     private int winPoints;
     private List<Player> players = new ArrayList<>();
     private SiedlerBoard siedlerBoard = new SiedlerBoard();
@@ -77,8 +77,18 @@ public class SiedlerGame {
     }
 
     public boolean placeSettlement(Point position) {
-        players.get(currentPlayer).buildSettlement(position);
-        return true; // TODO: check if settlement is already occupied and return true/false
+        boolean cornerNotOccupied = true;
+        if (siedlerBoard.hasCorner(position)) { // TODO: Not sure about this one
+            if (siedlerBoard.getNeighboursOfCorner(position) == null) {
+                // TODO: only checks if there is a direct neighbor. can't check if there's a neighbor 2 corners away (help me out)
+                players.get(currentPlayer).buildSettlement(position);
+            } else {
+                cornerNotOccupied = false;
+            }
+        } else {
+            cornerNotOccupied = false;
+        }
+        return cornerNotOccupied; // TODO: check if settlement is already occupied and return true/false
     }
 
     public boolean placeCity(Point position) { //TODO: test and bugfix
@@ -95,6 +105,7 @@ public class SiedlerGame {
     }
 
     public boolean placeRoad(Point roadStart, Point roadEnd) {
+
         players.get(currentPlayer).buildRoad(roadStart, roadEnd);
         return false; // TODO: check if road is already occupied and return true/false
     }
@@ -103,7 +114,6 @@ public class SiedlerGame {
         if (!players.get(currentPlayer).removeResources(offer, 4)) {
             return false;
         } else {
-            players.get(currentPlayer).removeResources(offer, 4);
             players.get(currentPlayer).addResources(want, 1);
             return true;
         }
@@ -135,5 +145,6 @@ public class SiedlerGame {
             players.add((new Player(faction)));
         }
     }
+
 
 }
