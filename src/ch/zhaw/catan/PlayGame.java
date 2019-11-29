@@ -97,7 +97,7 @@ public class PlayGame {
             textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a y coordinate for the finish of your next road");
             Scanner yroadFinish = new Scanner(System.in);
             Point roadend = new Point(xroadFinish.nextInt(), yroadFinish.nextInt());
-            siedlerGame.buildRoad(roadpoint, roadend)
+            siedlerGame.buildRoad(roadpoint, roadend);
         }
     }
 
