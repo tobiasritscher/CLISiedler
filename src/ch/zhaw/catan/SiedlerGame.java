@@ -53,7 +53,7 @@ public class SiedlerGame {
 
     public int getCurrentPlayerResourceStock(Resource resource) {
         int resourceCounter = 0;
-        for (int index = 0; index >= players.get(currentPlayer).getResourcesInPossession().size(); index++)
+        for (int index = 0; index <= players.get(currentPlayer).getResourcesInPossession().size(); index++)
             if (players.get(currentPlayer).getResourcesInPossession().get(index).getResourceType() == resource) {
                 resourceCounter++;
             }
@@ -88,14 +88,10 @@ public class SiedlerGame {
             if (settlementToUpgrade.getPosition() == position) {
                 settlementToUpgrade.setToCity();
                 settlementFound = true;
-                return true;
+                break;
             }
         }
-        if (settlementFound == true) {
-            return true;
-        } else {
-            return false;
-        }
+        return settlementFound;
     }
 
     public boolean placeRoad(Point roadStart, Point roadEnd) {
