@@ -75,39 +75,39 @@ public class PlayGame {
 
     public void firstPhase() {
         for (int i = 0; i < siedlerGame.getPlayer().size(); i++) {
-            textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a x coordinate for your first settlement");
+            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for your first settlement");
             Scanner x = new Scanner(System.in);
-            textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a y coordinate for your first settlement");
+            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for your first settlement");
             Scanner y = new Scanner(System.in);
             Point point = new Point(x.nextInt(), y.nextInt());
             siedlerGame.placeInitialSettlement(point, true);
-            textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a x coordinate for the start of your first road");
+            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for the start of your first road");
             Scanner xroadStart = new Scanner(System.in);
-            textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a y coordinate for the start of your first road");
+            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for the start of your first road");
             Scanner yroadStart = new Scanner(System.in);
             Point roadStart = new Point(xroadStart.nextInt(), yroadStart.nextInt());
-            textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a x coordinate for the finish of your first road");
+            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for the finish of your first road");
             Scanner xroadFinish = new Scanner(System.in);
-            textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a y coordinate for the finish of your first road");
+            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for the finish of your first road");
             Scanner yroadFinish = new Scanner(System.in);
             Point roadEnd = new Point(xroadFinish.nextInt(), yroadFinish.nextInt());
             siedlerGame.placeInitialRoad(roadStart, roadEnd);
         }
         for (int i = siedlerGame.getPlayer().size() - 1; i > 0; i--) {
-            textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a x coordinate for your next settlement");
+            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for your next settlement");
             Scanner x = new Scanner(System.in);
-            textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a y coordinate for your next settlement");
+            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for your next settlement");
             Scanner y = new Scanner(System.in);
             Point point = new Point(x.nextInt(), y.nextInt());
             siedlerGame.placeSettlement(point);
-            textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a x coordinate for the start of your next road");
+            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for the start of your next road");
             Scanner xroadStart = new Scanner(System.in);
-            textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a y coordinate for the start of your next road");
+            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for the start of your next road");
             Scanner yroadStart = new Scanner(System.in);
             Point roadStart = new Point(xroadStart.nextInt(), yroadStart.nextInt());
-            textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a x coordinate for the finish of your next road");
+            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for the finish of your next road");
             Scanner xroadFinish = new Scanner(System.in);
-            textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a y coordinate for the finish of your next road");
+            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for the finish of your next road");
             Scanner yroadFinish = new Scanner(System.in);
             Point roadEnd = new Point(xroadFinish.nextInt(), yroadFinish.nextInt());
             siedlerGame.placeRoad(roadStart, roadEnd);
