@@ -78,8 +78,7 @@ public class PlayGame {
             textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a y coordinate for the finish of your first road");
             Scanner yroadFinish = new Scanner(System.in);
             Point roadend = new Point(xroadFinish.nextInt(), yroadFinish.nextInt());
-            placeRoad(roadpoint, roadend);
-            player.buildRoad(roadpoint, roadend);
+            siedlerGame.buildRoad(roadpoint, roadend);
         }
         for (int i = siedlerGame.getPlayer().size() - 1; i > 0; i--) {
             textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a x coordinate for your next settlement");
@@ -98,18 +97,13 @@ public class PlayGame {
             textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a y coordinate for the finish of your next road");
             Scanner yroadFinish = new Scanner(System.in);
             Point roadend = new Point(xroadFinish.nextInt(), yroadFinish.nextInt());
-            placeRoad(roadpoint, roadend);
-            player.buildRoad(roadpoint, roadend);
+            siedlerGame.buildRoad(roadpoint, roadend)
         }
     }
 
     public boolean isCornerFree(Point corner) {
         // TODO create method to check if the neighbor corners are free
         return true;
-    }
-
-    public void placeRoad(Point start, Point finish) {
-        hexBoard.setEdge(start, finish, hexBoard.getEdge(start, finish));
     }
 
     public static void main(String[] Args) {
