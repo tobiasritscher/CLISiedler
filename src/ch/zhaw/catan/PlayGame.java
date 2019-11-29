@@ -5,11 +5,7 @@ import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
 
-import java.util.LinkedList;
-
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 
@@ -70,9 +66,8 @@ public class PlayGame {
             Scanner x = new Scanner(System.in);
             textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a y coordinate for your first settlement");
             Scanner y = new Scanner(System.in);
-            placeSettlement(x.nextInt(), y.nextInt());
             Point point = new Point(x.nextInt(), y.nextInt());
-            player.buildSettlement(point);
+            siedlerGame.buildSettlement(point);
             textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a x coordinate for the start of your first road");
             Scanner xroadStart = new Scanner(System.in);
             textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a y coordinate for the start of your first road");
@@ -92,8 +87,7 @@ public class PlayGame {
             textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a y coordinate for your next settlement");
             Scanner y = new Scanner(System.in);
             Point point = new Point(x.nextInt(), y.nextInt());
-            placeSettlement(x.nextInt(), y.nextInt());
-            player.buildSettlement(point);
+            siedlerGame.buildSettlement(point);
             textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a x coordinate for the start of your next road");
             Scanner xroadStart = new Scanner(System.in);
             textTerminal.print(siedlerGame.getPlayer().get(i) + "please pick a y coordinate for the start of your next road");
@@ -112,11 +106,6 @@ public class PlayGame {
     public boolean isCornerFree(Point corner) {
         // TODO create method to check if the neighbor corners are free
         return true;
-    }
-
-    public void placeSettlement(int x, int y) {
-        Point point = new Point(x, y);
-        hexBoard.setCorner(point, hexBoard.getCorner(point));
     }
 
     public void placeRoad(Point start, Point finish) {

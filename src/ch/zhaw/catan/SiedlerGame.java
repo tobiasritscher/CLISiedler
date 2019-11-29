@@ -67,10 +67,8 @@ public class SiedlerGame {
     }
 
     public Map<Faction, List<Resource>> throwDice(int dicethrow) {
-        // TODO: Implement
-        // TODO: how to call: siedlerGame.throwDice(dice.roll());
-
-
+        //* dicethrow = dice.roll();*//
+    // TODO: Implement
         return null;
     }
 
