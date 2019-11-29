@@ -4,10 +4,8 @@ import ch.zhaw.catan.Config.Faction;
 import ch.zhaw.catan.Config.Resource;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class SiedlerGame {
     private Dice dice = new Dice(); // TODO: should be moved to playGame class
@@ -15,6 +13,7 @@ public class SiedlerGame {
     private List<Player> players = new ArrayList<>();
     private SiedlerBoard siedlerBoard = new SiedlerBoard();
     private int currentPlayer = 0;
+    private Config config = new Config();
 
     public SiedlerGame(int winPoints, int players) {
         createPlayers(players);
@@ -72,8 +71,20 @@ public class SiedlerGame {
     }
 
     public Map<Faction, List<Resource>> throwDice(int dicethrow) {
-        TreeMap resourceMap = new TreeMap<Faction, List<Resource>>();
-        // TODO: Implement
+        TreeMap<Faction, List<Resource>> resourceMap = new TreeMap<Faction, List<Resource>>();
+        TreeMap<Integer, Point> temporaryMap = new TreeMap<Integer, Point>();
+        Integer index = 0;
+        for (Map.Entry<Point, Integer> diceRolledField : config.getStandardDiceNumberPlacement().entrySet()) {
+            if (Objects.equals(dicethrow, diceRolledField.getValue())) {
+                temporaryMap.put(index, diceRolledField.getKey());
+                index++;
+            }
+        }
+        for (Map.Entry<Point, Config.Land> correspondingLand : config.getStandardLandPlacement().entrySet()) {
+            // TODO: compare which corresponding Land lies on the Point values in temporaryMap
+        }
+        // TODO: compare what settlements are on the dice rolled fields and save corresponding factions and their resources in resourceMap
+
         return resourceMap;
     }
 
