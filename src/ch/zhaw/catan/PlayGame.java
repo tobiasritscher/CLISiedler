@@ -40,18 +40,16 @@ public class PlayGame {
                     siedlerGame.createPlayers(numberOfPlayers);
                     textTerminal.resetToBookmark("START");
                     textTerminal.printf("There are %d dickheads playing the game", numberOfPlayers);
+
                     textTerminal.printf(System.lineSeparator());
                     firstPhase();
                     //TODO: Hier wird ein neues Spiel instanziert
                     break;
                 case QUIT:
-                    int reallyQuit = textIO.newIntInputReader()
-                            .withMinVal(1)
-                            .withMaxVal(2)
-                            .read("Bisch du Spasst sicher? \n  1: Ja \n  2: Nei\n");
-                    if(reallyQuit == 1) {
+                    boolean reallyQuit = textIO.newBooleanInputReader().read("Wettsch du Spasst würklich ufhöre?");
+                    if(reallyQuit) {
                         running = false;
-                    } else if (reallyQuit == 2){
+                    } else if (!reallyQuit){
                         textTerminal.resetToBookmark("START");
                     }
                     break;
@@ -75,42 +73,61 @@ public class PlayGame {
 
     public void firstPhase() {
         for (int i = 0; i < siedlerGame.getPlayer().size(); i++) {
-            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for your first settlement");
-            Scanner x = new Scanner(System.in);
-            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for your first settlement");
-            Scanner y = new Scanner(System.in);
-            Point point = new Point(x.nextInt(), y.nextInt());
+            int x = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for your first settlement");
+            textTerminal.printf(System.lineSeparator());
+
+            int y = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for your first settlement");
+            textTerminal.printf(System.lineSeparator());
+
+            Point point = new Point(x, y);
             siedlerGame.placeInitialSettlement(point, true);
-            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for the start of your first road");
-            Scanner xroadStart = new Scanner(System.in);
-            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for the start of your first road");
-            Scanner yroadStart = new Scanner(System.in);
-            Point roadStart = new Point(xroadStart.nextInt(), yroadStart.nextInt());
-            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for the finish of your first road");
-            Scanner xroadFinish = new Scanner(System.in);
-            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for the finish of your first road");
-            Scanner yroadFinish = new Scanner(System.in);
-            Point roadEnd = new Point(xroadFinish.nextInt(), yroadFinish.nextInt());
+
+            int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for the start of your first road");
+            textTerminal.printf(System.lineSeparator());
+
+            int yRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for the start of your first road");
+            textTerminal.printf(System.lineSeparator());
+
+            Point roadStart = new Point(xRoadStart, yRoadStart);
+
+            int xRoadFinish = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for the finish of your first road");
+            textTerminal.printf(System.lineSeparator());
+
+            int yRoadFinish = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for the finish of your first road");
+            textTerminal.printf(System.lineSeparator());
+
+            Point roadEnd = new Point(xRoadFinish, yRoadFinish);
             siedlerGame.placeInitialRoad(roadStart, roadEnd);
+
+            textTerminal.resetToBookmark("START");
         }
         for (int i = siedlerGame.getPlayer().size() - 1; i > 0; i--) {
-            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for your next settlement");
-            Scanner x = new Scanner(System.in);
-            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for your next settlement");
-            Scanner y = new Scanner(System.in);
-            Point point = new Point(x.nextInt(), y.nextInt());
-            siedlerGame.placeSettlement(point);
-            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for the start of your next road");
-            Scanner xroadStart = new Scanner(System.in);
-            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for the start of your next road");
-            Scanner yroadStart = new Scanner(System.in);
-            Point roadStart = new Point(xroadStart.nextInt(), yroadStart.nextInt());
-            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for the finish of your next road");
-            Scanner xroadFinish = new Scanner(System.in);
-            textTerminal.print(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for the finish of your next road");
-            Scanner yroadFinish = new Scanner(System.in);
-            Point roadEnd = new Point(xroadFinish.nextInt(), yroadFinish.nextInt());
-            siedlerGame.placeRoad(roadStart, roadEnd);
+            int x = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for your first settlement");
+            textTerminal.printf(System.lineSeparator());
+
+            int y = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for your first settlement");
+            textTerminal.printf(System.lineSeparator());
+
+            Point point = new Point(x, y);
+            siedlerGame.placeInitialSettlement(point, true);
+
+            int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for the start of your first road");
+            textTerminal.printf(System.lineSeparator());
+
+            int yRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for the start of your first road");
+            textTerminal.printf(System.lineSeparator());
+
+            Point roadStart = new Point(xRoadStart, yRoadStart);
+
+            int xRoadFinish = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for the finish of your first road");
+            textTerminal.printf(System.lineSeparator());
+
+            int yRoadFinish = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for the finish of your first road");
+            textTerminal.printf(System.lineSeparator());
+
+            Point roadEnd = new Point(xRoadFinish, yRoadFinish);
+            siedlerGame.placeInitialRoad(roadStart, roadEnd);
+            textTerminal.resetToBookmark("START");
         }
     }
 
