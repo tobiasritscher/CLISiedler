@@ -2,6 +2,7 @@ package ch.zhaw.catan;
 
 import java.awt.Point;
 import java.util.ArrayList;
+
 import ch.zhaw.catan.Config.Faction;
 
 
@@ -14,6 +15,7 @@ public class Player {
     public Player(Faction faction) {
         cardsInPossession = new ArrayList<>();
         settlementsBuilt = new ArrayList<>();
+        roadsBuilt = new ArrayList<>();
         this.faction = faction;
     }
 
@@ -25,15 +27,17 @@ public class Player {
         return settlementsBuilt;
     }
 
-    public void buildSettlement(Point position){
+    public void buildSettlement(Point position) {
         settlementsBuilt.add(new Settlement(position));
     }
 
-    public String getFaction() {
-        return String.valueOf(faction);
+    public Faction getFaction() { return faction; }
+
+    public ArrayList<Road> getRoadsBuilt() {
+        return roadsBuilt;
     }
 
-    public ArrayList<Road> getRoadsBuilt() { return roadsBuilt; }
-
-    public void buildRoad(Point position) { roadsBuilt.add(new Road(position)); }
+    public void buildRoad(Point startingAt, Point endingAt) {
+        roadsBuilt.add(new Road(startingAt, endingAt));
+    }
 }

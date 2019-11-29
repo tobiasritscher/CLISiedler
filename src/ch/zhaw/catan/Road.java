@@ -3,12 +3,17 @@ package ch.zhaw.catan;
 import java.awt.Point;
 
 public class Road {
-    public Road(Point position) {
+    Point position;
+    Point startingAt;
+    Point endingAt;
+
+    public Road(Point startingAt, Point endingAt) {
+        this.startingAt = startingAt;
+        this.endingAt = endingAt;
     }
 
-    public Point getPosition() {
-        return position;
-    }
+    public Point getStartingAt() { return startingAt; }
 
-    private Point position;
+    public Point getEndingAt() { return endingAt; }
+
 }
