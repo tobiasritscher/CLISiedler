@@ -30,6 +30,9 @@ public class PlayGame {
 
     private void run() {
         textTerminal.setBookmark("START");
+        textTerminal.print("~~~~~~~~~~~~~~~~~~\n");
+        textTerminal.print("Settlers of Catan\n");
+        textTerminal.print("~~~~~~~~~~~~~~~~~~\n");
 
         boolean running = true;
         while (running) {
@@ -46,7 +49,7 @@ public class PlayGame {
                     //TODO: Hier wird ein neues Spiel instanziert
                     break;
                 case QUIT:
-                    boolean reallyQuit = textIO.newBooleanInputReader().read("Wettsch du Spasst würklich ufhöre?");
+                    boolean reallyQuit = textIO.newBooleanInputReader().read("Do you really want to quit, you son of a beach?");
                     if(reallyQuit) {
                         running = false;
                     } else if (!reallyQuit){
