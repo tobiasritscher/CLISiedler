@@ -1,6 +1,8 @@
 package ch.zhaw.catan;
 
 import ch.zhaw.catan.Config.Faction;
+import ch.zhaw.catan.Config.Resource;
+
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class Player {
         return resourcesInPossession;
     }
 
-    public void removeResources(Config.Resource resource, int ResourceCount) {
+    public boolean removeResources(Resource resource, int ResourceCount) {
         int resourceCounter = 0;
         ArrayList<Integer> resourcesToRemove = new ArrayList<>();
 
@@ -37,6 +39,16 @@ public class Player {
             for (Integer cardToRemove: resourcesToRemove) {
                 resourcesInPossession.remove(cardToRemove);
             }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public void addResources(Resource resource, int resourceCount) {
+        for (int index = 0; index >= resourceCount; index++) {
+            resourcesInPossession.add(0, new ResourceCard(resource));
         }
     }
 

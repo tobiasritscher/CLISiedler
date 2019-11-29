@@ -23,4 +23,6 @@ public class Settlement {
     public boolean getIsCity() {
         return isCity;
     }
+
+    public int getWinPoints() { return winPoints; }
 }

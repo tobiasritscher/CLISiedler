@@ -91,15 +91,27 @@ public class SiedlerGame {
         return false; // TODO: check if road is already occupied and return true/false
     }
 
-    public boolean tradeWithBankFourToOne(Resource offer, Resource want) {
-        players.get(currentPlayer).removeResources(offer, 4);
-        return false;
+    public boolean ge(Resource offer, Resource want) {
+        if (players.get(currentPlayer).removeResources(offer, 4) == false) {
+            return false;
+        } else {
+            players.get(currentPlayer).addResources(want, 1);
+            return true;
+        }
     }
 
     public Faction getWinner() {
-        // TODO: Implement
-        return null;
+        int winPointCounter = 0;
+        for (Settlement settlement : players.get(currentPlayer).getSettlementsBuilt()) {
+            winPointCounter += settlement.getWinPoints();
+        }
+        if (winPointCounter >= winPoints) {
+            return players.get(currentPlayer).getFaction();
+        } else {
+            return null;
+        }
     }
+
 
     public void createPlayers(int numberOfPlayers) {
         if (numberOfPlayers < Config.MIN_NUMBER_OF_PLAYERS) {
