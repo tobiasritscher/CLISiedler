@@ -11,6 +11,7 @@ public class SiedlerGame {
     private int winPoints;
     private ArrayList<Player> players = new ArrayList<>();
     private int currentPlayer = 0;
+    private SiedlerBoard siedlerBoard = new SiedlerBoard();
 
     public SiedlerGame(int winPoints, int players) {
         createPlayers(players);
@@ -40,19 +41,17 @@ public class SiedlerGame {
     }
 
     public List<Player> getPlayer() {
-        // TODO: Implement
 
-        return null;
+        return players;
     }
 
     public SiedlerBoard getBoard() {
-        // TODO: Implement
-        return null;
+
+        return siedlerBoard;
     }
 
     public Faction getCurrentPlayer() {
-        // TODO: Implement
-        return null;
+        return players.get(currentPlayer).getFaction();
     }
 
     public int getCurrentPlayerResourceStock(Resource resource) {
@@ -81,24 +80,21 @@ public class SiedlerGame {
     }
 
     public boolean buildSettlement(Point position) {
-        // TODO: Implement
 
-        // TODO: It would go something like this:
-//        playerBlue.buildSettlement(position);
-        return false;
+        players.get(currentPlayer).buildSettlement(position);
+        return true; // TODO: check if settlement is already occupied and return true/false
     }
 
     public boolean buildCity(Point position) {
-        // TODO: OPTIONAL task - Implement
 
-        // TODO: It would go something like this:
-//        playerBlue.getSettlementsBuilt().get(0).setToCity(); // TODO doesn't work that way yet, help me out
-        return false;
+        // players.get(currentPlayer).getSettlementsBuilt() TODO: Make that work via .getSettlementsBuilt(number of settlement).getPosition(position).setToCity();
+
+        return true; // TODO: check if settlement is already occupied, city already built and return true/false
     }
 
     public boolean buildRoad(Point roadStart, Point roadEnd) {
-        // TODO: Implement
-        return false;
+        players.get(currentPlayer).buildRoad(roadStart, roadEnd);
+        return false; // TODO: check if road is already occupied and return true/false
     }
 
     public boolean tradeWithBankFourToOne(Resource offer, Resource want) {
