@@ -29,22 +29,31 @@ public class PlayGame {
     }
 
     private void run() {
+        textTerminal.setBookmark("START");
 
         boolean running = true;
         while (running) {
             switch (getEnumValue(textIO, PlayGame.Actions.class)) {
                 case NEW_GAME:
-                    textTerminal.setBookmark(clearScreen);
                     numberOfPlayers = numberOfPlayers();
                     siedlerGame = new SiedlerGame(7, numberOfPlayers);
                     siedlerGame.createPlayers(numberOfPlayers);
-                    textTerminal.resetToBookmark(clearScreen);
-                    textTerminal.printf("There are %d players", numberOfPlayers);
+                    textTerminal.resetToBookmark("START");
+                    textTerminal.printf("There are %d dickheads playing the game", numberOfPlayers);
+                    textTerminal.printf(System.lineSeparator());
                     firstPhase();
                     //TODO: Hier wird ein neues Spiel instanziert
                     break;
                 case QUIT:
-                    running = false;
+                    int reallyQuit = textIO.newIntInputReader()
+                            .withMinVal(1)
+                            .withMaxVal(2)
+                            .read("Bisch du Spasst sicher? \n  1: Ja \n  2: Nei\n");
+                    if(reallyQuit == 1) {
+                        running = false;
+                    } else if (reallyQuit == 2){
+                        textTerminal.resetToBookmark("START");
+                    }
                     break;
                 default:
                     throw new IllegalStateException("Internal error found - Command not implemented.");
