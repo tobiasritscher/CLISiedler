@@ -100,7 +100,7 @@ public class SiedlerGame {
     }
 
     public boolean tradeWithBankFourToOne(Resource offer, Resource want) { //TODO: test and bugfix
-        if (players.get(currentPlayer).removeResources(offer, 4) == false) {
+        if (!players.get(currentPlayer).removeResources(offer, 4)) {
             return false;
         } else {
             players.get(currentPlayer).removeResources(offer, 4);
