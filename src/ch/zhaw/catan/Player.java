@@ -23,7 +23,7 @@ public class Player {
 
     public ArrayList<ResourceCard> getResourcesInPossession() {
         return resourcesInPossession;
-    }
+    } //TODO: test and bugfix
 
     public boolean removeResources(Resource resource, int ResourceCount) {
         int resourceCounter = 0;
@@ -46,7 +46,7 @@ public class Player {
         }
     }
 
-    public void addResources(Resource resource, int resourceCount) {
+    public void addResources(Resource resource, int resourceCount) { //TODO: test and bugfix
         for (int index = 0; index >= resourceCount; index++) {
             resourcesInPossession.add(0, new ResourceCard(resource));
         }

@@ -91,7 +91,7 @@ public class SiedlerGame {
         return false; // TODO: check if road is already occupied and return true/false
     }
 
-    public boolean ge(Resource offer, Resource want) {
+    public boolean tradeWithBankFourToOne(Resource offer, Resource want) { //TODO: test and bugfix
         if (players.get(currentPlayer).removeResources(offer, 4) == false) {
             return false;
         } else {
@@ -100,7 +100,7 @@ public class SiedlerGame {
         }
     }
 
-    public Faction getWinner() {
+    public Faction getWinner() { //TODO: test and bugfix
         int winPointCounter = 0;
         for (Settlement settlement : players.get(currentPlayer).getSettlementsBuilt()) {
             winPointCounter += settlement.getWinPoints();
