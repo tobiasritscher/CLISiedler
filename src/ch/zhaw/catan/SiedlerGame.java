@@ -18,6 +18,8 @@ public class SiedlerGame {
         this.winPoints = winPoints;
     }
 
+
+
     public void switchToNextPlayer() {
         // TODO: Implement
         if(currentPlayer <= 3 ){
@@ -44,11 +46,12 @@ public class SiedlerGame {
     public SiedlerBoard getBoard() {
         // TODO: Implement
         return siedlerBoard;
+
+        return siedlerBoard;
     }
 
     public Faction getCurrentPlayer() {
-        // TODO: Implement
-        return players.get(currentPlayer);
+        return players.get(currentPlayer).getFaction();
     }
 
     public int getCurrentPlayerResourceStock(Resource resource) {
@@ -77,24 +80,21 @@ public class SiedlerGame {
     }
 
     public boolean buildSettlement(Point position) {
-        // TODO: Implement
 
-        // TODO: It would go something like this:
-//        playerBlue.buildSettlement(position);
-        return false;
+        players.get(currentPlayer).buildSettlement(position);
+        return true; // TODO: check if settlement is already occupied and return true/false
     }
 
     public boolean buildCity(Point position) {
-        // TODO: OPTIONAL task - Implement
 
-        // TODO: It would go something like this:
-//        playerBlue.getSettlementsBuilt().get(0).setToCity(); // TODO doesn't work that way yet, help me out
-        return false;
+        // players.get(currentPlayer).getSettlementsBuilt() TODO: Make that work via .getSettlementsBuilt(number of settlement).getPosition(position).setToCity();
+
+        return true; // TODO: check if settlement is already occupied, city already built and return true/false
     }
 
     public boolean buildRoad(Point roadStart, Point roadEnd) {
-        // TODO: Implement
-        return false;
+        players.get(currentPlayer).buildRoad(roadStart, roadEnd);
+        return false; // TODO: check if road is already occupied and return true/false
     }
 
     public boolean tradeWithBankFourToOne(Resource offer, Resource want) {
