@@ -39,7 +39,7 @@ public class Player {
         return roadsBuilt;
     }
 
-    public void buildRoad(Point position, Point startingAt, Point endingAt) {
-        roadsBuilt.add(new Road(position, startingAt, endingAt));
+    public void buildRoad(Point startingAt, Point endingAt) {
+        roadsBuilt.add(new Road(startingAt, endingAt));
     }
 }

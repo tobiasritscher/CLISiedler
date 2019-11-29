@@ -7,14 +7,9 @@ public class Road {
     Point startingAt;
     Point endingAt;
 
-    public Road(Point position, Point startingAt, Point endingAt) {
-        this.position = position;
+    public Road(Point startingAt, Point endingAt) {
         this.startingAt = startingAt;
         this.endingAt = endingAt;
-    }
-
-    public Point getPosition() {
-        return position;
     }
 
     public Point getStartingAt() { return startingAt; }
