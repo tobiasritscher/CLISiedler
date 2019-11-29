@@ -75,7 +75,7 @@ public class PlayGame {
             Scanner yroadFinish = new Scanner(System.in);
             Point roadend = new Point(xroadFinish.nextInt(),yroadFinish.nextInt());
             placeRoad(roadpoint,roadend);
-            // TODO cant place the road for a player in its Array
+            player.buildRoad(roadpoint,roadend);
         }
         for(int i = siedlerGame.getPlayers().size()-1; i < 0; i--){
             textTerminal.print(siedlerGame.getPlayers().get(i) + "please pick a x coordinate for your next settlement");
@@ -96,12 +96,13 @@ public class PlayGame {
             Scanner yroadFinish = new Scanner(System.in);
             Point roadend = new Point(xroadFinish.nextInt(),yroadFinish.nextInt());
             placeRoad(roadpoint,roadend);
-            // TODO cant place the road for a player in its Array
+            player.buildRoad(roadpoint,roadend);
         }
     }
-//    public boolean isCornerFree(Point corner){
-//        // TODO create method to check if the neighbor corners are free
-//    }
+    public boolean isCornerFree(Point corner){
+        // TODO create method to check if the neighbor corners are free
+        return true;
+    }
 
     public void placeSettlement(int x, int y){
         Point point = new Point(x,y);
