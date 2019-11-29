@@ -31,7 +31,9 @@ public class Player {
         settlementsBuilt.add(new Settlement(position));
     }
 
-    public Faction getFaction() { return faction; }
+    public Faction getFaction() {
+        return faction;
+    }
 
     public ArrayList<Road> getRoadsBuilt() {
         return roadsBuilt;
