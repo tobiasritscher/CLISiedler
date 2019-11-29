@@ -50,9 +50,9 @@ public class PlayGame {
                     break;
                 case QUIT:
                     boolean reallyQuit = textIO.newBooleanInputReader().read("Do you really want to quit, you son of a beach?");
-                    if(reallyQuit) {
+                    if (reallyQuit) {
                         running = false;
-                    } else if (!reallyQuit){
+                    } else {
                         textTerminal.resetToBookmark("START");
                     }
                     break;
@@ -63,18 +63,18 @@ public class PlayGame {
         textIO.dispose();
     }
 
-    public static <T extends Enum<T>> T getEnumValue(TextIO textIO, Class<T> commands) {
+    private static <T extends Enum<T>> T getEnumValue(TextIO textIO, Class<T> commands) {
         return textIO.newEnumInputReader(commands).read("What would you like to do?");
     }
 
-    public int numberOfPlayers() {
+    private int numberOfPlayers() {
         return textIO.newIntInputReader()
                 .withMinVal(2)
                 .withMaxVal(4)
                 .read("How many players will be playing?");
     }
 
-    public void firstPhase() {
+    private void firstPhase() {
         for (int i = 0; i < siedlerGame.getPlayer().size(); i++) {
             int x = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for your first settlement");
             textTerminal.printf(System.lineSeparator());
