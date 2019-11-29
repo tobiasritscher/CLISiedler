@@ -76,12 +76,12 @@ public class SiedlerGame {
         return null;
     }
 
-    public boolean buildSettlement(Point position) {
+    public boolean placeSettlement(Point position) {
         players.get(currentPlayer).buildSettlement(position);
         return true; // TODO: check if settlement is already occupied and return true/false
     }
 
-    public boolean buildCity(Point position) { //TODO: test and bugfix
+    public boolean placeCity(Point position) { //TODO: test and bugfix
 
         boolean settlementFound = false;
         for (Settlement settlementToUpgrade : players.get(currentPlayer).getSettlementsBuilt()) {
@@ -98,7 +98,7 @@ public class SiedlerGame {
         }
     }
 
-    public boolean buildRoad(Point roadStart, Point roadEnd) {
+    public boolean placeRoad(Point roadStart, Point roadEnd) {
         players.get(currentPlayer).buildRoad(roadStart, roadEnd);
         return false; // TODO: check if road is already occupied and return true/false
     }
@@ -134,9 +134,9 @@ public class SiedlerGame {
         }
 
         int counter = 0;
-        for (Faction fac : Faction.values()) {
+        for (Faction faction : Faction.values()) {
             if (counter++ >= numberOfPlayers) break;
-            players.add((new Player(fac)));
+            players.add((new Player(faction)));
         }
     }
 
