@@ -26,10 +26,6 @@ public class PlayGame {
 
     private void run() {
 
-//        System.out.println(siedlerGame.getCurrentPlayer());
-//        siedlerGame.switchToNextPlayer();
-//        System.out.println(siedlerGame.getCurrentPlayer());
-
         boolean running = true;
         while (running) {
             switch (getEnumValue(textIO, PlayGame.Actions.class)) {

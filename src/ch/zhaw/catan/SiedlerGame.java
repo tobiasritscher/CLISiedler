@@ -7,6 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class SiedlerGame {
     private Dice dice = new Dice(); // TODO: should be moved to playGame class
@@ -71,9 +72,9 @@ public class SiedlerGame {
     }
 
     public Map<Faction, List<Resource>> throwDice(int dicethrow) {
-        // dicethrow = dice.roll();
+        TreeMap resourceMap = new TreeMap<Faction, List<Resource>>();
         // TODO: Implement
-        return null;
+        return resourceMap;
     }
 
     public boolean placeSettlement(Point position) {

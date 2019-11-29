@@ -2,14 +2,13 @@ package ch.zhaw.catan;
 
 import ch.zhaw.catan.Config.Land;
 import ch.zhaw.hexboard.Label;
-
-import java.awt.Point;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
+
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Dummy {
 
