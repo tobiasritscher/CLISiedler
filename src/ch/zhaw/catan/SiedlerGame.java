@@ -2,20 +2,23 @@ package ch.zhaw.catan;
 
 import ch.zhaw.catan.Config.Faction;
 import ch.zhaw.catan.Config.Resource;
-
+import ch.zhaw.hexboard.HexBoard;
 import java.awt.Point;
 import java.util.*;
 
 public class SiedlerGame {
     private Dice dice = new Dice();
     private int winPoints;
-    private List<Faction> players = new ArrayList<Faction>();
-    private SiedlerBoard siedlerBoard = new SiedlerBoard();
+    private ArrayList<Player> players = new ArrayList<>();
     private int currentPlayer = 0;
 
     public SiedlerGame(int winPoints, int players) {
         createPlayers(players);
         this.winPoints = winPoints;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
     }
 
     public void switchToNextPlayer() {
@@ -36,20 +39,20 @@ public class SiedlerGame {
         }
     }
 
-    public List<Faction> getPlayer() {
+    public List<Player> getPlayer() {
         // TODO: Implement
 
-        return players;
+        return null;
     }
 
     public SiedlerBoard getBoard() {
         // TODO: Implement
-        return siedlerBoard;
+        return null;
     }
 
     public Faction getCurrentPlayer() {
         // TODO: Implement
-        return players.get(currentPlayer);
+        return null;
     }
 
     public int getCurrentPlayerResourceStock(Resource resource) {
@@ -109,33 +112,21 @@ public class SiedlerGame {
     }
 
     private void createPlayers(int numberOfPlayers) {
-//        if (numberOfPlayers == 2) {
-//            players.add(new Player(Config.Faction.BLUE));
-//            players.add(new Player(Config.Faction.GREEN));
-//        } else if (numberOfPlayers == 3) {
-//            players.add(new Player(Config.Faction.BLUE));
-//            players.add(new Player(Config.Faction.GREEN));
-//            players.add(new Player(Config.Faction.RED));
-//        } else if (numberOfPlayers == 4) {
-//            players.add(new Player(Config.Faction.BLUE));
-//            players.add(new Player(Config.Faction.GREEN));
-//            players.add(new Player(Config.Faction.RED));
-//            players.add(new Player(Config.Faction.YELLOW));
-//        } else {
-//            System.out.println("Error only between 2 and 4 players are allowed");
-//        }
-
-        if (numberOfPlayers < Config.MIN_NUMBER_OF_PLAYERS) {
-            numberOfPlayers = Config.MIN_NUMBER_OF_PLAYERS;
-        } else if (numberOfPlayers > Faction.values().length) {
-            numberOfPlayers = Faction.values().length;
+        if (numberOfPlayers == 2) {
+            players.add(new Player(Config.Faction.BLUE));
+            players.add(new Player(Config.Faction.GREEN));
+        } else if (numberOfPlayers == 3) {
+            players.add(new Player(Config.Faction.BLUE));
+            players.add(new Player(Config.Faction.GREEN));
+            players.add(new Player(Config.Faction.RED));
+        } else if (numberOfPlayers == 4) {
+            players.add(new Player(Config.Faction.BLUE));
+            players.add(new Player(Config.Faction.GREEN));
+            players.add(new Player(Config.Faction.RED));
+            players.add(new Player(Config.Faction.YELLOW));
+        } else {
+            System.out.println("Error only between 2 and 4 players are allowed");
         }
-
-        for (int i = 0; i < numberOfPlayers; i++) {
-            Faction player = Faction.values()[i];
-            this.players.add(player);
-        }
-
     }
 
 }

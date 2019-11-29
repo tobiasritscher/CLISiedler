@@ -4,9 +4,11 @@ import ch.zhaw.hexboard.HexBoard;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
+import java.util.LinkedList;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 
@@ -18,21 +20,19 @@ public class PlayGame {
     Config config = new Config();
     private Config.Faction faction;
     Player player = new Player(faction);
+    TextIO textIO = TextIoFactory.getTextIO();
+    TextTerminal<?> textTerminal = textIO.getTextTerminal();
 
     public enum Actions {
         NEW_GAME, QUIT
     }
 
     private void run() {
-
-
-        TextIO textIO = TextIoFactory.getTextIO();
-        TextTerminal<?> textTerminal = textIO.getTextTerminal();
-
         boolean running = true;
         while (running) {
             switch (getEnumValue(textIO, PlayGame.Actions.class)) {
                 case NEW_GAME:
+                    firstPhase();
                     //TODO: Hier wird ein neues Spiel instanziert
                     break;
                 case QUIT:
@@ -51,35 +51,69 @@ public class PlayGame {
 
     public int numberOfPlayers() {
         scanner = new Scanner(System.in);
-        System.out.println("How many players will be playing?");
+        textTerminal.print("How many players will be playing?");
         return scanner.nextInt();
     }
 
     public void firstPhase(){
-        for(int i = 0; i < siedlerGame.getPlayer().size(); i++){
-            System.out.println(siedlerGame.getPlayer().get(i) + "please pick a x coordinate for your first settlement");
+        for(int i = 0; i < siedlerGame.getPlayers().size(); i++){
+            textTerminal.print(siedlerGame.getPlayers().get(i) + "please pick a x coordinate for your first settlement");
             Scanner x = new Scanner(System.in);
-            System.out.println(siedlerGame.getPlayer().get(i) + "please pick a y coordinate for your first settlement");
+            textTerminal.print(siedlerGame.getPlayers().get(i) + "please pick a y coordinate for your first settlement");
             Scanner y = new Scanner(System.in);
+            placeSettlement(x.nextInt(),y.nextInt());
             Point point = new Point(x.nextInt(),y.nextInt());
-            hexBoard.setCorner(point,hexBoard.getCorner(point));
             player.buildSettlement(point);
-            System.out.println(siedlerGame.getPlayer().get(i) + "please pick a x coordinate for the start of your first road");
+            textTerminal.print(siedlerGame.getPlayers().get(i) + "please pick a x coordinate for the start of your first road");
             Scanner xroadStart = new Scanner(System.in);
-            System.out.println(siedlerGame.getPlayer().get(i) + "please pick a y coordinate for the start of your first road");
+            textTerminal.print(siedlerGame.getPlayers().get(i) + "please pick a y coordinate for the start of your first road");
             Scanner yroadStart = new Scanner(System.in);
             Point roadpoint = new Point(xroadStart.nextInt(),yroadStart.nextInt());
-            System.out.println(siedlerGame.getPlayer().get(i) + "please pick a x coordinate for the finish of your first road");
+            textTerminal.print(siedlerGame.getPlayers().get(i) + "please pick a x coordinate for the finish of your first road");
             Scanner xroadFinish = new Scanner(System.in);
-            System.out.println(siedlerGame.getPlayer().get(i) + "please pick a y coordinate for the finish of your first road");
+            textTerminal.print(siedlerGame.getPlayers().get(i) + "please pick a y coordinate for the finish of your first road");
             Scanner yroadFinish = new Scanner(System.in);
             Point roadend = new Point(xroadFinish.nextInt(),yroadFinish.nextInt());
-            hexBoard.setEdge(roadpoint,roadend,hexBoard.getEdge(roadpoint,roadend));
-            // TODO cant place the road for a player
+            placeRoad(roadpoint,roadend);
+            // TODO cant place the road for a player in its Array
+        }
+        for(int i = siedlerGame.getPlayers().size()-1; i < 0; i--){
+            textTerminal.print(siedlerGame.getPlayers().get(i) + "please pick a x coordinate for your next settlement");
+            Scanner x = new Scanner(System.in);
+            textTerminal.print(siedlerGame.getPlayers().get(i) + "please pick a y coordinate for your next settlement");
+            Scanner y = new Scanner(System.in);
+            Point point = new Point(x.nextInt(),y.nextInt());
+            placeSettlement(x.nextInt(),y.nextInt());
+            player.buildSettlement(point);
+            textTerminal.print(siedlerGame.getPlayers().get(i) + "please pick a x coordinate for the start of your next road");
+            Scanner xroadStart = new Scanner(System.in);
+            textTerminal.print(siedlerGame.getPlayers().get(i) + "please pick a y coordinate for the start of your next road");
+            Scanner yroadStart = new Scanner(System.in);
+            Point roadpoint = new Point(xroadStart.nextInt(),yroadStart.nextInt());
+            textTerminal.print(siedlerGame.getPlayers().get(i) + "please pick a x coordinate for the finish of your next road");
+            Scanner xroadFinish = new Scanner(System.in);
+            textTerminal.print(siedlerGame.getPlayers().get(i) + "please pick a y coordinate for the finish of your next road");
+            Scanner yroadFinish = new Scanner(System.in);
+            Point roadend = new Point(xroadFinish.nextInt(),yroadFinish.nextInt());
+            placeRoad(roadpoint,roadend);
+            // TODO cant place the road for a player in its Array
         }
     }
+//    public boolean isCornerFree(Point corner){
+//        // TODO create method to check if the neighbor corners are free
+//    }
+
+    public void placeSettlement(int x, int y){
+        Point point = new Point(x,y);
+        hexBoard.setCorner(point,hexBoard.getCorner(point));
+    }
+    public void placeRoad(Point start, Point finish){
+        hexBoard.setEdge(start,finish,hexBoard.getEdge(start,finish));
+    }
+
     public static void main(String[] Args) {
         new PlayGame().run();
 
     }
+
 }
