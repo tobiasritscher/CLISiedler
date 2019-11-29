@@ -11,7 +11,7 @@ public class ResourceCard extends Card {
         this.resourceType = resourceType;
     }
 
-    public String getResourceType() {
-        return String.valueOf(resourceType);
+    public Resource getResourceType() {
+        return resourceType;
     }
 }

@@ -1,26 +1,43 @@
 package ch.zhaw.catan;
 
-import java.awt.Point;
-import java.util.ArrayList;
-
 import ch.zhaw.catan.Config.Faction;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 
 public class Player {
-    private ArrayList<Card> cardsInPossession;
+    private ArrayList<ResourceCard> resourcesInPossession;
     private ArrayList<Settlement> settlementsBuilt;
     private ArrayList<Road> roadsBuilt;
     private Faction faction;
 
     public Player(Faction faction) {
-        cardsInPossession = new ArrayList<>();
+        resourcesInPossession = new ArrayList<>();
         settlementsBuilt = new ArrayList<>();
         roadsBuilt = new ArrayList<>();
         this.faction = faction;
     }
 
-    public ArrayList<Card> getCardsInPossession() {
-        return cardsInPossession;
+    public ArrayList<ResourceCard> getResourcesInPossession() {
+        return resourcesInPossession;
+    }
+
+    public void removeResources(Config.Resource resource, int ResourceCount) {
+        int resourceCounter = 0;
+        ArrayList<Integer> resourcesToRemove = new ArrayList<>();
+
+        for (ResourceCard card: resourcesInPossession) {
+            if (card.getResourceType() == resource){
+                resourceCounter ++;
+                resourcesToRemove.add(resourcesInPossession.indexOf(card));
+            }
+        }
+        if (resourceCounter >= ResourceCount) {
+            for (Integer cardToRemove: resourcesToRemove) {
+                resourcesInPossession.remove(cardToRemove);
+            }
+        }
     }
 
     public ArrayList<Settlement> getSettlementsBuilt() {

@@ -2,10 +2,11 @@ package ch.zhaw.catan;
 
 import ch.zhaw.catan.Config.Faction;
 import ch.zhaw.catan.Config.Resource;
-import ch.zhaw.hexboard.HexBoard;
 
-import java.awt.Point;
-import java.util.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class SiedlerGame {
     private Dice dice = new Dice();
@@ -39,12 +40,10 @@ public class SiedlerGame {
     }
 
     public List<Player> getPlayer() {
-        // TODO: Implement
         return players;
     }
 
     public SiedlerBoard getBoard() {
-        // TODO: Implement
         return siedlerBoard;
     }
 
@@ -58,12 +57,12 @@ public class SiedlerGame {
     }
 
     public boolean placeInitialSettlement(Point position, boolean payout) {
-        // TODO: Implement
+        players.get(currentPlayer).buildSettlement(position);
         return false;
     }
 
     public boolean placeInitialRoad(Point roadStart, Point roadEnd) {
-        // TODO: Implement
+        players.get(currentPlayer).buildRoad(roadStart, roadEnd);
         return false;
     }
 
@@ -76,7 +75,6 @@ public class SiedlerGame {
     }
 
     public boolean buildSettlement(Point position) {
-
         players.get(currentPlayer).buildSettlement(position);
         return true; // TODO: check if settlement is already occupied and return true/false
     }
@@ -94,7 +92,7 @@ public class SiedlerGame {
     }
 
     public boolean tradeWithBankFourToOne(Resource offer, Resource want) {
-        // TODO: Implement
+        players.get(currentPlayer).removeResources(offer, 4);
         return false;
     }
 
