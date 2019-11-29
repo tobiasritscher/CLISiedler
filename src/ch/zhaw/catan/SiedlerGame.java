@@ -52,8 +52,12 @@ public class SiedlerGame {
     }
 
     public int getCurrentPlayerResourceStock(Resource resource) {
-        // TODO: Implement
-        return 0;
+        int resourceCounter = 0;
+        for (int index = 0; index >= players.get(currentPlayer).getResourcesInPossession().size(); index++)
+            if (players.get(currentPlayer).getResourcesInPossession().get(index).getResourceType() == resource) {
+                resourceCounter++;
+            }
+        return resourceCounter;
     }
 
     public boolean placeInitialSettlement(Point position, boolean payout) {
@@ -67,8 +71,8 @@ public class SiedlerGame {
     }
 
     public Map<Faction, List<Resource>> throwDice(int dicethrow) {
-        //* dicethrow = dice.roll();*//
-    // TODO: Implement
+        // dicethrow = dice.roll();
+        // TODO: Implement
         return null;
     }
 
@@ -77,11 +81,21 @@ public class SiedlerGame {
         return true; // TODO: check if settlement is already occupied and return true/false
     }
 
-    public boolean buildCity(Point position) {
+    public boolean buildCity(Point position) { //TODO: test and bugfix
 
-        // players.get(currentPlayer).getSettlementsBuilt() TODO: Make that work via .getSettlementsBuilt(number of settlement).getPosition(position).setToCity();
-
-        return true; // TODO: check if settlement is already occupied, city already built and return true/false
+        boolean settlementFound = false;
+        for (Settlement settlementToUpgrade : players.get(currentPlayer).getSettlementsBuilt()) {
+            if (settlementToUpgrade.getPosition() == position) {
+                settlementToUpgrade.setToCity();
+                settlementFound = true;
+                return true;
+            }
+        }
+        if (settlementFound == true) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean buildRoad(Point roadStart, Point roadEnd) {
@@ -93,6 +107,7 @@ public class SiedlerGame {
         if (players.get(currentPlayer).removeResources(offer, 4) == false) {
             return false;
         } else {
+            players.get(currentPlayer).removeResources(offer, 4);
             players.get(currentPlayer).addResources(want, 1);
             return true;
         }
