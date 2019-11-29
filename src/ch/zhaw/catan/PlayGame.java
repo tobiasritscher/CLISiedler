@@ -19,7 +19,9 @@ public class PlayGame {
     private Player player = new Player(faction);
     private TextIO textIO = TextIoFactory.getTextIO();
     private TextTerminal<?> textTerminal = textIO.getTextTerminal();
-    private Dice dice = new Dice(); // TODO: should be moved to playGame class
+    private Dice dice = new Dice();
+
+    private String clearScreen;
 
 
     public enum Actions {
@@ -32,12 +34,13 @@ public class PlayGame {
         while (running) {
             switch (getEnumValue(textIO, PlayGame.Actions.class)) {
                 case NEW_GAME:
-
+                    textTerminal.setBookmark(clearScreen);
                     numberOfPlayers = numberOfPlayers();
                     siedlerGame = new SiedlerGame(7, numberOfPlayers);
                     siedlerGame.createPlayers(numberOfPlayers);
-
-                    //firstPhase();
+                    textTerminal.resetToBookmark(clearScreen);
+                    textTerminal.printf("There are %d players", numberOfPlayers);
+                    firstPhase();
                     //TODO: Hier wird ein neues Spiel instanziert
                     break;
                 case QUIT:
