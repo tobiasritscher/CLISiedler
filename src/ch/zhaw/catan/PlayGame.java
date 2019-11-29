@@ -19,6 +19,8 @@ public class PlayGame {
     private Player player = new Player(faction);
     private TextIO textIO = TextIoFactory.getTextIO();
     private TextTerminal<?> textTerminal = textIO.getTextTerminal();
+    private Dice dice = new Dice(); // TODO: should be moved to playGame class
+
 
     public enum Actions {
         NEW_GAME, QUIT
@@ -98,13 +100,14 @@ public class PlayGame {
     }
 
     // TODO build phase method calls
-    //        To build roads:                   siedlerGame.placeRoad(Point_RoadStart, Point_RoadEnd);
-    //        To build settlements:             siedlerGame.placeSettlement(Point_Position);
-    //        To upgrade settlements to cities: siedlerGame.placeCity(Point_Position);
+    //        To build roads:                   siedlerGame.placeRoad(Point_RoadStart, Point_RoadEnd); -- returns boolean
+    //        To build settlements:             siedlerGame.placeSettlement(Point_Position); -- returns boolean
+    //        To upgrade settlements to cities: siedlerGame.placeCity(Point_Position); -- returns boolean
 
     // TODO gameplay calls
-    //        To check if someone won:          siedlerGame.getWinner();
-    //        To trade with bank:               siedlerGame.tradeWithBankFourToOne(Resource_offer, Resource_want);
+    //        To check if someone won:          siedlerGame.getWinner(); -- returns boolean
+    //        To trade with bank:               siedlerGame.tradeWithBankFourToOne(Resource_offer, Resource_want); -- returns boolean
+    //        To roll dice                      siedlerGame.throwDice(dice.roll()); -- returns Map<Faction, List<Resource>
 
     public boolean isCornerFree(Point corner) {
         // TODO create method to check if the neighbor corners are free

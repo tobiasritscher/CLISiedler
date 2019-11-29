@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.*;
 
 public class SiedlerGame {
-    private Dice dice = new Dice(); // TODO: should be moved to playGame class
     private int winPoints;
     private List<Player> players = new ArrayList<>();
     private SiedlerBoard siedlerBoard = new SiedlerBoard();
