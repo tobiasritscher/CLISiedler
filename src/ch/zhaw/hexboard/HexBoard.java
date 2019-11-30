@@ -1,5 +1,9 @@
 package ch.zhaw.hexboard;
 
+import org.beryx.textio.TextIO;
+import org.beryx.textio.TextIoFactory;
+import org.beryx.textio.TextTerminal;
+
 import java.awt.Point;
 import java.util.Arrays;
 import java.util.Collections;

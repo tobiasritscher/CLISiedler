@@ -2,6 +2,10 @@ package ch.zhaw.catan;
 
 import ch.zhaw.catan.Config.Faction;
 import ch.zhaw.catan.Config.Resource;
+import ch.zhaw.hexboard.HexBoard;
+import org.beryx.textio.TextIO;
+import org.beryx.textio.TextIoFactory;
+import org.beryx.textio.TextTerminal;
 
 import java.awt.*;
 import java.util.List;
@@ -13,6 +17,9 @@ public class SiedlerGame {
     private SiedlerBoard siedlerBoard = new SiedlerBoard();
     private int currentPlayer = 0;
     private Config config = new Config();
+    private HexBoard hexBoard;
+    private TextIO textIO = TextIoFactory.getTextIO();
+    private TextTerminal<?> textTerminal = textIO.getTextTerminal();
 
     public SiedlerGame(int winPoints, int players) {
         createPlayers(players);
@@ -60,8 +67,21 @@ public class SiedlerGame {
     }
 
     public boolean placeInitialSettlement(Point position, boolean payout) {
-        players.get(currentPlayer).buildSettlement(position);
-        return false;
+        boolean trying = true;
+        while (trying) {
+            if (hexBoard.getNeighboursOfCorner(position).isEmpty()) {
+                players.get(currentPlayer).buildSettlement(position);
+                trying = false;
+            } else {
+                int x = textIO.newIntInputReader().read("Can't place here cuz of other settlements, try again with another x coordinate");
+                textTerminal.printf(System.lineSeparator());
+                int y = textIO.newIntInputReader().read("Can't place here cuz of other settlements, try again with another y coordinate");
+                textTerminal.printf(System.lineSeparator());
+                Point point = new Point(x, y);
+                position = point;
+            }
+        }
+        return true;
     }
 
     public boolean placeInitialRoad(Point roadStart, Point roadEnd) {
