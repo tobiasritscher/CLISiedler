@@ -21,8 +21,6 @@ public class PlayGame {
     private TextTerminal<?> textTerminal = textIO.getTextTerminal();
     private Dice dice = new Dice();
 
-    private String clearScreen;
-
 
     public enum Actions {
         NEW_GAME, QUIT
@@ -77,6 +75,8 @@ public class PlayGame {
 
     private void firstPhase() {
         for (int i = 0; i < siedlerGame.getPlayer().size(); i++) {
+
+
             int x = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for your first settlement");
             textTerminal.printf(System.lineSeparator());
 
