@@ -108,18 +108,21 @@ public class SiedlerGame {
     }
 
     public boolean placeSettlement(Point position) {
-        boolean cornerNotOccupied = true;
-        if (siedlerBoard.hasCorner(position)) { // TODO: Not sure about this one
-            if (siedlerBoard.getNeighboursOfCorner(position) == null) {
-                // TODO: only checks if there is a direct neighbor. can't check if there's a neighbor 2 corners away (help me out)
+        boolean trying = true;
+        while (trying) {
+            if (hexBoard.getNeighboursOfCorner(position).isEmpty()) {
                 players.get(currentPlayer).buildSettlement(position);
+                trying = false;
             } else {
-                cornerNotOccupied = false;
+                int x = textIO.newIntInputReader().read("Can't place here cuz of other settlements, try again with another x coordinate");
+                textTerminal.printf(System.lineSeparator());
+                int y = textIO.newIntInputReader().read("Can't place here cuz of other settlements, try again with another y coordinate");
+                textTerminal.printf(System.lineSeparator());
+                Point point = new Point(x, y);
+                position = point;
             }
-        } else {
-            cornerNotOccupied = false;
         }
-        return cornerNotOccupied; // TODO: check if settlement is already occupied and return true/false
+        return true;
     }
 
     public boolean placeCity(Point position) { //TODO: test and bugfix
