@@ -19,8 +19,10 @@ public class Dummy {
     private void run() {
         TextIO textIO = TextIoFactory.getTextIO();
         TextTerminal<?> textTerminal = textIO.getTextTerminal();
+        textTerminal.getProperties().setPaneDimension(1280,960);
 
         SiedlerBoard board = new SiedlerBoard();
+        textTerminal.setBookmark("MAIN");
         board.setFields(board);
         SiedlerBoardTextView view = new SiedlerBoardTextView(board);
        board.addField(new Point(2, 2), Land.FOREST);
@@ -38,6 +40,7 @@ public class Dummy {
             switch (getEnumValue(textIO, Actions.class)) {
                 case SHOW:
                     textTerminal.println(view.toString());
+
                     break;
                 case QUIT:
                     running = false;

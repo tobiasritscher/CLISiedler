@@ -29,6 +29,7 @@ public class PlayGame {
     }
 
     private void run() {
+        textTerminal.getProperties().setPaneDimension(1024,768);
         textTerminal.setBookmark("START");
         textTerminal.print("~~~~~~~~~~~~~~~~~~\n");
         textTerminal.print("Settlers of Catan\n");
