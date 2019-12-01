@@ -69,9 +69,23 @@ public class UI {
         for (Map.Entry<Point, Label> e : lowerFieldLabel.entrySet()) {
             view.setLowerFieldLabel(e.getKey(), e.getValue());
         }
+        //Bookmark for a blank screen
         textTerminal.resetToBookmark("BLANK_SCREEN");
 
         //This prints the map
         textTerminal.println(view.toString());
+
+        
+    }
+
+    public static int askNumberOfPlayers(TextIO textIO){
+        return textIO.newIntInputReader()
+                .withMinVal(2)
+                .withMaxVal(4)
+                .read("How many players will be playing?");
+    }
+
+    public static void newLine(TextTerminal<SwingTextTerminal> textTerminal){
+        textTerminal.printf(System.lineSeparator());
     }
 }

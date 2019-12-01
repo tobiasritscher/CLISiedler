@@ -7,19 +7,17 @@ import org.beryx.textio.TextTerminal;
 import org.beryx.textio.swing.SwingTextTerminal;
 
 import java.awt.*;
-import java.util.Scanner;
 
 
 public class PlayGame {
+    private static SiedlerGame siedlerGame;
     private HexBoard hexBoard = new HexBoard();
     private int numberOfPlayers;
-    private SiedlerGame siedlerGame;
-    private Scanner scanner;
     Config config = new Config();
     private Config.Faction faction;
     private Player player = new Player(faction);
-    private TextIO textIO = TextIoFactory.getTextIO();
-    private TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal)textIO.getTextTerminal();
+    private static TextIO textIO = TextIoFactory.getTextIO();
+    private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal)textIO.getTextTerminal();
     private Dice dice = new Dice();
 
     private void run() {
@@ -28,58 +26,37 @@ public class PlayGame {
         textTerminal.setBookmark("BLANK_SCREEN");
 
         UI.buildStartMenu(textIO, textTerminal);
+        textTerminal.setBookmark("SHOW_MAP");
 
+        numberOfPlayers = UI.askNumberOfPlayers(textIO);
+        textTerminal.print("Ok, there will be " + numberOfPlayers + " players");
+        textIO.newStringInputReader()
+                .withMinLength(0)
+                .read("\nPress enter to continue");
 
-
-//        boolean running = true;
-//        while (running) {
-//            switch (getEnumValue(textIO, PlayGame.Actions.class)) {
-//                case NEW_GAME:
-//                    numberOfPlayers = numberOfPlayers();
-//                    siedlerGame = new SiedlerGame(7, numberOfPlayers);
-//                    siedlerGame.createPlayers(numberOfPlayers);
-//                    textTerminal.resetToBookmark("START");
-//                    textTerminal.printf("There are %d dickheads playing the game", numberOfPlayers);
-//
-//                    textTerminal.printf(System.lineSeparator());
-//                    firstPhase();
-//                    //TODO: Hier wird ein neues Spiel instanziert
-//                    break;
-//                case QUIT:
-//                    boolean reallyQuit = textIO.newBooleanInputReader().read("Do you really want to quit, you son of a beach?");
-//                    if (reallyQuit) {
-//                        running = false;
-//                    } else {
-//                        textTerminal.resetToBookmark("START");
-//                    }
-//                    break;
-//                default:
-//                    throw new IllegalStateException("Internal error found - Command not implemented.");
-//            }
-//        }
+        //Creating a new game
+        siedlerGame = new SiedlerGame(7, numberOfPlayers);
+        siedlerGame.createPlayers(numberOfPlayers);
+        firstPhase();
 
     }
 
 
-    private int numberOfPlayers() {
-        return textIO.newIntInputReader()
-                .withMinVal(2)
-                .withMaxVal(4)
-                .read("How many players will be playing?");
-    }
+    public static void firstPhase() {
+        textTerminal.resetToBookmark("SHOW_MAP");
 
-    private void firstPhase() {
         for (int i = 0; i < siedlerGame.getPlayer().size(); i++) {
 
 
             int x = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for your first settlement");
-            textTerminal.printf(System.lineSeparator());
+            textTerminal.resetToBookmark("SHOW_MAP");
 
             int y = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a y coordinate for your first settlement");
-            textTerminal.printf(System.lineSeparator());
+            textTerminal.resetToBookmark("SHOW_MAP");
 
-            Point point = new Point(x, y);
-            siedlerGame.placeInitialSettlement(point, true);
+             //TODO: Da funktioniert irgendwas nonig. Wenn mers Programm abspielt, stoppts da
+//            Point point = new Point(x, y);
+//            siedlerGame.placeInitialSettlement(point, true);
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for the start of your first road");
             textTerminal.printf(System.lineSeparator());
@@ -98,7 +75,7 @@ public class PlayGame {
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
             siedlerGame.placeInitialRoad(roadStart, roadEnd);
 
-            textTerminal.resetToBookmark("START");
+
         }
         for (int i = siedlerGame.getPlayer().size() - 1; i > 0; i--) {
             int x = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction() + " please pick a x coordinate for your next settlement");
@@ -126,7 +103,7 @@ public class PlayGame {
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
             siedlerGame.placeRoad(roadStart, roadEnd);
-            textTerminal.resetToBookmark("START");
+
         }
     }
 
