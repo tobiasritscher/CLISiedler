@@ -14,26 +14,26 @@ public class Dummy {
 
 
     private void run() {
-        Actions actions = new Actions();
+
 
         //Initializing terminal
         TextIO textIO = TextIoFactory.getTextIO();
         TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal)textIO.getTextTerminal();
 
-        //Setting properties of terminal window
-        ((SwingTextTerminal) textTerminal).setPromptFontSize(12);
-        textTerminal.getProperties().setPaneDimension(1040,800);
+        UI.setupTerminal(textIO, textTerminal);
 
         //Setting start point
         textTerminal.setBookmark("MAIN");
 
-        choice = actions.buildStartMenu(textIO, textTerminal);
-        if(choice == 1){
-            Actions.drawSiedlerBoard(textIO, textTerminal);
-        }
+        UI.buildStartMenu(textIO, textTerminal);
+//        if(choice == 1){
+//            UI.drawSiedlerBoard(textIO, textTerminal);
+//        } else if (choice == 2){
+//            UI.closeTerminal(textIO);
+//        }
 
 
-        //textIO.dispose();
+
     }
 
 

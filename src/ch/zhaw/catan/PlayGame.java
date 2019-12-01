@@ -4,6 +4,7 @@ import ch.zhaw.hexboard.HexBoard;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
+import org.beryx.textio.swing.SwingTextTerminal;
 
 import java.awt.*;
 import java.util.Scanner;
@@ -18,53 +19,47 @@ public class PlayGame {
     private Config.Faction faction;
     private Player player = new Player(faction);
     private TextIO textIO = TextIoFactory.getTextIO();
-    private TextTerminal<?> textTerminal = textIO.getTextTerminal();
+    private TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal)textIO.getTextTerminal();
     private Dice dice = new Dice();
 
-
-    public enum Actions {
-        NEW_GAME, QUIT
-    }
-
     private void run() {
-        textTerminal.getProperties().setPaneDimension(1024,768);
-        textTerminal.setBookmark("START");
-        textTerminal.print("~~~~~~~~~~~~~~~~~~\n");
-        textTerminal.print("Settlers of Catan\n");
-        textTerminal.print("~~~~~~~~~~~~~~~~~~\n");
 
-        boolean running = true;
-        while (running) {
-            switch (getEnumValue(textIO, PlayGame.Actions.class)) {
-                case NEW_GAME:
-                    numberOfPlayers = numberOfPlayers();
-                    siedlerGame = new SiedlerGame(7, numberOfPlayers);
-                    siedlerGame.createPlayers(numberOfPlayers);
-                    textTerminal.resetToBookmark("START");
-                    textTerminal.printf("There are %d dickheads playing the game", numberOfPlayers);
+        UI.setupTerminal(textIO, textTerminal);
+        textTerminal.setBookmark("BLANK_SCREEN");
 
-                    textTerminal.printf(System.lineSeparator());
-                    firstPhase();
-                    //TODO: Hier wird ein neues Spiel instanziert
-                    break;
-                case QUIT:
-                    boolean reallyQuit = textIO.newBooleanInputReader().read("Do you really want to quit, you son of a beach?");
-                    if (reallyQuit) {
-                        running = false;
-                    } else {
-                        textTerminal.resetToBookmark("START");
-                    }
-                    break;
-                default:
-                    throw new IllegalStateException("Internal error found - Command not implemented.");
-            }
-        }
-        textIO.dispose();
+        UI.buildStartMenu(textIO, textTerminal);
+
+
+
+//        boolean running = true;
+//        while (running) {
+//            switch (getEnumValue(textIO, PlayGame.Actions.class)) {
+//                case NEW_GAME:
+//                    numberOfPlayers = numberOfPlayers();
+//                    siedlerGame = new SiedlerGame(7, numberOfPlayers);
+//                    siedlerGame.createPlayers(numberOfPlayers);
+//                    textTerminal.resetToBookmark("START");
+//                    textTerminal.printf("There are %d dickheads playing the game", numberOfPlayers);
+//
+//                    textTerminal.printf(System.lineSeparator());
+//                    firstPhase();
+//                    //TODO: Hier wird ein neues Spiel instanziert
+//                    break;
+//                case QUIT:
+//                    boolean reallyQuit = textIO.newBooleanInputReader().read("Do you really want to quit, you son of a beach?");
+//                    if (reallyQuit) {
+//                        running = false;
+//                    } else {
+//                        textTerminal.resetToBookmark("START");
+//                    }
+//                    break;
+//                default:
+//                    throw new IllegalStateException("Internal error found - Command not implemented.");
+//            }
+//        }
+
     }
 
-    private static <T extends Enum<T>> T getEnumValue(TextIO textIO, Class<T> commands) {
-        return textIO.newEnumInputReader(commands).read("What would you like to do?");
-    }
 
     private int numberOfPlayers() {
         return textIO.newIntInputReader()

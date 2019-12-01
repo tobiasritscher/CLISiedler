@@ -11,25 +11,47 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Actions {
+public class UI {
 
-    private List<String> startMenuElemente = new ArrayList<>();
 
-    public Actions(){
+
+    public UI(){
 
     }
 
+    public static void setupTerminal(TextIO textIO, TextTerminal<SwingTextTerminal> textTerminal){
 
-    public Integer buildStartMenu(TextIO textIO, TextTerminal<SwingTextTerminal> textTerminal){
-        textTerminal.print("Why are you gae?\n");
-        startMenuElemente.add("1. Who says am gae?");
-        startMenuElemente.add("2. Because Barack Obama brought gaeness to Uganda\n");
+        //Setting properties of terminal window
+        ((SwingTextTerminal) textTerminal).setPromptFontSize(12);
+        textTerminal.getProperties().setPaneDimension(1040,800);
+    }
+
+    public static void closeTerminal(TextIO textIO){
+        textIO.dispose();
+    }
+
+    public static void buildStartMenu(TextIO textIO, TextTerminal<SwingTextTerminal> textTerminal){
+        List<String> startMenuElemente = new ArrayList<>();
+
+        textTerminal.print("~~~~~~~~~~~~~~~~~~\n");
+        textTerminal.print("Settlers of Catan\n");
+        textTerminal.print("~~~~~~~~~~~~~~~~~~\n");
+        startMenuElemente.add("1. Start a new game");
+        startMenuElemente.add("2. Quit\n");
         textTerminal.print(startMenuElemente);
 
-        Integer question = textIO.newIntInputReader()
-                .read("Pls answer?");
+        Integer choice = textIO.newIntInputReader()
+                .withMinVal(1)
+                .withMaxVal(2)
+                .read("Please chose an option");
         textTerminal.println();
-        return question;
+
+        if(choice == 1){
+            UI.drawSiedlerBoard(textIO, textTerminal);
+        } else if (choice == 2){
+            UI.closeTerminal(textIO);
+        }
+
     }
 
     public static void drawSiedlerBoard(TextIO textIO,TextTerminal<SwingTextTerminal> textTerminal){
@@ -47,7 +69,7 @@ public class Actions {
         for (Map.Entry<Point, Label> e : lowerFieldLabel.entrySet()) {
             view.setLowerFieldLabel(e.getKey(), e.getValue());
         }
-        textTerminal.resetToBookmark("MAIN");
+        textTerminal.resetToBookmark("BLANK_SCREEN");
 
         //This prints the map
         textTerminal.println(view.toString());
