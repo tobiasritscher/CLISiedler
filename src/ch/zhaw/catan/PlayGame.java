@@ -118,9 +118,7 @@ public class PlayGame {
     //        To roll dice                      siedlerGame.throwDice(dice.roll()); -- returns Map<Faction, List<Resource>
 
     public boolean isCornerFree(Point corner) {
-        // TODO create method to check if the neighbor corners are free
-        return true;
-
+        return hexBoard.getNeighboursOfCorner(corner).isEmpty();
     }
 
     public static void main(String[] Args) {
