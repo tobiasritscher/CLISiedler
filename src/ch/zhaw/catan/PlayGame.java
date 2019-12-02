@@ -44,7 +44,7 @@ public class PlayGame {
     }
 
 
-    public static void firstPhase() {
+    public void firstPhase() {
         textTerminal.resetToBookmark("SHOW_MAP");
 
         for (int i = 0; i < siedlerGame.getPlayer().size(); i++) {
@@ -59,6 +59,7 @@ public class PlayGame {
 
             Point point = new Point(x, y);
             siedlerGame.placeInitialSettlement(siedlerGame.isPointACorner(point));
+            hexBoard.setCorner(point,siedlerGame.getPlayer().get(i).getFaction().name());
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the start of your first road");
             textTerminal.printf(System.lineSeparator());
@@ -76,6 +77,8 @@ public class PlayGame {
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
             siedlerGame.placeRoad(roadStart, roadEnd);
+            hexBoard.setEdge(roadStart,roadEnd,siedlerGame.getPlayer().get(i).getFaction().name());
+            textTerminal.println();
         }
 
         for (int i = siedlerGame.getPlayer().size() - 1; i >= 0; i--) {
