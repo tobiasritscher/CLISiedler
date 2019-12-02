@@ -26,19 +26,20 @@ public class PlayGame {
         UI.setupTerminal(textIO, textTerminal);
         textTerminal.setBookmark("BLANK_SCREEN");
 
-        UI.buildStartMenu(textIO, textTerminal);
-        textTerminal.setBookmark("SHOW_MAP");
+        if (!UI.buildStartMenu(textIO, textTerminal)) {
+            textTerminal.setBookmark("SHOW_MAP");
 
-        numberOfPlayers = UI.askNumberOfPlayers(textIO);
-        textTerminal.print("Ok, there will be " + numberOfPlayers + " players");
-        textIO.newStringInputReader()
-                .withMinLength(0)
-                .read("\nPress enter to continue");
+            numberOfPlayers = UI.askNumberOfPlayers(textIO);
+            textTerminal.print("Ok, there will be " + numberOfPlayers + " players");
+            textIO.newStringInputReader()
+                    .withMinLength(0)
+                    .read("\nPress enter to continue");
 
-        //Creating a new game
-        siedlerGame = new SiedlerGame(7, numberOfPlayers);
-        siedlerGame.createPlayers(numberOfPlayers);
-        firstPhase();
+            //Creating a new game
+            siedlerGame = new SiedlerGame(7, numberOfPlayers);
+            siedlerGame.createPlayers(numberOfPlayers);
+            firstPhase();
+        }
 
     }
 

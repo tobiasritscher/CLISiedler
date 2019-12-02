@@ -14,23 +14,23 @@ import java.util.Map;
 public class UI {
 
 
-
-    public UI(){
+    public UI() {
 
     }
 
-    public static void setupTerminal(TextIO textIO, TextTerminal<SwingTextTerminal> textTerminal){
+    public static void setupTerminal(TextIO textIO, TextTerminal<SwingTextTerminal> textTerminal) {
 
         //Setting properties of terminal window
         ((SwingTextTerminal) textTerminal).setPromptFontSize(12);
-        textTerminal.getProperties().setPaneDimension(1040,800);
+        textTerminal.getProperties().setPaneDimension(1040, 800);
     }
 
-    public static void closeTerminal(TextIO textIO, TextTerminal<SwingTextTerminal> textTerminal){
+    public static void closeTerminal(TextIO textIO, TextTerminal<SwingTextTerminal> textTerminal) {
         textIO.dispose();
     }
 
-    public static void buildStartMenu(TextIO textIO, TextTerminal<SwingTextTerminal> textTerminal){
+    public static boolean buildStartMenu(TextIO textIO, TextTerminal<SwingTextTerminal> textTerminal) {
+        boolean exit = false;
         List<String> startMenuElemente = new ArrayList<>();
 
         textTerminal.print("~~~~~~~~~~~~~~~~~~\n");
@@ -43,24 +43,25 @@ public class UI {
         Integer choice = textIO.newIntInputReader()
                 .withMinVal(1)
                 .withMaxVal(2)
-                .read("Please chose an option");
+                .read("Please choose an option: ");
         textTerminal.println();
 
-        while(true) {
-            switch (choice) {
-                case 1:
-                    UI.drawSiedlerBoard(textIO, textTerminal);
-                    break;
-                case 2:
-                    UI.closeTerminal(textIO, textTerminal);
-                    break;
-                default:
-                    textTerminal.print("This option isn't implemented yet!");
-            }
+        switch (choice) {
+            case 1:
+                UI.drawSiedlerBoard(textIO, textTerminal);
+                exit = false;
+                break;
+            case 2:
+                UI.closeTerminal(textIO, textTerminal);
+                exit = true;
+                break;
+            default:
+                textTerminal.print("This option isn't implemented yet!");
         }
+        return exit;
     }
 
-    public static void drawSiedlerBoard(TextIO textIO,TextTerminal<SwingTextTerminal> textTerminal){
+    public static void drawSiedlerBoard(TextIO textIO, TextTerminal<SwingTextTerminal> textTerminal) {
         SiedlerBoard board = new SiedlerBoard();
 
         board.setFields(board);
@@ -81,17 +82,17 @@ public class UI {
         //This prints the map
         textTerminal.println(view.toString());
 
-        
+
     }
 
-    public static int askNumberOfPlayers(TextIO textIO){
+    public static int askNumberOfPlayers(TextIO textIO) {
         return textIO.newIntInputReader()
                 .withMinVal(2)
                 .withMaxVal(4)
                 .read("How many players will be playing?");
     }
 
-    public static void newLine(TextTerminal<SwingTextTerminal> textTerminal){
+    public static void newLine(TextTerminal<SwingTextTerminal> textTerminal) {
         textTerminal.printf(System.lineSeparator());
     }
 }
