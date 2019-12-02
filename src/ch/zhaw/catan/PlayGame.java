@@ -90,6 +90,7 @@ public class PlayGame {
 
             Point point = new Point(x, y);
             siedlerGame.placeSettlement(siedlerGame.isPointACorner(point));
+            hexBoard.setCorner(point,siedlerGame.getPlayer().get(i).getFaction().name());
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the start of your next road");
             textTerminal.printf(System.lineSeparator());
@@ -107,6 +108,7 @@ public class PlayGame {
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
             siedlerGame.placeRoad(roadStart, roadEnd);
+            hexBoard.setEdge(roadStart,roadEnd,siedlerGame.getPlayer().get(i).getFaction().name());
         }
     }
 
