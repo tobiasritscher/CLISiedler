@@ -6,50 +6,32 @@ import ch.zhaw.catan.Config.Resource;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class Player {
-    private ArrayList<ResourceCard> resourcesInPossession;
+    private ResourceStock resourcesInPossession;
     private ArrayList<Settlement> settlementsBuilt;
     private ArrayList<Road> roadsBuilt;
     private Faction faction;
 
     public Player(Faction faction) {
-        resourcesInPossession = new ArrayList<>();
+        resourcesInPossession = new ResourceStock();
         settlementsBuilt = new ArrayList<>();
         roadsBuilt = new ArrayList<>();
         this.faction = faction;
     }
 
-    public ArrayList<ResourceCard> getResourcesInPossession() {
-        return resourcesInPossession;
+    public Map<Resource, Integer> getResourcesInPossession() {
+        return resourcesInPossession.getResources();
     } //TODO: test and bugfix
 
-    public boolean removeResources(Resource resource, int ResourceCount) {
-        int resourceCounter = 0;
-        ArrayList<Integer> resourcesToRemove = new ArrayList<>();
-
-        for (ResourceCard card: resourcesInPossession) {
-            if (card.getResourceType() == resource){
-                resourceCounter ++;
-                resourcesToRemove.add(resourcesInPossession.indexOf(card));
-            }
-        }
-        if (resourceCounter >= ResourceCount) {
-            for (Integer cardToRemove: resourcesToRemove) {
-                resourcesInPossession.remove(cardToRemove);
-            }
-            return true;
-        }
-        else {
-            return false;
-        }
+    public boolean removeResources(Resource resource, int resourceCount) {
+        return resourcesInPossession.remove(resource, resourceCount);
     }
 
     public void addResources(Resource resource, int resourceCount) { //TODO: test and bugfix
-        for (int index = 0; index >= resourceCount; index++) {
-            resourcesInPossession.add(0, new ResourceCard(resource));
-        }
+        resourcesInPossession.add(resource, resourceCount);
     }
 
     public ArrayList<Settlement> getSettlementsBuilt() {

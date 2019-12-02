@@ -19,6 +19,10 @@ public class ResourceStock {
         }
     }
 
+    public Map<Resource, Integer> getResources() {
+        return resources;
+    }
+
     public boolean available(Config.Resource resource, int amount) {
 
         boolean result = false;
