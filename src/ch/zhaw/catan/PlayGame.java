@@ -45,10 +45,9 @@ public class PlayGame {
 
 
     public void firstPhase() {
-        textTerminal.resetToBookmark("SHOW_MAP");
 
         for (int i = 0; i < siedlerGame.getPlayer().size(); i++) {
-
+            textTerminal.resetToBookmark("SHOW_MAP");
 
             int x = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for your first settlement");
             textTerminal.resetToBookmark("SHOW_MAP");
@@ -63,18 +62,18 @@ public class PlayGame {
             hexBoard.setCorner(newPoint,siedlerGame.getPlayer().get(i).getFaction().name());
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the start of your first road");
-            textTerminal.printf(System.lineSeparator());
+            textTerminal.resetToBookmark("SHOW_MAP");
 
             int yRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a y coordinate for the start of your first road");
-            textTerminal.printf(System.lineSeparator());
+            textTerminal.resetToBookmark("SHOW_MAP");
 
             Point roadStart = new Point(xRoadStart, yRoadStart);
 
             int xRoadFinish = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the finish of your first road");
-            textTerminal.printf(System.lineSeparator());
+            textTerminal.resetToBookmark("SHOW_MAP");
 
             int yRoadFinish = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a y coordinate for the finish of your first road");
-            textTerminal.printf(System.lineSeparator());
+            textTerminal.resetToBookmark("SHOW_MAP");
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
             siedlerGame.placeRoad(roadStart, roadEnd);
@@ -84,10 +83,10 @@ public class PlayGame {
 
         for (int i = siedlerGame.getPlayer().size() - 1; i >= 0; i--) {
             int x = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for your next settlement");
-            textTerminal.printf(System.lineSeparator());
+            textTerminal.resetToBookmark("SHOW_MAP");
 
             int y = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a y coordinate for your next settlement");
-            textTerminal.printf(System.lineSeparator());
+            textTerminal.resetToBookmark("SHOW_MAP");
 
             Point point = new Point(x, y);
             Point newPoint = siedlerGame.isPointACorner(point);
@@ -95,18 +94,18 @@ public class PlayGame {
             hexBoard.setCorner(newPoint,siedlerGame.getPlayer().get(i).getFaction().name());
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the start of your next road");
-            textTerminal.printf(System.lineSeparator());
+            textTerminal.resetToBookmark("SHOW_MAP");
 
             int yRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a y coordinate for the start of your next road");
-            textTerminal.printf(System.lineSeparator());
+            textTerminal.resetToBookmark("SHOW_MAP");
 
             Point roadStart = new Point(xRoadStart, yRoadStart);
 
             int xRoadFinish = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the finish of your next road");
-            textTerminal.printf(System.lineSeparator());
+            textTerminal.resetToBookmark("SHOW_MAP");
 
             int yRoadFinish = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a y coordinate for the finish of your next road");
-            textTerminal.printf(System.lineSeparator());
+            textTerminal.resetToBookmark("SHOW_MAP");
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
             siedlerGame.placeRoad(roadStart, roadEnd);
