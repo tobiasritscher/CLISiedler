@@ -67,7 +67,7 @@ public class SiedlerGame {
         return resourceCounter;
     }
 
-    public boolean placeInitialSettlement(Point position, boolean payout) {
+    public void placeInitialSettlement(Point position) {
         boolean trying = true;
         while (trying) {
             if (hexBoard.getNeighboursOfCorner(position).isEmpty()) {
@@ -78,16 +78,13 @@ public class SiedlerGame {
                 textTerminal.printf(System.lineSeparator());
                 int y = textIO.newIntInputReader().read("Can't place here cuz of other settlements, try again with another y coordinate");
                 textTerminal.printf(System.lineSeparator());
-                Point point = new Point(x, y);
-                position = point;
+                position = new Point(x, y);
             }
         }
-        return true;
     }
 
-    public boolean placeInitialRoad(Point roadStart, Point roadEnd) {
+    public void placeInitialRoad(Point roadStart, Point roadEnd) {
         players.get(currentPlayer).buildRoad(roadStart, roadEnd);
-        return false;
     }
 
     public Map<Faction, List<Resource>> throwDice(int dicethrow) {

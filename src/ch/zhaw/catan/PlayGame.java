@@ -57,7 +57,7 @@ public class PlayGame {
 
 
             Point point = new Point(x, y);
-            siedlerGame.placeInitialSettlement(siedlerGame.isPointACorner(point), true);
+            siedlerGame.placeInitialSettlement(siedlerGame.isPointACorner(point));
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the start of your first road");
             textTerminal.printf(System.lineSeparator());
