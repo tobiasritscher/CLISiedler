@@ -178,8 +178,6 @@ public class SiedlerGame {
                 point = new Point(x, y);
                 running = true;
             }
-
-
         } while (running);
         return point;
     }

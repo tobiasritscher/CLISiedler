@@ -58,8 +58,9 @@ public class PlayGame {
 
 
             Point point = new Point(x, y);
-            siedlerGame.placeInitialSettlement(siedlerGame.isPointACorner(point));
-            hexBoard.setCorner(point,siedlerGame.getPlayer().get(i).getFaction().name());
+            Point newPoint = siedlerGame.isPointACorner(point);
+            siedlerGame.placeInitialSettlement(newPoint);
+            hexBoard.setCorner(newPoint,siedlerGame.getPlayer().get(i).getFaction().name());
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the start of your first road");
             textTerminal.printf(System.lineSeparator());
@@ -89,8 +90,9 @@ public class PlayGame {
             textTerminal.printf(System.lineSeparator());
 
             Point point = new Point(x, y);
-            siedlerGame.placeSettlement(siedlerGame.isPointACorner(point));
-            hexBoard.setCorner(point,siedlerGame.getPlayer().get(i).getFaction().name());
+            Point newPoint = siedlerGame.isPointACorner(point);
+            siedlerGame.placeSettlement(newPoint);
+            hexBoard.setCorner(newPoint,siedlerGame.getPlayer().get(i).getFaction().name());
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the start of your next road");
             textTerminal.printf(System.lineSeparator());
