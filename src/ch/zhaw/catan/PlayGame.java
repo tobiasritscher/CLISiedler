@@ -77,7 +77,7 @@ public class PlayGame {
 
 
         }
-        for (int i = siedlerGame.getPlayer().size() - 1; i < 0; i--) {
+        for (int i = siedlerGame.getPlayer().size() - 1; i >= 0; i--) {
             int x = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for your next settlement");
             textTerminal.printf(System.lineSeparator());
 
