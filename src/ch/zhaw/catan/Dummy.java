@@ -20,17 +20,18 @@ public class Dummy {
         TextIO textIO = TextIoFactory.getTextIO();
         TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal)textIO.getTextTerminal();
 
-        UI.setupTerminal(textIO, textTerminal);
+        UI.setupTerminal();
 
         //Setting start point
         textTerminal.setBookmark("MAIN");
 
-        UI.buildStartMenu(textIO, textTerminal);
+        UI.throwDices();
+        UI.buildStartMenu();
 //        if(choice == 1){
-//            UI.drawSiedlerBoard(textIO, textTerminal);
-//        } else if (choice == 2){
-//            UI.closeTerminal(textIO);
-//        }
+////            UI.drawSiedlerBoard(textIO, textTerminal);
+////        } else if (choice == 2){
+////            UI.closeTerminal(textIO);
+////        }
 
 
 

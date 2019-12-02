@@ -2,6 +2,7 @@ package ch.zhaw.catan;
 
 import ch.zhaw.hexboard.Label;
 import org.beryx.textio.TextIO;
+import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
 import org.beryx.textio.swing.SwingTextTerminal;
 
@@ -13,23 +14,26 @@ import java.util.Map;
 
 public class UI {
 
+    private static TextIO textIO = TextIoFactory.getTextIO();
+    private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal) textIO.getTextTerminal();
+    private static Dice dice = new Dice();
 
     public UI() {
 
     }
 
-    public static void setupTerminal(TextIO textIO, TextTerminal<SwingTextTerminal> textTerminal) {
+    public static void setupTerminal() {
 
         //Setting properties of terminal window
         ((SwingTextTerminal) textTerminal).setPromptFontSize(12);
         textTerminal.getProperties().setPaneDimension(1040, 800);
     }
 
-    public static void closeTerminal(TextIO textIO, TextTerminal<SwingTextTerminal> textTerminal) {
+    public static void closeTerminal() {
         textIO.dispose();
     }
 
-    public static boolean buildStartMenu(TextIO textIO, TextTerminal<SwingTextTerminal> textTerminal) {
+    public static boolean buildStartMenu() {
         boolean exit = false;
         List<String> startMenuElemente = new ArrayList<>();
 
@@ -48,11 +52,11 @@ public class UI {
 
         switch (choice) {
             case 1:
-                UI.drawSiedlerBoard(textIO, textTerminal);
+                UI.drawSiedlerBoard();
                 exit = false;
                 break;
             case 2:
-                UI.closeTerminal(textIO, textTerminal);
+                UI.closeTerminal();
                 exit = true;
                 break;
             default:
@@ -61,7 +65,7 @@ public class UI {
         return exit;
     }
 
-    public static void drawSiedlerBoard(TextIO textIO, TextTerminal<SwingTextTerminal> textTerminal) {
+    public static void drawSiedlerBoard() {
         SiedlerBoard board = new SiedlerBoard();
 
         board.setFields(board);
@@ -105,14 +109,19 @@ public class UI {
 
     }
 
-    public static int askNumberOfPlayers(TextIO textIO) {
+    public static int askNumberOfPlayers() {
         return textIO.newIntInputReader()
                 .withMinVal(2)
                 .withMaxVal(4)
                 .read("How many players will be playing?");
     }
 
-    public static void newLine(TextTerminal<SwingTextTerminal> textTerminal) {
+    public static void newLine() {
         textTerminal.printf(System.lineSeparator());
+    }
+
+    public static void throwDices(){
+        int diceNumber = dice.roll();
+        textTerminal.printf("Throwing dices...it's a %d", diceNumber);
     }
 }

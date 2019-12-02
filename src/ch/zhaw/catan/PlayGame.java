@@ -23,13 +23,13 @@ public class PlayGame {
 
     private void run() {
 
-        UI.setupTerminal(textIO, textTerminal);
+        UI.setupTerminal();
         textTerminal.setBookmark("BLANK_SCREEN");
 
-        if (!UI.buildStartMenu(textIO, textTerminal)) {
+        if (!UI.buildStartMenu()) {
             textTerminal.setBookmark("SHOW_MAP");
 
-            numberOfPlayers = UI.askNumberOfPlayers(textIO);
+            numberOfPlayers = UI.askNumberOfPlayers();
             textTerminal.print("Ok, there will be " + numberOfPlayers + " players");
             textIO.newStringInputReader()
                     .withMinLength(0)
