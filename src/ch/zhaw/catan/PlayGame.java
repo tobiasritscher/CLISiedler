@@ -55,9 +55,9 @@ public class PlayGame {
             int y = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a y coordinate for your first settlement");
             textTerminal.resetToBookmark("SHOW_MAP");
 
-             //TODO: Da funktioniert irgendwas nonig. Wenn mers Programm abspielt, stoppts da
-//            Point point = new Point(x, y);
-//            siedlerGame.placeInitialSettlement(point, true);
+
+            Point point = new Point(x, y);
+            siedlerGame.placeInitialSettlement(siedlerGame.isPointACorner(point), true);
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the start of your first road");
             textTerminal.printf(System.lineSeparator());
@@ -74,7 +74,10 @@ public class PlayGame {
             textTerminal.printf(System.lineSeparator());
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
-            siedlerGame.placeInitialRoad(roadStart, roadEnd);
+            if(siedlerGame.arePointsAnEdge(roadStart,roadEnd)){
+                siedlerGame.placeInitialRoad(roadStart, roadEnd);
+            }
+
 
 
         }
@@ -86,7 +89,7 @@ public class PlayGame {
             textTerminal.printf(System.lineSeparator());
 
             Point point = new Point(x, y);
-            siedlerGame.placeSettlement(point);
+            siedlerGame.placeSettlement(siedlerGame.isPointACorner(point));
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the start of your next road");
             textTerminal.printf(System.lineSeparator());
@@ -103,7 +106,10 @@ public class PlayGame {
             textTerminal.printf(System.lineSeparator());
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
-            siedlerGame.placeRoad(roadStart, roadEnd);
+            if(siedlerGame.arePointsAnEdge(roadStart,roadEnd)){
+                siedlerGame.placeRoad(roadStart, roadEnd);
+            }
+
 
         }
     }

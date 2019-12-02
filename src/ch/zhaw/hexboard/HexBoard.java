@@ -235,7 +235,7 @@ public class HexBoard<F, C, E, A> {
                 || (isYFieldCoordinateOdd && isXFieldCoordinateOdd);
     }
 
-    static boolean isCornerCoordinate(Point p) {
+    public static boolean isCornerCoordinate(Point p) {
         // On the horizontal center lines, no edge points exist
         boolean isOnFieldCenterLineHorizontal = (p.y - 2) % 3 == 0;
 

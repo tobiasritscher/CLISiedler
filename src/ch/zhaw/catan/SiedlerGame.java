@@ -20,6 +20,7 @@ public class SiedlerGame {
     private HexBoard hexBoard;
     private TextIO textIO = TextIoFactory.getTextIO();
     private TextTerminal<?> textTerminal = textIO.getTextTerminal();
+    private UI ui = new UI();
 
     public SiedlerGame(int winPoints, int players) {
         createPlayers(players);
@@ -180,5 +181,41 @@ public class SiedlerGame {
         }
     }
 
+    public Point isPointACorner(Point point) {
+        boolean running;
+        do {
+            if (HexBoard.isCornerCoordinate(point)) {
+                running = false;
+            } else {
+                textTerminal.print("Error this point is not on a corner, please try again");
+                int x = textIO.newIntInputReader().read("Try again with a new x coordinate");
+                int y = textIO.newIntInputReader().read("Try again with a new y coordinate");
+                point = new Point(x, y);
+                running = true;
+            }
 
+
+        } while (running);
+        return point;
+    }
+
+    public boolean arePointsAnEdge(Point p1, Point p2){
+        boolean running;
+        do {
+            if(hexBoard.hasEdge(p1,p2)){
+                running = false;
+            } else{
+                textTerminal.print("Error this points are not on an edge, please try again");
+                int a = textIO.newIntInputReader().read("Try again with a new x coordinate for roadstart");
+                int b = textIO.newIntInputReader().read("Try again with a new y coordinate for roadstart");
+                p1 = new Point(a, b);
+                textTerminal.print("Error this points are not on an edge, please try again");
+                int x = textIO.newIntInputReader().read("Try again with a new x coordinate for roadend");
+                int y = textIO.newIntInputReader().read("Try again with a new y coordinate for roadend");
+                p2 = new Point(x, y);
+                running = false;
+            }
+        } while(running);
+        return true;
+    }
 }
