@@ -17,7 +17,7 @@ public class SiedlerGame {
     private SiedlerBoard siedlerBoard = new SiedlerBoard();
     private int currentPlayer = 0;
     private Config config = new Config();
-    private HexBoard hexBoard;
+    private HexBoard hexBoard = new HexBoard();
     private TextIO textIO = TextIoFactory.getTextIO();
     private TextTerminal<?> textTerminal = textIO.getTextTerminal();
     private UI ui = new UI();
