@@ -59,12 +59,7 @@ public class SiedlerGame {
     }
 
     public int getCurrentPlayerResourceStock(Resource resource) {
-        int resourceCounter = 0;
-        for (int index = 0; index <= players.get(currentPlayer).getResourcesInPossession().size(); index++)
-            if (players.get(currentPlayer).getResourcesInPossession().get(index).getResourceType() == resource) {
-                resourceCounter++;
-            }
-        return resourceCounter;
+        return players.get(currentPlayer).getResourcesInPossession().get(resource);
     }
 
     public void placeInitialSettlement(Point position) {
@@ -131,12 +126,15 @@ public class SiedlerGame {
     }
 
     public boolean tradeWithBankFourToOne(Resource offer, Resource want) { //TODO: test and bugfix
-        if (!players.get(currentPlayer).removeResources(offer, 4)) {
-            return false;
-        } else {
-            players.get(currentPlayer).addResources(want, 1);
-            return true;
+        boolean result = false;
+        Bank bank = new Bank();
+        if (bank.trade(offer, want)) {
+            if (players.get(currentPlayer).removeResources(offer, 4)) {
+                players.get(currentPlayer).addResources(want, 1);
+                result = true;
+            }
         }
+        return result;
     }
 
     public Faction getWinner() { //TODO: test and bugfix
@@ -178,8 +176,6 @@ public class SiedlerGame {
                 point = new Point(x, y);
                 running = true;
             }
-
-
         } while (running);
         return point;
     }

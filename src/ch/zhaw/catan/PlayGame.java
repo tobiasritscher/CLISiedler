@@ -44,7 +44,7 @@ public class PlayGame {
     }
 
 
-    public static void firstPhase() {
+    public void firstPhase() {
 
         for (int i = 0; i < siedlerGame.getPlayer().size(); i++) {
             textTerminal.resetToBookmark("SHOW_MAP");
@@ -57,7 +57,9 @@ public class PlayGame {
 
 
             Point point = new Point(x, y);
-            siedlerGame.placeInitialSettlement(siedlerGame.isPointACorner(point));
+            Point newPoint = siedlerGame.isPointACorner(point);
+            siedlerGame.placeInitialSettlement(newPoint);
+            hexBoard.setCorner(newPoint,siedlerGame.getPlayer().get(i).getFaction().name());
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the start of your first road");
             textTerminal.resetToBookmark("SHOW_MAP");
@@ -74,7 +76,9 @@ public class PlayGame {
             textTerminal.resetToBookmark("SHOW_MAP");
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
-
+            siedlerGame.placeRoad(roadStart, roadEnd);
+            hexBoard.setEdge(roadStart,roadEnd,siedlerGame.getPlayer().get(i).getFaction().name());
+            textTerminal.println();
         }
 
         for (int i = siedlerGame.getPlayer().size() - 1; i >= 0; i--) {
@@ -85,7 +89,9 @@ public class PlayGame {
             textTerminal.resetToBookmark("SHOW_MAP");
 
             Point point = new Point(x, y);
-            siedlerGame.placeSettlement(siedlerGame.isPointACorner(point));
+            Point newPoint = siedlerGame.isPointACorner(point);
+            siedlerGame.placeSettlement(newPoint);
+            hexBoard.setCorner(newPoint,siedlerGame.getPlayer().get(i).getFaction().name());
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the start of your next road");
             textTerminal.resetToBookmark("SHOW_MAP");
@@ -103,6 +109,7 @@ public class PlayGame {
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
             siedlerGame.placeRoad(roadStart, roadEnd);
+            hexBoard.setEdge(roadStart,roadEnd,siedlerGame.getPlayer().get(i).getFaction().name());
         }
     }
 
