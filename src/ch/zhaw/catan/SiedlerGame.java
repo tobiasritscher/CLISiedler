@@ -194,7 +194,6 @@ public class SiedlerGame {
                 int a = textIO.newIntInputReader().read("Try again with a new x coordinate for roadstart");
                 int b = textIO.newIntInputReader().read("Try again with a new y coordinate for roadstart");
                 roadStart = new Point(a, b);
-                textTerminal.print("Error this points are not on an edge, please try again");
                 int x = textIO.newIntInputReader().read("Try again with a new x coordinate for roadend");
                 int y = textIO.newIntInputReader().read("Try again with a new y coordinate for roadend");
                 roadEnd = new Point(x, y);

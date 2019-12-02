@@ -281,7 +281,7 @@ public class HexBoard<F, C, E, A> {
         return Collections.unmodifiableList(Arrays.asList(corner));
     }
 
-    protected static List<Point> getAdjacentCorners(Point position) {
+     protected static List<Point> getAdjacentCorners(Point position) {
         Point[] corner = new Point[3];
         if (position.y % 3 == 0) {
             corner[0] = new Point(position.x, position.y - 2);
