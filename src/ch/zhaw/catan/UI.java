@@ -80,7 +80,7 @@ public class UI {
         lowerFieldLabel.put(new Point(10, 8), new ch.zhaw.hexboard.Label('1', '0'));
         lowerFieldLabel.put(new Point(3, 11), new ch.zhaw.hexboard.Label('0', '5'));
         lowerFieldLabel.put(new Point(5, 11), new ch.zhaw.hexboard.Label('0', '9'));
-        lowerFieldLabel.put(new Point(7, 11), new ch.zhaw.hexboard.Label('0', '7'));
+//        lowerFieldLabel.put(new Point(7, 11), new ch.zhaw.hexboard.Label('0', '7'));
         lowerFieldLabel.put(new Point(9, 11), new ch.zhaw.hexboard.Label('0', '6'));
         lowerFieldLabel.put(new Point(11, 11), new ch.zhaw.hexboard.Label('0', '9'));
         lowerFieldLabel.put(new Point(4, 14), new ch.zhaw.hexboard.Label('1', '0'));
