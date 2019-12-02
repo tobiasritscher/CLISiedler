@@ -46,12 +46,11 @@ public class UI {
                 .read("Please chose an option");
         textTerminal.println();
 
-        if(choice == 1){
-            UI.drawSiedlerBoard(textIO, textTerminal);
-        } else if (choice == 2){
-            UI.closeTerminal(textIO);
+        switch (choice){
+            case 1: UI.drawSiedlerBoard(textIO, textTerminal); break;
+            case 2: UI.closeTerminal(textIO); break;
+            default: textTerminal.print("This option isn't implemented yet!");
         }
-
     }
 
     public static void drawSiedlerBoard(TextIO textIO,TextTerminal<SwingTextTerminal> textTerminal){

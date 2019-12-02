@@ -14,11 +14,12 @@ public class PlayGame {
     private HexBoard hexBoard = new HexBoard();
     private int numberOfPlayers;
     Config config = new Config();
-    private Config.Faction faction;
-    private Player player = new Player(faction);
     private static TextIO textIO = TextIoFactory.getTextIO();
     private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal)textIO.getTextTerminal();
     private Dice dice = new Dice();
+
+    public PlayGame() {
+    }
 
     private void run() {
 
