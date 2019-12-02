@@ -83,21 +83,17 @@ public class SiedlerGame {
         }
     }
 
-    public void placeInitialRoad(Point roadStart, Point roadEnd) {
-        players.get(currentPlayer).buildRoad(roadStart, roadEnd);
-    }
-
     public Map<Faction, List<Resource>> throwDice(int dicethrow) {
-        TreeMap<Faction, List<Resource>> resourceMap = new TreeMap<Faction, List<Resource>>();
-        TreeMap<Integer, Point> temporaryMap = new TreeMap<Integer, Point>();
+        TreeMap<Faction, List<Resource>> resourceMap = new TreeMap<>();
+        TreeMap<Integer, Point> temporaryMap = new TreeMap<>();
         Integer index = 0;
-        for (Map.Entry<Point, Integer> diceRolledField : config.getStandardDiceNumberPlacement().entrySet()) {
+        for (Map.Entry<Point, Integer> diceRolledField : Config.getStandardDiceNumberPlacement().entrySet()) {
             if (Objects.equals(dicethrow, diceRolledField.getValue())) {
                 temporaryMap.put(index, diceRolledField.getKey());
                 index++;
             }
         }
-        for (Map.Entry<Point, Config.Land> correspondingLand : config.getStandardLandPlacement().entrySet()) {
+        for (Map.Entry<Point, Config.Land> correspondingLand : Config.getStandardLandPlacement().entrySet()) {
             // TODO: compare which corresponding Land lies on the Point values in temporaryMap
         }
         // TODO: compare what settlements are on the dice rolled fields and save corresponding factions and their resources in resourceMap
@@ -105,7 +101,7 @@ public class SiedlerGame {
         return resourceMap;
     }
 
-    public boolean placeSettlement(Point position) {
+    public void placeSettlement(Point position) {
         boolean trying = true;
         while (trying) {
             if (hexBoard.getNeighboursOfCorner(position).isEmpty()) {
@@ -116,11 +112,9 @@ public class SiedlerGame {
                 textTerminal.printf(System.lineSeparator());
                 int y = textIO.newIntInputReader().read("Can't place here cuz of other settlements, try again with another y coordinate");
                 textTerminal.printf(System.lineSeparator());
-                Point point = new Point(x, y);
-                position = point;
+                position = new Point(x, y);
             }
         }
-        return true;
     }
 
     public boolean placeCity(Point position) { //TODO: test and bugfix
@@ -134,12 +128,6 @@ public class SiedlerGame {
             }
         }
         return settlementFound;
-    }
-
-    public boolean placeRoad(Point roadStart, Point roadEnd) {
-
-        players.get(currentPlayer).buildRoad(roadStart, roadEnd);
-        return false; // TODO: check if road is already occupied and return true/false
     }
 
     public boolean tradeWithBankFourToOne(Resource offer, Resource want) { //TODO: test and bugfix
@@ -196,23 +184,23 @@ public class SiedlerGame {
         return point;
     }
 
-    public boolean arePointsAnEdge(Point p1, Point p2){
+    public void placeRoad(Point roadStart, Point roadEnd) {
         boolean running;
         do {
-            if(hexBoard.hasEdge(p1,p2)){
+            if (hexBoard.hasEdge(roadStart, roadEnd)) {
                 running = false;
-            } else{
+            } else {
                 textTerminal.print("Error this points are not on an edge, please try again");
                 int a = textIO.newIntInputReader().read("Try again with a new x coordinate for roadstart");
                 int b = textIO.newIntInputReader().read("Try again with a new y coordinate for roadstart");
-                p1 = new Point(a, b);
+                roadStart = new Point(a, b);
                 textTerminal.print("Error this points are not on an edge, please try again");
                 int x = textIO.newIntInputReader().read("Try again with a new x coordinate for roadend");
                 int y = textIO.newIntInputReader().read("Try again with a new y coordinate for roadend");
-                p2 = new Point(x, y);
-                running = false;
+                roadEnd = new Point(x, y);
+                running = true;
             }
-        } while(running);
-        return true;
+        } while (running);
+        players.get(currentPlayer).buildRoad(roadStart, roadEnd);
     }
 }

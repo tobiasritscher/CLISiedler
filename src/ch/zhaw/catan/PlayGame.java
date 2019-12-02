@@ -15,7 +15,7 @@ public class PlayGame {
     private int numberOfPlayers;
     Config config = new Config();
     private static TextIO textIO = TextIoFactory.getTextIO();
-    private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal)textIO.getTextTerminal();
+    private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal) textIO.getTextTerminal();
     private Dice dice = new Dice();
 
     public PlayGame() {
@@ -74,13 +74,9 @@ public class PlayGame {
             textTerminal.printf(System.lineSeparator());
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
-            if(siedlerGame.arePointsAnEdge(roadStart,roadEnd)){
-                siedlerGame.placeInitialRoad(roadStart, roadEnd);
-            }
-
-
-
+            siedlerGame.placeRoad(roadStart, roadEnd);
         }
+
         for (int i = siedlerGame.getPlayer().size() - 1; i >= 0; i--) {
             int x = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for your next settlement");
             textTerminal.printf(System.lineSeparator());
@@ -106,11 +102,7 @@ public class PlayGame {
             textTerminal.printf(System.lineSeparator());
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
-            if(siedlerGame.arePointsAnEdge(roadStart,roadEnd)){
-                siedlerGame.placeRoad(roadStart, roadEnd);
-            }
-
-
+            siedlerGame.placeRoad(roadStart, roadEnd);
         }
     }
 
