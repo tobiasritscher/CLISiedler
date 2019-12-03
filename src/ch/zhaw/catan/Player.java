@@ -2,11 +2,9 @@ package ch.zhaw.catan;
 
 import ch.zhaw.catan.Config.Faction;
 import ch.zhaw.catan.Config.Resource;
-import ch.zhaw.hexboard.HexBoard;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
-
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -21,7 +19,7 @@ public class Player {
     private TextIO textIO = TextIoFactory.getTextIO();
     private TextTerminal<?> textTerminal = textIO.getTextTerminal();
     private UI ui = new UI();
-    private HexBoard hexBoard = new HexBoard();
+    private SiedlerBoard hexBoard = new SiedlerBoard();
 
     public Player(Faction faction) {
         resourcesInPossession = new ResourceStock();
@@ -50,24 +48,39 @@ public class Player {
         settlementsBuilt.add(settlement);
     }
 
-    public Settlement buildSettlement(Point position, Player player) {
-        Settlement settlement = new Settlement(position, player);
+    public boolean buildSettlement(Point position, Player player) {
+        Settlement settlement;
+        boolean wrongAwnser;
+        boolean result = false;
 
-        if (resourcesInPossession.available(Resource.WOOL, 1) && resourcesInPossession.available(Resource.CLAY, 1) && resourcesInPossession.available(Resource.WOOD, 1) && resourcesInPossession.available(Resource.GRAIN, 1)) {
-            if (hexBoard.getNeighboursOfCorner(position).isEmpty()) {
-                settlementsBuilt.add(settlement);
-                removeResources(Resource.WOOL, 1);
-                removeResources(Resource.CLAY, 1);
-                removeResources(Resource.WOOD, 1);
-                removeResources(Resource.GRAIN, 1);
-            } else {
-                textTerminal.print("There's a settlement nearby! You can't place your settlement there");
-            }
+        if (resourcesInPossession.available(Resource.WOOL, 1)
+                && resourcesInPossession.available(Resource.CLAY, 1)
+                && resourcesInPossession.available(Resource.WOOD, 1)
+                && resourcesInPossession.available(Resource.GRAIN, 1)) {
+            do {
+                settlement = new Settlement(position, player);
+                if (hexBoard.getNeighboursOfCorner(position).isEmpty() && hexBoard.hasCorner(position)) {
+                    settlementsBuilt.add(settlement);
+                    hexBoard.setCorner(position, settlement);
+                    removeResources(Resource.WOOL, 1);
+                    removeResources(Resource.CLAY, 1);
+                    removeResources(Resource.WOOD, 1);
+                    removeResources(Resource.GRAIN, 1);
+                    wrongAwnser = false;
+                    result = true;
+                } else {
+                    int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate");
+                    textTerminal.printf(System.lineSeparator());
+                    int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate");
+                    textTerminal.printf(System.lineSeparator());
+                    position = new Point(x, y);
+                    wrongAwnser = true;
+                }
+            } while(wrongAwnser);
         } else {
             textTerminal.print("Not enough ressources to build a settlement!");
         }
-        return settlement;
-
+        return result;
     }
 
     public Faction getFaction() {

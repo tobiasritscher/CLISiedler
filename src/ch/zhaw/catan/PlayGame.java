@@ -10,7 +10,6 @@ import java.awt.*;
 
 public class PlayGame {
     private static SiedlerGame siedlerGame;
-    //    private HexBoard hexBoard = new HexBoard();
     private SiedlerBoard hexBoard = new SiedlerBoard();
     private int numberOfPlayers;
     Config config = new Config();
