@@ -127,6 +127,8 @@ public class PlayGame {
         return hexBoard.getNeighboursOfCorner(corner).isEmpty();
     }
 
+
+
     public static void main(String[] Args) {
         new PlayGame().run();
 
