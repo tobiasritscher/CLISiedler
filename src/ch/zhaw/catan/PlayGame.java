@@ -17,6 +17,7 @@ public class PlayGame {
     private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal) textIO.getTextTerminal();
     private Dice dice = new Dice();
 
+
     public PlayGame() {
     }
 
@@ -59,6 +60,7 @@ public class PlayGame {
             Point newPoint = siedlerGame.isPointACorner(point);
             hexBoard.setCorner(newPoint, siedlerGame.placeInitialSettlement(newPoint, siedlerGame.getPlayer().get(i), hexBoard));
             UI.printBoard(hexBoard); //TODO: delete; only for debugging
+            UI.print(hexBoard.getCorner(newPoint).getFaction());
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the start of your first road");
             UI.resetBookmark("SHOW_MAP");
@@ -104,8 +106,9 @@ public class PlayGame {
             UI.resetBookmark("SHOW_MAP");
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
-            siedlerGame.placeRoad(roadStart, roadEnd, hexBoard);
-//            hexBoard.setEdge(roadStart,roadEnd,siedlerGame.getPlayer().get(i).getFaction().name());
+            hexBoard.setEdge(roadStart, roadEnd, siedlerGame.placeRoad(roadStart, roadEnd, hexBoard));
+            textTerminal.println();
+            giveResourcesAfterFirstPhase();
         }
     }
 
@@ -123,6 +126,22 @@ public class PlayGame {
         return hexBoard.getNeighboursOfCorner(corner).isEmpty();
     }
 
+    public void giveResourcesAfterFirstPhase() {
+        for (int i = 0; i < 13; i++) {
+            for (int k = 0; k < 23; k++) {
+                Point point = new Point(i, k);
+                if (hexBoard.hasField(point)) {
+                    if (hexBoard.getCornersOfField(point).isEmpty()) {
+                    } else {
+                        for (int m = 0; m < hexBoard.getCornersOfField(point).size() - 1; m++) {
+                            Point position = hexBoard.getCornersOfField(point).get(m).getPosition();
+                            hexBoard.getCornersOfField(point).get(m).getPlayer().addResources(Config.getStandardLandPlacement().get(position).getResource(), 1);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     public static void main(String[] Args) {
         new PlayGame().run();
