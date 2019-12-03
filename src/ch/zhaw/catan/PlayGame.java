@@ -59,7 +59,7 @@ public class PlayGame {
             Point point = new Point(x, y);
             Point newPoint = siedlerGame.isPointACorner(point);
             hexBoard.setCorner(newPoint, siedlerGame.placeInitialSettlement(newPoint, siedlerGame.getPlayer().get(i)).getFaction());
-            UI.printBoard(hexBoard);
+            UI.printBoard(hexBoard); //TODO: delete; only for debugging
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the start of your first road");
             UI.resetBookmark("SHOW_MAP");
