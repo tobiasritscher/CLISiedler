@@ -74,7 +74,7 @@ public class PlayGame {
             UI.resetBookmark("SHOW_MAP");
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
-            hexBoard.setEdge(roadStart, roadEnd, siedlerGame.placeRoad(roadStart, roadEnd, hexBoard));
+            hexBoard.setEdge(roadStart, roadEnd, siedlerGame.placeRoad(roadStart, roadEnd, hexBoard, siedlerGame.getPlayer().get(i)));
             textTerminal.println();
         }
 
@@ -103,7 +103,7 @@ public class PlayGame {
             UI.resetBookmark("SHOW_MAP");
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
-            hexBoard.setEdge(roadStart, roadEnd, siedlerGame.placeRoad(roadStart, roadEnd, hexBoard));
+            hexBoard.setEdge(roadStart, roadEnd, siedlerGame.placeRoad(roadStart, roadEnd, hexBoard, siedlerGame.getPlayer().get(i)));
             textTerminal.println();
             giveResourcesAfterFirstPhase();
         }
