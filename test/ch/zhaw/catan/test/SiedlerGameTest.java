@@ -76,6 +76,8 @@ class SiedlerGameTest {
 
     @Test
     void throwDice() {
+        siedlergame.throwDice(5);
+
     }
 
     @Test

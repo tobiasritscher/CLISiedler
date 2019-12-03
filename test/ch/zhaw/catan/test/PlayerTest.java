@@ -96,11 +96,19 @@ class PlayerTest {
     }
 
     @Test
-    void getRoadsBuilt() {
+    void getRoadsBuilt() { // TODO: Doesn't work yet
+        testBoard = new SiedlerBoard();
+        Point testPositionStart = new Point(6, 12);
+        Point testPositionEnd = new Point(6, 20);
+        Road testRoad = new Road(testPositionStart, testPositionEnd);
+        testPlayer.addResources(Config.Resource.WOOD, 1);
+        testPlayer.addResources(Config.Resource.CLAY, 1);
+        testPlayer.buildRoad(testPositionStart, testPositionEnd);
+        Assertions.assertEquals(testPlayer.getRoadsBuilt().get(0), testRoad);
     }
 
     @Test
-    void buildRoad() {
+    void buildRoad() { // TODO: Doesn't work yet
         testBoard = new SiedlerBoard();
         Point testPositionStart = new Point(6, 12);
         Point testPositionEnd = new Point(6, 20);
@@ -112,6 +120,7 @@ class PlayerTest {
         testPlayer.addResources(Config.Resource.CLAY, 2);
         testPlayer.buildSettlement(testPositionStart, testPlayer, testBoard);
         testPlayer.buildRoad(testPositionStart, testPositionEnd);
-        //Assertions.assertEquals(testBoard.getEdge(testPositionStart, testPositionEnd), testRoad.getFaction());
+        Assertions.assertEquals(testBoard.getEdge(testPositionStart, testPositionEnd).getEndingAt(), testRoad.getEndingAt());
+        Assertions.assertEquals(testBoard.getEdge(testPositionStart, testPositionEnd).getStartingAt(), testRoad.getStartingAt());
     }
 }
