@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class SiedlerBoard extends HexBoard<Config.Land, String, Road, String> {
+public class SiedlerBoard extends HexBoard<Config.Land, Settlement, Road, String> {
     private Map<Point, Label> lowerFieldLabels = new HashMap<>();
     private Map<String, Point> labelToField = new HashMap<>();
 
