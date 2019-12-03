@@ -14,10 +14,9 @@ import java.util.*;
 public class SiedlerGame {
     private int winPoints;
     private List<Player> players = new ArrayList<>();
-    private SiedlerBoard siedlerBoard = new SiedlerBoard();
     private int currentPlayer = 0;
     private Config config = new Config();
-    private HexBoard hexBoard = new HexBoard();
+    private SiedlerBoard hexBoard = new SiedlerBoard();
     private TextIO textIO = TextIoFactory.getTextIO();
     private TextTerminal<?> textTerminal = textIO.getTextTerminal();
     private UI ui = new UI();
@@ -51,7 +50,7 @@ public class SiedlerGame {
     }
 
     public SiedlerBoard getBoard() {
-        return siedlerBoard;
+        return hexBoard;
     }
 
     public Player getCurrentPlayer() {
@@ -62,20 +61,25 @@ public class SiedlerGame {
         return players.get(currentPlayer).getResourcesInPossession().get(resource);
     }
 
-    public void placeInitialSettlement(Point position) {
-        boolean trying = true;
-        while (trying) {
-            if (hexBoard.getNeighboursOfCorner(position).isEmpty()) {
-                players.get(currentPlayer).buildSettlement(position);
+    public Settlement placeInitialSettlement(Point position) {
+        Settlement settlement = null;
+        boolean trying;
+
+        do {
+            if (hexBoard.getNeighboursOfCorner(position).isEmpty() && hexBoard.hasCorner(position)) {
+                settlement = new Settlement(position, players.get(currentPlayer));
+                players.get(currentPlayer).addSettlement(settlement);
                 trying = false;
             } else {
-                int x = textIO.newIntInputReader().read("Can't place here cuz of other settlements, try again with another x coordinate");
+                int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate");
                 textTerminal.printf(System.lineSeparator());
-                int y = textIO.newIntInputReader().read("Can't place here cuz of other settlements, try again with another y coordinate");
+                int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate");
                 textTerminal.printf(System.lineSeparator());
                 position = new Point(x, y);
+                trying = true;
             }
-        }
+        } while (trying);
+        return settlement;
     }
 
     public Map<Faction, List<Resource>> throwDice(int dicethrow) {
@@ -100,7 +104,7 @@ public class SiedlerGame {
         boolean trying = true;
         while (trying) {
             if (hexBoard.getNeighboursOfCorner(position).isEmpty()) {
-                players.get(currentPlayer).buildSettlement(position);
+                players.get(currentPlayer).buildSettlement(position, players.get(currentPlayer));
                 trying = false;
             } else {
                 int x = textIO.newIntInputReader().read("Can't place here cuz of other settlements, try again with another x coordinate");

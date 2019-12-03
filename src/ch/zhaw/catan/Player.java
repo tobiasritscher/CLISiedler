@@ -46,6 +46,10 @@ public class Player {
         return settlementsBuilt;
     }
 
+    public void addSettlement(Settlement settlement) {
+        settlementsBuilt.add(settlement);
+    }
+
     public Settlement buildSettlement(Point position, Player player) {
         Settlement settlement = new Settlement(position, player);
 

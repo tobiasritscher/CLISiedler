@@ -17,6 +17,8 @@ public class UI {
     private static TextIO textIO = TextIoFactory.getTextIO();
     private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal) textIO.getTextTerminal();
     private static Dice dice = new Dice();
+    private static SiedlerBoard board = new SiedlerBoard();
+    private static SiedlerBoardTextView view = new SiedlerBoardTextView(board);
 
     public UI() {
 
@@ -52,7 +54,7 @@ public class UI {
 
         switch (choice) {
             case 1:
-                UI.drawSiedlerBoard();
+                UI.initSiedlerBoard();
                 exit = false;
                 break;
             case 2:
@@ -65,11 +67,9 @@ public class UI {
         return exit;
     }
 
-    public static void drawSiedlerBoard() {
-        SiedlerBoard board = new SiedlerBoard();
+    public static void initSiedlerBoard() {
 
-        board.setFields(board);
-        SiedlerBoardTextView view = new SiedlerBoardTextView(board);
+        initBoard();
 //        board.addField(new Point(2, 2), Config.Land.FOREST);
 //        board.setCorner(new Point(3, 3), "RR");
 //        board.setEdge(new Point(2, 0), new Point(3, 1), "r");
@@ -96,10 +96,6 @@ public class UI {
         lowerFieldLabel.put(new Point(9, 17), new ch.zhaw.hexboard.Label('1', '1'));
 
 
-
-        for (Map.Entry<Point, Label> e : lowerFieldLabel.entrySet()) {
-            view.setLowerFieldLabel(e.getKey(), e.getValue());
-        }
         //Bookmark for a blank screen
         textTerminal.resetToBookmark("BLANK_SCREEN");
 
@@ -107,6 +103,20 @@ public class UI {
         textTerminal.println(view.toString());
 
 
+    }
+
+    public static void printBoard(SiedlerBoard hexBoard) {
+        view = new SiedlerBoardTextView(hexBoard);
+        textTerminal.println(view.toString());
+    }
+
+    protected static void initBoard() {
+        Map<Point, Label> lowerFieldLabel = board.getLowerFieldLabels();
+        SiedlerBoardTextView view = new SiedlerBoardTextView(board);
+
+        for (Map.Entry<Point, Label> e : lowerFieldLabel.entrySet()) {
+            view.setLowerFieldLabel(e.getKey(), e.getValue());
+        }
     }
 
     public static int askNumberOfPlayers() {
@@ -120,7 +130,7 @@ public class UI {
         textTerminal.printf(System.lineSeparator());
     }
 
-    public static void throwDices(){
+    public static void throwDices() {
         int diceNumber = dice.roll();
         textTerminal.printf("Throwing dices...it's a %d", diceNumber);
     }

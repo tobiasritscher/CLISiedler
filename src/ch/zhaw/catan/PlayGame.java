@@ -1,6 +1,5 @@
 package ch.zhaw.catan;
 
-import ch.zhaw.hexboard.HexBoard;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
@@ -11,7 +10,8 @@ import java.awt.*;
 
 public class PlayGame {
     private static SiedlerGame siedlerGame;
-    private HexBoard hexBoard = new HexBoard();
+    //    private HexBoard hexBoard = new HexBoard();
+    private SiedlerBoard hexBoard = new SiedlerBoard();
     private int numberOfPlayers;
     Config config = new Config();
     private static TextIO textIO = TextIoFactory.getTextIO();
@@ -58,8 +58,8 @@ public class PlayGame {
 
             Point point = new Point(x, y);
             Point newPoint = siedlerGame.isPointACorner(point);
-            siedlerGame.placeInitialSettlement(newPoint);
-            hexBoard.setCorner(newPoint,siedlerGame.getPlayer().get(i).getFaction().name());
+            hexBoard.setCorner(newPoint, siedlerGame.placeInitialSettlement(newPoint));
+            UI.printBoard(hexBoard);
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the start of your first road");
             textTerminal.resetToBookmark("SHOW_MAP");
@@ -77,7 +77,7 @@ public class PlayGame {
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
             siedlerGame.placeRoad(roadStart, roadEnd);
-            hexBoard.setEdge(roadStart,roadEnd,siedlerGame.getPlayer().get(i).getFaction().name());
+//            hexBoard.setEdge(roadStart,roadEnd,siedlerGame.getPlayer().get(i).getFaction().name());
             textTerminal.println();
         }
 
@@ -91,7 +91,7 @@ public class PlayGame {
             Point point = new Point(x, y);
             Point newPoint = siedlerGame.isPointACorner(point);
             siedlerGame.placeSettlement(newPoint);
-            hexBoard.setCorner(newPoint,siedlerGame.getPlayer().get(i).getFaction().name());
+//            hexBoard.setCorner(newPoint,siedlerGame.getPlayer().get(i).getFaction().name());
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the start of your next road");
             textTerminal.resetToBookmark("SHOW_MAP");
@@ -109,7 +109,7 @@ public class PlayGame {
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
             siedlerGame.placeRoad(roadStart, roadEnd);
-            hexBoard.setEdge(roadStart,roadEnd,siedlerGame.getPlayer().get(i).getFaction().name());
+//            hexBoard.setEdge(roadStart,roadEnd,siedlerGame.getPlayer().get(i).getFaction().name());
         }
     }
 

@@ -6,9 +6,11 @@ public class Settlement {
     private int winPoints = 1;
     private boolean isCity = false;
     private Point position;
+    private Player player;
 
-    public Settlement (Point position){
+    public Settlement(Point position, Player player) {
         this.position = position;
+        this.player = player;
     }
 
     public void setToCity() {
@@ -16,7 +18,7 @@ public class Settlement {
         isCity = true;
     }
 
-    public Point getPosition(){
+    public Point getPosition() {
         return position;
     }
 
@@ -24,5 +26,7 @@ public class Settlement {
         return isCity;
     }
 
-    public int getWinPoints() { return winPoints; }
+    public int getWinPoints() {
+        return winPoints;
+    }
 }
