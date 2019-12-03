@@ -25,13 +25,11 @@ public class Dummy {
         //Setting start point
         textTerminal.setBookmark("MAIN");
 
-        UI.throwDices();
+
         UI.buildStartMenu();
-//        if(choice == 1){
-////            UI.drawSiedlerBoard(textIO, textTerminal);
-////        } else if (choice == 2){
-////            UI.closeTerminal(textIO);
-////        }
+
+        UI.secondPhaseMenu();
+
 
 
 

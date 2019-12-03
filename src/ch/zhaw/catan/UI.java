@@ -28,7 +28,7 @@ public class UI {
 
         //Setting properties of terminal window
         ((SwingTextTerminal) textTerminal).setPromptFontSize(12);
-        textTerminal.getProperties().setPaneDimension(1040, 800);
+        textTerminal.getProperties().setPaneDimension(1040, 840);
     }
 
     public static void closeTerminal() {
@@ -37,20 +37,20 @@ public class UI {
 
     public static boolean buildStartMenu() {
         boolean exit = false;
-        List<String> startMenuElemente = new ArrayList<>();
+        List<String> startMenu = new ArrayList<>();
 
-        textTerminal.print("~~~~~~~~~~~~~~~~~~\n");
-        textTerminal.print("Settlers of Catan\n");
-        textTerminal.print("~~~~~~~~~~~~~~~~~~\n");
-        startMenuElemente.add("1. Start a new game");
-        startMenuElemente.add("2. Quit\n");
-        textTerminal.print(startMenuElemente);
+        UI.print("~~~~~~~~~~~~~~~~~~\n");
+        UI.print("Settlers of Catan\n");
+        UI.print("~~~~~~~~~~~~~~~~~~\n");
+        startMenu.add("1. Start a new game");
+        startMenu.add("2. Quit\n");
+        UI.printList(startMenu);
 
         Integer choice = textIO.newIntInputReader()
                 .withMinVal(1)
                 .withMaxVal(2)
                 .read("Please choose an option: ");
-        textTerminal.println();
+        UI.newLine();
 
         switch (choice) {
             case 1:
@@ -62,7 +62,50 @@ public class UI {
                 exit = true;
                 break;
             default:
-                textTerminal.print("This option isn't implemented yet!");
+                UI.print("This option isn't implemented yet!");
+        }
+        return exit;
+    }
+
+    public static boolean secondPhaseMenu(){
+
+        boolean exit = false;
+        List<String> menuElemente = new ArrayList<>();
+
+        UI.newLine();
+        menuElemente.add("1. Throw da dices");
+        menuElemente.add("2. Build settlement");
+        menuElemente.add("3. Build road");
+        menuElemente.add("4. Exchange with bank");
+        menuElemente.add("5. Show my resources");
+        menuElemente.add("6. Show leaderboard");
+        UI.printList(menuElemente);
+
+        UI.newLine();
+        Integer choice = textIO.newIntInputReader()
+                .withMinVal(1)
+                .withMaxVal(4)
+                .read("Please choose an option:");
+
+        switch(choice){
+            case 1:
+                UI.throwDices();
+                break;
+            case 2:
+                exit = false;
+                break;
+            case 3:
+                exit = false;
+                break;
+            case 4:
+                exit = false;
+                break;
+            case 5:
+                exit = false;
+                break;
+            case 6:
+                exit = false;
+                break;
         }
         return exit;
     }
@@ -97,7 +140,7 @@ public class UI {
 
 
         //Bookmark for a blank screen
-        textTerminal.resetToBookmark("BLANK_SCREEN");
+        UI.resetBookmark("BLANK_SCREEN");
 
         //This prints the map
         textTerminal.println(view.toString());
@@ -141,5 +184,13 @@ public class UI {
 
     public static void resetBookmark(String bookmark){
         textTerminal.resetToBookmark(bookmark);
+    }
+
+    public static void print(String text){
+        textTerminal.print(text);
+    }
+
+    public static void printList(List<String> Elemente){
+        textTerminal.print(Elemente);
     }
 }
