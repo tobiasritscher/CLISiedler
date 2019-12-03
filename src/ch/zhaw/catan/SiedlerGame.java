@@ -61,14 +61,14 @@ public class SiedlerGame {
         return players.get(currentPlayer).getResourcesInPossession().get(resource);
     }
 
-    public Settlement placeInitialSettlement(Point position) {
+    public Settlement placeInitialSettlement(Point position, Player player) {
         Settlement settlement = null;
         boolean trying;
 
         do {
             if (hexBoard.getNeighboursOfCorner(position).isEmpty() && hexBoard.hasCorner(position)) {
                 settlement = new Settlement(position, players.get(currentPlayer));
-                players.get(currentPlayer).addSettlement(settlement);
+                player.addSettlement(settlement);
                 trying = false;
             } else {
                 int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate");
