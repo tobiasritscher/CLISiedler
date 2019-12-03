@@ -16,7 +16,6 @@ public class SiedlerGame {
     private List<Player> players = new ArrayList<>();
     private int currentPlayer = 0;
     private Config config = new Config();
-    private SiedlerBoard hexBoard = new SiedlerBoard();
     private TextIO textIO = TextIoFactory.getTextIO();
     private TextTerminal<?> textTerminal = textIO.getTextTerminal();
     private UI ui = new UI();
@@ -50,10 +49,6 @@ public class SiedlerGame {
         return players;
     }
 
-    public SiedlerBoard getBoard() {
-        return hexBoard;
-    }
-
     public Player getCurrentPlayer() {
         return players.get(currentPlayer);
     }
@@ -62,7 +57,7 @@ public class SiedlerGame {
         return players.get(currentPlayer).getResourcesInPossession().get(resource);
     }
 
-    public Settlement placeInitialSettlement(Point position, Player player) {
+    public Settlement placeInitialSettlement(Point position, Player player, SiedlerBoard hexBoard) {
         Settlement settlement = null;
         boolean trying;
 
