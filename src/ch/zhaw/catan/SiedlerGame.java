@@ -188,9 +188,7 @@ public class SiedlerGame {
     public void placeRoad(Point roadStart, Point roadEnd) {
         boolean running;
         do {
-            if (hexBoard.hasEdge(roadStart, roadEnd) && hexBoard.hasCorner(roadStart) && hexBoard.hasCorner(roadEnd)
-                    && (players.get(currentPlayer).getSettlementsBuilt().contains(hexBoard.getCorner(roadStart))
-                    || players.get(currentPlayer).getSettlementsBuilt().contains(hexBoard.getCorner(roadEnd)))) {
+            if (validRoadPlacement(roadStart, roadEnd)) {
                 players.get(currentPlayer).buildRoad(roadStart, roadEnd);
                 running = false;
             } else {
@@ -204,5 +202,13 @@ public class SiedlerGame {
                 running = true;
             }
         } while (running);
+    }
+
+    private boolean validRoadPlacement(Point roadStart, Point roadEnd) {
+        boolean rightCoordinates = hexBoard.hasEdge(roadStart, roadEnd) && hexBoard.hasCorner(roadStart) && hexBoard.hasCorner(roadEnd);
+        boolean roadStartIsSettlement = players.get(currentPlayer).getSettlementsBuilt().contains(hexBoard.getCorner(roadStart));
+        boolean roadEndIsSettlement = players.get(currentPlayer).getSettlementsBuilt().contains(hexBoard.getCorner(roadEnd));
+
+        return rightCoordinates && (roadStartIsSettlement || roadEndIsSettlement);
     }
 }
