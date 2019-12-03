@@ -22,6 +22,10 @@ public class Settlement {
         return position;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     public boolean getIsCity() {
         return isCity;
     }
