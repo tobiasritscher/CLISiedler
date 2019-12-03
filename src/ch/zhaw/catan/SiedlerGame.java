@@ -20,6 +20,7 @@ public class SiedlerGame {
     private TextIO textIO = TextIoFactory.getTextIO();
     private TextTerminal<?> textTerminal = textIO.getTextTerminal();
     private UI ui = new UI();
+    private static Player player;
 
     public SiedlerGame(int winPoints, int players) {
         createPlayers(players);
@@ -187,7 +188,10 @@ public class SiedlerGame {
     public void placeRoad(Point roadStart, Point roadEnd) {
         boolean running;
         do {
-            if (hexBoard.hasEdge(roadStart, roadEnd)) {
+            if (hexBoard.hasEdge(roadStart, roadEnd) && hexBoard.hasCorner(roadStart) && hexBoard.hasCorner(roadEnd)
+                    && (players.get(currentPlayer).getSettlementsBuilt().contains(hexBoard.getCorner(roadStart))
+                    || players.get(currentPlayer).getSettlementsBuilt().contains(hexBoard.getCorner(roadEnd)))) {
+                players.get(currentPlayer).buildRoad(roadStart, roadEnd);
                 running = false;
             } else {
                 textTerminal.print("Error this points are not on an edge, please try again");
@@ -200,6 +204,5 @@ public class SiedlerGame {
                 running = true;
             }
         } while (running);
-        players.get(currentPlayer).buildRoad(roadStart, roadEnd);
     }
 }
