@@ -30,7 +30,7 @@ public class PlayGame {
             UI.setBookmark("SHOW_MAP");
 
             numberOfPlayers = UI.askNumberOfPlayers();
-            textTerminal.print("Ok, there will be " + numberOfPlayers + " players");
+            UI.print("Ok, there will be " + numberOfPlayers + " players");
             textIO.newStringInputReader()
                     .withMinLength(0)
                     .read("\nPress enter to continue");

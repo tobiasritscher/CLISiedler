@@ -28,6 +28,8 @@ public class Dummy {
 
         UI.buildStartMenu();
 
+        UI.throwDices();
+
         UI.secondPhaseMenu();
 
 

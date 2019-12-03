@@ -19,6 +19,7 @@ public class UI {
     private static Dice dice = new Dice();
     private static SiedlerBoard board = new SiedlerBoard();
     private static SiedlerBoardTextView view = new SiedlerBoardTextView(board);
+    private static Player player;
 
     public UI() {
 
@@ -180,7 +181,7 @@ public class UI {
 
     public static void throwDices() {
         int diceNumber = dice.roll();
-        textTerminal.printf("Throwing dices...it's a %d", diceNumber);
+        textTerminal.printf("A %d has been thrown", diceNumber);
     }
 
     public static void setBookmark(String bookmark) {
