@@ -141,7 +141,7 @@ public class SiedlerGame {
     }
 
 
-    public void createPlayers(int numberOfPlayers) {
+    public int createPlayers(int numberOfPlayers) {
         if (numberOfPlayers < Config.MIN_NUMBER_OF_PLAYERS) {
             numberOfPlayers = Config.MIN_NUMBER_OF_PLAYERS;
         } else if (numberOfPlayers > Faction.values().length) {
@@ -153,6 +153,7 @@ public class SiedlerGame {
             if (counter++ >= numberOfPlayers) break;
             players.add((new Player(faction)));
         }
+        return numberOfPlayers;
     }
 
     public Point isPointACorner(Point point) {
