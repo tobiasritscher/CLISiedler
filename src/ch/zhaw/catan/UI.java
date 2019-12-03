@@ -143,7 +143,7 @@ public class UI {
         UI.resetBookmark("BLANK_SCREEN");
 
         //This prints the map
-        textTerminal.println(view.toString());
+        UI.print(view.toString());
 
 
     }
