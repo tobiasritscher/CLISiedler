@@ -131,8 +131,7 @@ public class PlayGame {
             for (int k = 0; k < 23; k++) {
                 Point point = new Point(i, k);
                 if (hexBoard.hasField(point)) {
-                    if (hexBoard.getCornersOfField(point).isEmpty()) {
-                    } else {
+                    if (!hexBoard.getCornersOfField(point).isEmpty()) {
                         for (int m = 0; m < hexBoard.getCornersOfField(point).size() - 1; m++) {
                             Point position = hexBoard.getCornersOfField(point).get(m).getPosition();
                             hexBoard.getCornersOfField(point).get(m).getPlayer().addResources(Config.getStandardLandPlacement().get(position).getResource(), 1);
