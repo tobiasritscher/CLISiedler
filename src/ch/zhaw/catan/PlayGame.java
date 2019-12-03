@@ -75,8 +75,7 @@ public class PlayGame {
             UI.resetBookmark("SHOW_MAP");
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
-            siedlerGame.placeRoad(roadStart, roadEnd);
-//            hexBoard.setEdge(roadStart,roadEnd,siedlerGame.getPlayer().get(i).getFaction().name());
+            hexBoard.setEdge(roadStart, roadEnd, siedlerGame.placeRoad(roadStart, roadEnd));
             textTerminal.println();
         }
 

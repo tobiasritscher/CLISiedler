@@ -171,7 +171,7 @@ public class SiedlerGame {
         return point;
     }
 
-    public void placeRoad(Point roadStart, Point roadEnd) {
+    public Road placeRoad(Point roadStart, Point roadEnd) {
         boolean running;
         do {
             if (validRoadPlacement(roadStart, roadEnd)) {
@@ -188,6 +188,7 @@ public class SiedlerGame {
                 running = true;
             }
         } while (running);
+        return new Road(roadStart, roadEnd);
     }
 
     private boolean validRoadPlacement(Point roadStart, Point roadEnd) {
