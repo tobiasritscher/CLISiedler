@@ -101,21 +101,7 @@ public class SiedlerGame {
         return resourceMap;
     }
 
-    public void placeSettlement(Point position) {
-        boolean trying = true;
-        while (trying) {
-            if (hexBoard.getNeighboursOfCorner(position).isEmpty()) {
-                players.get(currentPlayer).buildSettlement(position, players.get(currentPlayer));
-                trying = false;
-            } else {
-                int x = textIO.newIntInputReader().read("Can't place here cuz of other settlements, try again with another x coordinate");
-                UI.newLine();
-                int y = textIO.newIntInputReader().read("Can't place here cuz of other settlements, try again with another y coordinate");
-                UI.newLine();
-                position = new Point(x, y);
-            }
-        }
-    }
+
 
     public boolean placeCity(Point position) { //TODO: test and bugfix
 
@@ -175,9 +161,9 @@ public class SiedlerGame {
             if (HexBoard.isCornerCoordinate(point)) {
                 running = false;
             } else {
-                textTerminal.print("Error this point is not on a corner, please");
-                int x = textIO.newIntInputReader().read("try again with a new x coordinate");
-                int y = textIO.newIntInputReader().read("try again with a new y coordinate");
+                textTerminal.print("Error this point is not on a corner, please try again");
+                int x = textIO.newIntInputReader().read("Try again with a new x coordinate");
+                int y = textIO.newIntInputReader().read("Try again with a new y coordinate");
                 point = new Point(x, y);
                 running = true;
             }
@@ -185,23 +171,24 @@ public class SiedlerGame {
         return point;
     }
 
-    public void placeRoad(Point roadStart, Point roadEnd) {
+    public Road placeRoad(Point roadStart, Point roadEnd) {
         boolean running;
         do {
             if (validRoadPlacement(roadStart, roadEnd)) {
                 players.get(currentPlayer).buildRoad(roadStart, roadEnd);
                 running = false;
             } else {
-                textTerminal.print("Error this points are not on an edge, please ");
-                int a = textIO.newIntInputReader().read("try again with a new x coordinate for roadstart");
-                int b = textIO.newIntInputReader().read("try again with a new y coordinate for roadstart");
+                textTerminal.print("Error this points are not on an edge, please try again");
+                int a = textIO.newIntInputReader().read("Try again with a new x coordinate for roadstart");
+                int b = textIO.newIntInputReader().read("Try again with a new y coordinate for roadstart");
                 roadStart = new Point(a, b);
-                int x = textIO.newIntInputReader().read("try again with a new x coordinate for roadend");
-                int y = textIO.newIntInputReader().read("try again with a new y coordinate for roadend");
+                int x = textIO.newIntInputReader().read("Try again with a new x coordinate for roadend");
+                int y = textIO.newIntInputReader().read("Try again with a new y coordinate for roadend");
                 roadEnd = new Point(x, y);
                 running = true;
             }
         } while (running);
+        return new Road(roadStart, roadEnd);
     }
 
     private boolean validRoadPlacement(Point roadStart, Point roadEnd) {

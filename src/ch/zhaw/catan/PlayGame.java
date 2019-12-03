@@ -10,7 +10,6 @@ import java.awt.*;
 
 public class PlayGame {
     private static SiedlerGame siedlerGame;
-    //    private HexBoard hexBoard = new HexBoard();
     private SiedlerBoard hexBoard = new SiedlerBoard();
     private int numberOfPlayers;
     Config config = new Config();
@@ -76,8 +75,7 @@ public class PlayGame {
             UI.resetBookmark("SHOW_MAP");
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
-            siedlerGame.placeRoad(roadStart, roadEnd);
-//            hexBoard.setEdge(roadStart,roadEnd,siedlerGame.getPlayer().get(i).getFaction().name());
+            hexBoard.setEdge(roadStart, roadEnd, siedlerGame.placeRoad(roadStart, roadEnd));
             textTerminal.println();
         }
 
@@ -89,9 +87,7 @@ public class PlayGame {
             UI.resetBookmark("SHOW_MAP");
 
             Point point = new Point(x, y);
-            Point newPoint = siedlerGame.isPointACorner(point);
-            siedlerGame.placeSettlement(newPoint);
-//            hexBoard.setCorner(newPoint,siedlerGame.getPlayer().get(i).getFaction().name());
+            hexBoard.setCorner(point, siedlerGame.placeInitialSettlement(point, siedlerGame.getPlayer().get(i)));
 
             int xRoadStart = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for the start of your next road");
             UI.resetBookmark("SHOW_MAP");
@@ -126,7 +122,6 @@ public class PlayGame {
     public boolean isCornerFree(Point corner) {
         return hexBoard.getNeighboursOfCorner(corner).isEmpty();
     }
-
 
 
     public static void main(String[] Args) {

@@ -67,7 +67,7 @@ public class UI {
         return exit;
     }
 
-    public static boolean secondPhaseMenu(){
+    public static boolean secondPhaseMenu() {
 
         boolean exit = false;
         List<String> menuElemente = new ArrayList<>();
@@ -87,7 +87,7 @@ public class UI {
                 .withMaxVal(4)
                 .read("Please choose an option:");
 
-        switch(choice){
+        switch (choice) {
             case 1:
                 UI.throwDices();
                 break;
@@ -105,6 +105,9 @@ public class UI {
                 break;
             case 6:
                 exit = false;
+                break;
+            case 7:
+                exit = true;
                 break;
         }
         return exit;
@@ -178,19 +181,19 @@ public class UI {
         textTerminal.printf("Throwing dices...it's a %d", diceNumber);
     }
 
-    public static void setBookmark(String bookmark){
+    public static void setBookmark(String bookmark) {
         textTerminal.setBookmark(bookmark);
     }
 
-    public static void resetBookmark(String bookmark){
+    public static void resetBookmark(String bookmark) {
         textTerminal.resetToBookmark(bookmark);
     }
 
-    public static void print(String text){
+    public static void print(String text) {
         textTerminal.print(text);
     }
 
-    public static void printList(List<String> Elemente){
+    public static void printList(List<String> Elemente) {
         textTerminal.print(Elemente);
     }
 }
