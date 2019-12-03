@@ -29,4 +29,8 @@ public class Settlement {
     public int getWinPoints() {
         return winPoints;
     }
+
+    public String getFaction() {
+        return player.getFaction().toString().toUpperCase();
+    }
 }
