@@ -18,7 +18,6 @@ public class Player {
     private Faction faction;
     private TextIO textIO = TextIoFactory.getTextIO();
     private TextTerminal<?> textTerminal = textIO.getTextTerminal();
-    private SiedlerBoard hexBoard = new SiedlerBoard();
 
     public Player(Faction faction) {
         resourcesInPossession = new ResourceStock();
@@ -47,7 +46,7 @@ public class Player {
         settlementsBuilt.add(settlement);
     }
 
-    public boolean buildSettlement(Point position, Player player) {
+    public boolean buildSettlement(Point position, Player player, SiedlerBoard hexBoard) {
         Settlement settlement;
         boolean wrongAwnser;
         boolean result = false;

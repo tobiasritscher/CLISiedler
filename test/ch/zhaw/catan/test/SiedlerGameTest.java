@@ -1,10 +1,14 @@
 package test;
 
+import ch.zhaw.catan.Config;
 import ch.zhaw.catan.SiedlerGame;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 class SiedlerGameTest {
 
@@ -50,6 +54,20 @@ class SiedlerGameTest {
 
     @Test
     void getCurrentPlayerResourceStock() {
+        Map<Config.Resource, Integer> testResources = new HashMap<>();
+        testResources.put(Config.Resource.GRAIN, 1);
+        testResources.put(Config.Resource.WOOD, 1);
+        testResources.put(Config.Resource.WOOL, 1);
+        testResources.put(Config.Resource.STONE, 1);
+        testResources.put(Config.Resource.CLAY, 1);
+
+        siedlergame.getCurrentPlayer().addResources(Config.Resource.GRAIN, 1);
+        siedlergame.getCurrentPlayer().addResources(Config.Resource.WOOD, 1);
+        siedlergame.getCurrentPlayer().addResources(Config.Resource.WOOL, 1);
+        siedlergame.getCurrentPlayer().addResources(Config.Resource.STONE, 1);
+        siedlergame.getCurrentPlayer().addResources(Config.Resource.CLAY, 1);
+
+        Assertions.assertEquals(testResources, siedlergame.getCurrentPlayer().getResourcesInPossession());
     }
 
     @Test
