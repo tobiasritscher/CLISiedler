@@ -6,7 +6,7 @@ import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -18,7 +18,6 @@ public class Player {
     private Faction faction;
     private TextIO textIO = TextIoFactory.getTextIO();
     private TextTerminal<?> textTerminal = textIO.getTextTerminal();
-    private UI ui = new UI();
     private SiedlerBoard hexBoard = new SiedlerBoard();
 
     public Player(Faction faction) {
