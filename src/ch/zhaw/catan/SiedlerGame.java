@@ -101,21 +101,7 @@ public class SiedlerGame {
         return resourceMap;
     }
 
-    public void placeSettlement(Point position) {
-        boolean trying = true;
-        while (trying) {
-            if (hexBoard.getNeighboursOfCorner(position).isEmpty()) {
-                players.get(currentPlayer).buildSettlement(position, players.get(currentPlayer));
-                trying = false;
-            } else {
-                int x = textIO.newIntInputReader().read("Can't place here cuz of other settlements, try again with another x coordinate");
-                textTerminal.printf(System.lineSeparator());
-                int y = textIO.newIntInputReader().read("Can't place here cuz of other settlements, try again with another y coordinate");
-                textTerminal.printf(System.lineSeparator());
-                position = new Point(x, y);
-            }
-        }
-    }
+
 
     public boolean placeCity(Point position) { //TODO: test and bugfix
 
