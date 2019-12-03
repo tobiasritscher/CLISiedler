@@ -134,4 +134,12 @@ public class UI {
         int diceNumber = dice.roll();
         textTerminal.printf("Throwing dices...it's a %d", diceNumber);
     }
+
+    public static void setBookmark(String bookmark){
+        textTerminal.setBookmark(bookmark);
+    }
+
+    public static void resetBookmark(String bookmark){
+        textTerminal.resetToBookmark(bookmark);
+    }
 }
