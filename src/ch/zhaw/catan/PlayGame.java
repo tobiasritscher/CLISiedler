@@ -46,7 +46,7 @@ public class PlayGame {
 
     public void firstPhase() {
 
-        for (int i = 0; i < siedlerGame.getPlayer().size(); i++) {
+        for (int i = 0; i < siedlerGame.getPlayer().size() - 1; i++) {
             UI.resetBookmark("SHOW_MAP");
 
             int x = textIO.newIntInputReader().read(siedlerGame.getPlayer().get(i).getFaction().name() + " please pick a x coordinate for your first settlement");
@@ -123,6 +123,7 @@ public class PlayGame {
         return hexBoard.getNeighboursOfCorner(corner).isEmpty();
     }
 
+    //TODO: not working: (0,0) is not a field
     public void giveResourcesAfterFirstPhase() {
         for (int i = 0; i < 13; i++) {
             for (int k = 0; k < 23; k++) {
