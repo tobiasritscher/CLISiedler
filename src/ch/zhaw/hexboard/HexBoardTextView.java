@@ -48,22 +48,22 @@ import java.util.Map;
  * them. The second one has all edges corner and the upper field label defined
  * by calling the corresponding method for creating the Label for the associated
  * data object.
- *
+ * 
  * <pre>
- *        DEFAULT                LABELS FROM DATA
- *
+ *        DEFAULT                LABELS FROM DATA 
+ *                       
  *          (  )                       (CL)
  *        //    \\                   EL    EL
  *    //            \\           EL     N      EL
- * (  )              (  )     (CL) NE        NW (CL)
- *  ||                ||       EL       UL       EL
+ * (  )              (  )     (CL) NE        NW (CL)   
+ *  ||                ||       EL       UL       EL    
  *  ||                ||       EL                EL
  * (  )              (  )     (CL) SE        SW (CL)
  *    \\            //           EL     S      EL
  *        \\    //                   EL    EL
  *          (  )                       (CL)
  * </pre>
- * <p>
+ * 
  * To override the default behavior, which creates a Label using the two first
  * characters of the string returned by the toString() method of the
  * edge/corner/field data object, you might override the respective methods.
@@ -73,9 +73,9 @@ import java.util.Map;
  * field coordinates and associated labels. An example of a representation with
  * all field annotations, corner labels and field labels defined but default
  * edges is the following:
- *
+ * 
  * <pre>
- *          (CL)
+ *          (CL) 
  *        // N  \\
  *    //            \\
  * (CL) NE        NW (CL)
@@ -87,278 +87,280 @@ import java.util.Map;
  *          (CL)
  * </pre>
  * </p>
- *
+ * 
  * @param <F> See {@link ch.zhaw.hexboard.HexBoard}
  * @param <C> See {@link ch.zhaw.hexboard.HexBoard}
  * @param <E> See {@link ch.zhaw.hexboard.HexBoard}
  * @param <A> See {@link ch.zhaw.hexboard.HexBoard}
+ * 
+ * 
  * @author tebe
  */
 public class HexBoardTextView<F, C, E, A> {
 
-    private final HexBoard<F, C, E, A> board;
-    private final Label emptyLabel = new Label(' ', ' ');
-    private final Label defaultDiagonalEdgeDownLabel = new Label('\\', '\\');
-    private final Label defaultDiagonalEdgeUpLabel = new Label('/', '/');
-    private final Label defaultVerticalEdgeLabel = new Label('|', '|');
-    private Map<Point, Label> fixedLowerFieldLabels;
+  private final HexBoard<F, C, E, A> board;
+  private final Label emptyLabel = new Label(' ', ' ');
+  private final Label defaultDiagonalEdgeDownLabel = new Label('\\', '\\');
+  private final Label defaultDiagonalEdgeUpLabel = new Label('/', '/');
+  private final Label defaultVerticalEdgeLabel = new Label('|', '|');
+  private Map<Point, Label> fixedLowerFieldLabels;
 
-    /**
-     * Creates a view for the specified board.
-     *
-     * @param board the board
-     */
-    public HexBoardTextView(HexBoard<F, C, E, A> board) {
-        this.fixedLowerFieldLabels = new HashMap<>();
-        this.board = board;
+  /**
+   * Creates a view for the specified board.
+   * 
+   * @param board the board
+   */
+  public HexBoardTextView(HexBoard<F, C, E, A> board) {
+    this.fixedLowerFieldLabels = new HashMap<>();
+    this.board = board;
+  }
+
+  /**
+   * Sets the lower field label for the specified field.
+   * 
+   * @param field the field
+   * @param label the label
+   * @throws IllegalArgumentException if arguments are null or if the field does
+   *                                  not exist
+   */
+  public void setLowerFieldLabel(Point field, Label label) {
+    if (field == null || label == null || !board.hasField(field)) {
+      throw new IllegalArgumentException("Argument(s) must not be null and field must exist.");
     }
+    fixedLowerFieldLabels.put(field, label);
+  }
 
-    /**
-     * Sets the lower field label for the specified field.
-     *
-     * @param field the field
-     * @param label the label
-     * @throws IllegalArgumentException if arguments are null or if the field does
-     *                                  not exist
-     */
-    public void setLowerFieldLabel(Point field, Label label) {
-        if (field == null || label == null || !board.hasField(field)) {
-            throw new IllegalArgumentException("Argument(s) must not be null and field must exist.");
-        }
-        fixedLowerFieldLabels.put(field, label);
+  /**
+   * Returns a label to be used as label for the edge. This method is called to
+   * determine the label for this edge.
+   * 
+   * @param e edge data object
+   * @return the label
+   */
+  protected Label getEdgeLabel(E e) {
+    return deriveLabelFromToStringRepresentation(e);
+  }
+
+  /**
+   * Returns a label to be used as label for the corner. This method is called to
+   * determine the label for this corner.
+   * 
+   * @param c corner data object
+   * @return the label
+   */
+  protected Label getCornerLabel(C c) {
+    return deriveLabelFromToStringRepresentation(c);
+  }
+
+  /**
+   * Returns a label to be used as upper label for the field. This method is
+   * called to determine the upper label for this field.
+   * 
+   * @param f field data object
+   * @return the label
+   */
+  protected Label getFieldLabelUpper(F f) {
+    return deriveLabelFromToStringRepresentation(f);
+  }
+
+  /**
+   * Returns a label to be used as lower label for the field at this position.
+   * This method is called to determine the lower label for this field.
+   * 
+   * @param p location of the field
+   * @return the label
+   */
+  private Label getFieldLabelLower(Point p) {
+    Label l = this.fixedLowerFieldLabels.get(p);
+    l = l == null ? emptyLabel : l;
+    return l;
+  }
+
+  private Label deriveLabelFromToStringRepresentation(Object o) {
+    Label label = emptyLabel;
+    if (o.toString().length() > 0) {
+      String s = o.toString();
+      if (s.length() > 1) {
+        return new Label(s.charAt(0), s.charAt(1));
+      } else {
+        return new Label(s.charAt(0), ' ');
+      }
     }
+    return label;
+  }
 
-    /**
-     * Returns a label to be used as label for the edge. This method is called to
-     * determine the label for this edge.
-     *
-     * @param e edge data object
-     * @return the label
-     */
-    protected Label getEdgeLabel(E e) {
-        return deriveLabelFromToStringRepresentation(e);
+  /**
+   * <p>
+   * This method returns a single-line string with all corners and field
+   * annotations for a given y-coordinate. It produces the string by iterating
+   * over corner positions and appending per corner:
+   * </p>
+   * <p>
+   * "(CL) NE NW " for y%3==1 "(CL) SE SW " for y%3==0
+   * </p>
+   * <p>
+   * Corners/labels that do not exist are replaced by spaces.
+   * </p>
+   */
+  private String printCornerLine(int y) {
+    String cornerLine = "";
+    int offset = 0;
+    if (y % 2 != 0) {
+      cornerLine += "         ";
+      offset = 1;
     }
+    for (int x = offset; x <= board.getMaxCoordinateX(); x = x + 2) {
+      Point p = new Point(x, y);
+      Label cornerLabel = emptyLabel;
 
-    /**
-     * Returns a label to be used as label for the corner. This method is called to
-     * determine the label for this corner.
-     *
-     * @param c corner data object
-     * @return the label
-     */
-    protected Label getCornerLabel(C c) {
-        return deriveLabelFromToStringRepresentation(c);
+      // handle corner labels for corners other than north and south corners
+      Point center;
+      Label first = null;
+      Label second = null;
+      switch (y % 3) {
+        case 0:
+          center = new Point(x + 1, y - 1);
+          first = this.getAnnotationLabel(
+              board.getFieldAnnotation(center, new Point(center.x - 1, center.y + 1)));
+          second = this.getAnnotationLabel(
+              board.getFieldAnnotation(center, new Point(center.x + 1, center.y + 1)));
+          break;
+        case 1:
+          center = new Point(x + 1, y + 1);
+          first = this.getAnnotationLabel(
+              board.getFieldAnnotation(center, new Point(center.x - 1, center.y - 1)));
+          second = this.getAnnotationLabel(
+              board.getFieldAnnotation(center, new Point(center.x + 1, center.y - 1)));
+          break;
+        default:
+          throw new IllegalArgumentException("Not a corner line"); 
+      }
+
+      if (board.hasCorner(p)) {
+        cornerLabel = board.getCorner(p) != null ? getCornerLabel(board.getCorner(p)) : emptyLabel;
+        cornerLine += "(" + cornerLabel.getFirst() + cornerLabel.getSecond() + ")";
+      } else {
+        cornerLine += "    ";
+      }
+      cornerLine += " " + first.getFirst() + first.getSecond() + "        " + second.getFirst()
+          + second.getSecond() + " ";
     }
+    return cornerLine;
+  }
 
-    /**
-     * Returns a label to be used as upper label for the field. This method is
-     * called to determine the upper label for this field.
-     *
-     * @param f field data object
-     * @return the label
-     */
-    protected Label getFieldLabelUpper(F f) {
-        return deriveLabelFromToStringRepresentation(f);
+  private Label getAnnotationLabel(A annotation) {
+    if (annotation == null) {
+      return emptyLabel;
+    } else {
+      return deriveLabelFromToStringRepresentation(annotation);
     }
+  }
 
-    /**
-     * Returns a label to be used as lower label for the field at this position.
-     * This method is called to determine the lower label for this field.
-     *
-     * @param p location of the field
-     * @return the label
-     */
-    private Label getFieldLabelLower(Point p) {
-        Label l = this.fixedLowerFieldLabels.get(p);
-        l = l == null ? emptyLabel : l;
-        return l;
-    }
+  private String printMiddlePartOfField(int y) {
+    boolean isOffsetRow = (y - 2) % 6 == 0;
+    String lower = isOffsetRow ? "         " : "";
+    String upper = lower;
+    int xstart = isOffsetRow ? 2 : 1;
 
-    private Label deriveLabelFromToStringRepresentation(Object o) {
-        Label label = emptyLabel;
-        if (o.toString().length() > 0) {
-            String s = o.toString();
-            if (s.length() > 1) {
-                return new Label(s.charAt(0), s.charAt(1));
-            } else {
-                return new Label(s.charAt(0), ' ');
-            }
-        }
-        return label;
-    }
-
-    /**
-     * <p>
-     * This method returns a single-line string with all corners and field
-     * annotations for a given y-coordinate. It produces the string by iterating
-     * over corner positions and appending per corner:
-     * </p>
-     * <p>
-     * "(CL) NE NW " for y%3==1 "(CL) SE SW " for y%3==0
-     * </p>
-     * <p>
-     * Corners/labels that do not exist are replaced by spaces.
-     * </p>
-     */
-    private String printCornerLine(int y) {
-        String cornerLine = "";
-        int offset = 0;
-        if (y % 2 != 0) {
-            cornerLine += "         ";
-            offset = 1;
-        }
-        for (int x = offset; x <= board.getMaxCoordinateX(); x = x + 2) {
-            Point p = new Point(x, y);
-            Label cornerLabel = emptyLabel;
-
-            // handle corner labels for corners other than north and south corners
-            Point center;
-            Label first = null;
-            Label second = null;
-            switch (y % 3) {
-                case 0:
-                    center = new Point(x + 1, y - 1);
-                    first = this.getAnnotationLabel(
-                            board.getFieldAnnotation(center, new Point(center.x - 1, center.y + 1)));
-                    second = this.getAnnotationLabel(
-                            board.getFieldAnnotation(center, new Point(center.x + 1, center.y + 1)));
-                    break;
-                case 1:
-                    center = new Point(x + 1, y + 1);
-                    first = this.getAnnotationLabel(
-                            board.getFieldAnnotation(center, new Point(center.x - 1, center.y - 1)));
-                    second = this.getAnnotationLabel(
-                            board.getFieldAnnotation(center, new Point(center.x + 1, center.y - 1)));
-                    break;
-                default:
-                    throw new IllegalArgumentException("Not a corner line");
-            }
-
-            if (board.hasCorner(p)) {
-                cornerLabel = board.getCorner(p) != null ? getCornerLabel(board.getCorner(p)) : emptyLabel;
-                cornerLine += "(" + cornerLabel.getFirst() + cornerLabel.getSecond() + ")";
-            } else {
-                cornerLine += "    ";
-            }
-            cornerLine += " " + first.getFirst() + first.getSecond() + "        " + second.getFirst()
-                    + second.getSecond() + " ";
-        }
-        return cornerLine;
-    }
-
-    private Label getAnnotationLabel(A annotation) {
-        if (annotation == null) {
-            return emptyLabel;
+    for (int x = xstart; x <= board.getMaxCoordinateX() + 1; x = x + 2) {
+      Point edgeStart = new Point(x - 1, y - 1);
+      Point edgeEnd = new Point(x - 1, y + 1);
+      Label l = this.emptyLabel;
+      if (board.hasEdge(edgeStart, edgeEnd)) {
+        E edge = board.getEdge(edgeStart, edgeEnd);
+        if (edge != null) {
+          l = this.getEdgeLabel(edge);
         } else {
-            return deriveLabelFromToStringRepresentation(annotation);
+          l = this.defaultVerticalEdgeLabel;
         }
+      }
+      Point center = new Point(x, y);
+      boolean hasFieldWithData = board.hasField(center) && board.getField(center) != null;
+      Label lowerFieldLabel = hasFieldWithData ? getFieldLabelLower(center) : emptyLabel;
+      Label upperFieldLabel = hasFieldWithData ? getFieldLabelUpper(board.getField(center))
+          : emptyLabel;
+      lower += " " + l.getFirst() + l.getSecond() + "       " + lowerFieldLabel.getFirst()
+          + lowerFieldLabel.getSecond() + "      ";
+      upper += " " + l.getFirst() + l.getSecond() + "       " + upperFieldLabel.getFirst()
+          + upperFieldLabel.getSecond() + "      ";
+    }
+    return upper + System.lineSeparator() + lower;
+  }
+
+  private void printDiagonalEdge(StringBuilder upper, StringBuilder lower, boolean down, Label l,
+      Label annotationLabel) {
+    if (down) {
+      upper.append(" " + l.getFirst() + l.getSecond() + "     " + annotationLabel.getFirst());
+      lower.append("    " + l.getFirst() + l.getSecond() + "  " + annotationLabel.getSecond());
+    } else {
+      upper.append("    " + l.getFirst() + l.getSecond() + "  " + annotationLabel.getFirst());
+      lower.append(" " + l.getFirst() + l.getSecond() + "     " + annotationLabel.getSecond());
+    }
+  }
+
+  private String printDiagonalEdges(int y) {
+    StringBuilder sbUpper = new StringBuilder();
+    StringBuilder sbLower = new StringBuilder();
+    boolean isDown = false;
+    if (y % 6 == 0) {
+      isDown = true;
     }
 
-    private String printMiddlePartOfField(int y) {
-        boolean isOffsetRow = (y - 2) % 6 == 0;
-        String lower = isOffsetRow ? "         " : "";
-        String upper = lower;
-        int xstart = isOffsetRow ? 2 : 1;
-
-        for (int x = xstart; x <= board.getMaxCoordinateX() + 1; x = x + 2) {
-            Point edgeStart = new Point(x - 1, y - 1);
-            Point edgeEnd = new Point(x - 1, y + 1);
-            Label l = this.emptyLabel;
-            if (board.hasEdge(edgeStart, edgeEnd)) {
-                E edge = board.getEdge(edgeStart, edgeEnd);
-                if (edge != null) {
-                    l = this.getEdgeLabel(edge);
-                } else {
-                    l = this.defaultVerticalEdgeLabel;
-                }
-            }
-            Point center = new Point(x, y);
-            boolean hasFieldWithData = board.hasField(center) && board.getField(center) != null;
-            Label lowerFieldLabel = hasFieldWithData ? getFieldLabelLower(center) : emptyLabel;
-            Label upperFieldLabel = hasFieldWithData ? getFieldLabelUpper(board.getField(center))
-                    : emptyLabel;
-            lower += " " + l.getFirst() + l.getSecond() + "       " + lowerFieldLabel.getFirst()
-                    + lowerFieldLabel.getSecond() + "      ";
-            upper += " " + l.getFirst() + l.getSecond() + "       " + upperFieldLabel.getFirst()
-                    + upperFieldLabel.getSecond() + "      ";
-        }
-        return upper + System.lineSeparator() + lower;
-    }
-
-    private void printDiagonalEdge(StringBuilder upper, StringBuilder lower, boolean down, Label l,
-                                   Label annotationLabel) {
-        if (down) {
-            upper.append(" " + l.getFirst() + l.getSecond() + "     " + annotationLabel.getFirst());
-            lower.append("    " + l.getFirst() + l.getSecond() + "  " + annotationLabel.getSecond());
+    Point edgeStart;
+    Point edgeEnd;
+    A annotation = null;
+    Label l;
+    sbUpper.append("   ");
+    sbLower.append("   ");
+    for (int x = 0; x <= board.getMaxCoordinateX(); x = x + 1) {
+      if (isDown) {
+        edgeStart = new Point(x, y);
+        edgeEnd = new Point(x + 1, y + 1);
+        annotation = board.getFieldAnnotation(new Point(x + 1, y - 1), new Point(x + 1, y + 1));
+      } else {
+        edgeStart = new Point(x, y + 1);
+        edgeEnd = new Point(x + 1, y);
+        annotation = board.getFieldAnnotation(new Point(x + 1, y + 2), new Point(x + 1, y));
+      }
+      // does the edge exist?
+      if (board.hasEdge(edgeStart, edgeEnd)) {
+        // does it have data associated with it?
+        if (board.getEdge(edgeStart, edgeEnd) != null) {
+          l = this.getEdgeLabel(board.getEdge(edgeStart, edgeEnd));
         } else {
-            upper.append("    " + l.getFirst() + l.getSecond() + "  " + annotationLabel.getFirst());
-            lower.append(" " + l.getFirst() + l.getSecond() + "     " + annotationLabel.getSecond());
+          // default visualization
+          l = isDown ? this.defaultDiagonalEdgeDownLabel : this.defaultDiagonalEdgeUpLabel;
         }
+      } else {
+        l = this.emptyLabel;
+
+      }
+      this.printDiagonalEdge(sbUpper, sbLower, isDown, l, this.getAnnotationLabel(annotation));
+      isDown = !isDown;
     }
+    return sbUpper.toString() + System.lineSeparator() + sbLower.toString();
+  }
 
-    private String printDiagonalEdges(int y) {
-        StringBuilder sbUpper = new StringBuilder();
-        StringBuilder sbLower = new StringBuilder();
-        boolean isDown = false;
-        if (y % 6 == 0) {
-            isDown = true;
-        }
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    for (int y = 0; y <= board.getMaxCoordinateY(); y = y + 3) {
+      sb.append(printCornerLine(y));
+      sb.append(System.lineSeparator());
+      sb.append(printDiagonalEdges(y));
+      sb.append(System.lineSeparator());
+      sb.append(printCornerLine(y + 1));
+      sb.append(System.lineSeparator());
+      sb.append(printMiddlePartOfField(y + 2));
+      sb.append(System.lineSeparator());
 
-        Point edgeStart;
-        Point edgeEnd;
-        A annotation = null;
-        Label l;
-        sbUpper.append("   ");
-        sbLower.append("   ");
-        for (int x = 0; x <= board.getMaxCoordinateX(); x = x + 1) {
-            if (isDown) {
-                edgeStart = new Point(x, y);
-                edgeEnd = new Point(x + 1, y + 1);
-                annotation = board.getFieldAnnotation(new Point(x + 1, y - 1), new Point(x + 1, y + 1));
-            } else {
-                edgeStart = new Point(x, y + 1);
-                edgeEnd = new Point(x + 1, y);
-                annotation = board.getFieldAnnotation(new Point(x + 1, y + 2), new Point(x + 1, y));
-            }
-            // does the edge exist?
-            if (board.hasEdge(edgeStart, edgeEnd)) {
-                // does it have data associated with it?
-                if (board.getEdge(edgeStart, edgeEnd) != null) {
-                    l = this.getEdgeLabel(board.getEdge(edgeStart, edgeEnd));
-                } else {
-                    // default visualization
-                    l = isDown ? this.defaultDiagonalEdgeDownLabel : this.defaultDiagonalEdgeUpLabel;
-                }
-            } else {
-                l = this.emptyLabel;
-
-            }
-            this.printDiagonalEdge(sbUpper, sbLower, isDown, l, this.getAnnotationLabel(annotation));
-            isDown = !isDown;
-        }
-        return sbUpper.toString() + System.lineSeparator() + sbLower.toString();
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (int y = 0; y <= board.getMaxCoordinateY(); y = y + 3) {
-            sb.append(printCornerLine(y));
-            sb.append(System.lineSeparator());
-            sb.append(printDiagonalEdges(y));
-            sb.append(System.lineSeparator());
-            sb.append(printCornerLine(y + 1));
-            sb.append(System.lineSeparator());
-            sb.append(printMiddlePartOfField(y + 2));
-            sb.append(System.lineSeparator());
-
-        }
-        return sb.toString();
-    }
+    return sb.toString();
+  }
 
 }
