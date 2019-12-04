@@ -145,7 +145,6 @@ class PlayerTest {
         resourceStockBlue.add(Config.Resource.WOOL,1);
         resourceStockBlue.add(Config.Resource.WOOL,1);
         resourceStockBlue.add(Config.Resource.STONE,1);
-        resourceStockBlue.add(Config.Resource.GRAIN,1);
         resourceStockBlue.add(Config.Resource.WOOD,1);
 
         ResourceStock resourceStockRed = new ResourceStock();

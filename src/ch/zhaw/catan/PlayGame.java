@@ -6,7 +6,6 @@ import org.beryx.textio.TextTerminal;
 import org.beryx.textio.swing.SwingTextTerminal;
 
 import java.awt.*;
-import java.util.HashMap;
 
 
 public class PlayGame {
@@ -118,12 +117,12 @@ public class PlayGame {
     //TODO: not working: (0,0) is not a field
     public void giveResourcesAfterFirstPhase(SiedlerBoard hexBoard) {
         for (Point field : hexBoard.getFields()) {
-            if (!hexBoard.getCornersOfField(field).isEmpty()) {
-                for (Settlement settlement : hexBoard.getCornersOfField(field)) {
-                    settlement.getPlayer().addResources(Config.getStandardLandPlacement().get(field).getResource(), 1);
-                    HashMap<Config.Resource, Integer> hashMap = new HashMap<>();
-                    hashMap.put(Config.getStandardLandPlacement().get(field).getResource(), 1);
-                    UI.print(settlement.getFaction() + " has recieved 1 " + Config.getStandardLandPlacement().get(field).getResource().toString() + '\n');
+            if (hexBoard.getField(field) != Config.Land.DESERT && hexBoard.getField(field) != Config.Land.WATER) {
+                if (!hexBoard.getCornersOfField(field).isEmpty()) {
+                    for (Settlement settlement : hexBoard.getCornersOfField(field)) {
+                        settlement.getPlayer().addResources(hexBoard.getField(field).getResource(), 1);
+                        UI.print(settlement.getFaction() + " has recieved 1 " + hexBoard.getField(field).getResource() + '\n');
+                    }
                 }
             }
         }
