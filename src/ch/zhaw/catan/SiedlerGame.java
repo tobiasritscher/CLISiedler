@@ -45,7 +45,7 @@ public class SiedlerGame {
         }
     }
 
-    public List<Player> getPlayer() {
+    public List<Player> getPlayers() {
         return players;
     }
 

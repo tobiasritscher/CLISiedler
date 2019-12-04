@@ -26,21 +26,21 @@ class SiedlerGameTest {
     @Test
     void switchToNextPlayer() {
         siedlergame.switchToNextPlayer();
-        Assertions.assertEquals(siedlergame.getPlayer().get(1), siedlergame.getCurrentPlayer());
+        Assertions.assertEquals(siedlergame.getPlayers().get(1), siedlergame.getCurrentPlayer());
     }
 
     @Test
     void switchToPreviousPlayer() {
         siedlergame.switchToPreviousPlayer();
-        Assertions.assertEquals(siedlergame.getPlayer().get(3), siedlergame.getCurrentPlayer());
+        Assertions.assertEquals(siedlergame.getPlayers().get(3), siedlergame.getCurrentPlayer());
     }
 
     @Test
     void getPlayer() {
-        Assertions.assertEquals("rr", siedlergame.getPlayer().get(0).getFaction().toString());
-        Assertions.assertEquals("bb", siedlergame.getPlayer().get(1).getFaction().toString());
-        Assertions.assertEquals("gg", siedlergame.getPlayer().get(2).getFaction().toString());
-        Assertions.assertEquals("yy", siedlergame.getPlayer().get(3).getFaction().toString());
+        Assertions.assertEquals("rr", siedlergame.getPlayers().get(0).getFaction().toString());
+        Assertions.assertEquals("bb", siedlergame.getPlayers().get(1).getFaction().toString());
+        Assertions.assertEquals("gg", siedlergame.getPlayers().get(2).getFaction().toString());
+        Assertions.assertEquals("yy", siedlergame.getPlayers().get(3).getFaction().toString());
     }
 
     @Test

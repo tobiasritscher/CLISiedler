@@ -46,9 +46,10 @@ public class PlayGame {
 
     public void firstPhase() {
 
-        for (int i = 0; i < siedlerGame.getPlayer().size() - 1; i++) {
-            String currentPlayerFaction = siedlerGame.getPlayer().get(i).getFaction().name();
-            Player currentPlayer = siedlerGame.getPlayer().get(i);
+        for (int i = 0; i < siedlerGame.getPlayers().size() - 1; i++) {
+            String currentPlayerFaction = siedlerGame.getPlayers().get(i).getFaction().name();
+            Player currentPlayer = siedlerGame.getPlayers().get(i);
+
             UI.resetBookmark("SHOW_MAP");
 
             int x = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for your first settlement");
@@ -63,48 +64,44 @@ public class PlayGame {
 
             int xRoadStart = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for the start of your first road");
             UI.resetBookmark("SHOW_MAP");
-
             int yRoadStart = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for the start of your first road");
             UI.resetBookmark("SHOW_MAP");
-
             Point roadStart = new Point(xRoadStart, yRoadStart);
 
             int xRoadFinish = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for the finish of your first road");
             UI.resetBookmark("SHOW_MAP");
-
             int yRoadFinish = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for the finish of your first road");
             UI.resetBookmark("SHOW_MAP");
+            UI.printBoard(hexBoard); //TODO: delete; only for debugging
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
             hexBoard.setEdge(roadStart, roadEnd, siedlerGame.placeRoad(roadStart, roadEnd, hexBoard, currentPlayer));
             textTerminal.println();
         }
 
-        for (int i = siedlerGame.getPlayer().size() - 1; i >= 0; i--) {
-            String currentPlayerFaction = siedlerGame.getPlayer().get(i).getFaction().name();
-            Player currentPlayer = siedlerGame.getPlayer().get(i);
+        for (int i = siedlerGame.getPlayers().size() - 1; i >= 0; i--) {
+            String currentPlayerFaction = siedlerGame.getPlayers().get(i).getFaction().name();
+            Player currentPlayer = siedlerGame.getPlayers().get(i);
+
             int x = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for your next settlement");
             UI.resetBookmark("SHOW_MAP");
-
             int y = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for your next settlement");
             UI.resetBookmark("SHOW_MAP");
-
+            UI.printBoard(hexBoard); //TODO: delete; only for debugging
             Point point = new Point(x, y);
             hexBoard.setCorner(point, siedlerGame.placeInitialSettlement(point, currentPlayer, hexBoard));
 
             int xRoadStart = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for the start of your next road");
             UI.resetBookmark("SHOW_MAP");
-
             int yRoadStart = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for the start of your next road");
             UI.resetBookmark("SHOW_MAP");
-
             Point roadStart = new Point(xRoadStart, yRoadStart);
 
             int xRoadFinish = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for the finish of your next road");
             UI.resetBookmark("SHOW_MAP");
-
             int yRoadFinish = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for the finish of your next road");
             UI.resetBookmark("SHOW_MAP");
+            UI.printBoard(hexBoard); //TODO: delete; only for debugging
 
             Point roadEnd = new Point(xRoadFinish, yRoadFinish);
             hexBoard.setEdge(roadStart, roadEnd, siedlerGame.placeRoad(roadStart, roadEnd, hexBoard, currentPlayer));
