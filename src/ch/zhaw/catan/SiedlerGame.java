@@ -171,7 +171,7 @@ public class SiedlerGame {
         boolean running;
         do {
             if (validRoadPlacement(roadStart, roadEnd, board, player)) {
-                players.get(currentPlayer).buildRoad(roadStart, roadEnd);
+                players.get(currentPlayer).buildRoad(players.get(currentPlayer), roadStart, roadEnd);
                 running = false;
             } else {
                 textTerminal.print("Error this points are not on an edge, please try again");
@@ -184,7 +184,7 @@ public class SiedlerGame {
                 running = true;
             }
         } while (running);
-        return new Road(roadStart, roadEnd);
+        return new Road(players.get(currentPlayer), roadStart, roadEnd);
     }
 
     private boolean validRoadPlacement(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {

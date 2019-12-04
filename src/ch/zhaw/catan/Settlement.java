@@ -1,6 +1,6 @@
 package ch.zhaw.catan;
 
-import java.awt.Point;
+import java.awt.*;
 
 public class Settlement {
     private int winPoints = 1;
@@ -35,6 +35,11 @@ public class Settlement {
     }
 
     public String getFaction() {
+        return player.getFaction().toString().toUpperCase();
+    }
+
+    @Override
+    public String toString() {
         return player.getFaction().toString().toUpperCase();
     }
 }

@@ -100,10 +100,10 @@ class PlayerTest {
         testBoard = new SiedlerBoard();
         Point testPositionStart = new Point(6, 12);
         Point testPositionEnd = new Point(6, 20);
-        Road testRoad = new Road(testPositionStart, testPositionEnd);
+        Road testRoad = new Road(testPlayer, testPositionStart, testPositionEnd);
         testPlayer.addResources(Config.Resource.WOOD, 1);
         testPlayer.addResources(Config.Resource.CLAY, 1);
-        testPlayer.buildRoad(testPositionStart, testPositionEnd);
+        testPlayer.buildRoad(testPlayer, testPositionStart, testPositionEnd);
         Assertions.assertEquals(testPlayer.getRoadsBuilt().get(0), testRoad);
     }
 
@@ -113,13 +113,13 @@ class PlayerTest {
         Point testPositionStart = new Point(6, 12);
         Point testPositionEnd = new Point(6, 20);
         Settlement testSettlement = new Settlement(testPositionStart, testPlayer);
-        Road testRoad = new Road(testPositionStart, testPositionEnd);
+        Road testRoad = new Road(testPlayer, testPositionStart, testPositionEnd);
         testPlayer.addResources(Config.Resource.GRAIN, 1);
         testPlayer.addResources(Config.Resource.WOOD, 2);
         testPlayer.addResources(Config.Resource.WOOL, 1);
         testPlayer.addResources(Config.Resource.CLAY, 2);
         testPlayer.buildSettlement(testPositionStart, testPlayer, testBoard);
-        testPlayer.buildRoad(testPositionStart, testPositionEnd);
+        testPlayer.buildRoad(testPlayer, testPositionStart, testPositionEnd);
         Assertions.assertEquals(testBoard.getEdge(testPositionStart, testPositionEnd).getEndingAt(), testRoad.getEndingAt());
         Assertions.assertEquals(testBoard.getEdge(testPositionStart, testPositionEnd).getStartingAt(), testRoad.getStartingAt());
     }

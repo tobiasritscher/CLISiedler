@@ -89,7 +89,7 @@ public class Player {
         return roadsBuilt;
     }
 
-    public void buildRoad(Point startingAt, Point endingAt) {
-        roadsBuilt.add(new Road(startingAt, endingAt));
+    public void buildRoad(Player player, Point startingAt, Point endingAt) {
+        roadsBuilt.add(new Road(player, startingAt, endingAt));
     }
 }
