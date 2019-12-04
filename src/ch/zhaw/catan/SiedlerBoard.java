@@ -68,7 +68,7 @@ public class SiedlerBoard extends HexBoard<Config.Land, Settlement, Road, String
     }
 
 
-    public boolean hasField(Point center){
+    public boolean hasFieldFixed(Point center){
         if (!isFieldCoordinate(center)) {
             return false;
         } else{
