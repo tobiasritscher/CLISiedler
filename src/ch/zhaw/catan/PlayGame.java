@@ -132,18 +132,18 @@ public class PlayGame {
         for (int i = 0; i < 13; i++) {
             for (int k = 0; k < 23; k++) {
                 Point point = new Point(i, k);
-                if (hexBoard.hasField(point)) {
-                    if (!hexBoard.getCornersOfField(point).isEmpty()) {
-                        for (int m = 0; m < hexBoard.getCornersOfField(point).size() - 1; m++) {
-                            Point position = hexBoard.getCornersOfField(point).get(m).getPosition();
-                            hexBoard.getCornersOfField(point).get(m).getPlayer().addResources(Config.getStandardLandPlacement().get(position).getResource(), 1);
+                    if (hexBoard.hasField(point)) {
+                        if (!hexBoard.getCornersOfField(point).isEmpty()) {
+                            for (int m = 0; m < hexBoard.getCornersOfField(point).size() - 1; m++) {
+                                Point position = hexBoard.getCornersOfField(point).get(m).getPosition();
+                                hexBoard.getCornersOfField(point).get(m).getPlayer().addResources(Config.getStandardLandPlacement().get(position).getResource(), 1);
+                                textTerminal.print(hexBoard.getCornersOfField(point).get(m).getPlayer() + "has recieved 1 " + hexBoard.getCornersOfField(point).get(m).getPlayer().getResourcesInPossession().keySet());
+                            }
                         }
                     }
                 }
             }
         }
-    }
-
     public static void main(String[] Args) {
         new PlayGame().run();
 

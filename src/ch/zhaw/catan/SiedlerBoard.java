@@ -1,5 +1,6 @@
 package ch.zhaw.catan;
 
+
 import ch.zhaw.catan.Config.Land;
 import ch.zhaw.hexboard.HexBoard;
 import ch.zhaw.hexboard.Label;
@@ -54,4 +55,26 @@ public class SiedlerBoard extends HexBoard<Config.Land, Settlement, Road, String
     public Map<String, Point> getLabelToField() {
         return labelToField;
     }
+
+    static boolean isFieldCoordinate(Point position) {
+        boolean isYFieldCoordinateEven = (position.y - 2) % 6 == 0;
+        boolean isYFieldCoordinateOdd = (position.y - 5) % 6 == 0;
+        boolean isXFieldCoordinateEven = position.x % 2 == 0;
+        boolean isXFieldCoordinateOdd = (position.x - 1) % 2 == 0;
+
+        return (position.y >= 2 && position.x >= 1)
+                && (isYFieldCoordinateEven && isXFieldCoordinateEven)
+                || (isYFieldCoordinateOdd && isXFieldCoordinateOdd);
+    }
+
+
+    public boolean hasField(Point center){
+        if (!isFieldCoordinate(center)) {
+            return false;
+        } else{
+        return true;
+        }
+    }
 }
+
+

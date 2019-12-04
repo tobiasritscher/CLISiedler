@@ -216,10 +216,10 @@ public class HexBoard<F, C, E, A> {
    */
   public boolean hasField(Point center) {
     if (!HexBoard.isFieldCoordinate(center)) {
-      throw new IllegalArgumentException("Coordinates are not coordinates of a field: " + center);
-    }
-    return field.containsKey(center);
+    throw new IllegalArgumentException("Coordinates are not coordinates of a field: " + center);
   }
+    return field.containsKey(center);
+}
 
   static boolean isFieldCoordinate(Point position) {
     boolean isYFieldCoordinateEven = (position.y - 2) % 6 == 0;
