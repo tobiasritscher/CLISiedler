@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 class SiedlerGameTest {
@@ -76,7 +77,9 @@ class SiedlerGameTest {
 
     @Test
     void throwDice() {
-        siedlergame.throwDice(5);
+        Map<Config.Faction, List<Config.Resource>> diceTestMap = new HashMap<>();
+        diceTestMap = siedlergame.throwDice(5);
+
 
     }
 
@@ -90,7 +93,6 @@ class SiedlerGameTest {
 
     @Test
     void getWinner() {
-        //siedlergame.getPlayer().get(0).addSettlement();
     }
 
     @Test

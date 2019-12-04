@@ -125,7 +125,7 @@ class PlayerTest {
     }
 
     @Test
-    void getInitialRessources() {
+    void getInitialResources() {
         testBoard = new SiedlerBoard();
         Player blue = new Player(Config.Faction.BLUE);
         Player red = new Player(Config.Faction.RED);
