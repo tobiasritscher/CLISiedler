@@ -45,7 +45,7 @@ public class PlayGame {
 
     public void firstPhase() {
 
-        for (int i = 0; i < siedlerGame.getPlayers().size() - 1; i++) {
+        for (int i = 0; i < siedlerGame.getPlayers().size(); i++) {
             String currentPlayerFaction = siedlerGame.getPlayers().get(i).getFaction().name();
             Player currentPlayer = siedlerGame.getPlayers().get(i);
             UI.resetBookmark("SHOW_MAP");
@@ -53,7 +53,7 @@ public class PlayGame {
             setInitialSettlementsAndRoads(currentPlayerFaction, currentPlayer, "first");
         }
 
-        for (int i = siedlerGame.getPlayers().size() - 1; i >= 0; i--) {
+        for (int i = siedlerGame.getPlayers().size(); i >= 0; i--) {
             String currentPlayerFaction = siedlerGame.getPlayers().get(i).getFaction().name();
             Player currentPlayer = siedlerGame.getPlayers().get(i);
 
