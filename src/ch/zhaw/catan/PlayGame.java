@@ -6,6 +6,7 @@ import org.beryx.textio.TextTerminal;
 import org.beryx.textio.swing.SwingTextTerminal;
 
 import java.awt.*;
+import java.util.HashMap;
 
 
 public class PlayGame {
@@ -60,7 +61,7 @@ public class PlayGame {
             setInitialSettlementsAndRoads(currentPlayerFaction, currentPlayer, "second");
 
         }
-        giveResourcesAfterFirstPhase();
+        giveResourcesAfterFirstPhase(hexBoard);
     }
 
     private void setInitialSettlementsAndRoads (String currentPlayerFaction, Player currentPlayer, String turn){
@@ -115,22 +116,18 @@ public class PlayGame {
     }
 
     //TODO: not working: (0,0) is not a field
-    public void giveResourcesAfterFirstPhase() {
-        for (int i = 0; i < 13; i++) {
-            for (int k = 0; k < 23; k++) {
-                Point point = new Point(i, k);
-                    if (hexBoard.hasFieldFixed(point)) {
-                        if (!hexBoard.getCornersOfField(point).isEmpty()) {
-                            for (int m = 0; m < hexBoard.getCornersOfField(point).size() - 1; m++) {
-                                Point position = hexBoard.getCornersOfField(point).get(m).getPosition();
-                                hexBoard.getCornersOfField(point).get(m).getPlayer().addResources(Config.getStandardLandPlacement().get(position).getResource(), 1);
-                                textTerminal.print(hexBoard.getCornersOfField(point).get(m).getPlayer() + "has recieved 1 " + hexBoard.getCornersOfField(point).get(m).getPlayer().getResourcesInPossession().keySet());
-                            }
-                        }
-                    }
+    public void giveResourcesAfterFirstPhase(SiedlerBoard hexBoard) {
+        for (Point field : hexBoard.getFields()) {
+            if (!hexBoard.getCornersOfField(field).isEmpty()) {
+                for (Settlement settlement : hexBoard.getCornersOfField(field)) {
+                    settlement.getPlayer().addResources(Config.getStandardLandPlacement().get(field).getResource(), 1);
+                    HashMap<Config.Resource, Integer> hashMap = new HashMap<>();
+                    hashMap.put(Config.getStandardLandPlacement().get(field).getResource(), 1);
+                    UI.print(settlement.getFaction() + " has recieved 1 " + Config.getStandardLandPlacement().get(field).getResource().toString() + '\n');
                 }
             }
         }
+    }
 
     public static void main(String[] Args) {
         new PlayGame().run();

@@ -123,4 +123,39 @@ class PlayerTest {
         Assertions.assertEquals(testBoard.getEdge(testPositionStart, testPositionEnd).getEndingAt(), testRoad.getEndingAt());
         Assertions.assertEquals(testBoard.getEdge(testPositionStart, testPositionEnd).getStartingAt(), testRoad.getStartingAt());
     }
+
+    @Test
+    void getInitialRessources() {
+        testBoard = new SiedlerBoard();
+        Player blue = new Player(Config.Faction.BLUE);
+        Player red = new Player(Config.Faction.RED);
+        Point one = new Point(6,6);
+        Point two = new Point(10,6);
+        Point three = new Point(8,12);
+        Point four = new Point(5,15);
+        testBoard.setCorner(one, new Settlement(one,blue));
+        testBoard.setCorner(two, new Settlement(two,blue));
+        testBoard.setCorner(three, new Settlement(three,red));
+        testBoard.setCorner(four, new Settlement(four,red));
+        PlayGame playGame = new PlayGame();
+        playGame.giveResourcesAfterFirstPhase(testBoard);
+
+        ResourceStock resourceStockBlue = new ResourceStock();
+        resourceStockBlue.add(Config.Resource.WOOD,1);
+        resourceStockBlue.add(Config.Resource.WOOL,1);
+        resourceStockBlue.add(Config.Resource.WOOL,1);
+        resourceStockBlue.add(Config.Resource.STONE,1);
+        resourceStockBlue.add(Config.Resource.GRAIN,1);
+        resourceStockBlue.add(Config.Resource.WOOD,1);
+
+        ResourceStock resourceStockRed = new ResourceStock();
+        resourceStockRed.add(Config.Resource.STONE,1);
+        resourceStockRed.add(Config.Resource.WOOD,1);
+        resourceStockRed.add(Config.Resource.STONE,1);
+        resourceStockRed.add(Config.Resource.WOOL,1);
+        resourceStockRed.add(Config.Resource.GRAIN,1);
+
+        Assertions.assertEquals(blue.getResourcesInPossession(), resourceStockBlue.getResources());
+        Assertions.assertEquals(red.getResourcesInPossession(), resourceStockRed.getResources());
+    }
 }
