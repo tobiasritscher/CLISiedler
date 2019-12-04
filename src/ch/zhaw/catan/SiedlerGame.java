@@ -137,16 +137,8 @@ public class SiedlerGame {
 
 
     public int createPlayers(int numberOfPlayers) {
-        if (numberOfPlayers < Config.MIN_NUMBER_OF_PLAYERS) {
-            numberOfPlayers = Config.MIN_NUMBER_OF_PLAYERS;
-        } else if (numberOfPlayers > Faction.values().length) {
-            numberOfPlayers = Faction.values().length;
-        }
-
-        int counter = 0;
-        for (Faction faction : Faction.values()) {
-            if (counter++ >= numberOfPlayers) break;
-            players.add((new Player(faction)));
+        for (int i = 0; i < numberOfPlayers; ++i) {
+            players.add(new Player(Faction.values()[i]));
         }
         return numberOfPlayers;
     }
