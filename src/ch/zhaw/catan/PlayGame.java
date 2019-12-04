@@ -158,7 +158,7 @@ public class PlayGame {
                 }
             } else {
                 for(Point field : hexBoard.getFields()) {
-                    if (hexBoard.getField(field) != Config.Land.DESERT && hexBoard.getField(field) != Config.Land.WATER && config.getStandardDiceNumberPlacement().get(field)==rolledNumber){
+                    if (hexBoard.getField(field) != Config.Land.DESERT && hexBoard.getField(field) != Config.Land.WATER && config.getStandardDiceNumberPlacement().get(field).intValue()==rolledNumber){
                         if (!hexBoard.getCornersOfField(field).isEmpty()) {
                             for (Settlement settlement : hexBoard.getCornersOfField(field)) {
                                 settlement.getPlayer().addResources(hexBoard.getField(field).getResource(), 1);
@@ -193,6 +193,10 @@ public class PlayGame {
                         break;
                 }
             }while(running);
+            if(siedlerGame.getWinner()){
+                textTerminal.print(siedlerGame.getPlayers().get(i).getFaction() + "has won the game");
+                break;
+            }
         }
     }
 

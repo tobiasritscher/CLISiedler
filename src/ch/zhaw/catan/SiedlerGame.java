@@ -123,15 +123,15 @@ public class SiedlerGame {
         return result;
     }
 
-    public Faction getWinner() { //TODO: test and bugfix
+    public boolean getWinner() { //TODO: test and bugfix
         int winPointCounter = 0;
         for (Settlement settlement : players.get(currentPlayer).getSettlementsBuilt()) {
             winPointCounter += settlement.getWinPoints();
         }
         if (winPointCounter >= winPoints) {
-            return players.get(currentPlayer).getFaction();
+            return true;
         } else {
-            return null;
+            return false;
         }
     }
 
