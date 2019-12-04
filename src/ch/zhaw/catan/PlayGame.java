@@ -64,34 +64,38 @@ public class PlayGame {
     private void setInitialSettlementsAndRoads (String currentPlayerFaction, Player currentPlayer, String turn){
         //ask for first settlement
         int x = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for your " + turn + " settlement");
-        UI.resetBookmark("SHOW_MAP");
+        UI.resetBookmark("BLANK_SCREEN");
+        UI.printBoard(hexBoard);
         int y = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for your " + turn + " settlement");
-        UI.resetBookmark("SHOW_MAP");
         //set first settlement
         Point point = new Point(x, y);
         Point newPoint = siedlerGame.isPointACorner(point);
         Settlement settlement = siedlerGame.placeInitialSettlement(newPoint, currentPlayer, hexBoard);
         hexBoard.setCorner(settlement.getPosition(), settlement);
-        UI.printBoard(hexBoard); //TODO: delete; only for debugging
+        UI.resetBookmark("BLANK_SCREEN");
+        UI.printBoard(hexBoard);
 
         //ask for first road start
         int xRoadStart = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for the start of your " + turn + " road");
-        UI.resetBookmark("SHOW_MAP");
+        UI.resetBookmark("BLANK_SCREEN");
+        UI.printBoard(hexBoard);
         int yRoadStart = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for the start of your " + turn + " road");
-        UI.resetBookmark("SHOW_MAP");
+        UI.resetBookmark("BLANK_SCREEN");
+        UI.printBoard(hexBoard);
         Point roadStart = new Point(xRoadStart, yRoadStart);
         //ask for first road finish
         int xRoadFinish = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for the finish of your " + turn + " road");
-        UI.resetBookmark("SHOW_MAP");
+        UI.resetBookmark("BLANK_SCREEN");
+        UI.printBoard(hexBoard);
         int yRoadFinish = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for the finish of your " + turn + " road");
-        UI.resetBookmark("SHOW_MAP");
-        UI.printBoard(hexBoard); //TODO: delete; only for debugging
 
         //set first road
         Point roadEnd = new Point(xRoadFinish, yRoadFinish);
         Road road = siedlerGame.placeRoad(roadStart, roadEnd, hexBoard, currentPlayer);
         hexBoard.setEdge(road.getStartingAt(), road.getEndingAt(), road);
         textTerminal.println();
+        UI.resetBookmark("BLANK_SCREEN");
+        UI.printBoard(hexBoard);
     }
 
     // TODO build phase method calls
