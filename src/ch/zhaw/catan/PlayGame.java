@@ -6,6 +6,8 @@ import org.beryx.textio.TextTerminal;
 import org.beryx.textio.swing.SwingTextTerminal;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class PlayGame {
@@ -16,6 +18,7 @@ public class PlayGame {
     private static TextIO textIO = TextIoFactory.getTextIO();
     private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal) textIO.getTextTerminal();
     private Dice dice = new Dice();
+
 
 
     public PlayGame() {
@@ -134,6 +137,65 @@ public class PlayGame {
             }
         }
     }
+
+    public void secondPhase(){
+        for (int i = 0; i < siedlerGame.getPlayers().size(); i++){
+            int rolledNumber = dice.roll();
+            textTerminal.print(siedlerGame.getPlayers().get(i) + "rolled a " + rolledNumber);
+            if(rolledNumber == 7){
+                //TODO finish the random resource deletion
+                int totalResources;
+
+                for(int n = 0; n < siedlerGame.getPlayers().get(i).getResourcesInPossession().values().size(); ++n){
+                    totalResources += siedlerGame.getPlayers().get(i).getResourcesInPossession().values();
+                }
+                if(siedlerGame.getPlayers().get(i).getResourcesInPossession().keySet().size() >= 7){
+                    Map<Config.Resource,Integer> resources = siedlerGame.getPlayers().get(i).getResourcesInPossession();
+                    do{
+
+
+                    }while();
+                }
+            } else {
+                for(Point field : hexBoard.getFields()) {
+                    if (hexBoard.getField(field) != Config.Land.DESERT && hexBoard.getField(field) != Config.Land.WATER && config.getStandardDiceNumberPlacement().get(field)==rolledNumber){
+                        if (!hexBoard.getCornersOfField(field).isEmpty()) {
+                            for (Settlement settlement : hexBoard.getCornersOfField(field)) {
+                                settlement.getPlayer().addResources(hexBoard.getField(field).getResource(), 1);
+                                UI.print(settlement.getFaction() + " has recieved 1 " + hexBoard.getField(field).getResource() + '\n');
+                            }
+                        }
+                    }
+                }
+            }
+            boolean running = true;
+            do{
+                textTerminal.print("1: Trade with bank\n");
+                textTerminal.print("2: Build Settlement\n");
+                textTerminal.print("3: Build Road\n");
+                textTerminal.print("4: Quit game\n");
+                int decision = textIO.newIntInputReader().read("What would you like to do now?");
+
+                switch (decision){
+                    case 1:
+                        siedlerGame.tradeWithBankFourToOne(UI.tradeBid(),UI.tradeAsk());
+                        break;
+                    case 2:
+                        //TODO method for building Settlement
+                        break;
+                    case 3:
+                        //TODO method for building road
+                        break;
+                    case 4:
+                        char ciao = textIO.newCharInputReader().read("Sure?(Y/N)");
+                        if(ciao == 'Y'){
+                            running = false;}
+                        break;
+                }
+            }while(running);
+        }
+    }
+
 
     public static void main(String[] Args) {
         new PlayGame().run();
