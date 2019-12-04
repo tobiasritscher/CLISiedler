@@ -6,19 +6,16 @@ import org.beryx.textio.TextTerminal;
 import org.beryx.textio.swing.SwingTextTerminal;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Random;
 
 
 public class PlayGame {
     private static SiedlerGame siedlerGame;
     private SiedlerBoard hexBoard = new SiedlerBoard();
     private int numberOfPlayers;
-    Config config = new Config();
     private static TextIO textIO = TextIoFactory.getTextIO();
     private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal) textIO.getTextTerminal();
-    private Dice dice = new Dice();
-
 
 
     public PlayGame() {
@@ -56,7 +53,7 @@ public class PlayGame {
             setInitialSettlementsAndRoads(currentPlayerFaction, currentPlayer, "first");
         }
 
-        for (int i = siedlerGame.getPlayers().size() - 1 ; i >= 0; i--) {
+        for (int i = siedlerGame.getPlayers().size() - 1; i >= 0; i--) {
             String currentPlayerFaction = siedlerGame.getPlayers().get(i).getFaction().name();
             Player currentPlayer = siedlerGame.getPlayers().get(i);
 
@@ -66,7 +63,7 @@ public class PlayGame {
         giveResourcesAfterFirstPhase(hexBoard);
     }
 
-    private void setInitialSettlementsAndRoads (String currentPlayerFaction, Player currentPlayer, String turn){
+    private void setInitialSettlementsAndRoads(String currentPlayerFaction, Player currentPlayer, String turn) {
         //ask for first settlement
         int x = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for your " + turn + " settlement");
         UI.resetBookmark("BLANK_SCREEN");
@@ -104,7 +101,7 @@ public class PlayGame {
     }
 
     //This is the main game Phase
-    public void gamePhase(){
+    public void gamePhase() {
 
         UI.secondPhaseMenu();
 
@@ -138,27 +135,32 @@ public class PlayGame {
         }
     }
 
-    public void secondPhase(){
-        for (int i = 0; i < siedlerGame.getPlayers().size(); i++){
-            int rolledNumber = dice.roll();
-            textTerminal.print(siedlerGame.getPlayers().get(i) + "rolled a " + rolledNumber);
-            if(rolledNumber == 7){
-                //TODO finish the random resource deletion
-                int totalResources;
-
-                for(int n = 0; n < siedlerGame.getPlayers().get(i).getResourcesInPossession().values().size(); ++n){
-                    totalResources += siedlerGame.getPlayers().get(i).getResourcesInPossession().values();
+    public void secondPhase() {
+        for (int i = 0; i < siedlerGame.getPlayers().size(); i++) {
+            Player currentPlayer = siedlerGame.getPlayers().get(i);
+            int rolledNumber = Dice.roll();
+            textTerminal.print(currentPlayer + "rolled a " + rolledNumber);
+            if (rolledNumber == 7) {
+                int totalResources = 0;
+                for (Integer counter : currentPlayer.getResourcesInPossession().values()) {
+                    totalResources += counter;
                 }
-                if(siedlerGame.getPlayers().get(i).getResourcesInPossession().keySet().size() >= 7){
-                    Map<Config.Resource,Integer> resources = siedlerGame.getPlayers().get(i).getResourcesInPossession();
-                    do{
 
-
-                    }while();
+                //remove random ressources from players with more then seven cards
+                if (totalResources > 7) {
+                    int resourcesToDelete = (totalResources - totalResources % 2) / 2;
+                    for (int j = 0; j < resourcesToDelete; ++j) {
+                        //new Arraylist with all resources the player has, to choose a random resource to remove
+                        ArrayList<Config.Resource> resources = new ArrayList<>(currentPlayer.getResourcesInPossession().keySet());
+                        //create random number to choose which resource to delete
+                        int random = new Random().nextInt(resources.size() - 1);
+                        currentPlayer.removeResources(resources.get(random), 1);
+                    }
                 }
+
             } else {
-                for(Point field : hexBoard.getFields()) {
-                    if (hexBoard.getField(field) != Config.Land.DESERT && hexBoard.getField(field) != Config.Land.WATER && config.getStandardDiceNumberPlacement().get(field).intValue()==rolledNumber){
+                for (Point field : hexBoard.getFields()) {
+                    if (hexBoard.getField(field) != Config.Land.DESERT && hexBoard.getField(field) != Config.Land.WATER && Config.getStandardDiceNumberPlacement().get(field) == rolledNumber) {
                         if (!hexBoard.getCornersOfField(field).isEmpty()) {
                             for (Settlement settlement : hexBoard.getCornersOfField(field)) {
                                 settlement.getPlayer().addResources(hexBoard.getField(field).getResource(), 1);
@@ -169,16 +171,16 @@ public class PlayGame {
                 }
             }
             boolean running = true;
-            do{
+            do {
                 textTerminal.print("1: Trade with bank\n");
                 textTerminal.print("2: Build Settlement\n");
                 textTerminal.print("3: Build Road\n");
                 textTerminal.print("4: Quit game\n");
                 int decision = textIO.newIntInputReader().read("What would you like to do now?");
 
-                switch (decision){
+                switch (decision) {
                     case 1:
-                        siedlerGame.tradeWithBankFourToOne(UI.tradeBid(),UI.tradeAsk());
+                        siedlerGame.tradeWithBankFourToOne(UI.tradeBid(), UI.tradeAsk());
                         break;
                     case 2:
                         //TODO method for building Settlement
@@ -188,12 +190,13 @@ public class PlayGame {
                         break;
                     case 4:
                         char ciao = textIO.newCharInputReader().read("Sure?(Y/N)");
-                        if(ciao == 'Y'){
-                            running = false;}
+                        if (ciao == 'Y') {
+                            running = false;
+                        }
                         break;
                 }
-            }while(running);
-            if(siedlerGame.getWinner()){
+            } while (running);
+            if (siedlerGame.getWinner()) {
                 textTerminal.print(siedlerGame.getPlayers().get(i).getFaction() + "has won the game");
                 break;
             }

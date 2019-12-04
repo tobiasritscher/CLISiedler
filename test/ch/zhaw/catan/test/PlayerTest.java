@@ -94,7 +94,7 @@ class PlayerTest {
     void getRoadsBuilt() { // TODO: Doesn't work yet
         testBoard = new SiedlerBoard();
         Point testPositionStart = new Point(6, 12);
-        Point testPositionEnd = new Point(6, 20);
+        Point testPositionEnd = new Point(6, 10);
         Road testRoad = new Road(testPlayer, testPositionStart, testPositionEnd);
         testPlayer.addResources(Config.Resource.WOOD, 1);
         testPlayer.addResources(Config.Resource.CLAY, 1);
@@ -106,7 +106,7 @@ class PlayerTest {
     void buildRoad() { // TODO: Doesn't work yet
         testBoard = new SiedlerBoard();
         Point testPositionStart = new Point(6, 12);
-        Point testPositionEnd = new Point(6, 20);
+        Point testPositionEnd = new Point(6, 10);
         Settlement testSettlement = new Settlement(testPositionStart, testPlayer);
         Road testRoad = new Road(testPlayer, testPositionStart, testPositionEnd);
         testPlayer.addResources(Config.Resource.GRAIN, 1);

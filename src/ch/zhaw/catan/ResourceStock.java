@@ -1,9 +1,9 @@
 package ch.zhaw.catan;
 
+import ch.zhaw.catan.Config.Resource;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import ch.zhaw.catan.Config.Resource;
 
 public class ResourceStock {
     private Map<Resource, Integer> resources;
@@ -43,6 +43,9 @@ public class ResourceStock {
         boolean result = available(resource, amount);
         if (result) {
             resources.put(resource, resources.get(resource) - amount);
+        }
+        if (resources.get(resource) <= 0){
+            resources.remove(resource);
         }
         return result;
     }
