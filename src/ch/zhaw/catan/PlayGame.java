@@ -146,7 +146,7 @@ public class PlayGame {
                 }
 
                 //remove random ressources from players with more then seven cards
-                if (totalResources > 7) {
+                if (totalResources >= 7) {
                     int resourcesToDelete = (totalResources - totalResources % 2) / 2;
                     for (int j = 0; j < resourcesToDelete; ++j) {
                         //new Arraylist with all resources the player has, to choose a random resource to remove
@@ -196,7 +196,7 @@ public class PlayGame {
                 }
             } while (running);
             if (siedlerGame.getWinner()) {
-                textTerminal.print(siedlerGame.getPlayers().get(i).getFaction() + "has won the game");
+                textTerminal.print(currentPlayer + "has won the game");
                 break;
             }
         }
