@@ -53,11 +53,12 @@ public class PlayGame {
             setInitialSettlementsAndRoads(currentPlayerFaction, currentPlayer, "first");
         }
 
-        for (int i = siedlerGame.getPlayers().size(); i > 0; i--) {
+        for (int i = siedlerGame.getPlayers().size() - 1 ; i >= 0; i--) {
             String currentPlayerFaction = siedlerGame.getPlayers().get(i).getFaction().name();
             Player currentPlayer = siedlerGame.getPlayers().get(i);
 
             setInitialSettlementsAndRoads(currentPlayerFaction, currentPlayer, "second");
+            UI.print("Hoi");
         }
     }
 
