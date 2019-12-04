@@ -121,7 +121,6 @@ public class PlayGame {
         return hexBoard.getNeighboursOfCorner(corner).isEmpty();
     }
 
-    //TODO: not working: (0,0) is not a field
     public void giveResourcesAfterFirstPhase(SiedlerBoard hexBoard) {
         for (Point field : hexBoard.getFields()) {
             if (hexBoard.getField(field) != Config.Land.DESERT && hexBoard.getField(field) != Config.Land.WATER) {
