@@ -58,7 +58,9 @@ public class PlayGame {
             Player currentPlayer = siedlerGame.getPlayers().get(i);
 
             setInitialSettlementsAndRoads(currentPlayerFaction, currentPlayer, "second");
+
         }
+        giveResourcesAfterFirstPhase();
     }
 
     private void setInitialSettlementsAndRoads (String currentPlayerFaction, Player currentPlayer, String turn){
@@ -129,6 +131,7 @@ public class PlayGame {
                 }
             }
         }
+
     public static void main(String[] Args) {
         new PlayGame().run();
 

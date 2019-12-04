@@ -7,6 +7,8 @@ import ch.zhaw.hexboard.Label;
 
 import java.awt.Point;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -75,6 +77,7 @@ public class SiedlerBoard extends HexBoard<Config.Land, Settlement, Road, String
         return true;
         }
     }
+
 }
 
 

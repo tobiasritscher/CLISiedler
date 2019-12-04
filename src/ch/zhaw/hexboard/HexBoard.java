@@ -428,6 +428,7 @@ public class HexBoard<F, C, E, A> {
     }
   }
 
+
   /**
    * Stores the data for the edge denoted by the two points.
    * 
