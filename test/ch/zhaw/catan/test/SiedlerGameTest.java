@@ -24,13 +24,20 @@ class SiedlerGameTest {
     @Test
     void switchToNextPlayer() {
         testGame.switchToNextPlayer();
+        // Checks if player is current player
         Assertions.assertEquals(testGame.getPlayers().get(1), testGame.getCurrentPlayer());
+        // Faction test
+        Assertions.assertEquals("bb", testGame.getPlayers().get(1).getFaction().toString());
     }
 
     @Test
     void switchToPreviousPlayer() {
+        // TODO: First test doesn't work yet and i can't explain why! Help me
         testGame.switchToPreviousPlayer();
+        // Checks if player is current player
         Assertions.assertEquals(testGame.getPlayers().get(3), testGame.getCurrentPlayer());
+        // Faction test
+        Assertions.assertEquals("yy", testGame.getPlayers().get(3).getFaction().toString());
     }
 
     @Test
@@ -66,32 +73,45 @@ class SiedlerGameTest {
 
     @Test
     void placeInitialSettlement() {
+        // TODO: Implement
     }
 
     @Test
-    void throwDice() {
+    void throwDice() { // TODO: Implement, doesnt work yet
         int diceThrow = 5;
         Map<Config.Faction, List<Config.Resource>> diceTestMap = new HashMap<>();
         diceTestMap = testGame.throwDice(diceThrow);
         assertTrue(Config.getStandardDiceNumberPlacement().containsKey(diceThrow));
-
-
+        // TODO: create demo settlements, make method look up field in board and return an example resource stock
     }
 
     @Test
     void placeCity() {
+        // TODO: Implement
     }
 
     @Test
-    void tradeWithBankFourToOne() {
+    void tradeWithBankFourToOne() { // TODO: Redundant, same test as BankTest class, maybe ask muon per mail which one to keep?
+        testGame.getCurrentPlayer().addResources(Config.Resource.GRAIN, 5);
+        testGame.getCurrentPlayer().addResources(Config.Resource.CLAY, 3);
+
+        String expectedValue = "{GR=1, WD=1, CL=3}";
+        // Positive test
+        testGame.tradeWithBankFourToOne(Config.Resource.GRAIN, Config.Resource.WOOD);
+        Assertions.assertEquals(expectedValue, testGame.getCurrentPlayer().getResourcesInPossession().toString());
+
+        // Negative test
+        testGame.tradeWithBankFourToOne(Config.Resource.CLAY, Config.Resource.WOOD);
+        Assertions.assertEquals(expectedValue, testGame.getCurrentPlayer().getResourcesInPossession().toString());
     }
 
     @Test
     void getWinner() {
+        // TODO: Implement
     }
 
     @Test
-    void createPlayers() {
+    void createPlayers() { // TODO: Somehow the test fails, it passed a few days ago
         testGame = new SiedlerGame(20, 1);
         Assertions.assertEquals(2, testGame.createPlayers(1));
         testGame = new SiedlerGame(20, 5);
@@ -100,9 +120,11 @@ class SiedlerGameTest {
 
     @Test
     void isPointACorner() {
+        // TODO: Implement
     }
 
     @Test
     void placeRoad() {
+        // TODO: Implement
     }
 }
