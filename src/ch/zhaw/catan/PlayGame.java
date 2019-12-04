@@ -95,9 +95,16 @@ public class PlayGame {
         Point roadEnd = new Point(xRoadFinish, yRoadFinish);
         Road road = siedlerGame.placeRoad(roadStart, roadEnd, hexBoard, currentPlayer);
         hexBoard.setEdge(road.getStartingAt(), road.getEndingAt(), road);
-        textTerminal.println();
+        UI.newLine();
         UI.resetBookmark("BLANK_SCREEN");
         UI.printBoard(hexBoard);
+    }
+
+    //This is the main game Phase
+    public void gamePhase(){
+
+        UI.secondPhaseMenu();
+
     }
 
     // TODO build phase method calls

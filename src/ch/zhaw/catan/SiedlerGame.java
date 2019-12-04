@@ -68,9 +68,9 @@ public class SiedlerGame {
                 trying = false;
             } else {
                 int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate");
-                textTerminal.printf(System.lineSeparator());
+                UI.newLine();
                 int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate");
-                textTerminal.printf(System.lineSeparator());
+                UI.newLine();
                 position = new Point(x, y);
                 trying = true;
             }

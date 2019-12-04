@@ -19,6 +19,7 @@ public class UI {
     private static Dice dice = new Dice();
     private static SiedlerBoard board = new SiedlerBoard();
     private static SiedlerBoardTextView view = new SiedlerBoardTextView(board);
+    public static SiedlerGame siedlerGame;
     private static Player player;
 
     public UI() {
@@ -74,12 +75,13 @@ public class UI {
         List<String> menuElemente = new ArrayList<>();
 
         UI.newLine();
-        menuElemente.add("1. Throw da dices");
+        menuElemente.add("1. End turn");
         menuElemente.add("2. Build settlement");
         menuElemente.add("3. Build road");
         menuElemente.add("4. Exchange with bank");
-        menuElemente.add("5. Show my resources");
+        menuElemente.add("5. Show available resources");
         menuElemente.add("6. Show leaderboard");
+        menuElemente.add("7. Exit game");
         UI.printList(menuElemente);
 
         UI.newLine();
@@ -93,19 +95,16 @@ public class UI {
                 UI.throwDices();
                 break;
             case 2:
-                exit = false;
                 break;
             case 3:
-                exit = false;
                 break;
             case 4:
-                exit = false;
                 break;
             case 5:
-                exit = false;
+                //TODO: Implement this correctly
+                //siedlerGame.getCurrentPlayerResourceStock();
                 break;
             case 6:
-                exit = false;
                 break;
             case 7:
                 exit = true;
@@ -175,13 +174,51 @@ public class UI {
                 .read("How many players will be playing?");
     }
 
+    public static Config.Resource tradeAsk(){
+        Config.Resource choice = null;
+        String prompt = "Which resource are you asking?";
+        return choice = resourceChoice(prompt);
+    }
+
+    public static Config.Resource tradeBid(){
+        Config.Resource choice = null;
+        String prompt = "Which resource are you bidding?";
+        return choice = resourceChoice(prompt);
+    }
+
+    public static Config.Resource resourceChoice(String prompt){
+
+        Config.Resource choice = null;
+            switch (getEnumValue(Config.Resource.class, prompt)){
+                case GRAIN:
+                    choice = Config.Resource.GRAIN;
+                case WOOL:
+                    choice = Config.Resource.WOOL;
+                    break;
+                case WOOD:
+                    choice = Config.Resource.WOOD;
+                    break;
+                case STONE:
+                    choice = Config.Resource.STONE;
+                    break;
+                case CLAY:;
+                    choice = Config.Resource.CLAY;
+                    break;
+                default:
+                    throw new IllegalStateException("Internal error found - Command not implemented.");
+        }
+        return choice;
+
+    }
+
     public static void newLine() {
         textTerminal.printf(System.lineSeparator());
     }
 
     public static void throwDices() {
         int diceNumber = dice.roll();
-        textTerminal.printf("A %d has been thrown", diceNumber);
+        String currentPlayer = siedlerGame.getCurrentPlayer().toString();
+        textTerminal.printf("Player has thrown a %d", diceNumber);
     }
 
     public static void setBookmark(String bookmark) {
@@ -196,7 +233,13 @@ public class UI {
         textTerminal.print(text);
     }
 
-    public static void printList(List<String> Elemente) {
-        textTerminal.print(Elemente);
+    public static void printList(List<String> elements) {
+        textTerminal.print(elements);
     }
+
+    public static <T extends Enum<T>> T getEnumValue(Class<T> commands, String prompt) {
+        return textIO.newEnumInputReader(commands)
+                .read(prompt);
+    }
+
 }

@@ -8,6 +8,8 @@ import org.beryx.textio.swing.SwingTextTerminal;
 public class Dummy {
 
     private Integer choice = null;
+    private Object Player;
+    private Config.Resource resource;
 
     public Dummy(){}
 
@@ -25,15 +27,9 @@ public class Dummy {
         //Setting start point
         textTerminal.setBookmark("MAIN");
 
+        SiedlerGame siedlerGame = new SiedlerGame(20,4);
 
-        UI.buildStartMenu();
-
-        UI.throwDices();
-
-        UI.secondPhaseMenu();
-
-
-
+        siedlerGame.tradeWithBankFourToOne(UI.tradeBid(), UI.tradeAsk());
 
     }
 

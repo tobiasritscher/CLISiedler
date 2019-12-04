@@ -17,14 +17,14 @@ public class Bank {
 
     /**
      * trade 4 to 1 with the bank
-     * @param offer the resource you want to offer
-     * @param want the ressource you want to have
+     * @param bid the resource you want to offer
+     * @param ask the ressource you want to have
      * @return true if the trade was all right and if it is done
      */
-    public boolean trade(Config.Resource offer, Config.Resource want){
-        boolean result = resourceStock.remove(want, RETURN_AMOUNT);
+    public boolean trade(Config.Resource bid, Config.Resource ask){
+        boolean result = resourceStock.remove(ask, RETURN_AMOUNT);
         if(result){
-            resourceStock.add(offer, OFFER_AMOUNT);
+            resourceStock.add(bid, OFFER_AMOUNT);
         }
         return result;
     }
