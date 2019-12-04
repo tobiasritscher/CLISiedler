@@ -2,7 +2,6 @@ package test;
 
 import ch.zhaw.catan.Config;
 import ch.zhaw.catan.SiedlerGame;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,46 +10,40 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class SiedlerGameTest {
 
-    private SiedlerGame siedlergame;
+    private SiedlerGame testGame;
 
     @BeforeEach
     void setUp() {
-        siedlergame = new SiedlerGame(20, 4);
-    }
-
-    @AfterEach
-    void tearDown() {
+        testGame = new SiedlerGame(20, 4);
     }
 
     @Test
     void switchToNextPlayer() {
-        siedlergame.switchToNextPlayer();
-        Assertions.assertEquals(siedlergame.getPlayers().get(1), siedlergame.getCurrentPlayer());
+        testGame.switchToNextPlayer();
+        Assertions.assertEquals(testGame.getPlayers().get(1), testGame.getCurrentPlayer());
     }
 
     @Test
     void switchToPreviousPlayer() {
-        siedlergame.switchToPreviousPlayer();
-        Assertions.assertEquals(siedlergame.getPlayers().get(3), siedlergame.getCurrentPlayer());
+        testGame.switchToPreviousPlayer();
+        Assertions.assertEquals(testGame.getPlayers().get(3), testGame.getCurrentPlayer());
     }
 
     @Test
     void getPlayer() {
-        Assertions.assertEquals("rr", siedlergame.getPlayers().get(0).getFaction().toString());
-        Assertions.assertEquals("bb", siedlergame.getPlayers().get(1).getFaction().toString());
-        Assertions.assertEquals("gg", siedlergame.getPlayers().get(2).getFaction().toString());
-        Assertions.assertEquals("yy", siedlergame.getPlayers().get(3).getFaction().toString());
-    }
-
-    @Test
-    void getBoard() {
+        Assertions.assertEquals("rr", testGame.getPlayers().get(0).getFaction().toString());
+        Assertions.assertEquals("bb", testGame.getPlayers().get(1).getFaction().toString());
+        Assertions.assertEquals("gg", testGame.getPlayers().get(2).getFaction().toString());
+        Assertions.assertEquals("yy", testGame.getPlayers().get(3).getFaction().toString());
     }
 
     @Test
     void getCurrentPlayer() {
-        Assertions.assertEquals("rr", siedlergame.getCurrentPlayer().getFaction().toString());
+        Assertions.assertEquals("rr", testGame.getCurrentPlayer().getFaction().toString());
     }
 
     @Test
@@ -62,13 +55,13 @@ class SiedlerGameTest {
         testResources.put(Config.Resource.STONE, 1);
         testResources.put(Config.Resource.CLAY, 1);
 
-        siedlergame.getCurrentPlayer().addResources(Config.Resource.GRAIN, 1);
-        siedlergame.getCurrentPlayer().addResources(Config.Resource.WOOD, 1);
-        siedlergame.getCurrentPlayer().addResources(Config.Resource.WOOL, 1);
-        siedlergame.getCurrentPlayer().addResources(Config.Resource.STONE, 1);
-        siedlergame.getCurrentPlayer().addResources(Config.Resource.CLAY, 1);
+        testGame.getCurrentPlayer().addResources(Config.Resource.GRAIN, 1);
+        testGame.getCurrentPlayer().addResources(Config.Resource.WOOD, 1);
+        testGame.getCurrentPlayer().addResources(Config.Resource.WOOL, 1);
+        testGame.getCurrentPlayer().addResources(Config.Resource.STONE, 1);
+        testGame.getCurrentPlayer().addResources(Config.Resource.CLAY, 1);
 
-        Assertions.assertEquals(testResources, siedlergame.getCurrentPlayer().getResourcesInPossession());
+        Assertions.assertEquals(testResources, testGame.getCurrentPlayer().getResourcesInPossession());
     }
 
     @Test
@@ -77,8 +70,10 @@ class SiedlerGameTest {
 
     @Test
     void throwDice() {
+        int diceThrow = 5;
         Map<Config.Faction, List<Config.Resource>> diceTestMap = new HashMap<>();
-        diceTestMap = siedlergame.throwDice(5);
+        diceTestMap = testGame.throwDice(diceThrow);
+        assertTrue(Config.getStandardDiceNumberPlacement().containsKey(diceThrow));
 
 
     }
@@ -97,10 +92,10 @@ class SiedlerGameTest {
 
     @Test
     void createPlayers() {
-        siedlergame = new SiedlerGame(20, 1);
-        Assertions.assertEquals(2, siedlergame.createPlayers(1));
-        siedlergame = new SiedlerGame(20, 5);
-        Assertions.assertEquals(4, siedlergame.createPlayers(5));
+        testGame = new SiedlerGame(20, 1);
+        Assertions.assertEquals(2, testGame.createPlayers(1));
+        testGame = new SiedlerGame(20, 5);
+        Assertions.assertEquals(4, testGame.createPlayers(5));
     }
 
     @Test

@@ -2,7 +2,6 @@ package test;
 
 import ch.zhaw.catan.Config;
 import ch.zhaw.catan.ResourceStock;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,10 +25,6 @@ class ResourceStockTest {
         testResourceMap.put(Config.Resource.CLAY, 1);
     }
 
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
     void getResources() {
         testResourceStock.add(Config.Resource.GRAIN, 1);
@@ -44,7 +39,9 @@ class ResourceStockTest {
     @Test
     void available() {
         testResourceStock.add(Config.Resource.GRAIN, 1);
+        // Positive Test
         Assertions.assertTrue(testResourceStock.available(Config.Resource.GRAIN, 1));
+        // Negative Test
         Assertions.assertFalse(testResourceStock.available(Config.Resource.WOOD, 1));
     }
 
@@ -56,8 +53,13 @@ class ResourceStockTest {
 
     @Test
     void remove() {
+        // Positive test
         testResourceStock.add(Config.Resource.GRAIN, 2);
         testResourceStock.remove(Config.Resource.GRAIN, 1);
+        Assertions.assertEquals("{GR=1}", testResourceStock.getResources().toString());
+
+        // Negative test, remove method isn't expected to do anything if amount to remove exceeds existing amount
+        testResourceStock.remove(Config.Resource.GRAIN, 2);
         Assertions.assertEquals("{GR=1}", testResourceStock.getResources().toString());
     }
 }

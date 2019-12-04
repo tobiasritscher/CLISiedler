@@ -1,7 +1,6 @@
 package test;
 
 import ch.zhaw.catan.*;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,10 +17,6 @@ class PlayerTest {
     @BeforeEach
     void setUp() {
         testPlayer = new Player(Config.Faction.RED);
-    }
-
-    @AfterEach
-    void tearDown() {
     }
 
     @Test
