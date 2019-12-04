@@ -58,7 +58,6 @@ public class PlayGame {
             Player currentPlayer = siedlerGame.getPlayers().get(i);
 
             setInitialSettlementsAndRoads(currentPlayerFaction, currentPlayer, "second");
-            UI.print("Hoi");
         }
     }
 
@@ -71,7 +70,8 @@ public class PlayGame {
         //set first settlement
         Point point = new Point(x, y);
         Point newPoint = siedlerGame.isPointACorner(point);
-        hexBoard.setCorner(newPoint, siedlerGame.placeInitialSettlement(newPoint, currentPlayer, hexBoard));
+        Settlement settlement = siedlerGame.placeInitialSettlement(newPoint, currentPlayer, hexBoard);
+        hexBoard.setCorner(settlement.getPosition(), settlement);
         UI.printBoard(hexBoard); //TODO: delete; only for debugging
 
         //ask for first road start

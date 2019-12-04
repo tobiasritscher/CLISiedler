@@ -63,7 +63,7 @@ public class SiedlerGame {
 
         do {
             if (hexBoard.getNeighboursOfCorner(position).isEmpty() && hexBoard.hasCorner(position)) {
-                settlement = new Settlement(position, players.get(currentPlayer));
+                settlement = new Settlement(position, player);
                 player.addSettlement(settlement);
                 trying = false;
             } else {
@@ -163,7 +163,7 @@ public class SiedlerGame {
         boolean running;
         do {
             if (validRoadPlacement(roadStart, roadEnd, board, player)) {
-                players.get(currentPlayer).buildRoad(players.get(currentPlayer), roadStart, roadEnd);
+                player.buildRoad(player, roadStart, roadEnd);
                 running = false;
             } else {
                 textTerminal.print("Error this points are not on an edge, please try again");
@@ -176,7 +176,7 @@ public class SiedlerGame {
                 running = true;
             }
         } while (running);
-        return new Road(players.get(currentPlayer), roadStart, roadEnd);
+        return new Road(player, roadStart, roadEnd);
     }
 
     private boolean validRoadPlacement(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
