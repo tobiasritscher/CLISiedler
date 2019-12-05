@@ -10,4 +10,5 @@ public class City extends Settlement {
         super(position, player);
         super.setToCity(); // TODO: May be deleted
     }
+
 }
