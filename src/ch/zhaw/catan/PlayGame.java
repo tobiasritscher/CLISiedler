@@ -134,6 +134,7 @@ public class PlayGame {
 
     public void printAllRessourcesOfAllPlayers() {
 
+
         for (Player player : siedlerGame.getPlayers()){
             String tempOutput = player.toString() + " has been given: ";
             for (Config.Resource resource : player.getResourcesInPossession().keySet()){
