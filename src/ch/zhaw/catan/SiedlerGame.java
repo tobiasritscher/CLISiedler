@@ -46,9 +46,9 @@ public class SiedlerGame {
                 player.addSettlement(settlement);
                 trying = false;
             } else {
-                int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate");
+                int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate\n");
                 UI.newLine();
-                int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate");
+                int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate\n");
                 UI.newLine();
                 position = new Point(x, y);
                 trying = true;
@@ -77,13 +77,13 @@ public class SiedlerGame {
                     hexBoard.setCorner(settlement.getPosition(), settlement);
                     trying = false;
                 } else {
-                    textTerminal.print("You don't have enough resources to build a settlement");
+                    textTerminal.print("You don't have enough resources to build a settlement\n");
                     trying = false;
                 }
             } else {
-                int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate");
+                int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate\n");
                 UI.newLine();
-                int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate");
+                int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate\n");
                 UI.newLine();
                 position = new Point(x, y);
                 trying = true;
@@ -127,10 +127,10 @@ public class SiedlerGame {
                 player.removeResources(Resource.STONE, 3);
                 player.removeResources(Resource.GRAIN, 2);
             } else {
-                textTerminal.print("You do not have enough resources");
+                textTerminal.print("You do not have enough resources\n");
             }
         } else {
-            textTerminal.print("You don't have a settlement to upgrade on this position: " + position);
+            textTerminal.print("You don't have a settlement to upgrade on this position: " + position + "\n");
         }
         return settlementFound;
     }
@@ -356,9 +356,9 @@ public class SiedlerGame {
             if (HexBoard.isCornerCoordinate(point)) {
                 running = false;
             } else {
-                textTerminal.print("Error this point is not on a corner, please try again");
-                int x = textIO.newIntInputReader().read("Try again with a new x coordinate");
-                int y = textIO.newIntInputReader().read("Try again with a new y coordinate");
+                textTerminal.print("Error this point is not on a corner, please try again\n");
+                int x = textIO.newIntInputReader().read("Try again with a new x coordinate\n");
+                int y = textIO.newIntInputReader().read("Try again with a new y coordinate\n");
                 point = new Point(x, y);
                 running = true;
             }
@@ -373,12 +373,12 @@ public class SiedlerGame {
                 player.buildRoad(player, roadStart, roadEnd);
                 running = false;
             } else {
-                textTerminal.print("Error this points are not on an edge, please try again");
-                int a = textIO.newIntInputReader().read("Try again with a new x coordinate for roadstart");
-                int b = textIO.newIntInputReader().read("Try again with a new y coordinate for roadstart");
+                textTerminal.print("Error this points are not on an edge, please try again\n");
+                int a = textIO.newIntInputReader().read("Try again with a new x coordinate for roadstart\n");
+                int b = textIO.newIntInputReader().read("Try again with a new y coordinate for roadstart\n");
                 roadStart = new Point(a, b);
-                int x = textIO.newIntInputReader().read("Try again with a new x coordinate for roadend");
-                int y = textIO.newIntInputReader().read("Try again with a new y coordinate for roadend");
+                int x = textIO.newIntInputReader().read("Try again with a new x coordinate for roadend\n");
+                int y = textIO.newIntInputReader().read("Try again with a new y coordinate for roadend\n");
                 roadEnd = new Point(x, y);
                 running = true;
             }
@@ -399,16 +399,16 @@ public class SiedlerGame {
                     player.removeResources(Resource.WOOD, 1);
                     board.setEdge(roadStart, roadEnd, new Road(player, roadStart, roadEnd));
                 } else {
-                    textTerminal.print("You do not have enough resources to build a road");
+                    textTerminal.print("You do not have enough resources to build a road\n");
                     running = true;
                 }
             } else {
-                textTerminal.print("Error this points are not on an edge, please try again");
-                int a = textIO.newIntInputReader().read("Try again with a new x coordinate for roadstart");
-                int b = textIO.newIntInputReader().read("Try again with a new y coordinate for roadstart");
+                textTerminal.print("Error this points are not on an edge, please try again\n");
+                int a = textIO.newIntInputReader().read("Try again with a new x coordinate for roadstart\n");
+                int b = textIO.newIntInputReader().read("Try again with a new y coordinate for roadstart\n");
                 roadStart = new Point(a, b);
-                int x = textIO.newIntInputReader().read("Try again with a new x coordinate for roadend");
-                int y = textIO.newIntInputReader().read("Try again with a new y coordinate for roadend");
+                int x = textIO.newIntInputReader().read("Try again with a new x coordinate for roadend\n");
+                int y = textIO.newIntInputReader().read("Try again with a new y coordinate for roadend\n");
                 roadEnd = new Point(x, y);
                 running = true;
             }
