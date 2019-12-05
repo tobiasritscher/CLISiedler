@@ -254,8 +254,7 @@ public class SiedlerGame {
 
     public boolean isCornerConnectedToLand(Point corner, SiedlerBoard board){
         boolean result = false;
-        Collection<Land> lands = Arrays.asList(Land.values());
-        lands.remove(Land.WATER);
+        Land[] lands = {Land.DESERT, Land.MOUNTAIN, Land.MEADOW, Land.GRAINFIELD, Land.FOREST, Land.CLAYSOIL};
         for (Land land : lands) {
             if (board.getFields(corner).contains(land))
                 result = true;

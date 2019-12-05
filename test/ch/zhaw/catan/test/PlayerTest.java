@@ -150,4 +150,20 @@ class PlayerTest {
         Assertions.assertEquals(blue.getResourcesInPossession(), resourceStockBlue.getResources());
         Assertions.assertEquals(red.getResourcesInPossession(), resourceStockRed.getResources());
     }
+
+    @Test
+    void isCornerConnectedToLandTest() {
+        SiedlerBoard testBoard = new SiedlerBoard();
+        SiedlerGame game = new SiedlerGame(7,2);
+        Point falseOne =  new Point(3,3);
+        Point falseTwo = new Point(12,4);
+        Point trueOne = new Point(3,7);
+        Point trueTwo = new Point(5,9);
+
+        Assertions.assertFalse(game.isCornerConnectedToLand(falseOne, testBoard));
+        Assertions.assertFalse(game.isCornerConnectedToLand(falseTwo, testBoard));
+        Assertions.assertTrue(game.isCornerConnectedToLand(trueOne, testBoard));
+        Assertions.assertTrue(game.isCornerConnectedToLand(trueTwo, testBoard));
+
+    }
 }
