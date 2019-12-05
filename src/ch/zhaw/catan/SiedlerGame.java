@@ -80,7 +80,7 @@ public class SiedlerGame {
         return settlement;
     }
 
-    public Settlement placeSettlement(Point position, Player player, SiedlerBoard hexBoard) {
+    public void placeSettlement(Point position, Player player, SiedlerBoard hexBoard) {
         Settlement settlement = null;
         boolean trying;
 
@@ -96,10 +96,11 @@ public class SiedlerGame {
                     player.removeResources(Resource.WOOD, 1);
                     player.removeResources(Resource.WOOL, 1);
                     player.removeResources(Resource.GRAIN, 1);
+                    hexBoard.setCorner(settlement.getPosition(), settlement);
                     trying = false;
                 } else {
                     textTerminal.print("You don't have enough resources to build a settlement");
-                    trying = true;
+                    trying = false;
                 }
             } else {
                 int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate");
@@ -110,8 +111,6 @@ public class SiedlerGame {
                 trying = true;
             }
         } while (trying);
-        hexBoard.setCorner(settlement.getPosition(), settlement);
-        return settlement;
     }
 
     private boolean validSettlementPlacing(Point position, SiedlerBoard hexBoard) {
