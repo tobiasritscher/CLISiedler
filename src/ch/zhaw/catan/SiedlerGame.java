@@ -192,12 +192,39 @@ public class SiedlerGame {
         return point;
     }
 
-    public Road placeRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
+    public Road placeInitialRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
         boolean running;
         do {
             if (validRoadPlacement(roadStart, roadEnd, board, player)) {
                 player.buildRoad(player, roadStart, roadEnd);
                 running = false;
+            } else {
+                textTerminal.print("Error this points are not on an edge, please try again");
+                int a = textIO.newIntInputReader().read("Try again with a new x coordinate for roadstart");
+                int b = textIO.newIntInputReader().read("Try again with a new y coordinate for roadstart");
+                roadStart = new Point(a, b);
+                int x = textIO.newIntInputReader().read("Try again with a new x coordinate for roadend");
+                int y = textIO.newIntInputReader().read("Try again with a new y coordinate for roadend");
+                roadEnd = new Point(x, y);
+                running = true;
+            }
+        } while (running);
+        return new Road(player, roadStart, roadEnd);
+    }
+
+    public Road placeRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player, int i){
+        boolean running;
+        do {
+            if (validRoadPlacement(roadStart, roadEnd, board, player)) {
+                if(player.getResourcesInPossession().containsKey(Resource.CLAY) && player.getResourcesInPossession().containsKey(Resource.WOOD)) {
+                    player.buildRoad(player, roadStart, roadEnd);
+                    running = false;
+                    player.removeResources(Resource.CLAY,1);
+                    player.removeResources(Resource.WOOD,1);
+                } else {
+                    textTerminal.print("You do not have enough resources to build a road");
+                    running = true;
+                }
             } else {
                 textTerminal.print("Error this points are not on an edge, please try again");
                 int a = textIO.newIntInputReader().read("Try again with a new x coordinate for roadstart");

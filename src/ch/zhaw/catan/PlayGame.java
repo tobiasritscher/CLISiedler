@@ -93,7 +93,7 @@ public class PlayGame {
 
         //set first road
         Point roadEnd = new Point(xRoadFinish, yRoadFinish);
-        Road road = siedlerGame.placeRoad(roadStart, roadEnd, hexBoard, currentPlayer);
+        Road road = siedlerGame.placeInitialRoad(roadStart, roadEnd, hexBoard, currentPlayer);
         hexBoard.setEdge(road.getStartingAt(), road.getEndingAt(), road);
         UI.newLine();
         UI.resetBookmark("BLANK_SCREEN");
@@ -175,7 +175,8 @@ public class PlayGame {
                 textTerminal.print("2: Build Settlement\n");
                 textTerminal.print("3: Build Road\n");
                 textTerminal.print("4: Build City\n");
-                textTerminal.print("5: Quit game\n");
+                textTerminal.print("5: Check my resources");
+                textTerminal.print("6: Quit game\n");
                 int decision = textIO.newIntInputReader().read("What would you like to do now?\n");
 
                 switch (decision) {
@@ -195,14 +196,18 @@ public class PlayGame {
                         int c = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the finish of your road");
                         int d = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the finish of your road");
                         Point roadEnd = new Point(c,d);
-                        siedlerGame.placeRoad(roadStart,roadEnd,hexBoard,currentPlayer);
+                        siedlerGame.placeRoad(roadStart,roadEnd,hexBoard,currentPlayer,i);
                         break;
                     case 4:
                         int e = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your city");
                         int f = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your city");
                         Point where = new Point(e,f);
                         siedlerGame.placeCity(where);
+                        break;
                     case 5:
+                        currentPlayer.getResourcesInPossession();
+                        break;
+                    case 6:
                         char ciao = textIO.newCharInputReader().read("Sure?(Y/N)");
                         if (ciao == 'Y') {
                             running = false;
