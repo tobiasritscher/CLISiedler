@@ -10,6 +10,7 @@ public class Dummy {
     private Integer choice = null;
     private Object Player;
     private Config.Resource resource;
+    private PlayGame playGame;
 
     public Dummy() {
     }
@@ -29,7 +30,7 @@ public class Dummy {
 
         SiedlerGame siedlerGame = new SiedlerGame(20, 4);
 
-        siedlerGame.tradeWithBankFourToOne(UI.tradeBid(), UI.tradeAsk());
+        playGame.secondPhase();
 
     }
 

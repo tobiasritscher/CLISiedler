@@ -126,10 +126,16 @@ public class PlayGame {
                 }
             }
         }
-
+        //Ask players to press enter in order to start the second game phase
+        textIO.newStringInputReader()
+                .withMinLength(0)
+                .read("\nPress enter to continue to the second game phase");
     }
 
     public void secondPhase() {
+        UI.resetBookmark("BLANK");
+        UI.printBoard(hexBoard);
+
         boolean gameIsRunning = true;
         for (int i = 0; gameIsRunning; i++) {
             Player currentPlayer = siedlerGame.getPlayers().get(i);
@@ -160,6 +166,8 @@ public class PlayGame {
                             for (Settlement settlement : hexBoard.getCornersOfField(field)) {
                                 settlement.getPlayer().addResources(hexBoard.getField(field).getResource(), 1);
                                 textTerminal.print(settlement.getFaction() + " has recieved 1 " + hexBoard.getField(field).getResource() + '\n');
+
+
                             }
                         }
                     }
