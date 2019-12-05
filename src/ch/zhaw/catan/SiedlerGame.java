@@ -208,7 +208,7 @@ public class SiedlerGame {
                     }
 
                 } else {
-                    textTerminal.print("You do not have enough Wood dude.\n");
+                    textTerminal.print("You do not have enough Wood in your hood.\n");
                 }
                 break;
 
@@ -243,7 +243,7 @@ public class SiedlerGame {
                     }
 
                 } else {
-                    textTerminal.print("You do not have enough Wood dude.\n");
+                    textTerminal.print("You do not have enough Stone to bone.\n");
                 }
                 break;
             case 3:
@@ -277,7 +277,7 @@ public class SiedlerGame {
                     }
 
                 } else {
-                    textTerminal.print("You do not have enough Wood dude.\n");
+                    textTerminal.print("You do not have enough Grain to gain.\n");
                 }
                 break;
             case 4:
@@ -311,7 +311,7 @@ public class SiedlerGame {
                     }
 
                 } else {
-                    textTerminal.print("You do not have enough Wood dude.\n");
+                    textTerminal.print("You do not have enough Clay to stay.\n");
                 }
                 break;
             case 5:
@@ -345,7 +345,7 @@ public class SiedlerGame {
                     }
 
                 } else {
-                    textTerminal.print("You do not have enough Wood dude.\n");
+                    textTerminal.print("You do not have enough Wool you fool.\n");
                 }
                 break;
             default:
@@ -413,7 +413,7 @@ public class SiedlerGame {
         return road;
     }
 
-    public Road placeRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
+    public void placeRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
         boolean running;
         do {
             if (validRoadPlacement(roadStart, roadEnd, board, player)) {
@@ -422,6 +422,7 @@ public class SiedlerGame {
                     running = false;
                     player.removeResources(Resource.CLAY, 1);
                     player.removeResources(Resource.WOOD, 1);
+                    board.setEdge(roadStart, roadEnd, new Road(player, roadStart, roadEnd));
                 } else {
                     textTerminal.print("You do not have enough resources to build a road");
                     running = true;
@@ -437,9 +438,6 @@ public class SiedlerGame {
                 running = true;
             }
         } while (running);
-        Road road = new Road(player, roadStart, roadEnd);
-        board.setEdge(roadStart, roadEnd, road);
-        return road;
     }
 
     public boolean validRoadPlacement(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
