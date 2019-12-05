@@ -202,7 +202,7 @@ public class PlayGame {
                         int e = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your city");
                         int f = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your city");
                         Point where = new Point(e,f);
-                        siedlerGame.placeCity(where);
+                        siedlerGame.placeCity(where,currentPlayer);
                         break;
                     case 5:
                         currentPlayer.getResourcesInPossession();
