@@ -30,7 +30,12 @@ public class Dummy {
 
         SiedlerGame siedlerGame = new SiedlerGame(20, 4);
 
-        playGame.secondPhase();
+        String str= "Hello TecAdmin!";
+        String newStr = str.substring(0, str.length() - 1);
+
+        System.out.println(newStr);
+
+
 
     }
 

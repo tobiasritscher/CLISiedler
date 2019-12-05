@@ -133,12 +133,16 @@ public class PlayGame {
     }
 
     public void printAllRessourcesOfAllPlayers() {
+
         for (Player player : siedlerGame.getPlayers()){
-            textTerminal.print((player.toString() + " has been given: "));
+            String tempOutput = player.toString() + " has been given: ";
             for (Config.Resource resource : player.getResourcesInPossession().keySet()){
-                textTerminal.print(player.getResourcesInPossession().get(resource) + " " + resource.toString() + ", ");
+
+                tempOutput += player.getResourcesInPossession().get(resource) + " " + resource.toString() + ", ";
             }
-            textTerminal.print("\n");
+            String finalOutput = tempOutput.substring(0,tempOutput.length() - 2);
+            finalOutput += "\n";
+            UI.print(finalOutput);
         }
     }
 
