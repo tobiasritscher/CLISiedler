@@ -40,7 +40,13 @@ public class Settlement {
 
     @Override
     public String toString() {
-        return player.getFaction().toString().toUpperCase();
+        String result;
+        if (isCity){
+            result = "C" + player.getFaction().toString().toUpperCase().substring(0, 1);
+        } else {
+            result = player.getFaction().toString().toUpperCase();
+        }
+        return result;
     }
 
     @Override
