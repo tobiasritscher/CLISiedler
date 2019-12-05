@@ -63,19 +63,15 @@ public class SiedlerGame {
         boolean trying;
 
         do {
-            if (validSettlementPlacing(position,hexBoard)) {
+            if (validSettlementPlacing(position, hexBoard)) {
                 settlement = new Settlement(position, player);
                 player.addSettlement(settlement);
                 trying = false;
             } else {
-                UI.resetBookmark("BLANK_SCREEN");
-                UI.printBoard(hexBoard);
                 int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate");
-
-                UI.resetBookmark("BLANK_SCREEN");
-                UI.printBoard(hexBoard);
+                UI.newLine();
                 int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate");
-
+                UI.newLine();
                 position = new Point(x, y);
                 trying = true;
             }
@@ -84,36 +80,32 @@ public class SiedlerGame {
         return settlement;
     }
 
-    public Settlement placeSettlement(Point position, Player player, SiedlerBoard hexBoard){
+    public Settlement placeSettlement(Point position, Player player, SiedlerBoard hexBoard) {
         Settlement settlement = null;
         boolean trying;
 
         do {
-            if (validSettlementPlacing(position,hexBoard)){
-                if(player.getResourcesInPossession().containsKey(Resource.CLAY)
-                    && player.getResourcesInPossession().containsKey(Resource.WOOD)
-                    && player.getResourcesInPossession().containsKey(Resource.WOOL)
-                    && player.getResourcesInPossession().containsKey(Resource.GRAIN)) {
+            if (validSettlementPlacing(position, hexBoard)) {
+                if (player.getResourcesInPossession().containsKey(Resource.CLAY)
+                        && player.getResourcesInPossession().containsKey(Resource.WOOD)
+                        && player.getResourcesInPossession().containsKey(Resource.WOOL)
+                        && player.getResourcesInPossession().containsKey(Resource.GRAIN)) {
                     settlement = new Settlement(position, player);
                     player.addSettlement(settlement);
-                    player.removeResources(Resource.CLAY,1);
-                    player.removeResources(Resource.WOOD,1);
-                    player.removeResources(Resource.WOOL,1);
-                    player.removeResources(Resource.GRAIN,1);
+                    player.removeResources(Resource.CLAY, 1);
+                    player.removeResources(Resource.WOOD, 1);
+                    player.removeResources(Resource.WOOL, 1);
+                    player.removeResources(Resource.GRAIN, 1);
                     trying = false;
                 } else {
                     textTerminal.print("You don't have enough resources to build a settlement");
                     trying = true;
                 }
             } else {
-                UI.resetBookmark("BLANK_SCREEN");
-                UI.printBoard(hexBoard);
                 int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate");
-
-                UI.resetBookmark("BLANK_SCREEN");
-                UI.printBoard(hexBoard);
+                UI.newLine();
                 int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate");
-
+                UI.newLine();
                 position = new Point(x, y);
                 trying = true;
             }
@@ -125,7 +117,7 @@ public class SiedlerGame {
     private boolean validSettlementPlacing(Point position, SiedlerBoard hexBoard) {
         return hexBoard.getNeighboursOfCorner(position).isEmpty() &&
                 hexBoard.hasCorner(position) &&
-                isCornerConnectedToLand(position,hexBoard);
+                isCornerConnectedToLand(position, hexBoard);
     }
 
     public Map<Faction, List<Resource>> throwDice(int dicethrow) {
@@ -147,22 +139,21 @@ public class SiedlerGame {
     }
 
 
-
     public boolean placeCity(Point position, Player player) { //TODO: test and bugfix
 
         boolean settlementFound = false;
         if (player.getSettlementsBuiltPoints().contains(position)) {
-            Map<Resource,Integer> resources = player.getResourcesInPossession();
-            if(resources.get(Resource.STONE)>=3 && resources.get(Resource.GRAIN) >= 2) {
+            Map<Resource, Integer> resources = player.getResourcesInPossession();
+            if (resources.get(Resource.STONE) >= 3 && resources.get(Resource.GRAIN) >= 2) {
                 player.getSettlementAtPosition(position).setToCity();
                 settlementFound = true;
-                player.removeResources(Resource.STONE,3);
-                player.removeResources(Resource.GRAIN,2);
+                player.removeResources(Resource.STONE, 3);
+                player.removeResources(Resource.GRAIN, 2);
             } else {
-                UI.print("You do not have enough resources");
+                textTerminal.print("You do not have enough resources");
             }
         } else {
-            UI.print("You don't have a settlement to upgrade on this position: " + position);
+            textTerminal.print("You don't have a settlement to upgrade on this position: " + position);
         }
         return settlementFound;
     }
@@ -179,41 +170,227 @@ public class SiedlerGame {
         return result;
     }
 
-    public boolean getWinner(Player player) { //TODO: test and bugfix
-        int winPointCounter = 0;
-        for (Settlement settlement : player.getSettlementsBuilt()) {
-            if(settlement.getIsCity()){
-                winPointCounter += settlement.getWinPoints();
-            } else{
-                winPointCounter += settlement.getWinPoints();
-            }
+    public void tradeWithBank(int i) {
+        textTerminal.print("1: Wood\n");
+        textTerminal.print("2: Stone\n");
+        textTerminal.print("3: Grain\n");
+        textTerminal.print("4: Clay\n");
+        textTerminal.print("5: Wool\n");
+        int x = textIO.newIntInputReader().read("What would you like to trade?\n");
+        switch (x) {
+            case 1:
+                if (getPlayers().get(i).getResourcesInPossession().get(Resource.WOOD) >= 4) {
+                    textTerminal.print("1: Wood\n");
+                    textTerminal.print("2: Stone\n");
+                    textTerminal.print("3: Grain\n");
+                    textTerminal.print("4: Clay\n");
+                    textTerminal.print("5: Wool\n");
+                    int y = textIO.newIntInputReader().read("What would you like in return?\n");
+                    getPlayers().get(i).removeResources(Resource.WOOD, 4);
+                    switch (y) {
+                        case 1:
+                            getPlayers().get(i).addResources(Resource.WOOD, 1);
+                            break;
+                        case 2:
+                            getPlayers().get(i).addResources(Resource.STONE, 1);
+                            break;
+                        case 3:
+                            getPlayers().get(i).addResources(Resource.GRAIN, 1);
+                            break;
+                        case 4:
+                            getPlayers().get(i).addResources(Resource.CLAY, 1);
+                            break;
+                        case 5:
+                            getPlayers().get(i).addResources(Resource.WOOL, 1);
+                            break;
+                        default:
+                            textTerminal.print("Come on there are only 5 numbers...you can do this!\n");
+                            break;
+                    }
+
+                } else {
+                    textTerminal.print("You do not have enough Wood dude.\n");
+                }
+                break;
+
+            case 2:
+                if (getPlayers().get(i).getResourcesInPossession().get(Resource.STONE) >= 4) {
+                    textTerminal.print("1: Wood\n");
+                    textTerminal.print("2: Stone\n");
+                    textTerminal.print("3: Grain\n");
+                    textTerminal.print("4: Clay\n");
+                    textTerminal.print("5: Wool\n");
+                    int y = textIO.newIntInputReader().read("What would you like in return?\n");
+                    getPlayers().get(i).removeResources(Resource.WOOD, 4);
+                    switch (y) {
+                        case 1:
+                            getPlayers().get(i).addResources(Resource.WOOD, 1);
+                            break;
+                        case 2:
+                            getPlayers().get(i).addResources(Resource.STONE, 1);
+                            break;
+                        case 3:
+                            getPlayers().get(i).addResources(Resource.GRAIN, 1);
+                            break;
+                        case 4:
+                            getPlayers().get(i).addResources(Resource.CLAY, 1);
+                            break;
+                        case 5:
+                            getPlayers().get(i).addResources(Resource.WOOL, 1);
+                            break;
+                        default:
+                            textTerminal.print("Come on there are only 5 numbers...you can do this!\n");
+                            break;
+                    }
+
+                } else {
+                    textTerminal.print("You do not have enough Wood dude.\n");
+                }
+                break;
+            case 3:
+                if (getPlayers().get(i).getResourcesInPossession().get(Resource.GRAIN) >= 4) {
+                    textTerminal.print("1: Wood\n");
+                    textTerminal.print("2: Stone\n");
+                    textTerminal.print("3: Grain\n");
+                    textTerminal.print("4: Clay\n");
+                    textTerminal.print("5: Wool\n");
+                    int y = textIO.newIntInputReader().read("What would you like in return?\n");
+                    getPlayers().get(i).removeResources(Resource.WOOD, 4);
+                    switch (y) {
+                        case 1:
+                            getPlayers().get(i).addResources(Resource.WOOD, 1);
+                            break;
+                        case 2:
+                            getPlayers().get(i).addResources(Resource.STONE, 1);
+                            break;
+                        case 3:
+                            getPlayers().get(i).addResources(Resource.GRAIN, 1);
+                            break;
+                        case 4:
+                            getPlayers().get(i).addResources(Resource.CLAY, 1);
+                            break;
+                        case 5:
+                            getPlayers().get(i).addResources(Resource.WOOL, 1);
+                            break;
+                        default:
+                            textTerminal.print("Come on there are only 5 numbers...you can do this!\n");
+                            break;
+                    }
+
+                } else {
+                    textTerminal.print("You do not have enough Wood dude.\n");
+                }
+                break;
+            case 4:
+                if (getPlayers().get(i).getResourcesInPossession().get(Resource.CLAY) >= 4) {
+                    textTerminal.print("1: Wood\n");
+                    textTerminal.print("2: Stone\n");
+                    textTerminal.print("3: Grain\n");
+                    textTerminal.print("4: Clay\n");
+                    textTerminal.print("5: Wool\n");
+                    int y = textIO.newIntInputReader().read("What would you like in return?\n");
+                    getPlayers().get(i).removeResources(Resource.WOOD, 4);
+                    switch (y) {
+                        case 1:
+                            getPlayers().get(i).addResources(Resource.WOOD, 1);
+                            break;
+                        case 2:
+                            getPlayers().get(i).addResources(Resource.STONE, 1);
+                            break;
+                        case 3:
+                            getPlayers().get(i).addResources(Resource.GRAIN, 1);
+                            break;
+                        case 4:
+                            getPlayers().get(i).addResources(Resource.CLAY, 1);
+                            break;
+                        case 5:
+                            getPlayers().get(i).addResources(Resource.WOOL, 1);
+                            break;
+                        default:
+                            textTerminal.print("Come on there are only 5 numbers...you can do this!\n");
+                            break;
+                    }
+
+                } else {
+                    textTerminal.print("You do not have enough Wood dude.\n");
+                }
+                break;
+            case 5:
+                if (getPlayers().get(i).getResourcesInPossession().get(Resource.WOOL) >= 4) {
+                    textTerminal.print("1: Wood\n");
+                    textTerminal.print("2: Stone\n");
+                    textTerminal.print("3: Grain\n");
+                    textTerminal.print("4: Clay\n");
+                    textTerminal.print("5: Wool\n");
+                    int y = textIO.newIntInputReader().read("What would you like in return?\n");
+                    getPlayers().get(i).removeResources(Resource.WOOD, 4);
+                    switch (y) {
+                        case 1:
+                            getPlayers().get(i).addResources(Resource.WOOD, 1);
+                            break;
+                        case 2:
+                            getPlayers().get(i).addResources(Resource.STONE, 1);
+                            break;
+                        case 3:
+                            getPlayers().get(i).addResources(Resource.GRAIN, 1);
+                            break;
+                        case 4:
+                            getPlayers().get(i).addResources(Resource.CLAY, 1);
+                            break;
+                        case 5:
+                            getPlayers().get(i).addResources(Resource.WOOL, 1);
+                            break;
+                        default:
+                            textTerminal.print("Come on there are only 5 numbers...you can do this!\n");
+                            break;
+                    }
+
+                } else {
+                    textTerminal.print("You do not have enough Wood dude.\n");
+                }
+                break;
+            default:
+                textTerminal.print("Come on there are only 5 numbers...you can do this!\n");
+                break;
         }
-        return winPointCounter >= winPoints;
+
     }
 
-
-    public int createPlayers(int numberOfPlayers) {
-        for (int i = 0; i < numberOfPlayers; ++i) {
-            players.add(new Player(Faction.values()[i]));
-        }
-        return numberOfPlayers;
-    }
-
-    public Point isPointACorner(Point point) {
-        boolean running;
-        do {
-            if (HexBoard.isCornerCoordinate(point)) {
-                running = false;
-            } else {
-                UI.print("Error this point is not on a corner, please try again");
-                int x = textIO.newIntInputReader().read("Try again with a new x coordinate");
-                int y = textIO.newIntInputReader().read("Try again with a new y coordinate");
-                point = new Point(x, y);
-                running = true;
+        public boolean getWinner (Player player){ //TODO: test and bugfix
+            int winPointCounter = 0;
+            for (Settlement settlement : player.getSettlementsBuilt()) {
+                if (settlement.getIsCity()) {
+                    winPointCounter += settlement.getWinPoints();
+                } else {
+                    winPointCounter += settlement.getWinPoints();
+                }
             }
-        } while (running);
-        return point;
-    }
+            return winPointCounter >= winPoints;
+        }
+
+
+        public int createPlayers ( int numberOfPlayers){
+            for (int i = 0; i < numberOfPlayers; ++i) {
+                players.add(new Player(Faction.values()[i]));
+            }
+            return numberOfPlayers;
+        }
+
+        public Point isPointACorner (Point point){
+            boolean running;
+            do {
+                if (HexBoard.isCornerCoordinate(point)) {
+                    running = false;
+                } else {
+                    textTerminal.print("Error this point is not on a corner, please try again");
+                    int x = textIO.newIntInputReader().read("Try again with a new x coordinate");
+                    int y = textIO.newIntInputReader().read("Try again with a new y coordinate");
+                    point = new Point(x, y);
+                    running = true;
+                }
+            } while (running);
+            return point;
+        }
 
     public Road placeInitialRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
         boolean running;
@@ -222,25 +399,11 @@ public class SiedlerGame {
                 player.buildRoad(player, roadStart, roadEnd);
                 running = false;
             } else {
-                UI.resetBookmark("BLANK_SCREEN");
-                UI.printBoard(board);
-                UI.print("Error this points are not on an edge, please try again");
-
-                UI.resetBookmark("BLANK_SCREEN");
-                UI.printBoard(board);
+                textTerminal.print("Error this points are not on an edge, please try again");
                 int a = textIO.newIntInputReader().read("Try again with a new x coordinate for roadstart");
-
-                UI.resetBookmark("BLANK_SCREEN");
-                UI.printBoard(board);
                 int b = textIO.newIntInputReader().read("Try again with a new y coordinate for roadstart");
                 roadStart = new Point(a, b);
-
-                UI.resetBookmark("BLANK_SCREEN");
-                UI.printBoard(board);
                 int x = textIO.newIntInputReader().read("Try again with a new x coordinate for roadend");
-
-                UI.resetBookmark("BLANK_SCREEN");
-                UI.printBoard(board);
                 int y = textIO.newIntInputReader().read("Try again with a new y coordinate for roadend");
                 roadEnd = new Point(x, y);
                 running = true;
@@ -280,25 +443,25 @@ public class SiedlerGame {
         return road;
     }
 
-    public boolean validRoadPlacement(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
-        if(board.hasCorner(roadStart) && board.hasCorner(roadEnd) && isCornerConnectedToLand(roadStart,board) && isCornerConnectedToLand(roadEnd,board)) {
-            boolean rightCoordinates = board.hasEdge(roadStart, roadEnd) && board.hasCorner(roadStart) && board.hasCorner(roadEnd);
-            boolean roadStartIsSettlement = player.getSettlementsBuilt().contains(board.getCorner(roadStart));
-            boolean roadEndIsSettlement = player.getSettlementsBuilt().contains(board.getCorner(roadEnd));
+        public boolean validRoadPlacement (Point roadStart, Point roadEnd, SiedlerBoard board, Player player){
+            if (board.hasCorner(roadStart) && board.hasCorner(roadEnd) && isCornerConnectedToLand(roadStart, board) && isCornerConnectedToLand(roadEnd, board)) {
+                boolean rightCoordinates = board.hasEdge(roadStart, roadEnd) && board.hasCorner(roadStart) && board.hasCorner(roadEnd);
+                boolean roadStartIsSettlement = player.getSettlementsBuilt().contains(board.getCorner(roadStart));
+                boolean roadEndIsSettlement = player.getSettlementsBuilt().contains(board.getCorner(roadEnd));
 
-            return rightCoordinates && (roadStartIsSettlement || roadEndIsSettlement);
-        } else {
-            return false;
+                return rightCoordinates && (roadStartIsSettlement || roadEndIsSettlement);
+            } else {
+                return false;
+            }
+        }
+
+        public boolean isCornerConnectedToLand (Point corner, SiedlerBoard board){
+            boolean result = false;
+            Land[] lands = {Land.DESERT, Land.MOUNTAIN, Land.MEADOW, Land.GRAINFIELD, Land.FOREST, Land.CLAYSOIL};
+            for (Land land : lands) {
+                if (board.getFields(corner).contains(land))
+                    result = true;
+            }
+            return result;
         }
     }
-
-    public boolean isCornerConnectedToLand(Point corner, SiedlerBoard board){
-        boolean result = false;
-        Land[] lands = {Land.DESERT, Land.MOUNTAIN, Land.MEADOW, Land.GRAINFIELD, Land.FOREST, Land.CLAYSOIL};
-        for (Land land : lands) {
-            if (board.getFields(corner).contains(land))
-                result = true;
-        }
-        return result;
-    }
-}
