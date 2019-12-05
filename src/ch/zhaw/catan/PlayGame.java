@@ -48,9 +48,7 @@ public class PlayGame {
                 secondPhase();
             } else {
                 UI.print("Ok, there will be " + numberOfPlayers + " players");
-                textIO.newStringInputReader()
-                        .withMinLength(0)
-                        .read("\nPress enter to continue");
+                UI.promptEnter();
 
                 //Creating a new game
                 siedlerGame = new SiedlerGame(7, numberOfPlayers);
@@ -145,9 +143,7 @@ public class PlayGame {
 
         printAllGivenRessourcesOfAllPlayers();
         //Ask players to press enter in order to start the second game phase
-        textIO.newStringInputReader()
-                .withMinLength(0)
-                .read("\nPress enter to continue to the second game phase");
+        UI.promptEnter();
     }
 
     public void printAllGivenRessourcesOfAllPlayers() {
@@ -205,6 +201,7 @@ public class PlayGame {
             }
 
             boolean playersTurn = true;
+                UI.print("It's " + currentPlayer + "'s turn\n");
             do {
                 textTerminal.print("1: Trade with bank\n");
                 textTerminal.print("2: Build Settlement\n");
@@ -268,9 +265,18 @@ public class PlayGame {
                         siedlerGame.placeCity(where, currentPlayer);
                         break;
                     case 5:
+                        UI.resetBookmark("BLANK_SCREEN");
+                        UI.printBoard(hexBoard);
+
                         for (HashMap.Entry<Config.Resource, Integer> entry : currentPlayer.getResourcesInPossession().entrySet()) {
                             textTerminal.print(currentPlayer + " has " + entry.getKey() + ": " + entry.getValue() + "\n");
                         }
+
+                        UI.promptEnter();
+                        UI.resetBookmark("BLANK_SCREEN");
+                        UI.printBoard(hexBoard);
+
+
                         break;
                     case 6:
                         String sure = textIO.newStringInputReader().read(currentPlayer + " are you sure you want to end your turn? (Y/N)\n");

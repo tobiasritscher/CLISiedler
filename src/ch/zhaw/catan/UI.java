@@ -30,7 +30,7 @@ public class UI {
 
         //Setting properties of terminal window
         ((SwingTextTerminal) textTerminal).setPromptFontSize(12);
-        textTerminal.getProperties().setPaneDimension(1040, 840);
+        textTerminal.getProperties().setPaneDimension(1040, 880);
     }
 
     public static void closeTerminal() {
@@ -204,5 +204,11 @@ public class UI {
 
     public static SiedlerBoard getBoard() {
         return board;
+    }
+
+    public static void promptEnter(){
+        textIO.newStringInputReader()
+                .withMinLength(0)
+                .read("\nPress enter to continue");
     }
 }
