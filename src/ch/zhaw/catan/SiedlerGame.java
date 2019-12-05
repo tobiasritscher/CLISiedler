@@ -128,11 +128,7 @@ public class SiedlerGame {
         for (Settlement settlement : players.get(currentPlayer).getSettlementsBuilt()) {
             winPointCounter += settlement.getWinPoints();
         }
-        if (winPointCounter >= winPoints) {
-            return true;
-        } else {
-            return false;
-        }
+        return winPointCounter >= winPoints;
     }
 
 
