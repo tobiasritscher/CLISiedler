@@ -78,6 +78,39 @@ public class SiedlerGame {
         return settlement;
     }
 
+    public Settlement placeSettlement(Point position, Player player, SiedlerBoard hexBoard, int i){
+        Settlement settlement = null;
+        boolean trying;
+
+        do {
+            if (hexBoard.getNeighboursOfCorner(position).isEmpty() && hexBoard.hasCorner(position)){
+                if(getPlayers().get(i).getResourcesInPossession().containsValue(Resource.CLAY)
+                    && getPlayers().get(i).getResourcesInPossession().containsValue(Resource.WOOD)
+                    && getPlayers().get(i).getResourcesInPossession().containsValue(Resource.WOOL)
+                    && getPlayers().get(i).getResourcesInPossession().containsValue(Resource.GRAIN)) {
+                    settlement = new Settlement(position, player);
+                    player.addSettlement(settlement);
+                    getPlayers().get(i).removeResources(Resource.CLAY,1);
+                    getPlayers().get(i).removeResources(Resource.WOOD,1);
+                    getPlayers().get(i).removeResources(Resource.WOOL,1);
+                    getPlayers().get(i).removeResources(Resource.GRAIN,1);
+                    trying = false;
+                } else {
+                    textTerminal.print("You don't have enough resources to build a settlement");
+                    trying = true;
+                }
+            } else {
+                int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate");
+                UI.newLine();
+                int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate");
+                UI.newLine();
+                position = new Point(x, y);
+                trying = true;
+            }
+        } while (trying);
+        return settlement;
+    }
+
     public Map<Faction, List<Resource>> throwDice(int dicethrow) {
         TreeMap<Faction, List<Resource>> resourceMap = new TreeMap<>();
         TreeMap<Integer, Point> temporaryMap = new TreeMap<>();
@@ -103,9 +136,13 @@ public class SiedlerGame {
         boolean settlementFound = false;
         for (Settlement settlementToUpgrade : players.get(currentPlayer).getSettlementsBuilt()) {
             if (settlementToUpgrade.getPosition() == position) {
-                settlementToUpgrade.setToCity();
-                settlementFound = true;
-                break;
+                Map<Resource,Integer> resources = players.get(currentPlayer).getResourcesInPossession();
+                if(resources.get(Resource.STONE)==3 && resources.get(Resource.GRAIN) == 2) {
+                    settlementToUpgrade.setToCity();
+                    settlementFound = true;
+                    players.get(currentPlayer).removeResources(Resource.STONE,3);
+                    players.get(currentPlayer).removeResources(Resource.GRAIN,2);
+                }
             }
         }
         return settlementFound;
