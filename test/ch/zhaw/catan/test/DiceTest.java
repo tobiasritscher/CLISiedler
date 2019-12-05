@@ -8,8 +8,8 @@ class DiceTest {
 
     @Test
     void roll() {
-        for (int index = 0; index >= 100; index++) {
-            Assertions.assertTrue(Dice.roll() <= 1 && Dice.roll() >= 12);
+        for (int index = 0; index <= 100; index++) {
+            Assertions.assertTrue(Dice.roll() >= 1 && Dice.roll() <= 12);
         }
     }
 }

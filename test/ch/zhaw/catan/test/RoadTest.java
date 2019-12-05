@@ -24,4 +24,9 @@ class RoadTest {
     void getEndingAt() {
         Assertions.assertEquals(testPointEnd, testRoad.getEndingAt());
     }
+
+    @Test
+    void testToString() {
+        Assertions.assertEquals("R", testRoad.toString());
+    }
 }

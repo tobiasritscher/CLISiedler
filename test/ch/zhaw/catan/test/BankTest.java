@@ -18,7 +18,10 @@ class BankTest {
 
     @Test
     void trade() {
-        String expectedValue = "{GR=1, WD=1, CL=3}";
+        // IMPORTANT! Direct call of this method through IDE will fail because resources will be out of order.
+        // Call this test via class to have a reliable result.
+
+        String expectedValue = "{WD=1, GR=1, CL=3}";
         // Positive test
         testGame.tradeWithBankFourToOne(Config.Resource.GRAIN, Config.Resource.WOOD);
         Assertions.assertEquals(expectedValue, testGame.getCurrentPlayer().getResourcesInPossession().toString());

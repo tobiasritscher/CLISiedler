@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class SettlementTest {
 
     private Player testPlayer = new Player(Config.Faction.RED);
@@ -48,5 +46,17 @@ class SettlementTest {
     void getFaction() {
         Assertions.assertEquals("RR", testSettlement.getFaction().toString());
         Assertions.assertEquals("RR", testCity.getFaction().toString());
+    }
+
+    @Test
+    void getIsCity() {
+        Assertions.assertFalse(testSettlement.getIsCity());
+        Assertions.assertTrue(testCity.getIsCity());
+    }
+
+    @Test
+    void testToString() {
+        Assertions.assertEquals("RR", testSettlement.toString());
+        Assertions.assertEquals("RR", testCity.toString());
     }
 }
