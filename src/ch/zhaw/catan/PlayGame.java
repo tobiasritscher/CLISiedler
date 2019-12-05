@@ -135,7 +135,8 @@ public class PlayGame {
     }
 
     public void secondPhase() {
-        for (int i = 0; i < siedlerGame.getPlayers().size(); i++) {
+        boolean gameIsRunning = true;
+        for (int i = 0; gameIsRunning; i++) {
             Player currentPlayer = siedlerGame.getPlayers().get(i);
             int rolledNumber = Dice.roll();
             textTerminal.print(currentPlayer + "rolled a " + rolledNumber);
@@ -176,7 +177,8 @@ public class PlayGame {
                 textTerminal.print("3: Build Road\n");
                 textTerminal.print("4: Build City\n");
                 textTerminal.print("5: Check my resources");
-                textTerminal.print("6: Quit game\n");
+                textTerminal.print("6: End my turn\n");
+                textTerminal.print("7: Quit game\n");
                 int decision = textIO.newIntInputReader().read("What would you like to do now?\n");
 
                 switch (decision) {
@@ -186,28 +188,35 @@ public class PlayGame {
                     case 2:
                         int x = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your settlement");
                         int y = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your settlement");
-                        Point position = new Point(x,y);
-                        siedlerGame.placeSettlement(position, currentPlayer,hexBoard);
+                        Point position = new Point(x, y);
+                        siedlerGame.placeSettlement(position, currentPlayer, hexBoard);
                         break;
                     case 3:
                         int a = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the start of your road");
                         int b = textIO.newIntInputReader().read(currentPlayer + " please pick a y coordinate for the start of your road");
-                        Point roadStart = new Point(a,b);
+                        Point roadStart = new Point(a, b);
                         int c = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the finish of your road");
                         int d = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the finish of your road");
-                        Point roadEnd = new Point(c,d);
-                        siedlerGame.placeRoad(roadStart,roadEnd,hexBoard,currentPlayer,i);
+                        Point roadEnd = new Point(c, d);
+                        siedlerGame.placeRoad(roadStart, roadEnd, hexBoard, currentPlayer, i);
                         break;
                     case 4:
                         int e = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your city");
                         int f = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your city");
-                        Point where = new Point(e,f);
-                        siedlerGame.placeCity(where,currentPlayer);
+                        Point where = new Point(e, f);
+                        siedlerGame.placeCity(where, currentPlayer);
                         break;
                     case 5:
                         currentPlayer.getResourcesInPossession();
                         break;
                     case 6:
+                        char sure = textIO.newCharInputReader().read(currentPlayer + " are you sure you want to end your turn? (Y/N)");
+                        if (sure == 'Y') {
+                            running = false;
+                        }
+                        break;
+
+                    case 7:
                         char ciao = textIO.newCharInputReader().read("Sure?(Y/N)");
                         if (ciao == 'Y') {
                             running = false;
@@ -217,8 +226,9 @@ public class PlayGame {
                         textTerminal.print("The number you have selected doesn't exist, please try again\n");
                 }
             } while (running);
-            if (siedlerGame.getWinner()) {
+            if (siedlerGame.getWinner(currentPlayer)) {
                 textTerminal.print(currentPlayer + "has won the game");
+                gameIsRunning = false;
                 break;
             }
         }

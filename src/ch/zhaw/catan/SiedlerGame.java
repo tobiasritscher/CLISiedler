@@ -169,10 +169,14 @@ public class SiedlerGame {
         return result;
     }
 
-    public boolean getWinner() { //TODO: test and bugfix
+    public boolean getWinner(Player player) { //TODO: test and bugfix
         int winPointCounter = 0;
-        for (Settlement settlement : players.get(currentPlayer).getSettlementsBuilt()) {
-            winPointCounter += settlement.getWinPoints();
+        for (Settlement settlement : player.getSettlementsBuilt()) {
+            if(settlement.getIsCity()){
+                winPointCounter += settlement.getWinPoints();
+            } else{
+                winPointCounter += settlement.getWinPoints();
+            }
         }
         return winPointCounter >= winPoints;
     }
