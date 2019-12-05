@@ -149,16 +149,14 @@ public class SiedlerGame {
 
     public void tradeWithBank(int i) {
         Player currentPlayer = getPlayers().get(i);
-        for (int j = 1; j <= Resource.values().length; ++j){
-            textTerminal.print("" + j + ": " + Resource.values()[j] + "\n");
+        for (int j = 0; j < Resource.values().length; ++j){
+            textTerminal.print("" + (j+1) + ": " + Resource.values()[j] + "\n");
         }
         int x = textIO.newIntInputReader().read("What would you like to trade?\n");
         switch (x) {
             case 1:
                 if (currentPlayer.getResourcesInPossession().get(Resource.WOOD) >= 4) {
-                    for (int j = 1; j <= Resource.values().length; ++j){
-                        textTerminal.print("" + j + ": " + Resource.values()[j] + "\n");
-                    }
+                    printAllResources();
                     int y = textIO.newIntInputReader().read("What would you like in return?\n");
                     currentPlayer.removeResources(Resource.WOOD, 4);
                     switch (y) {
@@ -189,11 +187,7 @@ public class SiedlerGame {
 
             case 2:
                 if (getPlayers().get(i).getResourcesInPossession().get(Resource.STONE) >= 4) {
-                    textTerminal.print("1: Wood\n");
-                    textTerminal.print("2: Stone\n");
-                    textTerminal.print("3: Grain\n");
-                    textTerminal.print("4: Clay\n");
-                    textTerminal.print("5: Wool\n");
+                    printAllResources();
                     int y = textIO.newIntInputReader().read("What would you like in return?\n");
                     getPlayers().get(i).removeResources(Resource.WOOD, 4);
                     switch (y) {
@@ -223,11 +217,7 @@ public class SiedlerGame {
                 break;
             case 3:
                 if (getPlayers().get(i).getResourcesInPossession().get(Resource.GRAIN) >= 4) {
-                    textTerminal.print("1: Wood\n");
-                    textTerminal.print("2: Stone\n");
-                    textTerminal.print("3: Grain\n");
-                    textTerminal.print("4: Clay\n");
-                    textTerminal.print("5: Wool\n");
+                    printAllResources();
                     int y = textIO.newIntInputReader().read("What would you like in return?\n");
                     getPlayers().get(i).removeResources(Resource.WOOD, 4);
                     switch (y) {
@@ -257,11 +247,7 @@ public class SiedlerGame {
                 break;
             case 4:
                 if (getPlayers().get(i).getResourcesInPossession().get(Resource.CLAY) >= 4) {
-                    textTerminal.print("1: Wood\n");
-                    textTerminal.print("2: Stone\n");
-                    textTerminal.print("3: Grain\n");
-                    textTerminal.print("4: Clay\n");
-                    textTerminal.print("5: Wool\n");
+                    printAllResources();
                     int y = textIO.newIntInputReader().read("What would you like in return?\n");
                     getPlayers().get(i).removeResources(Resource.WOOD, 4);
                     switch (y) {
@@ -291,11 +277,7 @@ public class SiedlerGame {
                 break;
             case 5:
                 if (getPlayers().get(i).getResourcesInPossession().get(Resource.WOOL) >= 4) {
-                    textTerminal.print("1: Wood\n");
-                    textTerminal.print("2: Stone\n");
-                    textTerminal.print("3: Grain\n");
-                    textTerminal.print("4: Clay\n");
-                    textTerminal.print("5: Wool\n");
+                    printAllResources();
                     int y = textIO.newIntInputReader().read("What would you like in return?\n");
                     getPlayers().get(i).removeResources(Resource.WOOD, 4);
                     switch (y) {
@@ -328,6 +310,12 @@ public class SiedlerGame {
                 break;
         }
 
+    }
+
+    private void printAllResources() {
+        for (int j = 0; j < Resource.values().length; ++j){
+            textTerminal.print("" + (j+1) + ": " + Resource.values()[j] + "\n");
+        }
     }
 
     public boolean getWinner(Player player) { //TODO: test and bugfix
