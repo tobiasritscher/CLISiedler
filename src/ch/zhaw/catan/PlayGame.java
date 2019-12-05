@@ -100,12 +100,6 @@ public class PlayGame {
         UI.printBoard(hexBoard);
     }
 
-    //This is the main game Phase
-    public void gamePhase() {
-
-        UI.secondPhaseMenu();
-
-    }
 
     // TODO build phase method calls
     //        To build roads:                   siedlerGame.placeRoad(Point_RoadStart, Point_RoadEnd); -- returns boolean
@@ -132,10 +126,12 @@ public class PlayGame {
                 }
             }
         }
-        gamePhase();
+
     }
 
     public void secondPhase() {
+
+
         boolean gameIsRunning = true;
         for (int i = 0; gameIsRunning; i++) {
             Player currentPlayer = siedlerGame.getPlayers().get(i);
