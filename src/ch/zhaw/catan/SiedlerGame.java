@@ -144,7 +144,7 @@ public class SiedlerGame {
         if (player.getSettlementsBuiltPoints().contains(position)) {
             Map<Resource,Integer> resources = player.getResourcesInPossession();
             if(resources.get(Resource.STONE)>=3 && resources.get(Resource.GRAIN) >= 2) {
-                player.getSettlement(position).setToCity();
+                player.getSettlementAtPosition(position).setToCity();
                 settlementFound = true;
                 player.removeResources(Resource.STONE,3);
                 player.removeResources(Resource.GRAIN,2);

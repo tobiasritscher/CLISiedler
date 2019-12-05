@@ -42,7 +42,7 @@ public class Player {
         return settlementsBuilt;
     }
 
-    public Settlement getSettlement(Point point){
+    public Settlement getSettlementAtPosition(Point point){
         Settlement result = null;
         for (Settlement settlement : settlementsBuilt){
             if (settlement.getPosition().equals(point))
