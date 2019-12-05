@@ -4,6 +4,7 @@ import ch.zhaw.catan.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ch.zhaw.catan.Config.Resource;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -21,35 +22,35 @@ class PlayerTest {
 
     @Test
     void getResourcesInPossession() {
-        testPlayer.addResources(Config.Resource.GRAIN, 1);
-        testPlayer.addResources(Config.Resource.WOOD, 1);
-        testPlayer.addResources(Config.Resource.WOOL, 1);
-        testPlayer.addResources(Config.Resource.STONE, 1);
-        testPlayer.addResources(Config.Resource.CLAY, 1);
+        testPlayer.addResources(Resource.GRAIN, 1);
+        testPlayer.addResources(Resource.WOOD, 1);
+        testPlayer.addResources(Resource.WOOL, 1);
+        testPlayer.addResources(Resource.STONE, 1);
+        testPlayer.addResources(Resource.CLAY, 1);
 
-        Map<Config.Resource, Integer> testResources = new HashMap<>();
-        testResources.put(Config.Resource.GRAIN, 1);
-        testResources.put(Config.Resource.WOOD, 1);
-        testResources.put(Config.Resource.WOOL, 1);
-        testResources.put(Config.Resource.STONE, 1);
-        testResources.put(Config.Resource.CLAY, 1);
+        Map<Resource, Integer> testResources = new HashMap<>();
+        testResources.put(Resource.GRAIN, 1);
+        testResources.put(Resource.WOOD, 1);
+        testResources.put(Resource.WOOL, 1);
+        testResources.put(Resource.STONE, 1);
+        testResources.put(Resource.CLAY, 1);
 
         Assertions.assertEquals(testResources, testPlayer.getResourcesInPossession());
     }
 
     @Test
     void removeResources() {
-        testPlayer.addResources(Config.Resource.GRAIN, 2);
-        testPlayer.removeResources(Config.Resource.GRAIN, 1);
-        Map<Config.Resource, Integer> testResources = new HashMap<>();
-        testResources.put(Config.Resource.GRAIN, 1);
+        testPlayer.addResources(Resource.GRAIN, 2);
+        testPlayer.removeResources(Resource.GRAIN, 1);
+        Map<Resource, Integer> testResources = new HashMap<>();
+        testResources.put(Resource.GRAIN, 1);
     }
 
     @Test
     void addResources() {
-        testPlayer.addResources(Config.Resource.GRAIN, 1);
-        Map<Config.Resource, Integer> testResources = new HashMap<>();
-        testResources.put(Config.Resource.GRAIN, 1);
+        testPlayer.addResources(Resource.GRAIN, 1);
+        Map<Resource, Integer> testResources = new HashMap<>();
+        testResources.put(Resource.GRAIN, 1);
         Assertions.assertEquals(testResources, testPlayer.getResourcesInPossession());
     }
 
@@ -75,10 +76,10 @@ class PlayerTest {
         testBoard = new SiedlerBoard();
         Point testPosition = new Point(6, 12);
         Settlement testSettlement = new Settlement(testPosition, testPlayer);
-        testPlayer.addResources(Config.Resource.GRAIN, 1);
-        testPlayer.addResources(Config.Resource.WOOD, 1);
-        testPlayer.addResources(Config.Resource.WOOL, 1);
-        testPlayer.addResources(Config.Resource.CLAY, 1);
+        testPlayer.addResources(Resource.GRAIN, 1);
+        testPlayer.addResources(Resource.WOOD, 1);
+        testPlayer.addResources(Resource.WOOL, 1);
+        testPlayer.addResources(Resource.CLAY, 1);
         testPlayer.buildSettlement(testPosition, testPlayer, testBoard);
         Assertions.assertEquals(testBoard.getCorner(testPosition).getFaction(), testSettlement.getFaction());
     }
@@ -94,8 +95,8 @@ class PlayerTest {
         Point testPositionStart = new Point(6, 12);
         Point testPositionEnd = new Point(6, 10);
         Road testRoad = new Road(testPlayer, testPositionStart, testPositionEnd);
-        testPlayer.addResources(Config.Resource.WOOD, 1);
-        testPlayer.addResources(Config.Resource.CLAY, 1);
+        testPlayer.addResources(Resource.WOOD, 1);
+        testPlayer.addResources(Resource.CLAY, 1);
         testPlayer.buildRoad(testPlayer, testPositionStart, testPositionEnd);
         Assertions.assertEquals(testPlayer.getRoadsBuilt().get(0), testRoad);
     }
@@ -107,10 +108,10 @@ class PlayerTest {
         Point testPositionEnd = new Point(6, 10);
         Settlement testSettlement = new Settlement(testPositionStart, testPlayer);
         Road testRoad = new Road(testPlayer, testPositionStart, testPositionEnd);
-        testPlayer.addResources(Config.Resource.GRAIN, 1);
-        testPlayer.addResources(Config.Resource.WOOD, 2);
-        testPlayer.addResources(Config.Resource.WOOL, 1);
-        testPlayer.addResources(Config.Resource.CLAY, 2);
+        testPlayer.addResources(Resource.GRAIN, 1);
+        testPlayer.addResources(Resource.WOOD, 2);
+        testPlayer.addResources(Resource.WOOL, 1);
+        testPlayer.addResources(Resource.CLAY, 2);
         testPlayer.buildSettlement(testPositionStart, testPlayer, testBoard);
         testPlayer.buildRoad(testPlayer, testPositionStart, testPositionEnd);
         Assertions.assertEquals(testBoard.getEdge(testPositionStart, testPositionEnd).getEndingAt(), testRoad.getEndingAt());
@@ -134,18 +135,18 @@ class PlayerTest {
         playGame.giveResourcesAfterFirstPhase(testBoard);
 
         ResourceStock resourceStockBlue = new ResourceStock();
-        resourceStockBlue.add(Config.Resource.WOOD, 1);
-        resourceStockBlue.add(Config.Resource.WOOL, 1);
-        resourceStockBlue.add(Config.Resource.WOOL, 1);
-        resourceStockBlue.add(Config.Resource.STONE, 1);
-        resourceStockBlue.add(Config.Resource.WOOD, 1);
+        resourceStockBlue.add(Resource.WOOD, 1);
+        resourceStockBlue.add(Resource.WOOL, 1);
+        resourceStockBlue.add(Resource.WOOL, 1);
+        resourceStockBlue.add(Resource.STONE, 1);
+        resourceStockBlue.add(Resource.WOOD, 1);
 
         ResourceStock resourceStockRed = new ResourceStock();
-        resourceStockRed.add(Config.Resource.STONE, 1);
-        resourceStockRed.add(Config.Resource.WOOD, 1);
-        resourceStockRed.add(Config.Resource.STONE, 1);
-        resourceStockRed.add(Config.Resource.WOOL, 1);
-        resourceStockRed.add(Config.Resource.GRAIN, 1);
+        resourceStockRed.add(Resource.STONE, 1);
+        resourceStockRed.add(Resource.WOOD, 1);
+        resourceStockRed.add(Resource.STONE, 1);
+        resourceStockRed.add(Resource.WOOL, 1);
+        resourceStockRed.add(Resource.GRAIN, 1);
 
         Assertions.assertEquals(blue.getResourcesInPossession(), resourceStockBlue.getResources());
         Assertions.assertEquals(red.getResourcesInPossession(), resourceStockRed.getResources());

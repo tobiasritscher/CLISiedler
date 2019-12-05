@@ -85,10 +85,10 @@ public class SiedlerGame {
 
         do {
             if (validSettlementPlacing(position,hexBoard)){
-                if(player.getResourcesInPossession().containsValue(Resource.CLAY)
-                    && player.getResourcesInPossession().containsValue(Resource.WOOD)
-                    && player.getResourcesInPossession().containsValue(Resource.WOOL)
-                    && player.getResourcesInPossession().containsValue(Resource.GRAIN)) {
+                if(player.getResourcesInPossession().containsKey(Resource.CLAY)
+                    && player.getResourcesInPossession().containsKey(Resource.WOOD)
+                    && player.getResourcesInPossession().containsKey(Resource.WOOL)
+                    && player.getResourcesInPossession().containsKey(Resource.GRAIN)) {
                     settlement = new Settlement(position, player);
                     player.addSettlement(settlement);
                     player.removeResources(Resource.CLAY,1);
