@@ -201,8 +201,11 @@ public class PlayGame {
             }
 
             boolean playersTurn = true;
-                UI.print("It's " + currentPlayer + "'s turn\n");
             do {
+                UI.resetBookmark("BLANK_SCREEN");
+                UI.printBoard(hexBoard);
+                UI.print("It's " + currentPlayer + "'s turn\n");
+
                 textTerminal.print("1: Trade with bank\n");
                 textTerminal.print("2: Build Settlement\n");
                 textTerminal.print("3: Build Road\n");
@@ -263,6 +266,8 @@ public class PlayGame {
 
                         Point where = new Point(e, f);
                         siedlerGame.placeCity(where, currentPlayer);
+                        UI.resetBookmark("BLANK_SCREEN");
+                        UI.printBoard(hexBoard);
                         break;
                     case 5:
                         UI.resetBookmark("BLANK_SCREEN");
