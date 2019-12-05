@@ -207,7 +207,7 @@ public class PlayGame {
                         siedlerGame.placeCity(where, currentPlayer);
                         break;
                     case 5:
-                        for (HashMap.Entry<Config.Resource, Integer> entry : currentPlayer.getResourcesInPossession().entrySet()){
+                        for (HashMap.Entry<Config.Resource, Integer> entry : currentPlayer.getResourcesInPossession().entrySet()) {
                             textTerminal.print(currentPlayer + " has " + entry.getKey() + ": " + entry.getValue() + "\n");
                         }
                         break;

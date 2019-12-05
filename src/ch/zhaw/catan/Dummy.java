@@ -11,8 +11,8 @@ public class Dummy {
     private Object Player;
     private Config.Resource resource;
 
-    public Dummy(){}
-
+    public Dummy() {
+    }
 
 
     private void run() {
@@ -20,22 +20,18 @@ public class Dummy {
 
         //Initializing terminal
         TextIO textIO = TextIoFactory.getTextIO();
-        TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal)textIO.getTextTerminal();
+        TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal) textIO.getTextTerminal();
 
         UI.setupTerminal();
 
         //Setting start point
         textTerminal.setBookmark("MAIN");
 
-        SiedlerGame siedlerGame = new SiedlerGame(20,4);
+        SiedlerGame siedlerGame = new SiedlerGame(20, 4);
 
         siedlerGame.tradeWithBankFourToOne(UI.tradeBid(), UI.tradeAsk());
 
     }
-
-
-
-
 
 
     public static void main(String[] args) {

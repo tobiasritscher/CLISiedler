@@ -42,9 +42,9 @@ public class Player {
         return settlementsBuilt;
     }
 
-    public Settlement getSettlementAtPosition(Point point){
+    public Settlement getSettlementAtPosition(Point point) {
         Settlement result = null;
-        for (Settlement settlement : settlementsBuilt){
+        for (Settlement settlement : settlementsBuilt) {
             if (settlement.getPosition().equals(point))
                 result = settlement;
         }
@@ -53,7 +53,7 @@ public class Player {
 
     public ArrayList<Point> getSettlementsBuiltPoints() {
         ArrayList<Point> points = new ArrayList<>();
-        for (Settlement settlements : settlementsBuilt){
+        for (Settlement settlements : settlementsBuilt) {
             points.add(settlements.getPosition());
         }
         return points;
@@ -76,14 +76,14 @@ public class Player {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return faction.toString().toUpperCase();
     }
 
     @Override
-    public boolean equals(Object other){
+    public boolean equals(Object other) {
         if (other == null) return false;
-        if (!(other instanceof Player))return false;
+        if (!(other instanceof Player)) return false;
         Player player = (Player) other;
         boolean result = false;
         if (player.faction == faction)

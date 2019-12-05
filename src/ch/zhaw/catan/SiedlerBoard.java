@@ -5,10 +5,8 @@ import ch.zhaw.catan.Config.Land;
 import ch.zhaw.hexboard.HexBoard;
 import ch.zhaw.hexboard.Label;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 
@@ -70,11 +68,11 @@ public class SiedlerBoard extends HexBoard<Config.Land, Settlement, Road, String
     }
 
 
-    public boolean hasFieldFixed(Point center){
+    public boolean hasFieldFixed(Point center) {
         if (!isFieldCoordinate(center)) {
             return false;
-        } else{
-        return true;
+        } else {
+            return true;
         }
     }
 

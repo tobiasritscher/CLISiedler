@@ -44,7 +44,7 @@ public class ResourceStock {
         if (result) {
             resources.put(resource, resources.get(resource) - amount);
         }
-        if (resources.get(resource) <= 0){
+        if (resources.get(resource) <= 0) {
             resources.remove(resource);
         }
         return result;
