@@ -171,21 +171,23 @@ public class PlayGame {
         }
     }
 
-    private void divideAllResources(Player currentPlayer) {
-        int totalResources = 0;
-        for (Integer amountOfRessource : currentPlayer.getResourcesInPossession().values()) {
-            totalResources += amountOfRessource;
-        }
+    private void divideAllResources() {
+        for (int i = 0; i < numberOfPlayers; ++i) {
+            int totalResources = 0;
+            for (Integer amountOfRessource : siedlerGame.getPlayers().get(i).getResourcesInPossession().values()) {
+                totalResources += amountOfRessource;
+            }
 
-        //remove random resources from players with more then seven cards
-        if (totalResources > 7) {
-            int resourcesToDelete = (totalResources - totalResources % 2) / 2;
-            for (int j = 0; j < resourcesToDelete; ++j) {
-                //new Arraylist with all resources the player has, to choose a random resource to remove
-                ArrayList<Config.Resource> resources = new ArrayList<>(currentPlayer.getResourcesInPossession().keySet());
-                //create random number to choose which resource to delete
-                int random = new Random().nextInt(resources.size() - 1);
-                currentPlayer.removeResources(resources.get(random), 1);
+            //remove random resources from players with more then seven cards
+            if (totalResources > 7) {
+                int resourcesToDelete = (totalResources - totalResources % 2) / 2;
+                for (int j = 0; j < resourcesToDelete; ++j) {
+                    //new Arraylist with all resources the player has, to choose a random resource to remove
+                    ArrayList<Config.Resource> resources = new ArrayList<>(siedlerGame.getPlayers().get(i).getResourcesInPossession().keySet());
+                    //create random number to choose which resource to delete
+                    int random = new Random().nextInt(resources.size() - 1);
+                    siedlerGame.getPlayers().get(i).removeResources(resources.get(random), 1);
+                }
             }
         }
     }
@@ -208,7 +210,7 @@ public class PlayGame {
 
             // If the number rolled is 7 all players with more than 7 resources lose randomly half of their resources
             if (rolledNumber == 7) {
-                divideAllResources(currentPlayer);
+                divideAllResources();
             } else {
                 giveResourcesFromDice(rolledNumber);
             }
