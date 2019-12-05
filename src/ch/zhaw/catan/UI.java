@@ -153,9 +153,10 @@ public class UI {
 
     }
 
-    public static void printBoard(SiedlerBoard hexBoard) {
+    public static SiedlerBoard printBoard(SiedlerBoard hexBoard) {
         view = new SiedlerBoardTextView(hexBoard);
         textTerminal.println(view.toString());
+        return hexBoard;
     }
 
     protected static void initBoard() {
@@ -215,26 +216,30 @@ public class UI {
         textTerminal.printf(System.lineSeparator());
     }
 
-    public static void throwDices() {
+    public static int throwDices() {
         int diceNumber = dice.roll();
         String currentPlayer = siedlerGame.getCurrentPlayer().toString();
         textTerminal.printf("Player has thrown a %d", diceNumber);
+        return diceNumber;
     }
 
-    public static void setBookmark(String bookmark) {
+    public static String setBookmark(String bookmark) {
         textTerminal.setBookmark(bookmark);
+        return bookmark;
     }
 
     public static void resetBookmark(String bookmark) {
         textTerminal.resetToBookmark(bookmark);
     }
 
-    public static void print(String text) {
+    public static String print(String text) {
         textTerminal.print(text);
+        return text;
     }
 
-    public static void printList(List<String> elements) {
+    public static List<String> printList(List<String> elements) {
         textTerminal.print(elements);
+        return elements;
     }
 
     public static <T extends Enum<T>> T getEnumValue(Class<T> commands, String prompt) {
@@ -242,4 +247,7 @@ public class UI {
                 .read(prompt);
     }
 
+    public static SiedlerBoard getBoard() {
+        return board;
+    }
 }

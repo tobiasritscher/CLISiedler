@@ -38,6 +38,7 @@ public class PlayGame {
             //Creating a new game
             siedlerGame = new SiedlerGame(7, numberOfPlayers);
             firstPhase();
+            secondPhase();
         }
 
     }
@@ -65,10 +66,10 @@ public class PlayGame {
 
     private void setInitialSettlementsAndRoads(String currentPlayerFaction, Player currentPlayer, String turn) {
         //ask for first settlement
-        int x = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for your " + turn + " settlement");
+        int x = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for your " + turn + " settlement\n");
         UI.resetBookmark("BLANK_SCREEN");
         UI.printBoard(hexBoard);
-        int y = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for your " + turn + " settlement");
+        int y = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for your " + turn + " settlement\n");
         //set first settlement
         Point point = new Point(x, y);
         Point newPoint = siedlerGame.isPointACorner(point);
@@ -77,18 +78,18 @@ public class PlayGame {
         UI.printBoard(hexBoard);
 
         //ask for first road start
-        int xRoadStart = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for the start of your " + turn + " road");
+        int xRoadStart = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for the start of your " + turn + " road\n");
         UI.resetBookmark("BLANK_SCREEN");
         UI.printBoard(hexBoard);
-        int yRoadStart = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for the start of your " + turn + " road");
+        int yRoadStart = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for the start of your " + turn + " road\n");
         UI.resetBookmark("BLANK_SCREEN");
         UI.printBoard(hexBoard);
         Point roadStart = new Point(xRoadStart, yRoadStart);
         //ask for first road finish
-        int xRoadFinish = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for the finish of your " + turn + " road");
+        int xRoadFinish = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for the finish of your " + turn + " road\n");
         UI.resetBookmark("BLANK_SCREEN");
         UI.printBoard(hexBoard);
-        int yRoadFinish = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for the finish of your " + turn + " road");
+        int yRoadFinish = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for the finish of your " + turn + " road\n");
 
         //set first road
         Point roadEnd = new Point(xRoadFinish, yRoadFinish);
@@ -137,7 +138,7 @@ public class PlayGame {
         for (int i = 0; gameIsRunning; i++) {
             Player currentPlayer = siedlerGame.getPlayers().get(i);
             int rolledNumber = Dice.roll();
-            textTerminal.print(currentPlayer + "rolled a " + rolledNumber);
+            textTerminal.print(currentPlayer + " rolled a " + rolledNumber + "\n");
             if (rolledNumber == 7) {
                 int totalResources = 0;
                 for (Integer amountOfRessource : currentPlayer.getResourcesInPossession().values()) {
@@ -184,23 +185,23 @@ public class PlayGame {
                         siedlerGame.tradeWithBankFourToOne(UI.tradeBid(), UI.tradeAsk());
                         break;
                     case 2:
-                        int x = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your settlement");
-                        int y = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your settlement");
+                        int x = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your settlement\n");
+                        int y = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your settlement\n");
                         Point position = new Point(x, y);
                         siedlerGame.placeSettlement(position, currentPlayer, hexBoard);
                         break;
                     case 3:
-                        int a = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the start of your road");
-                        int b = textIO.newIntInputReader().read(currentPlayer + " please pick a y coordinate for the start of your road");
+                        int a = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the start of your road\n");
+                        int b = textIO.newIntInputReader().read(currentPlayer + " please pick a y coordinate for the start of your road\n");
                         Point roadStart = new Point(a, b);
-                        int c = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the finish of your road");
-                        int d = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the finish of your road");
+                        int c = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the finish of your road\n");
+                        int d = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the finish of your road\n");
                         Point roadEnd = new Point(c, d);
                         siedlerGame.placeRoad(roadStart, roadEnd, hexBoard, currentPlayer);
                         break;
                     case 4:
-                        int e = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your city");
-                        int f = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your city");
+                        int e = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your city\n");
+                        int f = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your city\n");
                         Point where = new Point(e, f);
                         siedlerGame.placeCity(where, currentPlayer);
                         break;
@@ -208,16 +209,17 @@ public class PlayGame {
                         currentPlayer.getResourcesInPossession();
                         break;
                     case 6:
-                        char sure = textIO.newCharInputReader().read(currentPlayer + " are you sure you want to end your turn? (Y/N)");
+                        char sure = textIO.newCharInputReader().read(currentPlayer + " are you sure you want to end your turn? (Y/N)\n");
                         if (sure == 'Y') {
                             running = false;
                         }
                         break;
 
                     case 7:
-                        char ciao = textIO.newCharInputReader().read("Sure?(Y/N)");
-                        if (ciao == 'Y') {
+                        String ciao = textIO.newStringInputReader().read("Sure?(Y/N)\n");
+                        if (ciao.equalsIgnoreCase("Y")) {
                             running = false;
+                            gameIsRunning = false;
                         }
                         break;
                     default:
@@ -225,7 +227,7 @@ public class PlayGame {
                 }
             } while (running);
             if (siedlerGame.getWinner(currentPlayer)) {
-                textTerminal.print(currentPlayer + "has won the game");
+                textTerminal.print(currentPlayer + "has won the game\n");
                 gameIsRunning = false;
                 break;
             }
