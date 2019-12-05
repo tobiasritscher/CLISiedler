@@ -17,8 +17,8 @@ public class UI {
     private static TextIO textIO = TextIoFactory.getTextIO();
     private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal) textIO.getTextTerminal();
     private static Dice dice = new Dice();
-    private static SiedlerBoard board = new SiedlerBoard();
-    private static SiedlerBoardTextView view = new SiedlerBoardTextView(board);
+    public static SiedlerBoard hexboard = new SiedlerBoard();
+    private static SiedlerBoardTextView view = new SiedlerBoardTextView(hexboard);
     public static SiedlerGame siedlerGame;
     private static Player player;
 
@@ -29,8 +29,9 @@ public class UI {
     public static void setupTerminal() {
 
         //Setting properties of terminal window
-        ((SwingTextTerminal) textTerminal).setPromptFontSize(12);
-        textTerminal.getProperties().setPaneDimension(1040, 880);
+        ((SwingTextTerminal) textTerminal).setPromptFontSize(11);
+        ((SwingTextTerminal) textTerminal).setInputFontSize(11);
+        textTerminal.getProperties().setPaneDimension(1040, 890);
     }
 
     public static void closeTerminal() {
@@ -116,8 +117,8 @@ public class UI {
     }
 
     protected static void initBoard() {
-        Map<Point, Label> lowerFieldLabel = board.getLowerFieldLabels();
-        SiedlerBoardTextView view = new SiedlerBoardTextView(board);
+        Map<Point, Label> lowerFieldLabel = hexboard.getLowerFieldLabels();
+        SiedlerBoardTextView view = new SiedlerBoardTextView(hexboard);
 
         for (Map.Entry<Point, Label> e : lowerFieldLabel.entrySet()) {
             view.setLowerFieldLabel(e.getKey(), e.getValue());
@@ -203,12 +204,17 @@ public class UI {
     }
 
     public static SiedlerBoard getBoard() {
-        return board;
+        return hexboard;
     }
 
     public static void promptEnter(){
         textIO.newStringInputReader()
                 .withMinLength(0)
                 .read("\nPress enter to continue");
+    }
+
+    public static void refresh(SiedlerBoard hexBoard){
+        UI.resetBookmark("BLANK_SCREEN");
+        UI.printBoard(hexBoard);
     }
 }

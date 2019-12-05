@@ -28,7 +28,6 @@ public class PlayGame {
         UI.setBookmark("BLANK_SCREEN");
 
         if (!UI.buildStartMenu()) {
-            UI.setBookmark("SHOW_MAP");
 
             numberOfPlayers = UI.askNumberOfPlayers();
             //TODO: Delete for Release
@@ -42,8 +41,8 @@ public class PlayGame {
                 siedlerGame.placeInitialRoad(new Point(7, 13), new Point(8, 12), hexBoard, siedlerGame.getPlayers().get(0));
                 siedlerGame.placeInitialRoad(new Point(6, 6), new Point(5, 7), hexBoard, siedlerGame.getPlayers().get(1));
                 siedlerGame.placeInitialRoad(new Point(10, 6), new Point(9, 7), hexBoard, siedlerGame.getPlayers().get(1));
-                UI.resetBookmark("BLANK_SCREEN");
-                UI.printBoard(hexBoard);
+
+                UI.refresh(hexBoard);
                 giveResourcesAfterFirstPhase(hexBoard);
                 secondPhase();
             } else {
@@ -83,36 +82,34 @@ public class PlayGame {
     private void setInitialSettlementsAndRoads(String currentPlayerFaction, Player currentPlayer, String turn) {
         //ask for first settlement
         int x = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for your " + turn + " settlement\n");
-        UI.resetBookmark("BLANK_SCREEN");
-        UI.printBoard(hexBoard);
+        UI.refresh(hexBoard);
         int y = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for your " + turn + " settlement\n");
         //set first settlement
         Point point = new Point(x, y);
         Point newPoint = siedlerGame.isPointACorner(point);
         Settlement settlement = siedlerGame.placeInitialSettlement(newPoint, currentPlayer, hexBoard);
-        UI.resetBookmark("BLANK_SCREEN");
-        UI.printBoard(hexBoard);
+        UI.refresh(hexBoard);
 
         //ask for first road start
         int xRoadStart = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for the start of your " + turn + " road\n");
-        UI.resetBookmark("BLANK_SCREEN");
-        UI.printBoard(hexBoard);
+        UI.refresh(hexBoard);
+
         int yRoadStart = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for the start of your " + turn + " road\n");
-        UI.resetBookmark("BLANK_SCREEN");
-        UI.printBoard(hexBoard);
+        UI.refresh(hexBoard);
+
         Point roadStart = new Point(xRoadStart, yRoadStart);
+
         //ask for first road finish
         int xRoadFinish = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for the finish of your " + turn + " road\n");
-        UI.resetBookmark("BLANK_SCREEN");
-        UI.printBoard(hexBoard);
+        UI.refresh(hexBoard);
+
         int yRoadFinish = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for the finish of your " + turn + " road\n");
+        UI.refresh(hexBoard);
 
         //set first road
         Point roadEnd = new Point(xRoadFinish, yRoadFinish);
         Road road = siedlerGame.placeInitialRoad(roadStart, roadEnd, hexBoard, currentPlayer);
-        UI.newLine();
-        UI.resetBookmark("BLANK_SCREEN");
-        UI.printBoard(hexBoard);
+        UI.refresh(hexBoard);
     }
 
 
@@ -209,9 +206,9 @@ public class PlayGame {
 
             boolean playersTurn = true;
             do {
-                UI.resetBookmark("BLANK_SCREEN");
-                UI.printBoard(hexBoard);
+                UI.refresh(hexBoard);
                 UI.print("It's " + currentPlayer + "'s turn\n");
+                UI.newLine();
 
                 textTerminal.print("1: Trade with bank\n");
                 textTerminal.print("2: Build Settlement\n");
@@ -224,6 +221,7 @@ public class PlayGame {
 
                 switch (decision) {
                     case 1:
+                        UI.refresh(hexBoard);
                         siedlerGame.tradeWithBank(i);
                         break;
                     case 2:
