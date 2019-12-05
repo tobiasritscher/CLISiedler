@@ -229,8 +229,8 @@ public class PlayGame {
                         }
                         break;
                     case 6:
-                        char sure = textIO.newCharInputReader().read(currentPlayer + " are you sure you want to end your turn? (Y/N)\n");
-                        if (sure == 'Y') {
+                        String sure = textIO.newStringInputReader().read(currentPlayer + " are you sure you want to end your turn? (Y/N)\n");
+                        if (sure.equalsIgnoreCase("Y")) {
                             playersTurn = false;
                         }
 
