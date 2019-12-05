@@ -189,7 +189,7 @@ public class SiedlerGame {
                 if (getPlayers().get(i).getResourcesInPossession().get(Resource.STONE) >= 4) {
                     printAllResources();
                     int y = textIO.newIntInputReader().read("What would you like in return?\n");
-                    getPlayers().get(i).removeResources(Resource.WOOD, 4);
+                    getPlayers().get(i).removeResources(Resource.STONE, 4);
                     switch (y) {
                         case 1:
                             getPlayers().get(i).addResources(Resource.WOOD, 1);
@@ -219,7 +219,7 @@ public class SiedlerGame {
                 if (getPlayers().get(i).getResourcesInPossession().get(Resource.GRAIN) >= 4) {
                     printAllResources();
                     int y = textIO.newIntInputReader().read("What would you like in return?\n");
-                    getPlayers().get(i).removeResources(Resource.WOOD, 4);
+                    getPlayers().get(i).removeResources(Resource.GRAIN, 4);
                     switch (y) {
                         case 1:
                             getPlayers().get(i).addResources(Resource.WOOD, 1);
@@ -249,7 +249,7 @@ public class SiedlerGame {
                 if (getPlayers().get(i).getResourcesInPossession().get(Resource.CLAY) >= 4) {
                     printAllResources();
                     int y = textIO.newIntInputReader().read("What would you like in return?\n");
-                    getPlayers().get(i).removeResources(Resource.WOOD, 4);
+                    getPlayers().get(i).removeResources(Resource.CLAY, 4);
                     switch (y) {
                         case 1:
                             getPlayers().get(i).addResources(Resource.WOOD, 1);
@@ -279,7 +279,7 @@ public class SiedlerGame {
                 if (getPlayers().get(i).getResourcesInPossession().get(Resource.WOOL) >= 4) {
                     printAllResources();
                     int y = textIO.newIntInputReader().read("What would you like in return?\n");
-                    getPlayers().get(i).removeResources(Resource.WOOD, 4);
+                    getPlayers().get(i).removeResources(Resource.WOOL, 4);
                     switch (y) {
                         case 1:
                             getPlayers().get(i).addResources(Resource.WOOD, 1);
