@@ -143,7 +143,11 @@ public class SiedlerGame {
                     settlementFound = true;
                     players.get(currentPlayer).removeResources(Resource.STONE,3);
                     players.get(currentPlayer).removeResources(Resource.GRAIN,2);
+                } else {
+                    textTerminal.print("You do not have enough resources");
                 }
+            } else {
+                textTerminal.print("You don't have a settlement to upgrade on this position: " + position);
             }
         }
         return settlementFound;
