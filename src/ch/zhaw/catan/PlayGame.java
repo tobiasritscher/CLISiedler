@@ -313,7 +313,6 @@ public class PlayGame {
             } while (playersTurn);
             if (siedlerGame.getWinner(currentPlayer)) {
                 textTerminal.print(currentPlayer + "has won the game\n");
-                gameIsRunning = false;
                 break;
             }
         }
