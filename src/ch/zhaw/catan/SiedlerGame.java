@@ -2,6 +2,7 @@ package ch.zhaw.catan;
 
 import ch.zhaw.catan.Config.Faction;
 import ch.zhaw.catan.Config.Resource;
+import ch.zhaw.catan.Config.Land;
 import ch.zhaw.hexboard.HexBoard;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
@@ -249,5 +250,16 @@ public class SiedlerGame {
         } else {
             return false;
         }
+    }
+
+    public boolean isCornerConnectedToLand(Point corner, SiedlerBoard board){
+        boolean result = false;
+        Collection<Land> lands = Arrays.asList(Land.values());
+        lands.remove(Land.WATER);
+        for (Land land : lands) {
+            if (board.getFields(corner).contains(land))
+                result = true;
+        }
+        return result;
     }
 }

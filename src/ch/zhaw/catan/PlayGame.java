@@ -121,13 +121,13 @@ public class PlayGame {
         return hexBoard.getNeighboursOfCorner(corner).isEmpty();
     }
 
-    public void giveResourcesAfterFirstPhase(SiedlerBoard hexBoard) {
-        for (Point field : hexBoard.getFields()) {
-            if (hexBoard.getField(field) != Config.Land.DESERT && hexBoard.getField(field) != Config.Land.WATER) {
-                if (!hexBoard.getCornersOfField(field).isEmpty()) {
-                    for (Settlement settlement : hexBoard.getCornersOfField(field)) {
-                        settlement.getPlayer().addResources(hexBoard.getField(field).getResource(), 1);
-                        UI.print(settlement.getFaction() + " has recieved 1 " + hexBoard.getField(field).getResource() + '\n');
+    public void giveResourcesAfterFirstPhase(SiedlerBoard board) {
+        for (Point field : board.getFields()) {
+            if (board.getField(field) != Config.Land.DESERT && board.getField(field) != Config.Land.WATER) {
+                if (!board.getCornersOfField(field).isEmpty()) {
+                    for (Settlement settlement : board.getCornersOfField(field)) {
+                        settlement.getPlayer().addResources(board.getField(field).getResource(), 1);
+                        UI.print(settlement.getFaction() + " has recieved 1 " + board.getField(field).getResource() + '\n');
                     }
                 }
             }
