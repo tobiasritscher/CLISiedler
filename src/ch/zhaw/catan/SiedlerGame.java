@@ -138,23 +138,21 @@ public class SiedlerGame {
 
 
 
-    public boolean placeCity(Point position) { //TODO: test and bugfix
+    public boolean placeCity(Point position, Player player) { //TODO: test and bugfix
 
         boolean settlementFound = false;
-        for (Settlement settlements : players.get(currentPlayer).getSettlementsBuilt()) {
-            if (settlements.getPosition() == position) {
-                Map<Resource,Integer> resources = players.get(currentPlayer).getResourcesInPossession();
-                if(resources.get(Resource.STONE)>=3 && resources.get(Resource.GRAIN) >= 2) {
-                    settlements.setToCity();
-                    settlementFound = true;
-                    players.get(currentPlayer).removeResources(Resource.STONE,3);
-                    players.get(currentPlayer).removeResources(Resource.GRAIN,2);
-                } else {
-                    textTerminal.print("You do not have enough resources");
-                }
+        if (player.getSettlementsBuiltPoints().contains(position)) {
+            Map<Resource,Integer> resources = player.getResourcesInPossession();
+            if(resources.get(Resource.STONE)>=3 && resources.get(Resource.GRAIN) >= 2) {
+                player.getSettlement(position).setToCity();
+                settlementFound = true;
+                player.removeResources(Resource.STONE,3);
+                player.removeResources(Resource.GRAIN,2);
             } else {
-                textTerminal.print("You don't have a settlement to upgrade on this position: " + position);
+                textTerminal.print("You do not have enough resources");
             }
+        } else {
+            textTerminal.print("You don't have a settlement to upgrade on this position: " + position);
         }
         return settlementFound;
     }

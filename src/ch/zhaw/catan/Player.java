@@ -42,6 +42,23 @@ public class Player {
         return settlementsBuilt;
     }
 
+    public Settlement getSettlement(Point point){
+        Settlement result = null;
+        for (Settlement settlement : settlementsBuilt){
+            if (settlement.getPosition().equals(point))
+                result = settlement;
+        }
+        return result;
+    }
+
+    public ArrayList<Point> getSettlementsBuiltPoints() {
+        ArrayList<Point> points = new ArrayList<>();
+        for (Settlement settlements : settlementsBuilt){
+            points.add(settlements.getPosition());
+        }
+        return points;
+    }
+
     public void addSettlement(Settlement settlement) {
         settlementsBuilt.add(settlement);
     }
