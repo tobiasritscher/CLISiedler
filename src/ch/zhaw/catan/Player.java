@@ -111,6 +111,11 @@ public class Player {
     }
 
     @Override
+    public String toString(){
+        return faction.toString().toUpperCase();
+    }
+
+    @Override
     public boolean equals(Object other){
         if (other == null) return false;
         if (!(other instanceof Player))return false;
