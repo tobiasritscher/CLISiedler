@@ -48,11 +48,11 @@ public class UI {
         startMenu.add("2. Quit\n");
         UI.printList(startMenu);
 
+
         Integer choice = textIO.newIntInputReader()
                 .withMinVal(1)
                 .withMaxVal(2)
                 .read("Please choose an option: ");
-        UI.newLine();
 
         switch (choice) {
             case 1:

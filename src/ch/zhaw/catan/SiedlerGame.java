@@ -68,10 +68,14 @@ public class SiedlerGame {
                 player.addSettlement(settlement);
                 trying = false;
             } else {
+                UI.resetBookmark("BLANK_SCREEN");
+                UI.printBoard(hexBoard);
                 int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate");
-                UI.newLine();
+
+                UI.resetBookmark("BLANK_SCREEN");
+                UI.printBoard(hexBoard);
                 int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate");
-                UI.newLine();
+
                 position = new Point(x, y);
                 trying = true;
             }
@@ -102,10 +106,14 @@ public class SiedlerGame {
                     trying = true;
                 }
             } else {
+                UI.resetBookmark("BLANK_SCREEN");
+                UI.printBoard(hexBoard);
                 int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate");
-                UI.newLine();
+
+                UI.resetBookmark("BLANK_SCREEN");
+                UI.printBoard(hexBoard);
                 int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate");
-                UI.newLine();
+
                 position = new Point(x, y);
                 trying = true;
             }
@@ -151,10 +159,10 @@ public class SiedlerGame {
                 player.removeResources(Resource.STONE,3);
                 player.removeResources(Resource.GRAIN,2);
             } else {
-                textTerminal.print("You do not have enough resources");
+                UI.print("You do not have enough resources");
             }
         } else {
-            textTerminal.print("You don't have a settlement to upgrade on this position: " + position);
+            UI.print("You don't have a settlement to upgrade on this position: " + position);
         }
         return settlementFound;
     }
@@ -197,7 +205,7 @@ public class SiedlerGame {
             if (HexBoard.isCornerCoordinate(point)) {
                 running = false;
             } else {
-                textTerminal.print("Error this point is not on a corner, please try again");
+                UI.print("Error this point is not on a corner, please try again");
                 int x = textIO.newIntInputReader().read("Try again with a new x coordinate");
                 int y = textIO.newIntInputReader().read("Try again with a new y coordinate");
                 point = new Point(x, y);
@@ -214,11 +222,25 @@ public class SiedlerGame {
                 player.buildRoad(player, roadStart, roadEnd);
                 running = false;
             } else {
-                textTerminal.print("Error this points are not on an edge, please try again");
+                UI.resetBookmark("BLANK_SCREEN");
+                UI.printBoard(board);
+                UI.print("Error this points are not on an edge, please try again");
+
+                UI.resetBookmark("BLANK_SCREEN");
+                UI.printBoard(board);
                 int a = textIO.newIntInputReader().read("Try again with a new x coordinate for roadstart");
+
+                UI.resetBookmark("BLANK_SCREEN");
+                UI.printBoard(board);
                 int b = textIO.newIntInputReader().read("Try again with a new y coordinate for roadstart");
                 roadStart = new Point(a, b);
+
+                UI.resetBookmark("BLANK_SCREEN");
+                UI.printBoard(board);
                 int x = textIO.newIntInputReader().read("Try again with a new x coordinate for roadend");
+
+                UI.resetBookmark("BLANK_SCREEN");
+                UI.printBoard(board);
                 int y = textIO.newIntInputReader().read("Try again with a new y coordinate for roadend");
                 roadEnd = new Point(x, y);
                 running = true;
