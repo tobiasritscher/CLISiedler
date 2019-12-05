@@ -121,15 +121,25 @@ public class PlayGame {
                 if (!board.getCornersOfField(field).isEmpty()) {
                     for (Settlement settlement : board.getCornersOfField(field)) {
                         settlement.getPlayer().addResources(board.getField(field).getResource(), 1);
-                        UI.print(settlement.getFaction() + " has recieved 1 " + board.getField(field).getResource() + '\n');
                     }
                 }
             }
         }
+        printAllRessourcesOfAllPlayers();
         //Ask players to press enter in order to start the second game phase
         textIO.newStringInputReader()
                 .withMinLength(0)
                 .read("\nPress enter to continue to the second game phase");
+    }
+
+    public void printAllRessourcesOfAllPlayers() {
+        for (Player player : siedlerGame.getPlayers()){
+            textTerminal.print((player.toString() + " has been given: "));
+            for (Config.Resource resource : player.getResourcesInPossession().keySet()){
+                textTerminal.print(player.getResourcesInPossession().get(resource) + " " + resource.toString() + ", ");
+            }
+            textTerminal.print("\n");
+        }
     }
 
     public void secondPhase() {
