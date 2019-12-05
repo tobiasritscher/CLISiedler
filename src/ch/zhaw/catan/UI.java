@@ -214,6 +214,7 @@ public class UI {
 
     public static void newLine() {
         textTerminal.printf(System.lineSeparator());
+        //Comment
     }
 
     public static int throwDices() {
