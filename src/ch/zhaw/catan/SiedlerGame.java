@@ -141,11 +141,11 @@ public class SiedlerGame {
     public boolean placeCity(Point position) { //TODO: test and bugfix
 
         boolean settlementFound = false;
-        for (Settlement settlementToUpgrade : players.get(currentPlayer).getSettlementsBuilt()) {
-            if (settlementToUpgrade.getPosition() == position) {
+        for (Settlement settlements : players.get(currentPlayer).getSettlementsBuilt()) {
+            if (settlements.getPosition() == position) {
                 Map<Resource,Integer> resources = players.get(currentPlayer).getResourcesInPossession();
-                if(resources.get(Resource.STONE)==3 && resources.get(Resource.GRAIN) == 2) {
-                    settlementToUpgrade.setToCity();
+                if(resources.get(Resource.STONE)>=3 && resources.get(Resource.GRAIN) >= 2) {
+                    settlements.setToCity();
                     settlementFound = true;
                     players.get(currentPlayer).removeResources(Resource.STONE,3);
                     players.get(currentPlayer).removeResources(Resource.GRAIN,2);
