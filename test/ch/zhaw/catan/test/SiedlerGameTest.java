@@ -1,11 +1,13 @@
 package test;
 
 import ch.zhaw.catan.Config;
+import ch.zhaw.catan.SiedlerBoard;
 import ch.zhaw.catan.SiedlerGame;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +17,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class SiedlerGameTest {
 
     private SiedlerGame testGame;
+    private SiedlerBoard testBoard;
 
     @BeforeEach
     void setUp() {
         testGame = new SiedlerGame(20, 4);
+        testBoard = new SiedlerBoard();
     }
 
     @Test
@@ -72,8 +76,14 @@ class SiedlerGameTest {
     }
 
     @Test
-    void placeInitialSettlement() {
-        // TODO: Implement
+    void placeInitialSettlement() { // TODO positive doesn't work yet! Maybe initial Settlement isn't saved in Player.settlementsBuilt?
+        Point positiveTestPoint = new Point(5,7);
+        testGame.placeInitialSettlement(positiveTestPoint, testGame.getCurrentPlayer(), testBoard);
+        Assertions.assertEquals(testGame.getCurrentPlayer().getSettlementsBuilt().get(0), testBoard.getCorner(positiveTestPoint));
+
+        Point negativeTestPoint = new Point(7,13);
+        testGame.placeInitialSettlement(negativeTestPoint, testGame.getCurrentPlayer(), testBoard);
+        Assertions.assertEquals(null, testBoard.getCorner(negativeTestPoint));
     }
 
     @Test
@@ -126,5 +136,20 @@ class SiedlerGameTest {
     @Test
     void placeRoad() {
         // TODO: Implement
+    }
+
+    @Test
+    void validRoadPlacement() {
+        Point positiveTestPointStart = new Point(6,6);
+        Point positiveTestPointEnd = new Point(5,7);
+        Point negativeTestPointStart = new Point(7,13);
+        Point negativeTestPointEnd = new Point(8,15);
+        testGame.placeInitialSettlement(positiveTestPointStart, testGame.getCurrentPlayer(), testBoard);
+
+        // Positive test TODO: Positive test doesn't work yet, help me!
+        Assertions.assertTrue(testGame.validRoadPlacement(positiveTestPointStart, positiveTestPointEnd, testBoard, testGame.getCurrentPlayer()));
+
+        // Negative test
+        Assertions.assertFalse(testGame.validRoadPlacement(negativeTestPointStart, negativeTestPointEnd, testBoard, testGame.getCurrentPlayer()));
     }
 }

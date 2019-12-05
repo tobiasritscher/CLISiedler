@@ -216,7 +216,7 @@ public class SiedlerGame {
         return new Road(player, roadStart, roadEnd);
     }
 
-    private boolean validRoadPlacement(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
+    public boolean validRoadPlacement(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
         if(board.hasCorner(roadStart) && board.hasCorner(roadEnd)) {
             boolean rightCoordinates = board.hasEdge(roadStart, roadEnd) && board.hasCorner(roadStart) && board.hasCorner(roadEnd);
             boolean roadStartIsSettlement = player.getSettlementsBuilt().contains(board.getCorner(roadStart));
