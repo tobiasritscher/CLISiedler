@@ -212,8 +212,7 @@ public class PlayGame {
                 textTerminal.print("4: Build City\n");
                 textTerminal.print("5: Check my resources\n");
                 textTerminal.print("6: End my turn\n");
-                textTerminal.print("7: Show updated Map\n");
-                textTerminal.print("8: Quit game\n");
+                textTerminal.print("7: Quit game\n");
                 int decision = textIO.newIntInputReader().read("What would you like to do now?\n");
 
                 switch (decision) {
@@ -291,11 +290,6 @@ public class PlayGame {
 
                         break;
                     case 7:
-                        UI.resetBookmark("BLANK_SCREEN");
-                        UI.printBoard(hexBoard);
-                        break;
-
-                    case 8:
                         String ciao = textIO.newStringInputReader().read("Sure?(Y/N)\n");
                         if (ciao.equalsIgnoreCase("Y")) {
                             playersTurn = false;
