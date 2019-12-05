@@ -132,6 +132,7 @@ public class PlayGame {
                 }
             }
         }
+        gamePhase();
     }
 
     public void secondPhase() {
