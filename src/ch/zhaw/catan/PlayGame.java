@@ -159,6 +159,38 @@ public class PlayGame {
         }
     }
 
+    private void giveResourcesFromDice(int rolledNumber){
+        for (Point field : hexBoard.getFields()) {
+            if (hexBoard.getField(field) != Config.Land.DESERT && hexBoard.getField(field) != Config.Land.WATER && Config.getStandardDiceNumberPlacement().get(field) == rolledNumber) {
+                if (!hexBoard.getCornersOfField(field).isEmpty()) {
+                    for (Settlement settlement : hexBoard.getCornersOfField(field)) {
+                        settlement.getPlayer().addResources(hexBoard.getField(field).getResource(), 1);
+                        textTerminal.print(settlement.getFaction() + " has recieved 1 " + hexBoard.getField(field).getResource() + '\n');
+                    }
+                }
+            }
+        }
+    }
+
+    private void divideAllRessources(Player currentPlayer) {
+        int totalResources = 0;
+        for (Integer amountOfRessource : currentPlayer.getResourcesInPossession().values()) {
+            totalResources += amountOfRessource;
+        }
+
+        //remove random ressources from players with more then seven cards
+        if (totalResources > 7) {
+            int resourcesToDelete = (totalResources - totalResources % 2) / 2;
+            for (int j = 0; j < resourcesToDelete; ++j) {
+                //new Arraylist with all resources the player has, to choose a random resource to remove
+                ArrayList<Config.Resource> resources = new ArrayList<>(currentPlayer.getResourcesInPossession().keySet());
+                //create random number to choose which resource to delete
+                int random = new Random().nextInt(resources.size() - 1);
+                currentPlayer.removeResources(resources.get(random), 1);
+            }
+        }
+    }
+
     public void secondPhase() {
         UI.resetBookmark("BLANK_SCREEN");
         UI.printBoard(hexBoard);
@@ -170,34 +202,9 @@ public class PlayGame {
             textTerminal.print(currentPlayer + " rolled a " + rolledNumber + "\n");
 
             if (rolledNumber == 7) {
-                int totalResources = 0;
-                for (Integer amountOfRessource : currentPlayer.getResourcesInPossession().values()) {
-                    totalResources += amountOfRessource;
-                }
-
-                //remove random ressources from players with more then seven cards
-                if (totalResources > 7) {
-                    int resourcesToDelete = (totalResources - totalResources % 2) / 2;
-                    for (int j = 0; j < resourcesToDelete; ++j) {
-                        //new Arraylist with all resources the player has, to choose a random resource to remove
-                        ArrayList<Config.Resource> resources = new ArrayList<>(currentPlayer.getResourcesInPossession().keySet());
-                        //create random number to choose which resource to delete
-                        int random = new Random().nextInt(resources.size() - 1);
-                        currentPlayer.removeResources(resources.get(random), 1);
-                    }
-                }
-
+                divideAllRessources(currentPlayer);
             } else {
-                for (Point field : hexBoard.getFields()) {
-                    if (hexBoard.getField(field) != Config.Land.DESERT && hexBoard.getField(field) != Config.Land.WATER && Config.getStandardDiceNumberPlacement().get(field) == rolledNumber) {
-                        if (!hexBoard.getCornersOfField(field).isEmpty()) {
-                            for (Settlement settlement : hexBoard.getCornersOfField(field)) {
-                                settlement.getPlayer().addResources(hexBoard.getField(field).getResource(), 1);
-                                textTerminal.print(settlement.getFaction() + " has recieved 1 " + hexBoard.getField(field).getResource() + '\n');
-                            }
-                        }
-                    }
-                }
+                giveResourcesFromDice(rolledNumber);
             }
 
             boolean playersTurn = true;
