@@ -177,7 +177,7 @@ public class PlayGame {
             totalResources += amountOfRessource;
         }
 
-        //remove random ressources from players with more then seven cards
+        //remove random resources from players with more then seven cards
         if (totalResources > 7) {
             int resourcesToDelete = (totalResources - totalResources % 2) / 2;
             for (int j = 0; j < resourcesToDelete; ++j) {
@@ -190,22 +190,26 @@ public class PlayGame {
         }
     }
 
+
     public void secondPhase() {
         UI.resetBookmark("BLANK_SCREEN");
         UI.printBoard(hexBoard);
 
+        // each player begins their turn with a dice roll and receive the resources corresponding to the fields
         boolean gameIsRunning = true;
         for (int i = 0; gameIsRunning; i = (i + 1) % numberOfPlayers) {
             Player currentPlayer = siedlerGame.getPlayers().get(i);
             int rolledNumber = Dice.roll();
             textTerminal.print(currentPlayer + " rolled a " + rolledNumber + "\n");
 
+            // If the number rolled is 7 all players with more than 7 resources lose randomly half of their resources
             if (rolledNumber == 7) {
                 divideAllResources(currentPlayer);
             } else {
                 giveResourcesFromDice(rolledNumber);
             }
 
+            //gives the different options to the player after the dice roll
             boolean playersTurn = true;
             do {
                 UI.refresh(hexBoard);
@@ -301,6 +305,7 @@ public class PlayGame {
                         if (ciao.equalsIgnoreCase("Y")) {
                             playersTurn = false;
                             gameIsRunning = false;
+                            UI.closeTerminal();
                         }
                         break;
                     case 69:
