@@ -22,6 +22,7 @@ public class PlayGame {
     public PlayGame() {
     }
 
+   //starts entire game with both phases
     private void run() {
 
         UI.setupTerminal();
@@ -49,7 +50,7 @@ public class PlayGame {
                 UI.print("Ok, there will be " + numberOfPlayers + " players");
                 UI.promptEnter();
 
-                //Creating a new game
+                //Creating a new game with both phases
                 siedlerGame = new SiedlerGame(7, numberOfPlayers);
                 firstPhase();
                 secondPhase();
@@ -58,7 +59,7 @@ public class PlayGame {
 
     }
 
-
+//distribution of first 2 settlements and their roads
     public void firstPhase() {
 
         for (int i = 0; i < siedlerGame.getPlayers().size(); i++) {
@@ -76,8 +77,9 @@ public class PlayGame {
             setInitialSettlementsAndRoads(currentPlayerFaction, currentPlayer, "second");
 
         }
-        giveResourcesAfterFirstPhase(hexBoard);
+        giveResourcesAfterFirstPhase(hexBoard); // all the players receive resources depending next to which field they are
     }
+
 
     private void setInitialSettlementsAndRoads(String currentPlayerFaction, Player currentPlayer, String turn) {
         //ask for first settlement
@@ -169,7 +171,7 @@ public class PlayGame {
         }
     }
 
-    private void divideAllRessources(Player currentPlayer) {
+    private void divideAllResources(Player currentPlayer) {
         int totalResources = 0;
         for (Integer amountOfRessource : currentPlayer.getResourcesInPossession().values()) {
             totalResources += amountOfRessource;
@@ -199,7 +201,7 @@ public class PlayGame {
             textTerminal.print(currentPlayer + " rolled a " + rolledNumber + "\n");
 
             if (rolledNumber == 7) {
-                divideAllRessources(currentPlayer);
+                divideAllResources(currentPlayer);
             } else {
                 giveResourcesFromDice(rolledNumber);
             }
@@ -311,7 +313,7 @@ public class PlayGame {
                 }
             } while (playersTurn);
             if (siedlerGame.getWinner(currentPlayer)) {
-                textTerminal.print(currentPlayer + "has won the game\n");
+                textTerminal.print(currentPlayer + " has won the game\n");
                 break;
             }
         }
