@@ -16,34 +16,12 @@ public class SiedlerGame {
     private int winPoints;
     private List<Player> players = new ArrayList<>();
     private int currentPlayer = 0;
-    private Config config = new Config();
     private TextIO textIO = TextIoFactory.getTextIO();
     private TextTerminal<?> textTerminal = textIO.getTextTerminal();
-    private UI ui = new UI();
-    private static Player player;
 
     public SiedlerGame(int winPoints, int players) {
         createPlayers(players);
         this.winPoints = winPoints;
-    }
-
-
-    public void switchToNextPlayer() {
-        // TODO: Implement
-        if (currentPlayer <= 3) {
-            currentPlayer++;
-        } else if (currentPlayer == 4) {
-            currentPlayer = 1;
-        }
-    }
-
-    public void switchToPreviousPlayer() {
-        // TODO: Implement
-        if (currentPlayer >= 2) {
-            currentPlayer--;
-        } else if (currentPlayer == 1) {
-            currentPlayer = 4;
-        }
     }
 
     public List<Player> getPlayers() {

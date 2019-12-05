@@ -26,25 +26,6 @@ class SiedlerGameTest {
     }
 
     @Test
-    void switchToNextPlayer() {
-        testGame.switchToNextPlayer();
-        // Checks if player is current player
-        Assertions.assertEquals(testGame.getPlayers().get(1), testGame.getCurrentPlayer());
-        // Faction test
-        Assertions.assertEquals("bb", testGame.getPlayers().get(1).getFaction().toString());
-    }
-
-    @Test
-    void switchToPreviousPlayer() {
-        // TODO: First test doesn't work yet and i can't explain why! Help me
-        testGame.switchToPreviousPlayer();
-        // Checks if player is current player
-        Assertions.assertEquals(testGame.getPlayers().get(3), testGame.getCurrentPlayer());
-        // Faction test
-        Assertions.assertEquals("yy", testGame.getPlayers().get(3).getFaction().toString());
-    }
-
-    @Test
     void getPlayer() {
         Assertions.assertEquals("rr", testGame.getPlayers().get(0).getFaction().toString());
         Assertions.assertEquals("bb", testGame.getPlayers().get(1).getFaction().toString());
