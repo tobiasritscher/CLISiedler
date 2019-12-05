@@ -126,8 +126,7 @@ public class UI {
 
     public static int askNumberOfPlayers() {
         return textIO.newIntInputReader()
-                .withMinVal(2)
-                .withMaxVal(4)
+                .withPossibleValues(2,3,4,69)
                 .read("How many players will be playing?");
     }
 
