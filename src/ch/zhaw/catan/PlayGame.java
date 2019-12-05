@@ -31,15 +31,32 @@ public class PlayGame {
             UI.setBookmark("SHOW_MAP");
 
             numberOfPlayers = UI.askNumberOfPlayers();
-            UI.print("Ok, there will be " + numberOfPlayers + " players");
-            textIO.newStringInputReader()
-                    .withMinLength(0)
-                    .read("\nPress enter to continue");
+            //TODO: Delete for Release
+            if (numberOfPlayers == 69) {
+                siedlerGame = new SiedlerGame(7, 2);
+                siedlerGame.placeInitialSettlement(new Point(5, 15), siedlerGame.getPlayers().get(0), hexBoard);
+                siedlerGame.placeInitialSettlement(new Point(8, 12), siedlerGame.getPlayers().get(0), hexBoard);
+                siedlerGame.placeInitialSettlement(new Point(6, 6), siedlerGame.getPlayers().get(1), hexBoard);
+                siedlerGame.placeInitialSettlement(new Point(9, 7), siedlerGame.getPlayers().get(1), hexBoard);
+                siedlerGame.placeInitialRoad(new Point(5, 15), new Point(6, 16), hexBoard, siedlerGame.getPlayers().get(0));
+                siedlerGame.placeInitialRoad(new Point(7, 13), new Point(8, 12), hexBoard, siedlerGame.getPlayers().get(0));
+                siedlerGame.placeInitialRoad(new Point(6, 6), new Point(5, 7), hexBoard, siedlerGame.getPlayers().get(1));
+                siedlerGame.placeInitialRoad(new Point(10, 6), new Point(9, 7), hexBoard, siedlerGame.getPlayers().get(1));
+                UI.resetBookmark("BLANK_SCREEN");
+                UI.printBoard(hexBoard);
+                giveResourcesAfterFirstPhase(hexBoard);
+                secondPhase();
+            } else {
+                UI.print("Ok, there will be " + numberOfPlayers + " players");
+                textIO.newStringInputReader()
+                        .withMinLength(0)
+                        .read("\nPress enter to continue");
 
-            //Creating a new game
-            siedlerGame = new SiedlerGame(7, numberOfPlayers);
-            firstPhase();
-            secondPhase();
+                //Creating a new game
+                siedlerGame = new SiedlerGame(7, numberOfPlayers);
+                firstPhase();
+                secondPhase();
+            }
         }
 
     }
@@ -125,21 +142,20 @@ public class PlayGame {
                 }
             }
         }
-        printAllRessourcesOfAllPlayers();
+
+        printAllGivenRessourcesOfAllPlayers();
         //Ask players to press enter in order to start the second game phase
         textIO.newStringInputReader()
                 .withMinLength(0)
                 .read("\nPress enter to continue to the second game phase");
     }
 
-    public void printAllRessourcesOfAllPlayers() {
-
-
+    public void printAllGivenRessourcesOfAllPlayers() {
         for (Player player : siedlerGame.getPlayers()){
-            String tempOutput = player.toString() + " has been given: ";
+            StringBuilder tempOutput = new StringBuilder(player.toString() + " has been given: ");
             for (Config.Resource resource : player.getResourcesInPossession().keySet()){
 
-                tempOutput += player.getResourcesInPossession().get(resource) + " " + resource.toString() + ", ";
+                tempOutput.append(player.getResourcesInPossession().get(resource)).append(" ").append(resource.toString()).append(", ");
             }
             String finalOutput = tempOutput.substring(0,tempOutput.length() - 2);
             finalOutput += "\n";
@@ -242,6 +258,11 @@ public class PlayGame {
                         if (ciao.equalsIgnoreCase("Y")) {
                             playersTurn = false;
                             gameIsRunning = false;
+                        }
+                        break;
+                    case 69:
+                        for (Config.Resource resource : Config.Resource.values()) {
+                            currentPlayer.addResources(resource, 1000);
                         }
                         break;
                     default:
