@@ -148,37 +148,34 @@ public class SiedlerGame {
     }
 
     public void tradeWithBank(int i) {
-        textTerminal.print("1: Wood\n");
-        textTerminal.print("2: Stone\n");
-        textTerminal.print("3: Grain\n");
-        textTerminal.print("4: Clay\n");
-        textTerminal.print("5: Wool\n");
+        Player currentPlayer = getPlayers().get(i);
+        for (int j = 1; j <= Resource.values().length; ++j){
+            textTerminal.print("" + j + ": " + Resource.values()[j] + "\n");
+        }
         int x = textIO.newIntInputReader().read("What would you like to trade?\n");
         switch (x) {
             case 1:
-                if (getPlayers().get(i).getResourcesInPossession().get(Resource.WOOD) >= 4) {
-                    textTerminal.print("1: Wood\n");
-                    textTerminal.print("2: Stone\n");
-                    textTerminal.print("3: Grain\n");
-                    textTerminal.print("4: Clay\n");
-                    textTerminal.print("5: Wool\n");
+                if (currentPlayer.getResourcesInPossession().get(Resource.WOOD) >= 4) {
+                    for (int j = 1; j <= Resource.values().length; ++j){
+                        textTerminal.print("" + j + ": " + Resource.values()[j] + "\n");
+                    }
                     int y = textIO.newIntInputReader().read("What would you like in return?\n");
-                    getPlayers().get(i).removeResources(Resource.WOOD, 4);
+                    currentPlayer.removeResources(Resource.WOOD, 4);
                     switch (y) {
                         case 1:
-                            getPlayers().get(i).addResources(Resource.WOOD, 1);
+                            currentPlayer.addResources(Resource.WOOD, 1);
                             break;
                         case 2:
-                            getPlayers().get(i).addResources(Resource.STONE, 1);
+                            currentPlayer.addResources(Resource.STONE, 1);
                             break;
                         case 3:
-                            getPlayers().get(i).addResources(Resource.GRAIN, 1);
+                            currentPlayer.addResources(Resource.GRAIN, 1);
                             break;
                         case 4:
-                            getPlayers().get(i).addResources(Resource.CLAY, 1);
+                            currentPlayer.addResources(Resource.CLAY, 1);
                             break;
                         case 5:
-                            getPlayers().get(i).addResources(Resource.WOOL, 1);
+                            currentPlayer.addResources(Resource.WOOL, 1);
                             break;
                         default:
                             textTerminal.print("Come on there are only 5 numbers...you can do this!\n");

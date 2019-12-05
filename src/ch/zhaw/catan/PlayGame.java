@@ -137,10 +137,11 @@ public class PlayGame {
         UI.printBoard(hexBoard);
 
         boolean gameIsRunning = true;
-        for (int i = 0; gameIsRunning; i++) {
+        for (int i = 0; gameIsRunning; i = (i + 1) % numberOfPlayers) {
             Player currentPlayer = siedlerGame.getPlayers().get(i);
             int rolledNumber = Dice.roll();
             textTerminal.print(currentPlayer + " rolled a " + rolledNumber + "\n");
+
             if (rolledNumber == 7) {
                 int totalResources = 0;
                 for (Integer amountOfRessource : currentPlayer.getResourcesInPossession().values()) {
@@ -166,14 +167,13 @@ public class PlayGame {
                             for (Settlement settlement : hexBoard.getCornersOfField(field)) {
                                 settlement.getPlayer().addResources(hexBoard.getField(field).getResource(), 1);
                                 textTerminal.print(settlement.getFaction() + " has recieved 1 " + hexBoard.getField(field).getResource() + '\n');
-
-
                             }
                         }
                     }
                 }
             }
-            boolean running = true;
+
+            boolean playersTurn = true;
             do {
                 textTerminal.print("1: Trade with bank\n");
                 textTerminal.print("2: Build Settlement\n");
@@ -217,21 +217,22 @@ public class PlayGame {
                     case 6:
                         char sure = textIO.newCharInputReader().read(currentPlayer + " are you sure you want to end your turn? (Y/N)\n");
                         if (sure == 'Y') {
-                            running = false;
+                            playersTurn = false;
                         }
+
                         break;
 
                     case 7:
                         String ciao = textIO.newStringInputReader().read("Sure?(Y/N)\n");
                         if (ciao.equalsIgnoreCase("Y")) {
-                            running = false;
+                            playersTurn = false;
                             gameIsRunning = false;
                         }
                         break;
                     default:
                         textTerminal.print("The number you have selected doesn't exist, please try again\n");
                 }
-            } while (running);
+            } while (playersTurn);
             if (siedlerGame.getWinner(currentPlayer)) {
                 textTerminal.print(currentPlayer + "has won the game\n");
                 gameIsRunning = false;
