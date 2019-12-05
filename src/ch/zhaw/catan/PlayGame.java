@@ -7,6 +7,7 @@ import org.beryx.textio.swing.SwingTextTerminal;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 
@@ -163,7 +164,7 @@ public class PlayGame {
                         if (!hexBoard.getCornersOfField(field).isEmpty()) {
                             for (Settlement settlement : hexBoard.getCornersOfField(field)) {
                                 settlement.getPlayer().addResources(hexBoard.getField(field).getResource(), 1);
-                                UI.print(settlement.getFaction() + " has recieved 1 " + hexBoard.getField(field).getResource() + '\n');
+                                textTerminal.print(settlement.getFaction() + " has recieved 1 " + hexBoard.getField(field).getResource() + '\n');
                             }
                         }
                     }
@@ -175,7 +176,7 @@ public class PlayGame {
                 textTerminal.print("2: Build Settlement\n");
                 textTerminal.print("3: Build Road\n");
                 textTerminal.print("4: Build City\n");
-                textTerminal.print("5: Check my resources");
+                textTerminal.print("5: Check my resources\n");
                 textTerminal.print("6: End my turn\n");
                 textTerminal.print("7: Quit game\n");
                 int decision = textIO.newIntInputReader().read("What would you like to do now?\n");
@@ -206,7 +207,9 @@ public class PlayGame {
                         siedlerGame.placeCity(where, currentPlayer);
                         break;
                     case 5:
-                        currentPlayer.getResourcesInPossession();
+                        for (HashMap.Entry<Config.Resource, Integer> entry : currentPlayer.getResourcesInPossession().entrySet()){
+                            textTerminal.print(currentPlayer + " has " + entry.getKey() + ": " + entry.getValue() + "\n");
+                        }
                         break;
                     case 6:
                         char sure = textIO.newCharInputReader().read(currentPlayer + " are you sure you want to end your turn? (Y/N)\n");
