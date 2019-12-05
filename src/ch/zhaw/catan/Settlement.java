@@ -42,4 +42,15 @@ public class Settlement {
     public String toString() {
         return player.getFaction().toString().toUpperCase();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) return false;
+        if (!(other instanceof Settlement))return false;
+        Settlement settlement = (Settlement) other;
+        boolean result = false;
+        if (settlement.position == position && settlement.player.equals(player))
+            result = true;
+        return result;
+    }
 }

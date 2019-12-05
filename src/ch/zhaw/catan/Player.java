@@ -109,4 +109,15 @@ public class Player {
     public void buildRoad(Player player, Point startingAt, Point endingAt) {
         roadsBuilt.add(new Road(player, startingAt, endingAt));
     }
+
+    @Override
+    public boolean equals(Object other){
+        if (other == null) return false;
+        if (!(other instanceof Player))return false;
+        Player player = (Player) other;
+        boolean result = false;
+        if (player.faction == faction)
+            result = true;
+        return result;
+    }
 }

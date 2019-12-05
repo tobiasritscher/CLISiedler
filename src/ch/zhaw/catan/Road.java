@@ -25,4 +25,15 @@ public class Road {
     public String toString() {
         return player.getFaction().toString().toUpperCase().substring(0,1);
     }
+
+    @Override
+    public boolean equals(Object other){
+        if (other == null) return false;
+        if (!(other instanceof Road))return false;
+        Road road = (Road)other;
+        boolean result = false;
+        if (road.startingAt == startingAt && road.endingAt == endingAt && road.player.equals(player))
+            result = true;
+        return result;
+    }
 }
