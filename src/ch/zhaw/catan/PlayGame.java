@@ -141,12 +141,12 @@ public class PlayGame {
             textTerminal.print(currentPlayer + "rolled a " + rolledNumber);
             if (rolledNumber == 7) {
                 int totalResources = 0;
-                for (Integer counter : currentPlayer.getResourcesInPossession().values()) {
-                    totalResources += counter;
+                for (Integer amountOfRessource : currentPlayer.getResourcesInPossession().values()) {
+                    totalResources += amountOfRessource;
                 }
 
                 //remove random ressources from players with more then seven cards
-                if (totalResources >= 7) {
+                if (totalResources > 7) {
                     int resourcesToDelete = (totalResources - totalResources % 2) / 2;
                     for (int j = 0; j < resourcesToDelete; ++j) {
                         //new Arraylist with all resources the player has, to choose a random resource to remove
