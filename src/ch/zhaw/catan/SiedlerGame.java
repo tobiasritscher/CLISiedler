@@ -63,7 +63,7 @@ public class SiedlerGame {
         boolean trying;
 
         do {
-            if (hexBoard.getNeighboursOfCorner(position).isEmpty() && hexBoard.hasCorner(position)) {
+            if (validSettlementPlacing(position,hexBoard)) {
                 settlement = new Settlement(position, player);
                 player.addSettlement(settlement);
                 trying = false;
@@ -79,22 +79,22 @@ public class SiedlerGame {
         return settlement;
     }
 
-    public Settlement placeSettlement(Point position, Player player, SiedlerBoard hexBoard, int i){
+    public Settlement placeSettlement(Point position, Player player, SiedlerBoard hexBoard){
         Settlement settlement = null;
         boolean trying;
 
         do {
-            if (hexBoard.getNeighboursOfCorner(position).isEmpty() && hexBoard.hasCorner(position)){
-                if(getPlayers().get(i).getResourcesInPossession().containsValue(Resource.CLAY)
-                    && getPlayers().get(i).getResourcesInPossession().containsValue(Resource.WOOD)
-                    && getPlayers().get(i).getResourcesInPossession().containsValue(Resource.WOOL)
-                    && getPlayers().get(i).getResourcesInPossession().containsValue(Resource.GRAIN)) {
+            if (validSettlementPlacing(position,hexBoard)){
+                if(player.getResourcesInPossession().containsValue(Resource.CLAY)
+                    && player.getResourcesInPossession().containsValue(Resource.WOOD)
+                    && player.getResourcesInPossession().containsValue(Resource.WOOL)
+                    && player.getResourcesInPossession().containsValue(Resource.GRAIN)) {
                     settlement = new Settlement(position, player);
                     player.addSettlement(settlement);
-                    getPlayers().get(i).removeResources(Resource.CLAY,1);
-                    getPlayers().get(i).removeResources(Resource.WOOD,1);
-                    getPlayers().get(i).removeResources(Resource.WOOL,1);
-                    getPlayers().get(i).removeResources(Resource.GRAIN,1);
+                    player.removeResources(Resource.CLAY,1);
+                    player.removeResources(Resource.WOOD,1);
+                    player.removeResources(Resource.WOOL,1);
+                    player.removeResources(Resource.GRAIN,1);
                     trying = false;
                 } else {
                     textTerminal.print("You don't have enough resources to build a settlement");
@@ -110,6 +110,12 @@ public class SiedlerGame {
             }
         } while (trying);
         return settlement;
+    }
+
+    private boolean validSettlementPlacing(Point position, SiedlerBoard hexBoard) {
+        return hexBoard.getNeighboursOfCorner(position).isEmpty() &&
+                hexBoard.hasCorner(position) &&
+                isCornerConnectedToLand(position,hexBoard);
     }
 
     public Map<Faction, List<Resource>> throwDice(int dicethrow) {
@@ -245,7 +251,7 @@ public class SiedlerGame {
     }
 
     public boolean validRoadPlacement(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
-        if(board.hasCorner(roadStart) && board.hasCorner(roadEnd)) {
+        if(board.hasCorner(roadStart) && board.hasCorner(roadEnd) && isCornerConnectedToLand(roadStart,board) && isCornerConnectedToLand(roadEnd,board)) {
             boolean rightCoordinates = board.hasEdge(roadStart, roadEnd) && board.hasCorner(roadStart) && board.hasCorner(roadEnd);
             boolean roadStartIsSettlement = player.getSettlementsBuilt().contains(board.getCorner(roadStart));
             boolean roadEndIsSettlement = player.getSettlementsBuilt().contains(board.getCorner(roadEnd));

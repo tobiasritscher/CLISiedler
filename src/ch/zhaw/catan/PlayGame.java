@@ -187,7 +187,7 @@ public class PlayGame {
                         int x = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your settlement");
                         int y = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your settlement");
                         Point position = new Point(x,y);
-                        siedlerGame.placeSettlement(position, currentPlayer,hexBoard,i);
+                        siedlerGame.placeSettlement(position, currentPlayer,hexBoard);
                         break;
                     case 3:
                         int a = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the start of your road");
