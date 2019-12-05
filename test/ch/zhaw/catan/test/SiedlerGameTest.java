@@ -77,11 +77,11 @@ class SiedlerGameTest {
 
     @Test
     void placeInitialSettlement() { // TODO positive doesn't work yet! Maybe initial Settlement isn't saved in Player.settlementsBuilt?
-        Point positiveTestPoint = new Point(5,7);
+        Point positiveTestPoint = new Point(5, 7);
         testGame.placeInitialSettlement(positiveTestPoint, testGame.getCurrentPlayer(), testBoard);
         Assertions.assertEquals(testGame.getCurrentPlayer().getSettlementsBuilt().get(0), testBoard.getCorner(positiveTestPoint));
 
-        Point negativeTestPoint = new Point(7,13);
+        Point negativeTestPoint = new Point(7, 13);
         testGame.placeInitialSettlement(negativeTestPoint, testGame.getCurrentPlayer(), testBoard);
         Assertions.assertEquals(null, testBoard.getCorner(negativeTestPoint));
     }
@@ -140,10 +140,10 @@ class SiedlerGameTest {
 
     @Test
     void validRoadPlacement() {
-        Point positiveTestPointStart = new Point(6,6);
-        Point positiveTestPointEnd = new Point(5,7);
-        Point negativeTestPointStart = new Point(7,13);
-        Point negativeTestPointEnd = new Point(8,15);
+        Point positiveTestPointStart = new Point(6, 6);
+        Point positiveTestPointEnd = new Point(5, 7);
+        Point negativeTestPointStart = new Point(7, 13);
+        Point negativeTestPointEnd = new Point(8, 15);
         testGame.placeInitialSettlement(positiveTestPointStart, testGame.getCurrentPlayer(), testBoard);
 
         // Positive test TODO: Positive test doesn't work yet, help me!

@@ -74,7 +74,7 @@ class PlayerTest {
     @Test
     void buildSettlement() {
         testBoard = new SiedlerBoard();
-        SiedlerGame testGame = new SiedlerGame(7,2);
+        SiedlerGame testGame = new SiedlerGame(7, 2);
         Point testPosition = new Point(6, 12);
         Settlement testSettlement = new Settlement(testPosition, testPlayer);
         testPlayer.addResources(Resource.GRAIN, 1);
@@ -105,7 +105,7 @@ class PlayerTest {
     @Test
     void buildRoad() { // TODO: Doesn't work yet
         testBoard = new SiedlerBoard();
-        SiedlerGame testGame = new SiedlerGame(7,2);
+        SiedlerGame testGame = new SiedlerGame(7, 2);
         Point testPositionStart = new Point(6, 10);
         Point testPositionEnd = new Point(6, 12);
         Road testRoad = new Road(testPlayer, testPositionStart, testPositionEnd);
@@ -155,11 +155,11 @@ class PlayerTest {
     @Test
     void isCornerConnectedToLandTest() {
         SiedlerBoard testBoard = new SiedlerBoard();
-        SiedlerGame game = new SiedlerGame(7,2);
-        Point falseOne =  new Point(3,3);
-        Point falseTwo = new Point(12,4);
-        Point trueOne = new Point(3,7);
-        Point trueTwo = new Point(5,9);
+        SiedlerGame game = new SiedlerGame(7, 2);
+        Point falseOne = new Point(3, 3);
+        Point falseTwo = new Point(12, 4);
+        Point trueOne = new Point(3, 7);
+        Point trueTwo = new Point(5, 9);
 
         Assertions.assertFalse(game.isCornerConnectedToLand(falseOne, testBoard));
         Assertions.assertFalse(game.isCornerConnectedToLand(falseTwo, testBoard));

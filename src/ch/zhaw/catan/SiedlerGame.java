@@ -356,41 +356,41 @@ public class SiedlerGame {
 
     }
 
-        public boolean getWinner (Player player){ //TODO: test and bugfix
-            int winPointCounter = 0;
-            for (Settlement settlement : player.getSettlementsBuilt()) {
-                if (settlement.getIsCity()) {
-                    winPointCounter += settlement.getWinPoints();
-                } else {
-                    winPointCounter += settlement.getWinPoints();
-                }
+    public boolean getWinner(Player player) { //TODO: test and bugfix
+        int winPointCounter = 0;
+        for (Settlement settlement : player.getSettlementsBuilt()) {
+            if (settlement.getIsCity()) {
+                winPointCounter += settlement.getWinPoints();
+            } else {
+                winPointCounter += settlement.getWinPoints();
             }
-            return winPointCounter >= winPoints;
         }
+        return winPointCounter >= winPoints;
+    }
 
 
-        public int createPlayers ( int numberOfPlayers){
-            for (int i = 0; i < numberOfPlayers; ++i) {
-                players.add(new Player(Faction.values()[i]));
+    public int createPlayers(int numberOfPlayers) {
+        for (int i = 0; i < numberOfPlayers; ++i) {
+            players.add(new Player(Faction.values()[i]));
+        }
+        return numberOfPlayers;
+    }
+
+    public Point isPointACorner(Point point) {
+        boolean running;
+        do {
+            if (HexBoard.isCornerCoordinate(point)) {
+                running = false;
+            } else {
+                textTerminal.print("Error this point is not on a corner, please try again");
+                int x = textIO.newIntInputReader().read("Try again with a new x coordinate");
+                int y = textIO.newIntInputReader().read("Try again with a new y coordinate");
+                point = new Point(x, y);
+                running = true;
             }
-            return numberOfPlayers;
-        }
-
-        public Point isPointACorner (Point point){
-            boolean running;
-            do {
-                if (HexBoard.isCornerCoordinate(point)) {
-                    running = false;
-                } else {
-                    textTerminal.print("Error this point is not on a corner, please try again");
-                    int x = textIO.newIntInputReader().read("Try again with a new x coordinate");
-                    int y = textIO.newIntInputReader().read("Try again with a new y coordinate");
-                    point = new Point(x, y);
-                    running = true;
-                }
-            } while (running);
-            return point;
-        }
+        } while (running);
+        return point;
+    }
 
     public Road placeInitialRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
         boolean running;
@@ -418,11 +418,11 @@ public class SiedlerGame {
         boolean running;
         do {
             if (validRoadPlacement(roadStart, roadEnd, board, player)) {
-                if(player.getResourcesInPossession().containsKey(Resource.CLAY) && player.getResourcesInPossession().containsKey(Resource.WOOD)) {
+                if (player.getResourcesInPossession().containsKey(Resource.CLAY) && player.getResourcesInPossession().containsKey(Resource.WOOD)) {
                     player.buildRoad(player, roadStart, roadEnd);
                     running = false;
-                    player.removeResources(Resource.CLAY,1);
-                    player.removeResources(Resource.WOOD,1);
+                    player.removeResources(Resource.CLAY, 1);
+                    player.removeResources(Resource.WOOD, 1);
                 } else {
                     textTerminal.print("You do not have enough resources to build a road");
                     running = true;
@@ -443,25 +443,25 @@ public class SiedlerGame {
         return road;
     }
 
-        public boolean validRoadPlacement (Point roadStart, Point roadEnd, SiedlerBoard board, Player player){
-            if (board.hasCorner(roadStart) && board.hasCorner(roadEnd) && isCornerConnectedToLand(roadStart, board) && isCornerConnectedToLand(roadEnd, board)) {
-                boolean rightCoordinates = board.hasEdge(roadStart, roadEnd) && board.hasCorner(roadStart) && board.hasCorner(roadEnd);
-                boolean roadStartIsSettlement = player.getSettlementsBuilt().contains(board.getCorner(roadStart));
-                boolean roadEndIsSettlement = player.getSettlementsBuilt().contains(board.getCorner(roadEnd));
+    public boolean validRoadPlacement(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
+        if (board.hasCorner(roadStart) && board.hasCorner(roadEnd) && isCornerConnectedToLand(roadStart, board) && isCornerConnectedToLand(roadEnd, board)) {
+            boolean rightCoordinates = board.hasEdge(roadStart, roadEnd) && board.hasCorner(roadStart) && board.hasCorner(roadEnd);
+            boolean roadStartIsSettlement = player.getSettlementsBuilt().contains(board.getCorner(roadStart));
+            boolean roadEndIsSettlement = player.getSettlementsBuilt().contains(board.getCorner(roadEnd));
 
-                return rightCoordinates && (roadStartIsSettlement || roadEndIsSettlement);
-            } else {
-                return false;
-            }
-        }
-
-        public boolean isCornerConnectedToLand (Point corner, SiedlerBoard board){
-            boolean result = false;
-            Land[] lands = {Land.DESERT, Land.MOUNTAIN, Land.MEADOW, Land.GRAINFIELD, Land.FOREST, Land.CLAYSOIL};
-            for (Land land : lands) {
-                if (board.getFields(corner).contains(land))
-                    result = true;
-            }
-            return result;
+            return rightCoordinates && (roadStartIsSettlement || roadEndIsSettlement);
+        } else {
+            return false;
         }
     }
+
+    public boolean isCornerConnectedToLand(Point corner, SiedlerBoard board) {
+        boolean result = false;
+        Land[] lands = {Land.DESERT, Land.MOUNTAIN, Land.MEADOW, Land.GRAINFIELD, Land.FOREST, Land.CLAYSOIL};
+        for (Land land : lands) {
+            if (board.getFields(corner).contains(land))
+                result = true;
+        }
+        return result;
+    }
+}
