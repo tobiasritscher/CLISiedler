@@ -130,8 +130,6 @@ public class PlayGame {
     }
 
     public void secondPhase() {
-
-
         boolean gameIsRunning = true;
         for (int i = 0; gameIsRunning; i++) {
             Player currentPlayer = siedlerGame.getPlayers().get(i);
@@ -180,7 +178,7 @@ public class PlayGame {
 
                 switch (decision) {
                     case 1:
-                        siedlerGame.tradeWithBankFourToOne(UI.tradeBid(), UI.tradeAsk());
+                        siedlerGame.tradeWithBank(i);
                         break;
                     case 2:
                         int x = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your settlement\n");
