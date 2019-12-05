@@ -76,6 +76,7 @@ public class SiedlerGame {
                 trying = true;
             }
         } while (trying);
+        hexBoard.setCorner(settlement.getPosition(), settlement);
         return settlement;
     }
 
@@ -109,6 +110,7 @@ public class SiedlerGame {
                 trying = true;
             }
         } while (trying);
+        hexBoard.setCorner(settlement.getPosition(), settlement);
         return settlement;
     }
 
@@ -222,10 +224,12 @@ public class SiedlerGame {
                 running = true;
             }
         } while (running);
-        return new Road(player, roadStart, roadEnd);
+        Road road = new Road(player, roadStart, roadEnd);
+        board.setEdge(road.getStartingAt(), road.getEndingAt(), road);
+        return road;
     }
 
-    public Road placeRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player, int i){
+    public Road placeRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
         boolean running;
         do {
             if (validRoadPlacement(roadStart, roadEnd, board, player)) {
@@ -249,7 +253,9 @@ public class SiedlerGame {
                 running = true;
             }
         } while (running);
-        return new Road(player, roadStart, roadEnd);
+        Road road = new Road(player, roadStart, roadEnd);
+        board.setEdge(roadStart, roadEnd, road);
+        return road;
     }
 
     public boolean validRoadPlacement(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {

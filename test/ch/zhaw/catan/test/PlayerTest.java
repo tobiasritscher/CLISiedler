@@ -74,13 +74,14 @@ class PlayerTest {
     @Test
     void buildSettlement() {
         testBoard = new SiedlerBoard();
+        SiedlerGame testGame = new SiedlerGame(7,2);
         Point testPosition = new Point(6, 12);
         Settlement testSettlement = new Settlement(testPosition, testPlayer);
         testPlayer.addResources(Resource.GRAIN, 1);
         testPlayer.addResources(Resource.WOOD, 1);
         testPlayer.addResources(Resource.WOOL, 1);
         testPlayer.addResources(Resource.CLAY, 1);
-        testPlayer.buildSettlement(testPosition, testPlayer, testBoard);
+        testGame.placeSettlement(testPosition, testPlayer, testBoard);
         Assertions.assertEquals(testBoard.getCorner(testPosition).getFaction(), testSettlement.getFaction());
     }
 
@@ -104,18 +105,17 @@ class PlayerTest {
     @Test
     void buildRoad() { // TODO: Doesn't work yet
         testBoard = new SiedlerBoard();
-        Point testPositionStart = new Point(6, 12);
-        Point testPositionEnd = new Point(6, 10);
-        Settlement testSettlement = new Settlement(testPositionStart, testPlayer);
+        SiedlerGame testGame = new SiedlerGame(7,2);
+        Point testPositionStart = new Point(6, 10);
+        Point testPositionEnd = new Point(6, 12);
         Road testRoad = new Road(testPlayer, testPositionStart, testPositionEnd);
         testPlayer.addResources(Resource.GRAIN, 1);
         testPlayer.addResources(Resource.WOOD, 2);
         testPlayer.addResources(Resource.WOOL, 1);
         testPlayer.addResources(Resource.CLAY, 2);
-        testPlayer.buildSettlement(testPositionStart, testPlayer, testBoard);
-        testPlayer.buildRoad(testPlayer, testPositionStart, testPositionEnd);
-        Assertions.assertEquals(testBoard.getEdge(testPositionStart, testPositionEnd).getEndingAt(), testRoad.getEndingAt());
-        Assertions.assertEquals(testBoard.getEdge(testPositionStart, testPositionEnd).getStartingAt(), testRoad.getStartingAt());
+        testGame.placeSettlement(testPositionStart, testPlayer, testBoard);
+        testGame.placeRoad(testPositionStart, testPositionEnd, testBoard, testPlayer);
+        Assertions.assertEquals(testBoard.getEdge(testPositionStart, testPositionEnd), testRoad);
     }
 
     @Test

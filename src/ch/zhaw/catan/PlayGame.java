@@ -73,7 +73,6 @@ public class PlayGame {
         Point point = new Point(x, y);
         Point newPoint = siedlerGame.isPointACorner(point);
         Settlement settlement = siedlerGame.placeInitialSettlement(newPoint, currentPlayer, hexBoard);
-        hexBoard.setCorner(settlement.getPosition(), settlement);
         UI.resetBookmark("BLANK_SCREEN");
         UI.printBoard(hexBoard);
 
@@ -94,7 +93,6 @@ public class PlayGame {
         //set first road
         Point roadEnd = new Point(xRoadFinish, yRoadFinish);
         Road road = siedlerGame.placeInitialRoad(roadStart, roadEnd, hexBoard, currentPlayer);
-        hexBoard.setEdge(road.getStartingAt(), road.getEndingAt(), road);
         UI.newLine();
         UI.resetBookmark("BLANK_SCREEN");
         UI.printBoard(hexBoard);
@@ -198,7 +196,7 @@ public class PlayGame {
                         int c = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the finish of your road");
                         int d = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the finish of your road");
                         Point roadEnd = new Point(c, d);
-                        siedlerGame.placeRoad(roadStart, roadEnd, hexBoard, currentPlayer, i);
+                        siedlerGame.placeRoad(roadStart, roadEnd, hexBoard, currentPlayer);
                         break;
                     case 4:
                         int e = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your city");

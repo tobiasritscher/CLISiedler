@@ -63,41 +63,6 @@ public class Player {
         settlementsBuilt.add(settlement);
     }
 
-    public boolean buildSettlement(Point position, Player player, SiedlerBoard hexBoard) {
-        Settlement settlement;
-        boolean wrongAwnser;
-        boolean result = false;
-
-        if (resourcesInPossession.available(Resource.WOOL, 1)
-                && resourcesInPossession.available(Resource.CLAY, 1)
-                && resourcesInPossession.available(Resource.WOOD, 1)
-                && resourcesInPossession.available(Resource.GRAIN, 1)) {
-            do {
-                settlement = new Settlement(position, player);
-                if (hexBoard.getNeighboursOfCorner(position).isEmpty() && hexBoard.hasCorner(position)) {
-                    settlementsBuilt.add(settlement);
-                    hexBoard.setCorner(position, settlement);
-                    removeResources(Resource.WOOL, 1);
-                    removeResources(Resource.CLAY, 1);
-                    removeResources(Resource.WOOD, 1);
-                    removeResources(Resource.GRAIN, 1);
-                    wrongAwnser = false;
-                    result = true;
-                } else {
-                    int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate");
-                    textTerminal.printf(System.lineSeparator());
-                    int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate");
-                    textTerminal.printf(System.lineSeparator());
-                    position = new Point(x, y);
-                    wrongAwnser = true;
-                }
-            } while(wrongAwnser);
-        } else {
-            textTerminal.print("Not enough ressources to build a settlement!");
-        }
-        return result;
-    }
-
     public Faction getFaction() {
         return faction;
     }
