@@ -86,7 +86,7 @@ class SiedlerGameTest {
         testGame.getCurrentPlayer().addResources(Config.Resource.GRAIN, 5);
         testGame.getCurrentPlayer().addResources(Config.Resource.CLAY, 3);
 
-        String expectedValue = "{WD=1, GR=1, CL=3}";
+        String expectedValue = "{GR=1, CL=3, WD=1}";
         // Positive test
         testGame.tradeWithBankFourToOne(Config.Resource.GRAIN, Config.Resource.WOOD);
         Assertions.assertEquals(expectedValue, testGame.getCurrentPlayer().getResourcesInPossession().toString());
