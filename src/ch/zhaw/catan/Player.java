@@ -71,6 +71,15 @@ public class Player {
         return roadsBuilt;
     }
 
+    public ArrayList<Point> getRoadPoints() {
+        ArrayList<Point> points = new ArrayList<>();
+        for (Road road : roadsBuilt) {
+            points.add(road.getStartingAt());
+            points.add(road.getEndingAt());
+        }
+        return points;
+    }
+
     public void buildRoad(Player player, Point startingAt, Point endingAt) {
         roadsBuilt.add(new Road(player, startingAt, endingAt));
     }

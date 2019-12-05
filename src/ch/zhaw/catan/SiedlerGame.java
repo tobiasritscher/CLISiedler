@@ -408,8 +408,10 @@ public class SiedlerGame {
             boolean rightCoordinates = board.hasEdge(roadStart, roadEnd) && board.hasCorner(roadStart) && board.hasCorner(roadEnd);
             boolean roadStartIsSettlement = player.getSettlementsBuilt().contains(board.getCorner(roadStart));
             boolean roadEndIsSettlement = player.getSettlementsBuilt().contains(board.getCorner(roadEnd));
+            boolean roadStartIsRoad = player.getRoadPoints().contains(roadStart);
+            boolean roadEndIsROad = player.getRoadPoints().contains(roadEnd);
 
-            return rightCoordinates && (roadStartIsSettlement || roadEndIsSettlement);
+            return rightCoordinates && (roadStartIsSettlement || roadEndIsSettlement || roadStartIsRoad || roadEndIsROad);
         } else {
             return false;
         }
