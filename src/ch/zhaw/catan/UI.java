@@ -69,50 +69,6 @@ public class UI {
         return exit;
     }
 
-    public static boolean secondPhaseMenu() {
-
-        boolean exit = false;
-        List<String> menuElemente = new ArrayList<>();
-
-        UI.newLine();
-        menuElemente.add("1. End turn");
-        menuElemente.add("2. Build settlement");
-        menuElemente.add("3. Build road");
-        menuElemente.add("4. Exchange with bank");
-        menuElemente.add("5. Show available resources");
-        menuElemente.add("6. Show leaderboard");
-        menuElemente.add("7. Exit game");
-        UI.printList(menuElemente);
-
-        UI.newLine();
-        Integer choice = textIO.newIntInputReader()
-                .withMinVal(1)
-                .withMaxVal(4)
-                .read("Please choose an option:");
-
-        switch (choice) {
-            case 1:
-                UI.throwDices();
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                //TODO: Implement this correctly
-                //siedlerGame.getCurrentPlayerResourceStock();
-                break;
-            case 6:
-                break;
-            case 7:
-                exit = true;
-                break;
-        }
-        return exit;
-    }
-
     public static void initSiedlerBoard() {
 
         initBoard();
