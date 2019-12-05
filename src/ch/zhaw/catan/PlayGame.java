@@ -190,6 +190,11 @@ public class PlayGame {
         }
     }
 
+    private boolean longestRoad(Player currentPlayer){
+
+        return true;
+    }
+
     public void secondPhase() {
         UI.resetBookmark("BLANK_SCREEN");
         UI.printBoard(hexBoard);
@@ -239,6 +244,9 @@ public class PlayGame {
                         UI.printBoard(hexBoard);
                         Point position = new Point(x, y);
                         siedlerGame.placeSettlement(position, currentPlayer, hexBoard);
+                        if (siedlerGame.getWinner(currentPlayer)) {
+                            textTerminal.print(currentPlayer + "has won the game\n");
+                        }
                         break;
                     case 3:
                         UI.resetBookmark("BLANK_SCREEN");
@@ -260,6 +268,9 @@ public class PlayGame {
 
                         Point roadEnd = new Point(c, d);
                         siedlerGame.placeRoad(roadStart, roadEnd, hexBoard, currentPlayer);
+                        if (siedlerGame.getWinner(currentPlayer)) {
+                            textTerminal.print(currentPlayer + "has won the game\n");
+                        }
                         break;
                     case 4:
                         UI.resetBookmark("BLANK_SCREEN");
@@ -274,6 +285,9 @@ public class PlayGame {
                         siedlerGame.placeCity(where, currentPlayer);
                         UI.resetBookmark("BLANK_SCREEN");
                         UI.printBoard(hexBoard);
+                        if (siedlerGame.getWinner(currentPlayer)) {
+                            textTerminal.print(currentPlayer + "has won the game\n");
+                        }
                         break;
                     case 5:
                         UI.resetBookmark("BLANK_SCREEN");
@@ -312,10 +326,6 @@ public class PlayGame {
                         textTerminal.print("The number you have selected doesn't exist, please try again\n");
                 }
             } while (playersTurn);
-            if (siedlerGame.getWinner(currentPlayer)) {
-                textTerminal.print(currentPlayer + " has won the game\n");
-                break;
-            }
         }
     }
 
