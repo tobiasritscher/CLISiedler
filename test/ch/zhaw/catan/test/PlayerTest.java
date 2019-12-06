@@ -78,6 +78,7 @@ class PlayerTest {
     @Test
     void buildSettlement() {
         testBoard = new SiedlerBoard();
+        SiedlerBoardTextView view = new SiedlerBoardTextView(testBoard);
         Bank testBank = new Bank();
         SiedlerGame testGame = new SiedlerGame(7, 2);
         Point testPosition = new Point(6, 12);
@@ -86,7 +87,7 @@ class PlayerTest {
         testPlayer.addResources(Resource.WOOD, 1, testBank);
         testPlayer.addResources(Resource.WOOL, 1, testBank);
         testPlayer.addResources(Resource.CLAY, 1, testBank);
-        testGame.placeSettlement(testPosition, testPlayer, testBoard, testBank);
+        testGame.placeSettlement(testPosition, testPlayer, testBoard, testBank, view);
         assertEquals(testBoard.getCorner(testPosition).getFaction(), testSettlement.getFaction());
     }
 
@@ -112,6 +113,7 @@ class PlayerTest {
     void buildRoad() {
         Bank testBank = new Bank();
         testBoard = new SiedlerBoard();
+        SiedlerBoardTextView testVIew = new SiedlerBoardTextView(testBoard);
         SiedlerGame testGame = new SiedlerGame(7, 2);
         Point testPositionStart = new Point(6, 10);
         Point testPositionEnd = new Point(6, 12);
@@ -120,8 +122,8 @@ class PlayerTest {
         testPlayer.addResources(Resource.WOOD, 2, testBank);
         testPlayer.addResources(Resource.WOOL, 1, testBank);
         testPlayer.addResources(Resource.CLAY, 2, testBank);
-        testGame.placeSettlement(testPositionStart, testPlayer, testBoard, testBank);
-        testGame.placeRoad(testPositionStart, testPositionEnd, testBoard, testPlayer, testBank);
+        testGame.placeSettlement(testPositionStart, testPlayer, testBoard, testBank, testVIew);
+        testGame.placeRoad(testPositionStart, testPositionEnd, testBoard, testPlayer, testBank, testVIew);
         assertEquals(testBoard.getEdge(testPositionStart, testPositionEnd), testRoad);
     }
 

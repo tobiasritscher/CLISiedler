@@ -56,14 +56,16 @@ class SiedlerGameTest {
 
     @Test
     void placeInitialSettlement() {
+        testBoard = new SiedlerBoard();
+        SiedlerBoardTextView view = new SiedlerBoardTextView(testBoard);
         Point testPointOne = new Point(5, 7);
         Player testPlayer = new Player(Config.Faction.RED);
         SiedlerGame testGame = new SiedlerGame(7, 2);
-        testGame.placeInitialSettlement(testPointOne, testPlayer, testBoard);
+        testGame.placeInitialSettlement(testPointOne, testPlayer, testBoard, view);
         assertEquals(testPlayer.getSettlementsBuilt().get(0), testBoard.getCorner(testPointOne));
 
         Point testPointTwo = new Point(7, 13);
-        testGame.placeInitialSettlement(testPointTwo, testPlayer, testBoard);
+        testGame.placeInitialSettlement(testPointTwo, testPlayer, testBoard, view);
         assertEquals(testPlayer.getSettlementsBuilt().get(1), testBoard.getCorner(testPointTwo));
     }
 
@@ -174,11 +176,13 @@ class SiedlerGameTest {
 
     @Test
     void validRoadPlacement() {
+        testBoard = new SiedlerBoard();
+        SiedlerBoardTextView testVIew = new SiedlerBoardTextView(testBoard);
         Point positiveTestPointStart = new Point(6, 6);
         Point positiveTestPointEnd = new Point(5, 7);
         Point negativeTestPointStart = new Point(7, 13);
         Point negativeTestPointEnd = new Point(8, 15);
-        testGame.placeInitialSettlement(positiveTestPointStart, testGame.getfirstPlayer(), testBoard);
+        testGame.placeInitialSettlement(positiveTestPointStart, testGame.getfirstPlayer(), testBoard, testVIew);
 
         // Positive test
         assertTrue(testGame.validRoadPlacement(positiveTestPointStart, positiveTestPointEnd, testBoard, testGame.getfirstPlayer()));
