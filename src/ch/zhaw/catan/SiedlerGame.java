@@ -102,7 +102,7 @@ public class SiedlerGame {
     }
 
 
-    public void placeCity(Point position, Player player, Bank bank) { //TODO: test and bugfix
+    public void placeCity(Point position, Player player, Bank bank, SiedlerBoard board) { //TODO: test and bugfix
 
         // checks if there is a settlement on the desired position
         if (player.getSettlementsBuiltPoints().contains(position)) {
@@ -112,6 +112,7 @@ public class SiedlerGame {
                 player.getSettlementAtPosition(position).setToCity();
                 player.removeResources(Resource.STONE, 3, bank);
                 player.removeResources(Resource.GRAIN, 2, bank);
+                UI.refresh(board);
                 UI.print("Your settlement has been upgraded to a city");
             } else {
                 UI.print("You do not have enough resources\n");
