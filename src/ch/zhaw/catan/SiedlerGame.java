@@ -96,7 +96,8 @@ public class SiedlerGame {
     private boolean validSettlementPlacing(Point position, SiedlerBoard board) {
         return board.getNeighboursOfCorner(position).isEmpty() &&
                 board.hasCorner(position) &&
-                isCornerConnectedToLand(position, board);
+                isCornerConnectedToLand(position, board) &&
+                (board.getCorner(position) == null);
     }
 
 
