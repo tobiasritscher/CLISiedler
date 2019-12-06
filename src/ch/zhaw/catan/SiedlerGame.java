@@ -195,11 +195,10 @@ public class SiedlerGame {
      * This function creates new player objects
      * @param numberOfPlayers Number of players that need to be created
      */
-    public int createPlayers(int numberOfPlayers) {
+    private void createPlayers(int numberOfPlayers) {
         for (int i = 0; i < numberOfPlayers; ++i) {
             players.add(new Player(Faction.values()[i]));
         }
-        return players.size();
     }
 
     // checks if the given point is a corner
@@ -337,22 +336,4 @@ public class SiedlerGame {
         }
         return gameIsRunning;
     }
-
-    private boolean checkIfTwoPointUseSameCorner(Point point1, Point point2) {
-        return
-                point1.getX() == point2.getX() ||
-                        point1.getX() == point2.getY() ||
-                        point1.getY() == point2.getX() ||
-                        point1.getY() == point2.getY();
-    }
-
-    private int getNextConnection(ArrayList<Boolean> roadConnections, ArrayList<Integer> passedRoads) {
-        for (int i = 0; i < roadConnections.size(); i++) {
-            if (roadConnections.get(i) && !passedRoads.contains(i)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
 }

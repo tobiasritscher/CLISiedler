@@ -101,12 +101,10 @@ public class UI {
     /**
      * This function prints the gameboard
      *
-     * @param board The gameboard object
-     * @return Necessary return for the test class
+     * @param view The gameboard TextView
      */
-    public static SiedlerBoard printBoard(SiedlerBoardTextView view) {
+    private static void printBoard(SiedlerBoardTextView view) {
         textTerminal.println(view.toString());
-        return board;
     }
 
     private static void initBoard() {

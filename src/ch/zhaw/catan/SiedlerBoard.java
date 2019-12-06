@@ -12,7 +12,6 @@ import java.util.Map;
 
 public class SiedlerBoard extends HexBoard<Config.Land, Settlement, Road, String> {
     private Map<Point, Label> lowerFieldLabels = new HashMap<>();
-    private Map<String, Point> labelToField = new HashMap<>();
 
     public SiedlerBoard() {
         setFields();
@@ -32,7 +31,6 @@ public class SiedlerBoard extends HexBoard<Config.Land, Settlement, Road, String
         for (Map.Entry<Point, Integer> field : fields.entrySet()) {
             label = createLabel(field.getValue());
             lowerFieldLabels.put(field.getKey(), label);
-            labelToField.put(label.toString(), field.getKey());
         }
     }
 

@@ -13,7 +13,6 @@ public class Player {
     private ArrayList<Settlement> settlementsBuilt;
     private ArrayList<Road> roadsBuilt;
     private Faction faction;
-    private boolean hasLongestRoad = false;
 
     public Player(Faction faction) {
         resourcesInPossession = new ResourceStock();

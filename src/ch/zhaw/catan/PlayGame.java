@@ -115,7 +115,7 @@ public class PlayGame {
         UI.refresh(view);
     }
 
-    public void giveResourcesAfterFirstPhase(SiedlerBoard board) {
+    private void giveResourcesAfterFirstPhase(SiedlerBoard board) {
         for (Point field : board.getFields()) {
             if (board.getField(field) != Config.Land.DESERT && board.getField(field) != Config.Land.WATER) {
                 if (!board.getCornersOfField(field).isEmpty()) {
