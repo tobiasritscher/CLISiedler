@@ -140,7 +140,7 @@ public class PlayGame {
                 if (!board.getCornersOfField(field).isEmpty()) {
                     for (Settlement settlement : board.getCornersOfField(field)) {
                         Config.Resource currentResource = (board.getField(field).getResource());
-                        settlement.getPlayer().addResources(currentResource, 1);
+                        settlement.getPlayer().addResources(currentResource, 1, bank);
                         bank.removeResources(currentResource, 1);
                     }
                 }
@@ -170,7 +170,7 @@ public class PlayGame {
             if (board.getField(field) != Config.Land.DESERT && board.getField(field) != Config.Land.WATER && Config.getStandardDiceNumberPlacement().get(field) == rolledNumber) {
                 if (!board.getCornersOfField(field).isEmpty()) {
                     for (Settlement settlement : board.getCornersOfField(field)) {
-                        settlement.getPlayer().addResources(board.getField(field).getResource(), 1);
+                        settlement.getPlayer().addResources(board.getField(field).getResource(), 1, bank);
                         textTerminal.print(settlement.getFaction() + " has recieved 1 " + board.getField(field).getResource() + '\n');
                     }
                 }
@@ -193,7 +193,7 @@ public class PlayGame {
                     ArrayList<Config.Resource> resources = new ArrayList<>(siedlerGame.getPlayers().get(i).getResourcesInPossession().keySet());
                     //create random number to choose which resource to delete
                     int random = new Random().nextInt(resources.size());
-                    siedlerGame.getPlayers().get(i).removeResources(resources.get(random), 1);
+                    siedlerGame.getPlayers().get(i).removeResources(resources.get(random), 1, bank);
                     bank.addResources(resources.get(random), 1);
                 }
             }
@@ -243,11 +243,10 @@ public class PlayGame {
 
                         UI.refresh(board);
                         Point position = new Point(x, y);
-                        siedlerGame.placeSettlement(position, currentPlayer, board);
+                        siedlerGame.placeSettlement(position, currentPlayer, board, bank);
                         if (siedlerGame.getWinner(currentPlayer)) {
                             UI.print(currentPlayer + "has won the game\n");
                         }
-                        UI.print("Your settlement has been built");
                         UI.promptEnter();
                         break;
                     case 3:
@@ -265,10 +264,9 @@ public class PlayGame {
                         int d = textIO.newIntInputReader().read(currentPlayer + " please pick a y coordinate for the finish of your road\n");
 
                         Point roadEnd = new Point(c, d);
-                        siedlerGame.placeRoad(roadStart, roadEnd, board, currentPlayer);
+                        siedlerGame.placeRoad(roadStart, roadEnd, board, currentPlayer, bank);
                         siedlerGame.verifyWinner(currentPlayer);
 
-                        UI.print("Your road has been built");
                         UI.promptEnter();
                         break;
                     case 4:
@@ -279,7 +277,7 @@ public class PlayGame {
                         int f = textIO.newIntInputReader().read(currentPlayer + " please pick a y coordinate for your city\n");
 
                         Point where = new Point(e, f);
-                        siedlerGame.placeCity(where, currentPlayer);
+                        siedlerGame.placeCity(where, currentPlayer, bank);
                         UI.refresh(board);
 
 
@@ -317,7 +315,7 @@ public class PlayGame {
                         break;
                     case 69:
                         for (Config.Resource resource : Config.Resource.values()) {
-                            currentPlayer.addResources(resource, 1000);
+                            currentPlayer.addWithCheat(resource, 1000);
                         }
                         break;
                     default:

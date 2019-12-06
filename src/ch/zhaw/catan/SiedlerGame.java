@@ -57,7 +57,7 @@ public class SiedlerGame {
         return settlement;
     }
 
-    public void placeSettlement(Point position, Player player, SiedlerBoard board) {
+    public void placeSettlement(Point position, Player player, SiedlerBoard board, Bank bank) {
         Settlement settlement = null;
         boolean trying;
 
@@ -69,11 +69,12 @@ public class SiedlerGame {
                         && player.getResourcesInPossession().containsKey(Resource.GRAIN)) {
                     settlement = new Settlement(position, player);
                     player.addSettlement(settlement);
-                    player.removeResources(Resource.CLAY, 1);
-                    player.removeResources(Resource.WOOD, 1);
-                    player.removeResources(Resource.WOOL, 1);
-                    player.removeResources(Resource.GRAIN, 1);
+                    player.removeResources(Resource.CLAY, 1, bank);
+                    player.removeResources(Resource.WOOD, 1, bank);
+                    player.removeResources(Resource.WOOL, 1, bank);
+                    player.removeResources(Resource.GRAIN, 1, bank);
                     board.setCorner(settlement.getPosition(), settlement);
+                    UI.print("Your settlement has been built");
                     trying = false;
                 } else {
                     UI.print("You don't have enough resources to build a settlement\n");
@@ -98,7 +99,7 @@ public class SiedlerGame {
     }
 
 
-    public void placeCity(Point position, Player player) { //TODO: test and bugfix
+    public void placeCity(Point position, Player player, Bank bank) { //TODO: test and bugfix
 
         // checks if there is a settlement on the desired position
         if (player.getSettlementsBuiltPoints().contains(position)) {
@@ -106,8 +107,8 @@ public class SiedlerGame {
             // checks if the player has the resources needed for a city to be build
             if (resources.get(Resource.STONE) >= 3 && resources.get(Resource.GRAIN) >= 2) {
                 player.getSettlementAtPosition(position).setToCity();
-                player.removeResources(Resource.STONE, 3);
-                player.removeResources(Resource.GRAIN, 2);
+                player.removeResources(Resource.STONE, 3, bank);
+                player.removeResources(Resource.GRAIN, 2, bank);
                 UI.print("Your settlement has been upgraded to a city");
             } else {
                 UI.print("You do not have enough resources\n");
@@ -118,9 +119,9 @@ public class SiedlerGame {
     }
 
     public void tradeWithBankFourToOne(Resource offer, Resource want, Player player, Bank bank) {
-        if (bank.checkResources(want)) {
-            if (player.removeResources(offer, 4)) {
-                player.addResources(want, 1);
+        if (bank.checkResources(want, 1)) {
+            if (player.removeResources(offer, 4, bank)) {
+                player.addResources(want, 1, bank);
                 bank.trade(offer, want);
             } else {
                 UI.print("You do not have enough " + offer + ".\n");
@@ -132,8 +133,14 @@ public class SiedlerGame {
 
     public void askPlayerWhatToTrade(Player player, Bank bank) {
         printAllResources(player);
-        int chosenOptionWhatToGive = textIO.newIntInputReader().read("What would you like to trade?\n");
-        int chosenOptionWhatToTake = textIO.newIntInputReader().read("What would you like to take?\n");
+        int chosenOptionWhatToGive = textIO.newIntInputReader()
+                .withMinVal(1)
+                .withMaxVal(5)
+                .read("What would you like to trade?\n");
+        int chosenOptionWhatToTake = textIO.newIntInputReader()
+                .withMinVal(1)
+                .withMaxVal(5)
+                .read("What would you like to take?\n");
         tradeWithBankFourToOne(Resource.values()[chosenOptionWhatToGive - 1], Resource.values()[chosenOptionWhatToTake - 1], player, bank);
     }
 
@@ -183,7 +190,7 @@ public class SiedlerGame {
     }
 
     // used in the first phase to place the roads for each player
-    public Road placeInitialRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
+    public void placeInitialRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
         boolean running;
         do {
             // checks if a road can be placed on the desired location
@@ -208,11 +215,10 @@ public class SiedlerGame {
         } while (running);
         Road road = new Road(player, roadStart, roadEnd);
         board.setEdge(road.getStartingAt(), road.getEndingAt(), road);
-        return road;
     }
 
 
-    public void placeRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
+    public void placeRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player, Bank bank) {
         boolean running;
         do {
             // checks if a road can be placed on the desired location
@@ -221,9 +227,10 @@ public class SiedlerGame {
                 if (player.getResourcesInPossession().containsKey(Resource.CLAY) && player.getResourcesInPossession().containsKey(Resource.WOOD)) {
                     player.buildRoad(player, roadStart, roadEnd);
                     running = false;
-                    player.removeResources(Resource.CLAY, 1);
-                    player.removeResources(Resource.WOOD, 1);
+                    player.removeResources(Resource.CLAY, 1, bank);
+                    player.removeResources(Resource.WOOD, 1, bank);
                     board.setEdge(roadStart, roadEnd, new Road(player, roadStart, roadEnd));
+                    UI.print("Your road has been built");
                 } else {
                     UI.print("You do not have enough resources to build a road\n");
                     running = true;
@@ -272,14 +279,11 @@ public class SiedlerGame {
         return result;
     }
 
-    public boolean verifyWinner(Player currentPlayer){
-        boolean gameIsRunning = true;
+    public void verifyWinner(Player currentPlayer){
         if (getWinner(currentPlayer)) {
             UI.print(currentPlayer + " has won the game\n");
-            gameIsRunning = false;
             UI.closeTerminal();
         }
-        return gameIsRunning;
 
     }
 

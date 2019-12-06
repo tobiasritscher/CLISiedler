@@ -15,16 +15,16 @@ public class Bank {
         resourceStock = new ResourceStock(Config.INITIAL_RESOURCE_CARDS_BANK);
     }
 
-    public boolean checkResources(Config.Resource ask) {
-        return resourceStock.getResources().get(ask) >= RETURN_AMOUNT;
+    public boolean checkResources(Config.Resource ask, int amount) {
+        return resourceStock.getResources().get(ask) >= amount;
     }
 
     public void addResources(Config.Resource resource, int resourceCount) { //TODO: test and bugfix
         resourceStock.add(resource, resourceCount);
     }
 
-    public boolean removeResources(Config.Resource resource, int resourceCount) {
-        return resourceStock.remove(resource, resourceCount);
+    public void removeResources(Config.Resource resource, int resourceCount) {
+        resourceStock.remove(resource, resourceCount);
     }
 
     /**

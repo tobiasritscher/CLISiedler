@@ -38,17 +38,18 @@ class SiedlerGameTest {
     @Test
     void getCurrentPlayerResourceStock() {
         Map<Config.Resource, Integer> testResources = new HashMap<>();
+        Bank testBank = new Bank();
         testResources.put(Config.Resource.GRAIN, 1);
         testResources.put(Config.Resource.WOOD, 1);
         testResources.put(Config.Resource.WOOL, 1);
         testResources.put(Config.Resource.STONE, 1);
         testResources.put(Config.Resource.CLAY, 1);
 
-        testGame.getCurrentPlayer().addResources(Config.Resource.GRAIN, 1);
-        testGame.getCurrentPlayer().addResources(Config.Resource.WOOD, 1);
-        testGame.getCurrentPlayer().addResources(Config.Resource.WOOL, 1);
-        testGame.getCurrentPlayer().addResources(Config.Resource.STONE, 1);
-        testGame.getCurrentPlayer().addResources(Config.Resource.CLAY, 1);
+        testGame.getCurrentPlayer().addResources(Config.Resource.GRAIN, 1, testBank);
+        testGame.getCurrentPlayer().addResources(Config.Resource.WOOD, 1, testBank);
+        testGame.getCurrentPlayer().addResources(Config.Resource.WOOL, 1, testBank);
+        testGame.getCurrentPlayer().addResources(Config.Resource.STONE, 1, testBank);
+        testGame.getCurrentPlayer().addResources(Config.Resource.CLAY, 1, testBank);
 
         assertEquals(testResources, testGame.getCurrentPlayer().getResourcesInPossession());
     }
@@ -75,8 +76,8 @@ class SiedlerGameTest {
     void tradeWithBankFourToOne() { // TODO: Redundant, same test as BankTest class, maybe ask muon per mail which one to keep?
         Bank testBank = new Bank();
 
-        testGame.getCurrentPlayer().addResources(Config.Resource.GRAIN, 5);
-        testGame.getCurrentPlayer().addResources(Config.Resource.CLAY, 3);
+        testGame.getCurrentPlayer().addResources(Config.Resource.GRAIN, 5, testBank);
+        testGame.getCurrentPlayer().addResources(Config.Resource.CLAY, 3, testBank);
 
         ResourceStock bankTestStock = new ResourceStock();
         bankTestStock.add(Config.Resource.WOOD, 1);

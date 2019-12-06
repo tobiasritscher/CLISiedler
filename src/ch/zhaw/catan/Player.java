@@ -26,12 +26,20 @@ public class Player {
         return resourcesInPossession.getResources();
     } //TODO: test and bugfix
 
-    public boolean removeResources(Resource resource, int resourceCount) {
+    public boolean removeResources(Resource resource, int resourceCount, Bank bank) {
+        bank.addResources(resource, resourceCount);
         return resourcesInPossession.remove(resource, resourceCount);
     }
 
-    public void addResources(Resource resource, int resourceCount) { //TODO: test and bugfix
-        resourcesInPossession.add(resource, resourceCount);
+    public void addResources(Resource resource, int amount, Bank bank) { //TODO: test and bugfix
+        if (bank.checkResources(resource, amount)) {
+            resourcesInPossession.add(resource, amount);
+            bank.removeResources(resource, amount);
+        }
+    }
+
+    public void addWithCheat(Resource resource, int amount){
+        resourcesInPossession.add(resource, amount);
     }
 
     public ArrayList<Settlement> getSettlementsBuilt() {
