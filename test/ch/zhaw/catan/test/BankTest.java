@@ -12,24 +12,20 @@ class BankTest {
     @BeforeEach
     void setUp() {
         testGame = new SiedlerGame(20, 2);
-        testGame.getCurrentPlayer().addResources(Config.Resource.GRAIN, 5);
-        testGame.getCurrentPlayer().addResources(Config.Resource.CLAY, 3);
     }
 
     @Test
     void trade() {
-        // TODO: Test fails because order of Resources varies
-        Player testPlayer = new Player(Config.Faction.RED);
-        String expectedValue = "{CL=3, GR=1, WD=1}";
+        testGame.getCurrentPlayer().addResources(Config.Resource.GRAIN, 5);
+        testGame.getCurrentPlayer().addResources(Config.Resource.CLAY, 3);
+
+        String expectedValue = "{WD=1, GR=1, CL=3}";
         // Positive test
-        testGame.tradeWithBankFourToOne(Config.Resource.GRAIN, Config.Resource.WOOD, testPlayer);
-        // Assertions.assertEquals(expectedValue, testGame.getCurrentPlayer().getResourcesInPossession().toString());
-        Assertions.assertTrue(testGame.getCurrentPlayer().getResourcesInPossession().containsKey(Config.Resource.GRAIN));
-
-
+        testGame.tradeWithBankFourToOne(Config.Resource.GRAIN, Config.Resource.WOOD, testGame.getCurrentPlayer());
+        Assertions.assertEquals(expectedValue, testGame.getCurrentPlayer().getResourcesInPossession().toString());
 
         // Negative test
-        testGame.tradeWithBankFourToOne(Config.Resource.CLAY, Config.Resource.WOOD, testPlayer);
-        //Assertions.assertEquals(expectedValue, testGame.getCurrentPlayer().getResourcesInPossession().toString());
+        testGame.tradeWithBankFourToOne(Config.Resource.CLAY, Config.Resource.WOOD, testGame.getCurrentPlayer());
+        Assertions.assertEquals(expectedValue, testGame.getCurrentPlayer().getResourcesInPossession().toString());
     }
 }

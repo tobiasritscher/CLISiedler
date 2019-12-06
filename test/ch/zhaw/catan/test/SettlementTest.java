@@ -4,11 +4,12 @@ import ch.zhaw.catan.City;
 import ch.zhaw.catan.Config;
 import ch.zhaw.catan.Player;
 import ch.zhaw.catan.Settlement;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class SettlementTest {
 
@@ -26,37 +27,37 @@ class SettlementTest {
 
     @Test
     void getPosition() {
-        Assertions.assertEquals(settlementTestPoint, testSettlement.getPosition());
-        Assertions.assertEquals(cityTestPoint, testCity.getPosition());
+        assertEquals(settlementTestPoint, testSettlement.getPosition());
+        assertEquals(cityTestPoint, testCity.getPosition());
     }
 
     @Test
     void getPlayer() {
-        Assertions.assertEquals(testPlayer, testSettlement.getPlayer());
-        Assertions.assertEquals(testPlayer, testCity.getPlayer());
+        assertEquals(testPlayer, testSettlement.getPlayer());
+        assertEquals(testPlayer, testCity.getPlayer());
     }
 
     @Test
     void getWinPoints() {
-        Assertions.assertEquals(1, testSettlement.getWinPoints());
-        Assertions.assertEquals(2, testCity.getWinPoints());
+        assertEquals(1, testSettlement.getWinPoints());
+        assertEquals(2, testCity.getWinPoints());
     }
 
     @Test
     void getFaction() {
-        Assertions.assertEquals("RR", testSettlement.getFaction().toString());
-        Assertions.assertEquals("RR", testCity.getFaction().toString());
+        assertEquals("RR", testSettlement.getFaction().toString());
+        assertEquals("RR", testCity.getFaction().toString());
     }
 
     @Test
     void getIsCity() {
-        Assertions.assertFalse(testSettlement.getIsCity());
-        Assertions.assertTrue(testCity.getIsCity());
+        assertFalse(testSettlement.getIsCity());
+        assertTrue(testCity.getIsCity());
     }
 
     @Test
     void testToString() {
-        Assertions.assertEquals("RR", testSettlement.toString());
-        Assertions.assertEquals("RR", testCity.toString());
+        assertEquals("RR", testSettlement.toString());
+        assertEquals("CR", testCity.toString());
     }
 }

@@ -2,12 +2,13 @@ package test;
 
 import ch.zhaw.catan.Config;
 import ch.zhaw.catan.ResourceStock;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class ResourceStockTest {
 
@@ -33,22 +34,22 @@ class ResourceStockTest {
         testResourceStock.add(Config.Resource.STONE, 1);
         testResourceStock.add(Config.Resource.CLAY, 1);
 
-        Assertions.assertEquals(testResourceStock.getResources(), testResourceMap);
+        assertEquals(testResourceStock.getResources(), testResourceMap);
     }
 
     @Test
     void available() {
         testResourceStock.add(Config.Resource.GRAIN, 1);
         // Positive Test
-        Assertions.assertTrue(testResourceStock.available(Config.Resource.GRAIN, 1));
+        assertTrue(testResourceStock.available(Config.Resource.GRAIN, 1));
         // Negative Test
-        Assertions.assertFalse(testResourceStock.available(Config.Resource.WOOD, 1));
+        assertFalse(testResourceStock.available(Config.Resource.WOOD, 1));
     }
 
     @Test
     void add() {
         testResourceStock.add(Config.Resource.GRAIN, 1);
-        Assertions.assertEquals("{GR=1}", testResourceStock.getResources().toString());
+        assertEquals("{GR=1}", testResourceStock.getResources().toString());
     }
 
     @Test
@@ -56,10 +57,10 @@ class ResourceStockTest {
         // Positive test
         testResourceStock.add(Config.Resource.GRAIN, 2);
         testResourceStock.remove(Config.Resource.GRAIN, 1);
-        Assertions.assertEquals("{GR=1}", testResourceStock.getResources().toString());
+        assertEquals("{GR=1}", testResourceStock.getResources().toString());
 
         // Negative test, remove method isn't expected to do anything if amount to remove exceeds existing amount
         testResourceStock.remove(Config.Resource.GRAIN, 2);
-        Assertions.assertEquals("{GR=1}", testResourceStock.getResources().toString());
+        assertEquals("{GR=1}", testResourceStock.getResources().toString());
     }
 }

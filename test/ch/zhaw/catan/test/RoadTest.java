@@ -3,10 +3,11 @@ package test;
 import ch.zhaw.catan.Config;
 import ch.zhaw.catan.Player;
 import ch.zhaw.catan.Road;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RoadTest {
 
@@ -17,16 +18,16 @@ class RoadTest {
 
     @Test
     void getStartingAt() {
-        Assertions.assertEquals(testPointStart, testRoad.getStartingAt());
+        assertEquals(testPointStart, testRoad.getStartingAt());
     }
 
     @Test
     void getEndingAt() {
-        Assertions.assertEquals(testPointEnd, testRoad.getEndingAt());
+        assertEquals(testPointEnd, testRoad.getEndingAt());
     }
 
     @Test
     void testToString() {
-        Assertions.assertEquals("R", testRoad.toString());
+        assertEquals("R", testRoad.toString());
     }
 }

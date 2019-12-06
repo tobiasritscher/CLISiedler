@@ -4,13 +4,14 @@ import ch.zhaw.catan.Config;
 import ch.zhaw.catan.Player;
 import ch.zhaw.catan.SiedlerBoard;
 import ch.zhaw.catan.SiedlerGame;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class SiedlerGameTest {
 
@@ -25,15 +26,15 @@ class SiedlerGameTest {
 
     @Test
     void getPlayer() {
-        Assertions.assertEquals("rr", testGame.getPlayers().get(0).getFaction().toString());
-        Assertions.assertEquals("bb", testGame.getPlayers().get(1).getFaction().toString());
-        Assertions.assertEquals("gg", testGame.getPlayers().get(2).getFaction().toString());
-        Assertions.assertEquals("yy", testGame.getPlayers().get(3).getFaction().toString());
+        assertEquals("rr", testGame.getPlayers().get(0).getFaction().toString());
+        assertEquals("bb", testGame.getPlayers().get(1).getFaction().toString());
+        assertEquals("gg", testGame.getPlayers().get(2).getFaction().toString());
+        assertEquals("yy", testGame.getPlayers().get(3).getFaction().toString());
     }
 
     @Test
     void getCurrentPlayer() {
-        Assertions.assertEquals("rr", testGame.getCurrentPlayer().getFaction().toString());
+        assertEquals("rr", testGame.getCurrentPlayer().getFaction().toString());
     }
 
     @Test
@@ -51,18 +52,18 @@ class SiedlerGameTest {
         testGame.getCurrentPlayer().addResources(Config.Resource.STONE, 1);
         testGame.getCurrentPlayer().addResources(Config.Resource.CLAY, 1);
 
-        Assertions.assertEquals(testResources, testGame.getCurrentPlayer().getResourcesInPossession());
+        assertEquals(testResources, testGame.getCurrentPlayer().getResourcesInPossession());
     }
 
     @Test
     void placeInitialSettlement() { // TODO positive doesn't work yet! Maybe initial Settlement isn't saved in Player.settlementsBuilt?
         Point positiveTestPoint = new Point(5, 7);
         testGame.placeInitialSettlement(positiveTestPoint, testGame.getCurrentPlayer(), testBoard);
-        Assertions.assertEquals(testGame.getCurrentPlayer().getSettlementsBuilt().get(0), testBoard.getCorner(positiveTestPoint));
+        assertEquals(testGame.getCurrentPlayer().getSettlementsBuilt().get(0), testBoard.getCorner(positiveTestPoint));
 
         Point negativeTestPoint = new Point(7, 13);
         testGame.placeInitialSettlement(negativeTestPoint, testGame.getCurrentPlayer(), testBoard);
-        Assertions.assertEquals(null, testBoard.getCorner(negativeTestPoint));
+        assertEquals(null, testBoard.getCorner(negativeTestPoint));
     }
 
     @Test
@@ -79,11 +80,11 @@ class SiedlerGameTest {
         String expectedValue = "{GR=1, CL=3, WD=1}";
         // Positive test
         testGame.tradeWithBankFourToOne(Config.Resource.GRAIN, Config.Resource.WOOD, testPlayer);
-        Assertions.assertEquals(expectedValue, testPlayer.getResourcesInPossession().toString());
+        assertEquals(expectedValue, testPlayer.getResourcesInPossession().toString());
 
         // Negative test
         testGame.tradeWithBankFourToOne(Config.Resource.CLAY, Config.Resource.WOOD, testPlayer);
-        Assertions.assertEquals(expectedValue, testPlayer.getResourcesInPossession().toString());
+        assertEquals(expectedValue, testPlayer.getResourcesInPossession().toString());
     }
 
     @Test
@@ -94,9 +95,9 @@ class SiedlerGameTest {
     @Test
     void createPlayers() { // TODO: Somehow the test fails, it passed a few days ago
         testGame = new SiedlerGame(20, 1);
-        Assertions.assertEquals(2, testGame.createPlayers(1));
+        assertEquals(2, testGame.createPlayers(1));
         testGame = new SiedlerGame(20, 5);
-        Assertions.assertEquals(4, testGame.createPlayers(5));
+        assertEquals(4, testGame.createPlayers(5));
     }
 
     @Test
@@ -118,9 +119,9 @@ class SiedlerGameTest {
         testGame.placeInitialSettlement(positiveTestPointStart, testGame.getCurrentPlayer(), testBoard);
 
         // Positive test TODO: Positive test doesn't work yet, help me!
-        Assertions.assertTrue(testGame.validRoadPlacement(positiveTestPointStart, positiveTestPointEnd, testBoard, testGame.getCurrentPlayer()));
+        assertTrue(testGame.validRoadPlacement(positiveTestPointStart, positiveTestPointEnd, testBoard, testGame.getCurrentPlayer()));
 
         // Negative test
-        Assertions.assertFalse(testGame.validRoadPlacement(negativeTestPointStart, negativeTestPointEnd, testBoard, testGame.getCurrentPlayer()));
+        assertFalse(testGame.validRoadPlacement(negativeTestPointStart, negativeTestPointEnd, testBoard, testGame.getCurrentPlayer()));
     }
 }

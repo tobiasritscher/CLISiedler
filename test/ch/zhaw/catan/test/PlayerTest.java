@@ -1,14 +1,15 @@
 package test;
 
 import ch.zhaw.catan.*;
-import org.junit.jupiter.api.Assertions;
+import ch.zhaw.catan.Config.Resource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ch.zhaw.catan.Config.Resource;
 
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
 
@@ -35,7 +36,7 @@ class PlayerTest {
         testResources.put(Resource.STONE, 1);
         testResources.put(Resource.CLAY, 1);
 
-        Assertions.assertEquals(testResources, testPlayer.getResourcesInPossession());
+        assertEquals(testResources, testPlayer.getResourcesInPossession());
     }
 
     @Test
@@ -51,7 +52,7 @@ class PlayerTest {
         testPlayer.addResources(Resource.GRAIN, 1);
         Map<Resource, Integer> testResources = new HashMap<>();
         testResources.put(Resource.GRAIN, 1);
-        Assertions.assertEquals(testResources, testPlayer.getResourcesInPossession());
+        assertEquals(testResources, testPlayer.getResourcesInPossession());
     }
 
     @Test
@@ -59,7 +60,7 @@ class PlayerTest {
         Point testPosition = new Point(6, 12);
         Settlement testSettlement = new Settlement(testPosition, testPlayer);
         testPlayer.addSettlement(testSettlement);
-        Assertions.assertEquals(testPlayer.getSettlementsBuilt().get(0), testSettlement);
+        assertEquals(testPlayer.getSettlementsBuilt().get(0), testSettlement);
     }
 
     @Test
@@ -68,7 +69,7 @@ class PlayerTest {
         Point testPosition = new Point(6, 12);
         Settlement testSettlement = new Settlement(testPosition, testPlayer);
         testPlayer.addSettlement(testSettlement);
-        Assertions.assertEquals(testSettlement, testPlayer.getSettlementsBuilt().get(0));
+        assertEquals(testSettlement, testPlayer.getSettlementsBuilt().get(0));
     }
 
     @Test
@@ -82,12 +83,12 @@ class PlayerTest {
         testPlayer.addResources(Resource.WOOL, 1);
         testPlayer.addResources(Resource.CLAY, 1);
         testGame.placeSettlement(testPosition, testPlayer, testBoard);
-        Assertions.assertEquals(testBoard.getCorner(testPosition).getFaction(), testSettlement.getFaction());
+        assertEquals(testBoard.getCorner(testPosition).getFaction(), testSettlement.getFaction());
     }
 
     @Test
     void getFaction() {
-        Assertions.assertEquals(Config.Faction.RED, testPlayer.getFaction());
+        assertEquals(Config.Faction.RED, testPlayer.getFaction());
     }
 
     @Test
@@ -99,7 +100,7 @@ class PlayerTest {
         testPlayer.addResources(Resource.WOOD, 1);
         testPlayer.addResources(Resource.CLAY, 1);
         testPlayer.buildRoad(testPlayer, testPositionStart, testPositionEnd);
-        Assertions.assertEquals(testPlayer.getRoadsBuilt().get(0), testRoad);
+        assertEquals(testPlayer.getRoadsBuilt().get(0), testRoad);
     }
 
     @Test
@@ -115,7 +116,7 @@ class PlayerTest {
         testPlayer.addResources(Resource.CLAY, 2);
         testGame.placeSettlement(testPositionStart, testPlayer, testBoard);
         testGame.placeRoad(testPositionStart, testPositionEnd, testBoard, testPlayer);
-        Assertions.assertEquals(testBoard.getEdge(testPositionStart, testPositionEnd), testRoad);
+        assertEquals(testBoard.getEdge(testPositionStart, testPositionEnd), testRoad);
     }
 
     @Test
@@ -148,8 +149,8 @@ class PlayerTest {
         resourceStockRed.add(Resource.WOOL, 1);
         resourceStockRed.add(Resource.GRAIN, 1);
 
-        Assertions.assertEquals(blue.getResourcesInPossession(), resourceStockBlue.getResources());
-        Assertions.assertEquals(red.getResourcesInPossession(), resourceStockRed.getResources());
+        assertEquals(blue.getResourcesInPossession(), resourceStockBlue.getResources());
+        assertEquals(red.getResourcesInPossession(), resourceStockRed.getResources());
     }
 
     @Test
@@ -161,10 +162,10 @@ class PlayerTest {
         Point trueOne = new Point(3, 7);
         Point trueTwo = new Point(5, 9);
 
-        Assertions.assertFalse(game.isCornerConnectedToLand(falseOne, testBoard));
-        Assertions.assertFalse(game.isCornerConnectedToLand(falseTwo, testBoard));
-        Assertions.assertTrue(game.isCornerConnectedToLand(trueOne, testBoard));
-        Assertions.assertTrue(game.isCornerConnectedToLand(trueTwo, testBoard));
+        assertFalse(game.isCornerConnectedToLand(falseOne, testBoard));
+        assertFalse(game.isCornerConnectedToLand(falseTwo, testBoard));
+        assertTrue(game.isCornerConnectedToLand(trueOne, testBoard));
+        assertTrue(game.isCornerConnectedToLand(trueTwo, testBoard));
 
     }
 }
