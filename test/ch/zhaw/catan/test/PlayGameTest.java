@@ -1,9 +1,6 @@
 package test;
 
-import ch.zhaw.catan.Config;
-import ch.zhaw.catan.PlayGame;
-import ch.zhaw.catan.ResourceStock;
-import ch.zhaw.catan.Settlement;
+import ch.zhaw.catan.*;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -14,21 +11,10 @@ class PlayGameTest {
 
     private PlayGame testGame = new PlayGame();
 
-
-    @Test
-    void siedlerGameTestHelper() {
-    }
-
-    @Test
-    void getBoard() {
-    }
-
-    @Test
-    void getSiedlerGame() {
-    }
-
     @Test
     void getPlayer() {
+        Player testPlayer = new Player(Config.Faction.RED);
+        assertEquals(testPlayer.getFaction(), testGame.getPlayer(0).getFaction());
     }
 
     @Test
