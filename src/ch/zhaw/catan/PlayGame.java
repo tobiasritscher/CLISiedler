@@ -20,22 +20,6 @@ public class PlayGame {
     private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal) textIO.getTextTerminal();
     private Bank bank = new Bank();
 
-    public SiedlerBoardTextView getView() {
-        return view;
-    }
-
-    public void siedlerGameTestHelper() {
-        siedlerGame = new SiedlerGame(7, 4);
-    }
-
-    public SiedlerBoard getBoard() {
-        return board;
-    }
-
-    public Player getPlayer(int index) {
-        return siedlerGame.getPlayers().get(index);
-    }
-
     //starts entire game with both phases
     private void run() {
 
