@@ -50,3 +50,7 @@ If you want to play a quick game you need to choose the Option 420 at the start 
 ![Screenshot]({57B1CA07-01C9-4EDD-A920-08E87F946C49}.png)
 
 ![Screenshot]({B9B239C4-F7E6-4308-B53A-C57930EB3FB0}.png)
+
+# Klassendiagram
+
+![Flowchart](Klassendiagramm.gif)
