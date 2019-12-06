@@ -19,18 +19,18 @@ public class UI {
     public static SiedlerBoard board = new SiedlerBoard();
     private static SiedlerBoardTextView view = new SiedlerBoardTextView(board);
 
-    public UI() {
+    public UI() {}
 
-    }
-
+    //This function sets up the terminal window and allows to customize font- and size-properties
     public static void setupTerminal() {
-
-        //Setting properties of terminal window
         ((SwingTextTerminal) textTerminal).setPromptFontSize(11);
         ((SwingTextTerminal) textTerminal).setInputFontSize(11);
         textTerminal.getProperties().setPaneDimension(1040, 890);
     }
 
+    /**
+     * This function closes the terminal window
+     */
     public static void closeTerminal() {
         textIO.dispose();
     }
@@ -94,15 +94,17 @@ public class UI {
         for (Map.Entry<Point, Label> e : lowerFieldLabel.entrySet()) {
             view.setLowerFieldLabel(e.getKey(), e.getValue());
         }
-        //Bookmark for a blank screen
         UI.resetBookmark("BLANK_SCREEN");
-
-        //This prints the map
         UI.print(view.toString());
 
 
     }
 
+    /**
+     * This function prints the gameboard
+     * @param board The gameboard object
+     * @return Necessary return for the test class
+     */
     public static SiedlerBoard printBoard(SiedlerBoard board) {
         view = new SiedlerBoardTextView(board);
         textTerminal.println(view.toString());
@@ -118,29 +120,45 @@ public class UI {
         }
     }
 
+    /**
+     * This functions prompts the user to indicate how many players will be playing
+     * @return The number of players that will be playing
+     */
     public static int askNumberOfPlayers() {
         return textIO.newIntInputReader()
                 .withPossibleValues(2,3,4,69)
                 .read("How many players will be playing?");
     }
 
+    /**
+     * This function adds a new line in the terminal window
+     */
     public static void newLine() {
         textTerminal.printf(System.lineSeparator());
     }
 
+    /**
+     * This function
+     * @return Is used by the test class
+     */
     public static int throwDices() {
         int diceNumber = Dice.roll();
         textTerminal.printf("Player has thrown a %d", diceNumber);
         return diceNumber;
     }
 
-    /*
-    * @param
+    /**
+     * This function sets a bookmark in the terminal window
+     * @param bookmark Name of the bookmark that will be set
      */
     public static void setBookmark(String bookmark) {
         textTerminal.setBookmark(bookmark);
     }
 
+    /**
+     * This function allows the terminal window to jump to a bookmark that has been set before
+     * @param bookmark Name of the bookmark that the window will be reset to
+     */
     public static void resetBookmark(String bookmark) {
         textTerminal.resetToBookmark(bookmark);
     }
@@ -159,20 +177,30 @@ public class UI {
         return board;
     }
 
+    /**
+     * This function prints a prompt in the terminal window that asks the user to press enter
+     */
     public static void promptEnter(){
         textIO.newStringInputReader()
                 .withMinLength(0)
                 .read("\nPress enter to continue");
     }
 
-    /*
-    *
+    /**
+     * This function refreshes the gameboard, when e.g. a new settlement has been built.
+     * It does so by jumping back to a "blank screen" that has been set in the beginning
+     * of the game and prints an instance of the gameboard.
+     * @param board This parameter indicates the gameboard object
      */
     public static void refresh(SiedlerBoard board){
         UI.resetBookmark("BLANK_SCREEN");
         UI.printBoard(board);
     }
 
+    /**
+     * This option prints the menu for the second phase of the game
+     * @return Prompts the user to indicate his choice
+     */
     public static int printSecondPhaseMenu(){
         PlayGame.ChosenOption[] values = PlayGame.ChosenOption.values();
         for (int i = 1, valuesLength = values.length; i < valuesLength - 1; i++) {
@@ -180,6 +208,6 @@ public class UI {
             UI.print(chosenOption.getChosenOptionCode() + ": " + chosenOption.getTextForUser() + "\n");
         }
         UI.print("");
-        return textIO.newIntInputReader().read("What would you like to do now?\n");
+        return textIO.newIntInputReader().read("What would you like to do?\n");
     }
 }
