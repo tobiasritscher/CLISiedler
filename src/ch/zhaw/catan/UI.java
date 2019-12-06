@@ -8,7 +8,6 @@ import org.beryx.textio.swing.SwingTextTerminal;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,30 +70,25 @@ public class UI {
     private static void initSiedlerBoard() {
 
         initBoard();
-        Map<Point, Label> lowerFieldLabel = new HashMap<>();
-        lowerFieldLabel.put(new Point(5, 5), new Label('0', '6'));
-        lowerFieldLabel.put(new Point(7, 5), new Label('0', '3'));
-        lowerFieldLabel.put(new Point(9, 5), new Label('0', '8'));
-        lowerFieldLabel.put(new Point(4, 8), new Label('0', '2'));
-        lowerFieldLabel.put(new Point(6, 8), new Label('0', '4'));
-        lowerFieldLabel.put(new Point(8, 8), new Label('0', '5'));
-        lowerFieldLabel.put(new Point(10, 8), new Label('1', '0'));
-        lowerFieldLabel.put(new Point(3, 11), new Label('0', '5'));
-        lowerFieldLabel.put(new Point(5, 11), new Label('0', '9'));
-        lowerFieldLabel.put(new Point(9, 11), new Label('0', '6'));
-        lowerFieldLabel.put(new Point(11, 11), new Label('0', '9'));
-        lowerFieldLabel.put(new Point(4, 14), new Label('1', '0'));
-        lowerFieldLabel.put(new Point(6, 14), new Label('1', '1'));
-        lowerFieldLabel.put(new Point(8, 14), new Label('0', '3'));
-        lowerFieldLabel.put(new Point(10, 14), new Label('1', '2'));
-        lowerFieldLabel.put(new Point(5, 17), new Label('0', '8'));
-        lowerFieldLabel.put(new Point(7, 17), new Label('0', '4'));
-        lowerFieldLabel.put(new Point(9, 17), new Label('1', '1'));
+        view.setLowerFieldLabel(new Point(5, 5), new Label('0', '6'));
+        view.setLowerFieldLabel(new Point(7, 5), new Label('0', '3'));
+        view.setLowerFieldLabel(new Point(9, 5), new Label('0', '8'));
+        view.setLowerFieldLabel(new Point(4, 8), new Label('0', '2'));
+        view.setLowerFieldLabel(new Point(6, 8), new Label('0', '4'));
+        view.setLowerFieldLabel(new Point(8, 8), new Label('0', '5'));
+        view.setLowerFieldLabel(new Point(10, 8), new Label('1', '0'));
+        view.setLowerFieldLabel(new Point(3, 11), new Label('0', '5'));
+        view.setLowerFieldLabel(new Point(5, 11), new Label('0', '9'));
+        view.setLowerFieldLabel(new Point(9, 11), new Label('0', '6'));
+        view.setLowerFieldLabel(new Point(11, 11), new Label('0', '9'));
+        view.setLowerFieldLabel(new Point(4, 14), new Label('1', '0'));
+        view.setLowerFieldLabel(new Point(6, 14), new Label('1', '1'));
+        view.setLowerFieldLabel(new Point(8, 14), new Label('0', '3'));
+        view.setLowerFieldLabel(new Point(10, 14), new Label('1', '2'));
+        view.setLowerFieldLabel(new Point(5, 17), new Label('0', '8'));
+        view.setLowerFieldLabel(new Point(7, 17), new Label('0', '4'));
+        view.setLowerFieldLabel(new Point(9, 17), new Label('1', '1'));
 
-
-        for (Map.Entry<Point, Label> e : lowerFieldLabel.entrySet()) {
-            view.setLowerFieldLabel(e.getKey(), e.getValue());
-        }
         //Bookmark for a blank screen
         UI.resetBookmark("BLANK_SCREEN");
 
