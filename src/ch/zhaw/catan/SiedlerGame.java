@@ -283,7 +283,6 @@ public class SiedlerGame {
     public void verifyWinner(Player currentPlayer){
         if (getWinner(currentPlayer)) {
             UI.print(currentPlayer + " has won the game\n");
-            UI.closeTerminal();
         }
 
     }

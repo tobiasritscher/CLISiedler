@@ -230,7 +230,7 @@ public class PlayGame {
             }
 
             //gives the different options to the player after the dice roll
-            //boolean gameIsRunning = true;
+            boolean running = true;
             do {
                 UI.print("It's " + currentPlayer + "'s turn\n");
                 UI.newLine();
@@ -310,16 +310,15 @@ public class PlayGame {
                         UI.refresh(board);
                         String sure = textIO.newStringInputReader().read(currentPlayer + " are you sure you want to end your turn? (Y/N)\n");
                         if (sure.equalsIgnoreCase("Y")) {
-                            gameIsRunning = false;
+                            running = false;
                         }
-
                         break;
                     case 7:
                         UI.refresh(board);
                         String ciao = textIO.newStringInputReader().read("Sure?(Y/N)\n");
                         if (ciao.equalsIgnoreCase("Y")) {
                             gameIsRunning = false;
-                            UI.closeTerminal();
+                            running = false;
                         }
                         break;
                     case 69:
@@ -330,7 +329,7 @@ public class PlayGame {
                     default:
                         UI.print("The number you have selected doesn't exist, please try again\n");
                 }
-            } while (gameIsRunning);
+            } while (running);
         }
     }
 
