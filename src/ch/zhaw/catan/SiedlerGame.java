@@ -78,7 +78,7 @@ public class SiedlerGame {
                     board.setCorner(settlement.getPosition(), settlement);
                     trying = false;
                 } else {
-                    textTerminal.print("You don't have enough resources to build a settlement\n");
+                    UI.print("You don't have enough resources to build a settlement\n");
                     trying = false;
                 }
             } else {
@@ -123,10 +123,10 @@ public class SiedlerGame {
                 player.addResources(want, 1);
                 bank.trade(offer, want);
             } else {
-                textTerminal.print("You do not have enough " + offer + ".\n");
+                UI.print("You do not have enough " + offer + ".\n");
             }
         } else {
-            textTerminal.print("The bank doesn't have enough " + want + ".\n");
+            UI.print("The bank doesn't have enough " + want + ".\n");
         }
     }
 
@@ -140,7 +140,7 @@ public class SiedlerGame {
     private void printAllResources(Player player) {
         for (int i = 0; i < Resource.values().length; ++i) {
             int resourceInPossessionCount = player.getResourcesInPossession().get(Resource.values()[i]);
-            textTerminal.print("" + (i + 1) + ": " + Resource.values()[i] + " (You have " + resourceInPossessionCount + ")\n");
+            UI.print("" + (i + 1) + ": " + Resource.values()[i] + " (You have " + resourceInPossessionCount + ")\n");
         }
     }
 
@@ -172,7 +172,7 @@ public class SiedlerGame {
             if (HexBoard.isCornerCoordinate(point)) {
                 running = false;
             } else {
-                textTerminal.print("Error this point is not on a corner, please try again\n");
+                UI.print("Error this point is not on a corner, please try again\n");
                 int x = textIO.newIntInputReader().read("Try again with a new x coordinate\n");
                 int y = textIO.newIntInputReader().read("Try again with a new y coordinate\n");
                 point = new Point(x, y);
@@ -225,7 +225,7 @@ public class SiedlerGame {
                     player.removeResources(Resource.WOOD, 1);
                     board.setEdge(roadStart, roadEnd, new Road(player, roadStart, roadEnd));
                 } else {
-                    textTerminal.print("You do not have enough resources to build a road\n");
+                    UI.print("You do not have enough resources to build a road\n");
                     running = true;
                 }
             } else {
