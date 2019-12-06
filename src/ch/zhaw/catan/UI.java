@@ -220,7 +220,6 @@ public class UI {
     }
 
     public static int printSecondPhaseMenu(){
-
         UI.print("1: Trade with bank\n");
         UI.print("2: Build Settlement\n");
         UI.print("3: Build Road\n");
