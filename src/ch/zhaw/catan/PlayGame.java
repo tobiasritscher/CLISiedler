@@ -207,7 +207,7 @@ public class PlayGame {
         boolean gameIsRunning = true;
         for (int i = 0; gameIsRunning; i = (i + 1) % numberOfPlayers) {
             Player currentPlayer = siedlerGame.getPlayers().get(i);
-            int rolledNumber = 7;
+            int rolledNumber = Dice.roll();
             UI.print(currentPlayer + " rolled a " + rolledNumber + "\n");
 
             // If the number rolled is 7 all players with more than 7 resources lose randomly half of their resources
