@@ -1,9 +1,7 @@
 package test;
 
-import ch.zhaw.catan.Config;
-import ch.zhaw.catan.Player;
-import ch.zhaw.catan.SiedlerBoard;
-import ch.zhaw.catan.SiedlerGame;
+import ch.zhaw.catan.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -75,18 +73,23 @@ class SiedlerGameTest {
 
     @Test
     void tradeWithBankFourToOne() { // TODO: Redundant, same test as BankTest class, maybe ask muon per mail which one to keep?
-        Player testPlayer = new Player(Config.Faction.RED);
-        testPlayer.addResources(Config.Resource.GRAIN, 5);
-        testPlayer.addResources(Config.Resource.CLAY, 3);
+        Bank testBank = new Bank();
 
-        String expectedValue = "{GR=1, CL=3, WD=1}";
+        testGame.getCurrentPlayer().addResources(Config.Resource.GRAIN, 5);
+        testGame.getCurrentPlayer().addResources(Config.Resource.CLAY, 3);
+
+        ResourceStock bankTestStock = new ResourceStock();
+        bankTestStock.add(Config.Resource.WOOD, 1);
+        bankTestStock.add(Config.Resource.GRAIN, 1);
+        bankTestStock.add(Config.Resource.CLAY, 3);
+
         // Positive test
-        testGame.tradeWithBankFourToOne(Config.Resource.GRAIN, Config.Resource.WOOD, testPlayer);
-        assertEquals(expectedValue, testPlayer.getResourcesInPossession().toString());
+        testGame.tradeWithBankFourToOne(Config.Resource.GRAIN, Config.Resource.WOOD, testGame.getCurrentPlayer(), testBank);
+        Assertions.assertEquals(bankTestStock.getResources(), testGame.getCurrentPlayer().getResourcesInPossession());
 
         // Negative test
-        testGame.tradeWithBankFourToOne(Config.Resource.CLAY, Config.Resource.WOOD, testPlayer);
-        assertEquals(expectedValue, testPlayer.getResourcesInPossession().toString());
+        testGame.tradeWithBankFourToOne(Config.Resource.CLAY, Config.Resource.WOOD, testGame.getCurrentPlayer(), testBank);
+        Assertions.assertEquals(bankTestStock.getResources(), testGame.getCurrentPlayer().getResourcesInPossession());
     }
 
     @Test
@@ -95,11 +98,13 @@ class SiedlerGameTest {
     }
 
     @Test
-    void createPlayers() { // TODO: Somehow the test fails, it passed a few days ago
-        testGame = new SiedlerGame(20, 1);
-        assertEquals(2, testGame.createPlayers(1));
-        testGame = new SiedlerGame(20, 5);
-        assertEquals(4, testGame.createPlayers(5));
+    void createPlayers() {
+        testGame = new SiedlerGame(7, 2);
+        assertEquals(2, testGame.createPlayers(2));
+        testGame = new SiedlerGame(7, 3);
+        assertEquals(3, testGame.createPlayers(3));
+        testGame = new SiedlerGame(7, 4);
+        assertEquals(4, testGame.createPlayers(4));
     }
 
     @Test
