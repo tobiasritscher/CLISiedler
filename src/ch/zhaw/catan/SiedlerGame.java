@@ -34,6 +34,13 @@ public class SiedlerGame {
         return players.get(0);
     }
 
+    /**
+     * This function places the initial settlements
+     * @param position The position where the player wants to place a settlement
+     * @param player The player object
+     * @param board The game board object
+     * @param view The board object as a text
+     */
     public void placeInitialSettlement(Point position, Player player, SiedlerBoard board, SiedlerBoardTextView view) {
         Settlement settlement = null;
         boolean trying;
@@ -167,7 +174,11 @@ public class SiedlerGame {
         }
     }
 
-    // counts the points for each player for their settlements and cities
+    /**
+     * This function tests whether a player has obtained the required amount of winning points
+     * @param player provides the player object
+     * @return returns true if a player has obtained the required amount of winning points
+     */
     public boolean getWinner(Player player) { //TODO: test and bugfix
         int winPointCounter = 0;
         for (Settlement settlement : player.getSettlementsBuilt()) {
