@@ -62,7 +62,7 @@ public class PlayGame {
     }
 
 //distribution of first 2 settlements and their roads
-    public void firstPhase() {
+    private void firstPhase() {
 
         for (int i = 0; i < siedlerGame.getPlayers().size(); i++) {
             String currentPlayerFaction = siedlerGame.getPlayers().get(i).getFaction().name();
@@ -92,7 +92,7 @@ public class PlayGame {
         //set first settlement
         Point point = new Point(x, y);
         Point newPoint = siedlerGame.isPointACorner(point);
-        Settlement settlement = siedlerGame.placeInitialSettlement(newPoint, currentPlayer, board);
+        siedlerGame.placeInitialSettlement(newPoint, currentPlayer, board);
         UI.refresh(board);
 
         //ask for first road start
@@ -115,21 +115,6 @@ public class PlayGame {
         Point roadEnd = new Point(xRoadFinish, yRoadFinish);
         siedlerGame.placeInitialRoad(roadStart, roadEnd, board, currentPlayer);
         UI.refresh(board);
-    }
-
-
-    // TODO build phase method calls
-    //        To build roads:                   siedlerGame.placeRoad(Point_RoadStart, Point_RoadEnd); -- returns boolean
-    //        To build settlements:             siedlerGame.placeSettlement(Point_Position); -- returns boolean
-    //        To upgrade settlements to cities: siedlerGame.placeCity(Point_Position); -- returns boolean
-
-    // TODO gameplay calls
-    //        To check if someone won:          siedlerGame.getWinner(); -- returns boolean
-    //        To trade with bank:               siedlerGame.tradeWithBankFourToOne(Resource_offer, Resource_want); -- returns boolean
-    //        To roll dice                      siedlerGame.throwDice(dice.roll()); -- returns Map<Faction, List<Resource>
-
-    public boolean isCornerFree(Point corner) {
-        return board.getNeighboursOfCorner(corner).isEmpty();
     }
 
     public void giveResourcesAfterFirstPhase(SiedlerBoard board) {
@@ -222,7 +207,7 @@ public class PlayGame {
             do {
                 UI.print("It's " + currentPlayer + "'s turn\n");
                 UI.newLine();
-                Integer decision = UI.printSecondPhaseMenu();
+                int decision = UI.printSecondPhaseMenu();
 
                 switch (decision) {
                     case 1:
