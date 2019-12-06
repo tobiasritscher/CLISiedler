@@ -107,6 +107,7 @@ public class SiedlerGame {
                 player.getSettlementAtPosition(position).setToCity();
                 player.removeResources(Resource.STONE, 3);
                 player.removeResources(Resource.GRAIN, 2);
+                UI.print("Your settlement has been upgraded to a city");
             } else {
                 UI.print("You do not have enough resources\n");
             }
@@ -269,4 +270,16 @@ public class SiedlerGame {
         }
         return result;
     }
+
+    public boolean verifyWinner(Player currentPlayer){
+        boolean gameIsRunning = true;
+        if (getWinner(currentPlayer)) {
+            UI.print(currentPlayer + " has won the game\n");
+            gameIsRunning = false;
+            UI.closeTerminal();
+        }
+        return gameIsRunning;
+
+    }
+
 }

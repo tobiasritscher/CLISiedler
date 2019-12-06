@@ -266,7 +266,7 @@ public class PlayGame {
 
                         Point roadEnd = new Point(c, d);
                         siedlerGame.placeRoad(roadStart, roadEnd, board, currentPlayer);
-                        verifyWinner(currentPlayer);
+                        siedlerGame.verifyWinner(currentPlayer);
 
                         UI.print("Your road has been built");
                         UI.promptEnter();
@@ -282,10 +282,9 @@ public class PlayGame {
                         siedlerGame.placeCity(where, currentPlayer);
                         UI.refresh(board);
 
-                        //TODO: Put verifyWinner() here
-                        verifyWinner(currentPlayer);
+
+                        siedlerGame.verifyWinner(currentPlayer);
                         UI.refresh(board);
-                        UI.print("Your settlement has been upgraded to a city");
                         UI.promptEnter();
                         break;
                     case 5:
@@ -329,16 +328,6 @@ public class PlayGame {
         }
     }
 
-    private boolean verifyWinner(Player currentPlayer){
-        boolean gameIsRunning = true;
-        if (siedlerGame.getWinner(currentPlayer)) {
-            UI.print(currentPlayer + " has won the game\n");
-            gameIsRunning = false;
-            UI.closeTerminal();
-        }
-        return gameIsRunning;
-
-    }
 
     public static void main(String[] Args) {
         new PlayGame().run();
