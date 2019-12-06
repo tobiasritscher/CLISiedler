@@ -222,7 +222,7 @@ public class PlayGame {
                 UI.refresh(hexBoard);
                 UI.print("It's " + currentPlayer + "'s turn\n");
                 UI.newLine();
-                Integer decision = UI.secondPhaseMenu();
+                Integer decision = UI.printSecondPhaseMenu();
 
                 switch (decision) {
                     case 1:
@@ -242,6 +242,8 @@ public class PlayGame {
                         if (siedlerGame.getWinner(currentPlayer)) {
                             UI.print(currentPlayer + "has won the game\n");
                         }
+                        UI.print("Your settlement has been built");
+                        UI.promptEnter();
                         break;
                     case 3:
                         UI.refresh(hexBoard);
@@ -262,6 +264,9 @@ public class PlayGame {
                         if (siedlerGame.getWinner(currentPlayer)) {
                             UI.print(currentPlayer + "has won the game\n");
                         }
+
+                        UI.print("Your road has been built");
+                        UI.promptEnter();
                         break;
                     case 4:
                         UI.refresh(hexBoard);
@@ -272,12 +277,14 @@ public class PlayGame {
 
                         Point where = new Point(e, f);
                         siedlerGame.placeCity(where, currentPlayer);
-                        UI.resetBookmark("BLANK_SCREEN");
-                        UI.printBoard(hexBoard);
+                        UI.refresh(hexBoard);
+
                         if (siedlerGame.getWinner(currentPlayer)) {
                             UI.print(currentPlayer + "has won the game\n");
                         }
                         UI.refresh(hexBoard);
+                        UI.print("Your settlement has been upgraded to a city");
+                        UI.promptEnter();
                         break;
                     case 5:
                         UI.refresh(hexBoard);
@@ -319,6 +326,7 @@ public class PlayGame {
             } while (playersTurn);
         }
     }
+
 
 
     public static void main(String[] Args) {

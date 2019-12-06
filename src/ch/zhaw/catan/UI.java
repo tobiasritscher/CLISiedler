@@ -20,7 +20,6 @@ public class UI {
     public static SiedlerBoard hexboard = new SiedlerBoard();
     private static SiedlerBoardTextView view = new SiedlerBoardTextView(hexboard);
     public static SiedlerGame siedlerGame;
-    private static Player player;
 
     public UI() {
 
@@ -73,10 +72,6 @@ public class UI {
     public static void initSiedlerBoard() {
 
         initBoard();
-//        board.addField(new Point(2, 2), Config.Land.FOREST);
-//        board.setCorner(new Point(3, 3), "RR");
-//        board.setEdge(new Point(2, 0), new Point(3, 1), "r");
-//        board.addFieldAnnotation(new Point(2, 2), new Point(3, 1), "AA");
         Map<Point, ch.zhaw.hexboard.Label> lowerFieldLabel = new HashMap<>();
         lowerFieldLabel.put(new Point(5, 5), new ch.zhaw.hexboard.Label('0', '6'));
         lowerFieldLabel.put(new Point(7, 5), new ch.zhaw.hexboard.Label('0', '3'));
@@ -224,7 +219,7 @@ public class UI {
         UI.printBoard(hexBoard);
     }
 
-    public static int secondPhaseMenu(){
+    public static int printSecondPhaseMenu(){
 
         UI.print("1: Trade with bank\n");
         UI.print("2: Build Settlement\n");
