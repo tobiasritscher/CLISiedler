@@ -56,14 +56,16 @@ class SiedlerGameTest {
     }
 
     @Test
-    void placeInitialSettlement() { // TODO positive doesn't work yet! Maybe initial Settlement isn't saved in Player.settlementsBuilt?
-        Point positiveTestPoint = new Point(5, 7);
-        testGame.placeInitialSettlement(positiveTestPoint, testGame.getCurrentPlayer(), testBoard);
-        assertEquals(testGame.getCurrentPlayer().getSettlementsBuilt().get(0), testBoard.getCorner(positiveTestPoint));
+    void placeInitialSettlement() {
+        Point testPointOne = new Point(5, 7);
+        Player testPlayer = new Player(Config.Faction.RED);
+        SiedlerGame testGame = new SiedlerGame(7,2);
+        testGame.placeInitialSettlement(testPointOne, testPlayer, testBoard);
+        assertEquals(testPlayer.getSettlementsBuilt().get(0), testBoard.getCorner(testPointOne));
 
-        Point negativeTestPoint = new Point(7, 13);
-        testGame.placeInitialSettlement(negativeTestPoint, testGame.getCurrentPlayer(), testBoard);
-        assertEquals(null, testBoard.getCorner(negativeTestPoint));
+        Point testPointTwo = new Point(7, 13);
+        testGame.placeInitialSettlement(testPointTwo, testPlayer, testBoard);
+        assertEquals(testPlayer.getSettlementsBuilt().get(1), testBoard.getCorner(testPointTwo));
     }
 
     @Test
