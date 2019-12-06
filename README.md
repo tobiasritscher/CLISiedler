@@ -22,6 +22,21 @@ Das Projekt wurde ine Eclipse und IntelliJ getestet und funktioniert über den T
 
 This project is licensed under the ZHAW License - see [ZHAW](http://www.zhaw.ch) for details
 
+## Manual
+
+# First Phase
+The game starts by asking you how many players will be playing.
+Each player puts a settlement and a road on the map. Then in reverse order each player puts another settlement and a road on the map. In the final step each player recieves one resource per field that they are next to.
+
+# Second Phase
+
+Each player rolls a dice and all players that are next to a field with the corresponding dice number receive a resource from that field.
+Then the player that rolled has options to build a new settlement, replace a settlement with a city, build a road, trade with the bank, end their turn or end the game entirely.
+
+# End Goal
+
+Each settlement gives you a point and each city gives you two points. The first player to reach 7 points wins the game.
+
 ## Class Diagram
 
 ![Flowchart](Klassendiagramm.png)
