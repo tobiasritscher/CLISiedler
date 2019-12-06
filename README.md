@@ -41,9 +41,6 @@ Each settlement gives you a point and each city gives you two points. The first 
 
 If you want to play a quick game you need to choose the Option 420 at the start and two players will have already placed settlements and roads. You can start playing the second phase at that point.
 
-# Class Diagram
-
-![Flowchart](Klassendiagramm.png)
 
 # Screenshot
 
