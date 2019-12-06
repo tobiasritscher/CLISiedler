@@ -17,6 +17,7 @@ public class PlayGame {
     private int numberOfPlayers;
     private static TextIO textIO = TextIoFactory.getTextIO();
     private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal) textIO.getTextTerminal();
+    private Bank bank = new Bank();
 
 
     public PlayGame() {
@@ -138,7 +139,9 @@ public class PlayGame {
             if (board.getField(field) != Config.Land.DESERT && board.getField(field) != Config.Land.WATER) {
                 if (!board.getCornersOfField(field).isEmpty()) {
                     for (Settlement settlement : board.getCornersOfField(field)) {
-                        settlement.getPlayer().addResources(board.getField(field).getResource(), 1);
+                        Config.Resource currentResource = (board.getField(field).getResource());
+                        settlement.getPlayer().addResources(currentResource, 1);
+                        bank.removeResources(currentResource, 1);
                     }
                 }
             }
@@ -191,6 +194,7 @@ public class PlayGame {
                     //create random number to choose which resource to delete
                     int random = new Random().nextInt(resources.size());
                     siedlerGame.getPlayers().get(i).removeResources(resources.get(random), 1);
+                    bank.addResources(resources.get(random), 1);
                 }
             }
         }
@@ -228,7 +232,7 @@ public class PlayGame {
                 switch (decision) {
                     case 1:
                         UI.refresh(board);
-                        siedlerGame.askPlayerWhatToTrade(currentPlayer);
+                        siedlerGame.askPlayerWhatToTrade(currentPlayer, bank);
                         break;
                     case 2:
                         UI.refresh(board);

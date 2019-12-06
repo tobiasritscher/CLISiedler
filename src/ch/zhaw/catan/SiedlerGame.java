@@ -1,24 +1,22 @@
 package ch.zhaw.catan;
 
 import ch.zhaw.catan.Config.Faction;
-import ch.zhaw.catan.Config.Resource;
 import ch.zhaw.catan.Config.Land;
+import ch.zhaw.catan.Config.Resource;
 import ch.zhaw.hexboard.HexBoard;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
-import org.beryx.textio.TextTerminal;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
 
 public class SiedlerGame {
     private int winPoints;
     private List<Player> players = new ArrayList<>();
     private int currentPlayer = 0;
     private TextIO textIO = TextIoFactory.getTextIO();
-    private TextTerminal<?> textTerminal = textIO.getTextTerminal();
-    private Bank bank = new Bank();
 
     public SiedlerGame(int winPoints, int players) {
         createPlayers(players);
@@ -117,7 +115,7 @@ public class SiedlerGame {
         }
     }
 
-    public void tradeWithBankFourToOne(Resource offer, Resource want, Player player) {
+    public void tradeWithBankFourToOne(Resource offer, Resource want, Player player, Bank bank) {
         if (bank.checkResources(want)) {
             if (player.removeResources(offer, 4)) {
                 player.addResources(want, 1);
@@ -130,11 +128,11 @@ public class SiedlerGame {
         }
     }
 
-    public void askPlayerWhatToTrade(Player player) {
+    public void askPlayerWhatToTrade(Player player, Bank bank) {
         printAllResources(player);
         int chosenOptionWhatToGive = textIO.newIntInputReader().read("What would you like to trade?\n");
         int chosenOptionWhatToTake = textIO.newIntInputReader().read("What would you like to take?\n");
-        tradeWithBankFourToOne(Resource.values()[chosenOptionWhatToGive - 1], Resource.values()[chosenOptionWhatToTake - 1], player);
+        tradeWithBankFourToOne(Resource.values()[chosenOptionWhatToGive - 1], Resource.values()[chosenOptionWhatToTake - 1], player, bank);
     }
 
     private void printAllResources(Player player) {

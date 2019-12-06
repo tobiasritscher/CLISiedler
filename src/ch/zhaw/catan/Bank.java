@@ -19,6 +19,14 @@ public class Bank {
         return resourceStock.getResources().get(ask) >= RETURN_AMOUNT;
     }
 
+    public void addResources(Config.Resource resource, int resourceCount) { //TODO: test and bugfix
+        resourceStock.add(resource, resourceCount);
+    }
+
+    public boolean removeResources(Config.Resource resource, int resourceCount) {
+        return resourceStock.remove(resource, resourceCount);
+    }
+
     /**
      * trade 4 to 1 with the bank
      *
