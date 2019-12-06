@@ -139,7 +139,7 @@ public class SiedlerGame {
 
     private void printAllResources(Player player) {
         for (int i = 0; i < Resource.values().length; ++i) {
-            int resourceInPossessionCount = player.getResourcesInPossession().get(Resource.values()[i]);
+            int resourceInPossessionCount = player.getResourcesInPossession().getOrDefault(Resource.values()[i], 0);
             UI.print("" + (i + 1) + ": " + Resource.values()[i] + " (You have " + resourceInPossessionCount + ")\n");
         }
     }
