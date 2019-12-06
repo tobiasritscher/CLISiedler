@@ -220,7 +220,6 @@ public class PlayGame {
             //gives the different options to the player after the dice roll
             boolean playersTurn = true;
             do {
-                UI.refresh(board);
                 UI.print("It's " + currentPlayer + "'s turn\n");
                 UI.newLine();
                 Integer decision = UI.printSecondPhaseMenu();
