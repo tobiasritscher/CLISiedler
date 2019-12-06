@@ -16,10 +16,8 @@ public class UI {
 
     private static TextIO textIO = TextIoFactory.getTextIO();
     private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal) textIO.getTextTerminal();
-    private static Dice dice = new Dice();
     public static SiedlerBoard board = new SiedlerBoard();
     private static SiedlerBoardTextView view = new SiedlerBoardTextView(board);
-    public static SiedlerGame siedlerGame;
 
     public UI() {
 
@@ -126,50 +124,12 @@ public class UI {
                 .read("How many players will be playing?");
     }
 
-    public static Config.Resource tradeAsk(){
-        Config.Resource choice = null;
-        String prompt = "Which resource are you asking?";
-        return choice = resourceChoice(prompt);
-    }
-
-    public static Config.Resource tradeBid(){
-        Config.Resource choice = null;
-        String prompt = "Which resource are you bidding?";
-        return choice = resourceChoice(prompt);
-    }
-
-    public static Config.Resource resourceChoice(String prompt){
-
-        Config.Resource choice;
-            switch (getEnumValue(Config.Resource.class, prompt)){
-                case GRAIN:
-                    choice = Config.Resource.GRAIN;
-                case WOOL:
-                    choice = Config.Resource.WOOL;
-                    break;
-                case WOOD:
-                    choice = Config.Resource.WOOD;
-                    break;
-                case STONE:
-                    choice = Config.Resource.STONE;
-                    break;
-                case CLAY:;
-                    choice = Config.Resource.CLAY;
-                    break;
-                default:
-                    throw new IllegalStateException("Internal error found - Command not implemented.");
-        }
-        return choice;
-
-    }
-
     public static void newLine() {
         textTerminal.printf(System.lineSeparator());
     }
 
     public static int throwDices() {
-        int diceNumber = dice.roll();
-        String currentPlayer = siedlerGame.getCurrentPlayer().toString();
+        int diceNumber = Dice.roll();
         textTerminal.printf("Player has thrown a %d", diceNumber);
         return diceNumber;
     }
@@ -177,9 +137,8 @@ public class UI {
     /*
     * @param
      */
-    public static String setBookmark(String bookmark) {
+    public static void setBookmark(String bookmark) {
         textTerminal.setBookmark(bookmark);
-        return bookmark;
     }
 
     public static void resetBookmark(String bookmark) {
@@ -194,11 +153,6 @@ public class UI {
     public static List<String> printList(List<String> elements) {
         textTerminal.print(elements);
         return elements;
-    }
-
-    public static <T extends Enum<T>> T getEnumValue(Class<T> commands, String prompt) {
-        return textIO.newEnumInputReader(commands)
-                .read(prompt);
     }
 
     public static SiedlerBoard getBoard() {
@@ -228,7 +182,6 @@ public class UI {
         UI.print("5: Check my resources\n");
         UI.print("6: End my turn\n");
         UI.print("7: Quit game\n");
-        int decision = textIO.newIntInputReader().read("What would you like to do now?\n");
-        return decision;
+        return textIO.newIntInputReader().read("What would you like to do now?\n");
     }
 }
