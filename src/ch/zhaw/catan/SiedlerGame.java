@@ -96,7 +96,7 @@ public class SiedlerGame {
     }
 
 
-    void placeCity(Point position, Player player, Bank bank, SiedlerBoard board) { //TODO: test and bugfix
+    public void placeCity(Point position, Player player, Bank bank, SiedlerBoard board) { //TODO: test and bugfix
 
         // checks if there is a settlement on the desired position
         if (player.getSettlementsBuiltPoints().contains(position)) {
@@ -150,7 +150,7 @@ public class SiedlerGame {
     }
 
     // counts the points for each player for their settlements and cities
-    private boolean getWinner(Player player) { //TODO: test and bugfix
+    public boolean getWinner(Player player) { //TODO: test and bugfix
         int winPointCounter = 0;
         for (Settlement settlement : player.getSettlementsBuilt()) {
             if (settlement.getIsCity()) {

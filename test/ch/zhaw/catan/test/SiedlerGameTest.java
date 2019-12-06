@@ -18,7 +18,7 @@ class SiedlerGameTest {
 
     @BeforeEach
     void setUp() {
-        testGame = new SiedlerGame(20, 4);
+        testGame = new SiedlerGame(7, 4);
         testBoard = new SiedlerBoard();
     }
 
@@ -69,7 +69,25 @@ class SiedlerGameTest {
 
     @Test
     void placeCity() {
-        // TODO: Implement
+        Bank testBank = new Bank();
+
+        testGame.getPlayers().get(0).addResources(Config.Resource.STONE, 7, testBank);
+        testGame.getPlayers().get(0).addResources(Config.Resource.GRAIN, 6, testBank);
+        testGame.getPlayers().get(0).addResources(Config.Resource.WOOD, 1, testBank);
+        testGame.getPlayers().get(0).addResources(Config.Resource.WOOL, 1, testBank);
+        testGame.getPlayers().get(0).addResources(Config.Resource.CLAY, 1, testBank);
+
+        Point testPoint = new Point(11, 15);
+
+        testGame.placeSettlement(testPoint, testGame.getPlayers().get(0), testBoard, testBank);
+
+        // Negative test
+        assertFalse(testGame.getPlayers().get(0).getSettlementsBuilt().get(0).getIsCity());
+
+        testGame.placeCity(testPoint, testGame.getPlayers().get(0), testBank, testBoard);
+
+        // Positive test
+        assertTrue(testGame.getPlayers().get(0).getSettlementsBuilt().get(0).getIsCity());
     }
 
     @Test
@@ -95,7 +113,34 @@ class SiedlerGameTest {
 
     @Test
     void getWinner() {
-        // TODO: Implement
+        Bank testBank = new Bank();
+
+        testGame.getPlayers().get(0).addResources(Config.Resource.STONE, 12, testBank);
+        testGame.getPlayers().get(0).addResources(Config.Resource.GRAIN, 12, testBank);
+        testGame.getPlayers().get(0).addResources(Config.Resource.WOOD, 4, testBank);
+        testGame.getPlayers().get(0).addResources(Config.Resource.WOOL, 4, testBank);
+        testGame.getPlayers().get(0).addResources(Config.Resource.CLAY, 4, testBank);
+
+        Point testPoint1 = new Point(11, 15);
+        Point testPoint2 = new Point(7, 13);
+        Point testPoint3 = new Point(3,13);
+        Point testPoint4 = new Point(3,7);
+
+        testGame.placeSettlement(testPoint1, testGame.getPlayers().get(0), testBoard, testBank);
+        testGame.placeSettlement(testPoint2, testGame.getPlayers().get(0), testBoard, testBank);
+        testGame.placeSettlement(testPoint3, testGame.getPlayers().get(0), testBoard, testBank);
+        testGame.placeSettlement(testPoint4, testGame.getPlayers().get(0), testBoard, testBank);
+
+        // Negative test
+        Assertions.assertFalse(testGame.getWinner(testGame.getPlayers().get(0)));
+
+        testGame.placeCity(testPoint1, testGame.getPlayers().get(0), testBank, testBoard);
+        testGame.placeCity(testPoint2, testGame.getPlayers().get(0), testBank, testBoard);
+        testGame.placeCity(testPoint3, testGame.getPlayers().get(0), testBank, testBoard);
+        testGame.placeCity(testPoint4, testGame.getPlayers().get(0), testBank, testBoard);
+
+        // Positive test
+        Assertions.assertTrue(testGame.getWinner(testGame.getPlayers().get(0)));
     }
 
     @Test
@@ -109,23 +154,22 @@ class SiedlerGameTest {
     }
 
     @Test
-    void isPointACorner() {
-        // TODO: Implement
-    }
-
-    @Test
     void placeRoad() {
-        /** TODO: Doesn't work, i get NullPointerExceptions
-         * PlayGame testPlayGame = new PlayGame();
-        Point positiveTestPointStart = new Point(6, 6);
-        Point positiveTestPointEnd = new Point(5, 7);
-        Road testRoad = new Road(testGame.getCurrentPlayer(), positiveTestPointStart, positiveTestPointEnd);
         Bank testBank = new Bank();
-        testPlayGame.getSiedlerGame().getCurrentPlayer().addResources(Config.Resource.WOOD, 2, testBank);
-        testPlayGame.getSiedlerGame().getCurrentPlayer().addResources(Config.Resource.CLAY, 2, testBank);
-        testPlayGame.getSiedlerGame().placeRoad(positiveTestPointStart, positiveTestPointEnd, testPlayGame.getBoard(), testPlayGame.getSiedlerGame().getCurrentPlayer(), testBank);
-        assertEquals(testPlayGame.getBoard().getEdge(positiveTestPointStart, positiveTestPointEnd), testRoad);
-         **/
+        SiedlerBoard testBoard = new SiedlerBoard();
+
+        testGame.getPlayers().get(0).addResources(Config.Resource.CLAY, 5, testBank);
+        testGame.getPlayers().get(0).addResources(Config.Resource.WOOD, 5, testBank);
+        testGame.getPlayers().get(0).addResources(Config.Resource.WOOL, 1, testBank);
+        testGame.getPlayers().get(0).addResources(Config.Resource.GRAIN, 1, testBank);
+
+        Point positiveTestPointEnd = new Point(6, 16);
+        Point positiveTestPointStart = new Point(5, 15);
+        Road testRoad = new Road(testGame.getPlayers().get(0), positiveTestPointStart, positiveTestPointEnd);
+
+        testGame.placeSettlement(positiveTestPointEnd, testGame.getPlayers().get(0), testBoard, testBank);
+        testGame.placeRoad(positiveTestPointStart, positiveTestPointEnd, testBoard, testGame.getPlayers().get(0), testBank);
+        assertEquals(testBoard.getEdge(positiveTestPointStart, positiveTestPointEnd).toString(), testRoad.toString());
     }
 
     @Test
