@@ -80,6 +80,7 @@ public class SiedlerGame {
                     trying = false;
                 }
             } else {
+                UI.refresh(board);
                 int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate\n");
                 UI.refresh(board);
                 int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate\n");
