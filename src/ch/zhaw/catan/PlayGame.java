@@ -282,7 +282,6 @@ public class PlayGame {
                         UI.promptEnter();
                         UI.refresh(view);
 
-
                         break;
                     case END_TURN:
                         UI.refresh(view);
@@ -325,10 +324,19 @@ public class PlayGame {
         private final int chosenOptionCode;
         private final String textForUser;
 
+        /**
+         * This function returns the chosen option in the enum ChosenOption
+         * @return
+         */
         public int getChosenOptionCode() {
             return chosenOptionCode;
         }
 
+        /**
+         * This function returns the text for the corresponding text for the user
+         * specified in the enum ChosenOption
+         * @return
+         */
         public String getTextForUser() {
             return textForUser;
         }
@@ -338,6 +346,11 @@ public class PlayGame {
             this.textForUser = textForUser;
         }
 
+        /**
+         * This function returns the value of chosen enum
+         * @param label chosen option code
+         * @return the enum's value
+         */
         public static ChosenOption codeOfOption(int label) {
             for (ChosenOption value : values()) {
                 if (value.chosenOptionCode == label) {
@@ -348,7 +361,10 @@ public class PlayGame {
         }
     }
 
-
+    /**
+     * This function calls the run-method, which starts the game
+     * @param Args
+     */
     public static void main(String[] Args) {
         new PlayGame().run();
 
