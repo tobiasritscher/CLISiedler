@@ -246,6 +246,8 @@ public class PlayGame {
                         int y = textIO.newIntInputReader().read(currentPlayer + " please pick a y coordinate for your settlement\n");
 
                         UI.refresh(board);
+                        Point position = new Point(x, y);
+                        siedlerGame.placeSettlement(position, currentPlayer, board, bank);
                         siedlerGame.verifyWinner(currentPlayer);
                         UI.promptEnter();
                         UI.refresh(board);
