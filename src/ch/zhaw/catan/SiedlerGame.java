@@ -18,6 +18,7 @@ public class SiedlerGame {
     private int currentPlayer = 0;
     private TextIO textIO = TextIoFactory.getTextIO();
     private TextTerminal<?> textTerminal = textIO.getTextTerminal();
+    private Bank bank = new Bank();
 
     public SiedlerGame(int winPoints, int players) {
         createPlayers(players);
@@ -97,33 +98,13 @@ public class SiedlerGame {
                 isCornerConnectedToLand(position, hexBoard);
     }
 
-    public Map<Faction, List<Resource>> throwDice(int dicethrow) {
-        TreeMap<Faction, List<Resource>> resourceMap = new TreeMap<>();
-        TreeMap<Integer, Point> temporaryMap = new TreeMap<>();
-        Integer index = 0;
-        for (Map.Entry<Point, Integer> diceRolledField : Config.getStandardDiceNumberPlacement().entrySet()) {
-            if (Objects.equals(dicethrow, diceRolledField.getValue())) {
-                temporaryMap.put(index, diceRolledField.getKey());
-                index++;
-            }
-        }
-        for (Map.Entry<Point, Config.Land> correspondingLand : Config.getStandardLandPlacement().entrySet()) {
-            // TODO: compare which corresponding Land lies on the Point values in temporaryMap
-        }
-        // TODO: compare what settlements are on the dice rolled fields and save corresponding factions and their resources in resourceMap
 
-        return resourceMap;
-    }
+    public void placeCity(Point position, Player player) { //TODO: test and bugfix
 
-
-    public boolean placeCity(Point position, Player player) { //TODO: test and bugfix
-
-        boolean settlementFound = false;
         if (player.getSettlementsBuiltPoints().contains(position)) {
             Map<Resource, Integer> resources = player.getResourcesInPossession();
             if (resources.get(Resource.STONE) >= 3 && resources.get(Resource.GRAIN) >= 2) {
                 player.getSettlementAtPosition(position).setToCity();
-                settlementFound = true;
                 player.removeResources(Resource.STONE, 3);
                 player.removeResources(Resource.GRAIN, 2);
             } else {
@@ -132,19 +113,29 @@ public class SiedlerGame {
         } else {
             textTerminal.print("You don't have a settlement to upgrade on this position: " + position + "\n");
         }
-        return settlementFound;
     }
 
-    public boolean tradeWithBankFourToOne(Resource offer, Resource want) { //TODO: test and bugfix
+    public boolean tradeWithBankFourToOne(Resource offer, Resource want, Player player) {
         boolean result = false;
-        Bank bank = new Bank();
-        if (bank.trade(offer, want)) {
-            if (players.get(currentPlayer).removeResources(offer, 4)) {
-                players.get(currentPlayer).addResources(want, 1);
+        if (bank.checkResources(want)) {
+            if (player.removeResources(offer, 4)) {
+                player.addResources(want, 1);
+                bank.trade(offer, want);
                 result = true;
+            } else {
+                textTerminal.print("You do not have enough " + offer + ".\n");
             }
         }
         return result;
+    }
+
+    public void askPlayerWhatToTrade(Player player) {
+        for (int i = 0; i < Resource.values().length; ++i){
+            textTerminal.print("" + (i+1) + ": " + Resource.values()[i].name() + " (You have " + player.getResourcesInPossession().get(Resource.values()[i]) + ")\n");
+        }
+        int chosenOptionWhatToGive = textIO.newIntInputReader().read("What would you like to trade?\n");
+        int chosenOptionWhatToTake = textIO.newIntInputReader().read("What would you like to take?\n");
+        tradeWithBankFourToOne(Resource.values()[chosenOptionWhatToGive-1], Resource.values()[chosenOptionWhatToTake-1], player);
     }
 
     public void tradeWithBank(int i) {

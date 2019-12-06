@@ -232,7 +232,7 @@ public class PlayGame {
                 switch (decision) {
                     case 1:
                         UI.refresh(hexBoard);
-                        siedlerGame.tradeWithBank(i);
+                        siedlerGame.askPlayerWhatToTrade(currentPlayer);
                         break;
                     case 2:
                         UI.resetBookmark("BLANK_SCREEN");

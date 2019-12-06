@@ -19,16 +19,17 @@ class BankTest {
     @Test
     void trade() {
         // TODO: Test fails because order of Resources varies
+        Player testPlayer = new Player(Config.Faction.RED);
         String expectedValue = "{CL=3, GR=1, WD=1}";
         // Positive test
-        testGame.tradeWithBankFourToOne(Config.Resource.GRAIN, Config.Resource.WOOD);
+        testGame.tradeWithBankFourToOne(Config.Resource.GRAIN, Config.Resource.WOOD, testPlayer);
         // Assertions.assertEquals(expectedValue, testGame.getCurrentPlayer().getResourcesInPossession().toString());
         Assertions.assertTrue(testGame.getCurrentPlayer().getResourcesInPossession().containsKey(Config.Resource.GRAIN));
 
 
 
         // Negative test
-        testGame.tradeWithBankFourToOne(Config.Resource.CLAY, Config.Resource.WOOD);
+        testGame.tradeWithBankFourToOne(Config.Resource.CLAY, Config.Resource.WOOD, testPlayer);
         //Assertions.assertEquals(expectedValue, testGame.getCurrentPlayer().getResourcesInPossession().toString());
     }
 }

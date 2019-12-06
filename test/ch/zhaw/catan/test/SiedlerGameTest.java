@@ -1,6 +1,7 @@
 package test;
 
 import ch.zhaw.catan.Config;
+import ch.zhaw.catan.Player;
 import ch.zhaw.catan.SiedlerBoard;
 import ch.zhaw.catan.SiedlerGame;
 import org.junit.jupiter.api.Assertions;
@@ -9,10 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SiedlerGameTest {
 
@@ -68,32 +66,24 @@ class SiedlerGameTest {
     }
 
     @Test
-    void throwDice() { // TODO: Implement, doesnt work yet
-        int diceThrow = 5;
-        Map<Config.Faction, List<Config.Resource>> diceTestMap = new HashMap<>();
-        diceTestMap = testGame.throwDice(diceThrow);
-        assertTrue(Config.getStandardDiceNumberPlacement().containsKey(diceThrow));
-        // TODO: create demo settlements, make method look up field in board and return an example resource stock
-    }
-
-    @Test
     void placeCity() {
         // TODO: Implement
     }
 
     @Test
     void tradeWithBankFourToOne() { // TODO: Redundant, same test as BankTest class, maybe ask muon per mail which one to keep?
-        testGame.getCurrentPlayer().addResources(Config.Resource.GRAIN, 5);
-        testGame.getCurrentPlayer().addResources(Config.Resource.CLAY, 3);
+        Player testPlayer = new Player(Config.Faction.RED);
+        testPlayer.addResources(Config.Resource.GRAIN, 5);
+        testPlayer.addResources(Config.Resource.CLAY, 3);
 
         String expectedValue = "{GR=1, CL=3, WD=1}";
         // Positive test
-        testGame.tradeWithBankFourToOne(Config.Resource.GRAIN, Config.Resource.WOOD);
-        Assertions.assertEquals(expectedValue, testGame.getCurrentPlayer().getResourcesInPossession().toString());
+        testGame.tradeWithBankFourToOne(Config.Resource.GRAIN, Config.Resource.WOOD, testPlayer);
+        Assertions.assertEquals(expectedValue, testPlayer.getResourcesInPossession().toString());
 
         // Negative test
-        testGame.tradeWithBankFourToOne(Config.Resource.CLAY, Config.Resource.WOOD);
-        Assertions.assertEquals(expectedValue, testGame.getCurrentPlayer().getResourcesInPossession().toString());
+        testGame.tradeWithBankFourToOne(Config.Resource.CLAY, Config.Resource.WOOD, testPlayer);
+        Assertions.assertEquals(expectedValue, testPlayer.getResourcesInPossession().toString());
     }
 
     @Test

@@ -15,18 +15,18 @@ public class Bank {
         resourceStock = new ResourceStock(Config.INITIAL_RESOURCE_CARDS_BANK);
     }
 
+    public boolean checkResources(Config.Resource ask) {
+        return resourceStock.getResources().get(ask) >= RETURN_AMOUNT;
+    }
+
     /**
      * trade 4 to 1 with the bank
      *
-     * @param bid the resource you want to offer
+     * @param add the resource you want to offer
      * @param ask the ressource you want to have
-     * @return true if the trade was all right and if it is done
      */
-    public boolean trade(Config.Resource bid, Config.Resource ask) {
-        boolean result = resourceStock.remove(ask, RETURN_AMOUNT);
-        if (result) {
-            resourceStock.add(bid, OFFER_AMOUNT);
-        }
-        return result;
+    public void trade(Config.Resource add, Config.Resource ask) {
+        resourceStock.remove(ask, RETURN_AMOUNT);
+        resourceStock.add(add, OFFER_AMOUNT);
     }
 }
