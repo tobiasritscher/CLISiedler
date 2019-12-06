@@ -280,10 +280,13 @@ public class SiedlerGame {
         return result;
     }
 
-    public void verifyWinner(Player currentPlayer){
+    public boolean verifyWinner(Player currentPlayer){
+        boolean gameIsRunning = true;
         if (getWinner(currentPlayer)) {
             UI.print(currentPlayer + " has won the game\n");
+            gameIsRunning = false;
         }
+        return gameIsRunning;
 
     }
 
