@@ -22,7 +22,9 @@ public class UI {
     public UI() {
     }
 
-    //This function sets up the terminal window and allows to customize font- and size-properties
+    /**
+     * This function sets up the terminal window and allows to customize font- and size-properties
+     */
     static void setupTerminal() {
         ((SwingTextTerminal) textTerminal).setPromptFontSize(11);
         ((SwingTextTerminal) textTerminal).setInputFontSize(11);
@@ -36,6 +38,10 @@ public class UI {
         textIO.dispose();
     }
 
+    /**
+     * This function prints the initial menu
+     * @return Returns true if the user wants to quit the game
+     */
     static boolean buildStartMenu() {
         boolean exit = false;
         List<String> startMenu = new ArrayList<>();
@@ -46,7 +52,6 @@ public class UI {
         startMenu.add("1. Start a new game");
         startMenu.add("2. Quit\n");
         UI.printList(startMenu);
-
 
         Integer choice = textIO.newIntInputReader()
                 .withMinVal(1)
@@ -173,13 +178,14 @@ public class UI {
         return text;
     }
 
+    /**
+     * Prints a list in the terminal window
+     * @param elements The elements of the list that shall be print
+     * @return Prints the elements of the list on the terminal window
+     */
     public static List<String> printList(List<String> elements) {
         textTerminal.print(elements);
         return elements;
-    }
-
-    public static SiedlerBoard getBoard() {
-        return board;
     }
 
     /**
