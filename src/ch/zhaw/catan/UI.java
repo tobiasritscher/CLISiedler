@@ -20,7 +20,6 @@ public class UI {
     public static SiedlerBoard hexboard = new SiedlerBoard();
     private static SiedlerBoardTextView view = new SiedlerBoardTextView(hexboard);
     public static SiedlerGame siedlerGame;
-    private static Player player;
 
     public UI() {
 
@@ -73,10 +72,6 @@ public class UI {
     public static void initSiedlerBoard() {
 
         initBoard();
-//        board.addField(new Point(2, 2), Config.Land.FOREST);
-//        board.setCorner(new Point(3, 3), "RR");
-//        board.setEdge(new Point(2, 0), new Point(3, 1), "r");
-//        board.addFieldAnnotation(new Point(2, 2), new Point(3, 1), "AA");
         Map<Point, ch.zhaw.hexboard.Label> lowerFieldLabel = new HashMap<>();
         lowerFieldLabel.put(new Point(5, 5), new ch.zhaw.hexboard.Label('0', '6'));
         lowerFieldLabel.put(new Point(7, 5), new ch.zhaw.hexboard.Label('0', '3'));
@@ -179,6 +174,9 @@ public class UI {
         return diceNumber;
     }
 
+    /*
+    * @param
+     */
     public static String setBookmark(String bookmark) {
         textTerminal.setBookmark(bookmark);
         return bookmark;
@@ -213,8 +211,24 @@ public class UI {
                 .read("\nPress enter to continue");
     }
 
+    /*
+    *
+     */
     public static void refresh(SiedlerBoard hexBoard){
         UI.resetBookmark("BLANK_SCREEN");
         UI.printBoard(hexBoard);
+    }
+
+    public static int printSecondPhaseMenu(){
+
+        UI.print("1: Trade with bank\n");
+        UI.print("2: Build Settlement\n");
+        UI.print("3: Build Road\n");
+        UI.print("4: Build City\n");
+        UI.print("5: Check my resources\n");
+        UI.print("6: End my turn\n");
+        UI.print("7: Quit game\n");
+        int decision = textIO.newIntInputReader().read("What would you like to do now?\n");
+        return decision;
     }
 }
