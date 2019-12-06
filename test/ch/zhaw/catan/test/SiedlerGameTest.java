@@ -152,11 +152,11 @@ class SiedlerGameTest {
     @Test
     void createPlayers() {
         testGame = new SiedlerGame(7, 2);
-        assertEquals(2, testGame.createPlayers(2));
+        assertEquals(2, testGame.getPlayers().size());
         testGame = new SiedlerGame(7, 3);
-        assertEquals(3, testGame.createPlayers(3));
+        assertEquals(3, testGame.getPlayers().size());
         testGame = new SiedlerGame(7, 4);
-        assertEquals(4, testGame.createPlayers(4));
+        assertEquals(4, testGame.getPlayers().size());
     }
 
     @Test
