@@ -74,6 +74,7 @@ public class SiedlerGame {
                     player.removeResources(Resource.WOOL, 1, bank);
                     player.removeResources(Resource.GRAIN, 1, bank);
                     board.setCorner(settlement.getPosition(), settlement);
+                    UI.refresh(board);
                     UI.print("Your settlement has been built");
                     trying = false;
                 } else {
