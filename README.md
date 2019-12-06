@@ -12,9 +12,9 @@ Das Projekt wurde ine Eclipse und IntelliJ getestet und funktioniert über den T
 
 * **Pascal Witzig** - Head of Development Input and Output aka Assistant Caffeine Addict
 
-* **Oliver Corrodi** - Director of Language Department aka Chief Caffeine and Nicotine Addict
+* **Oliver Corrodi** - Director of Testing classes and Players aka Chief Caffeine and Nicotine Addict
 
-* **Erman Zankov** - First Executive Programmer specialized in Matchfields aka Longboi
+* **Erman Zankov** - First Executive Programmer specialized in second phase operations aka Longboi
 
 * **Tobias Ritscher** - Senior Software Engineer in Logic Departement aka Diseased Penguin
 
