@@ -19,10 +19,12 @@ class PlayGameTest {
 
     @Test
     void firstPhase() {
+        // TODO: Implement
     }
 
     @Test
     void isCornerFree() {
+        // TODO: Implement
     }
 
     @Test
@@ -58,9 +60,11 @@ class PlayGameTest {
 
     @Test
     void printAllGivenRessourcesOfAllPlayers() {
+        // TODO: Implement
     }
 
     @Test
     void secondPhase() {
+        // TODO: Implement
     }
 }
