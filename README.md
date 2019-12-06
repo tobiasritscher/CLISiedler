@@ -16,7 +16,7 @@ Das Projekt wurde ine Eclipse und IntelliJ getestet und funktioniert über den T
 
 * **Erman Zankov** - First Executive Programmer specialized in second phase operations aka Longboi
 
-* **Tobias Ritscher** - Senior Software Engineer in Logic Departement aka Diseased Penguin
+* **Tobias Ritscher** - Senior Software Engineer in Logic Departement and first phase operations aka Diseased Penguin
 
 ## License
 
