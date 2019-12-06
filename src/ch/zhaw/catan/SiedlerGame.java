@@ -77,6 +77,7 @@ public class SiedlerGame {
                     UI.print("Your settlement has been built");
                     trying = false;
                 } else {
+
                     UI.print("You don't have enough resources to build a settlement\n");
                     trying = false;
                 }

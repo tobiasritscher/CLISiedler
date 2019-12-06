@@ -255,6 +255,7 @@ public class PlayGame {
                             UI.print(currentPlayer + "has won the game\n");
                         }
                         UI.promptEnter();
+                        UI.refresh(board);
                         break;
                     case 3:
                         UI.refresh(board);
@@ -275,6 +276,7 @@ public class PlayGame {
                         siedlerGame.verifyWinner(currentPlayer);
 
                         UI.promptEnter();
+                        UI.refresh(board);
                         break;
                     case 4:
                         UI.refresh(board);
