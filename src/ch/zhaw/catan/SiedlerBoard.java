@@ -19,14 +19,14 @@ public class SiedlerBoard extends HexBoard<Config.Land, Settlement, Road, String
         setPoints();
     }
 
-    public void setFields() {
+    private void setFields() {
         Map<Point, Land> fields = Config.getStandardLandPlacement();
         for (Map.Entry<Point, Land> field : fields.entrySet()) {
             addField(field.getKey(), field.getValue());
         }
     }
 
-    public void setPoints() {
+    private void setPoints() {
         Label label;
         Map<Point, Integer> fields = Config.getStandardDiceNumberPlacement();
         for (Map.Entry<Point, Integer> field : fields.entrySet()) {
@@ -36,7 +36,7 @@ public class SiedlerBoard extends HexBoard<Config.Land, Settlement, Road, String
         }
     }
 
-    public static Label createLabel(Integer number) {
+    private static Label createLabel(Integer number) {
         Label label;
         char firstCharacter = Integer.toString(number).charAt(0);
         if (number.toString().length() == 2) {
@@ -48,34 +48,9 @@ public class SiedlerBoard extends HexBoard<Config.Land, Settlement, Road, String
         return label;
     }
 
-    public Map<Point, Label> getLowerFieldLabels() {
+    Map<Point, Label> getLowerFieldLabels() {
         return lowerFieldLabels;
     }
-
-    public Map<String, Point> getLabelToField() {
-        return labelToField;
-    }
-
-    static boolean isFieldCoordinate(Point position) {
-        boolean isYFieldCoordinateEven = (position.y - 2) % 6 == 0;
-        boolean isYFieldCoordinateOdd = (position.y - 5) % 6 == 0;
-        boolean isXFieldCoordinateEven = position.x % 2 == 0;
-        boolean isXFieldCoordinateOdd = (position.x - 1) % 2 == 0;
-
-        return (position.y >= 2 && position.x >= 1)
-                && (isYFieldCoordinateEven && isXFieldCoordinateEven)
-                || (isYFieldCoordinateOdd && isXFieldCoordinateOdd);
-    }
-
-
-    public boolean hasFieldFixed(Point center) {
-        if (!isFieldCoordinate(center)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
 }
 
 

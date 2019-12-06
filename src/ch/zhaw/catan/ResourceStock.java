@@ -12,7 +12,7 @@ public class ResourceStock {
         resources = new HashMap<>();
     }
 
-    public ResourceStock(Map<Resource, Integer> initialResources) {
+    ResourceStock(Map<Resource, Integer> initialResources) {
         resources = new HashMap<>();
         for (Map.Entry<Resource, Integer> entry : initialResources.entrySet()) {
             add(entry.getKey(), entry.getValue());

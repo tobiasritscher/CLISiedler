@@ -15,15 +15,15 @@ public class Bank {
         resourceStock = new ResourceStock(Config.INITIAL_RESOURCE_CARDS_BANK);
     }
 
-    public boolean checkResources(Config.Resource ask, int amount) {
+    boolean checkResources(Config.Resource ask, int amount) {
         return resourceStock.getResources().get(ask) >= amount;
     }
 
-    public void addResources(Config.Resource resource, int resourceCount) { //TODO: test and bugfix
+    void addResources(Config.Resource resource, int resourceCount) { //TODO: test and bugfix
         resourceStock.add(resource, resourceCount);
     }
 
-    public void removeResources(Config.Resource resource, int resourceCount) {
+    void removeResources(Config.Resource resource, int resourceCount) {
         resourceStock.remove(resource, resourceCount);
     }
 
@@ -33,7 +33,7 @@ public class Bank {
      * @param add the resource you want to offer
      * @param ask the ressource you want to have
      */
-    public void trade(Config.Resource add, Config.Resource ask) {
+    void trade(Config.Resource add, Config.Resource ask) {
         resourceStock.remove(ask, RETURN_AMOUNT);
         resourceStock.add(add, OFFER_AMOUNT);
     }

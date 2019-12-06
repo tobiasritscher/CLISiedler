@@ -32,7 +32,7 @@ class SiedlerGameTest {
 
     @Test
     void getCurrentPlayer() {
-        assertEquals("rr", testGame.getCurrentPlayer().getFaction().toString());
+        assertEquals("rr", testGame.getfirstPlayer().getFaction().toString());
     }
 
     @Test
@@ -45,13 +45,13 @@ class SiedlerGameTest {
         testResources.put(Config.Resource.STONE, 1);
         testResources.put(Config.Resource.CLAY, 1);
 
-        testGame.getCurrentPlayer().addResources(Config.Resource.GRAIN, 1, testBank);
-        testGame.getCurrentPlayer().addResources(Config.Resource.WOOD, 1, testBank);
-        testGame.getCurrentPlayer().addResources(Config.Resource.WOOL, 1, testBank);
-        testGame.getCurrentPlayer().addResources(Config.Resource.STONE, 1, testBank);
-        testGame.getCurrentPlayer().addResources(Config.Resource.CLAY, 1, testBank);
+        testGame.getfirstPlayer().addResources(Config.Resource.GRAIN, 1, testBank);
+        testGame.getfirstPlayer().addResources(Config.Resource.WOOD, 1, testBank);
+        testGame.getfirstPlayer().addResources(Config.Resource.WOOL, 1, testBank);
+        testGame.getfirstPlayer().addResources(Config.Resource.STONE, 1, testBank);
+        testGame.getfirstPlayer().addResources(Config.Resource.CLAY, 1, testBank);
 
-        assertEquals(testResources, testGame.getCurrentPlayer().getResourcesInPossession());
+        assertEquals(testResources, testGame.getfirstPlayer().getResourcesInPossession());
     }
 
     @Test
@@ -76,8 +76,8 @@ class SiedlerGameTest {
     void tradeWithBankFourToOne() {
         Bank testBank = new Bank();
 
-        testGame.getCurrentPlayer().addResources(Config.Resource.GRAIN, 5, testBank);
-        testGame.getCurrentPlayer().addResources(Config.Resource.CLAY, 3, testBank);
+        testGame.getfirstPlayer().addResources(Config.Resource.GRAIN, 5, testBank);
+        testGame.getfirstPlayer().addResources(Config.Resource.CLAY, 3, testBank);
 
         ResourceStock bankTestStock = new ResourceStock();
         bankTestStock.add(Config.Resource.WOOD, 1);
@@ -85,12 +85,12 @@ class SiedlerGameTest {
         bankTestStock.add(Config.Resource.CLAY, 3);
 
         // Positive test
-        testGame.tradeWithBankFourToOne(Config.Resource.GRAIN, Config.Resource.WOOD, testGame.getCurrentPlayer(), testBank);
-        Assertions.assertEquals(bankTestStock.getResources(), testGame.getCurrentPlayer().getResourcesInPossession());
+        testGame.tradeWithBankFourToOne(Config.Resource.GRAIN, Config.Resource.WOOD, testGame.getfirstPlayer(), testBank);
+        Assertions.assertEquals(bankTestStock.getResources(), testGame.getfirstPlayer().getResourcesInPossession());
 
         // Negative test
-        testGame.tradeWithBankFourToOne(Config.Resource.CLAY, Config.Resource.WOOD, testGame.getCurrentPlayer(), testBank);
-        Assertions.assertEquals(bankTestStock.getResources(), testGame.getCurrentPlayer().getResourcesInPossession());
+        testGame.tradeWithBankFourToOne(Config.Resource.CLAY, Config.Resource.WOOD, testGame.getfirstPlayer(), testBank);
+        Assertions.assertEquals(bankTestStock.getResources(), testGame.getfirstPlayer().getResourcesInPossession());
     }
 
     @Test
@@ -134,12 +134,12 @@ class SiedlerGameTest {
         Point positiveTestPointEnd = new Point(5, 7);
         Point negativeTestPointStart = new Point(7, 13);
         Point negativeTestPointEnd = new Point(8, 15);
-        testGame.placeInitialSettlement(positiveTestPointStart, testGame.getCurrentPlayer(), testBoard);
+        testGame.placeInitialSettlement(positiveTestPointStart, testGame.getfirstPlayer(), testBoard);
 
         // Positive test
-        assertTrue(testGame.validRoadPlacement(positiveTestPointStart, positiveTestPointEnd, testBoard, testGame.getCurrentPlayer()));
+        assertTrue(testGame.validRoadPlacement(positiveTestPointStart, positiveTestPointEnd, testBoard, testGame.getfirstPlayer()));
 
         // Negative test
-        assertFalse(testGame.validRoadPlacement(negativeTestPointStart, negativeTestPointEnd, testBoard, testGame.getCurrentPlayer()));
+        assertFalse(testGame.validRoadPlacement(negativeTestPointStart, negativeTestPointEnd, testBoard, testGame.getfirstPlayer()));
     }
 }

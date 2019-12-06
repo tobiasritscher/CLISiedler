@@ -23,7 +23,7 @@ public class PlayGame {
     public PlayGame() {
     }
 
-    public void  siedlerGameTestHelper() {
+    public void siedlerGameTestHelper() {
         siedlerGame = new SiedlerGame(7, 4);
     }
 
@@ -39,13 +39,13 @@ public class PlayGame {
     private void run() {
 
         UI.setupTerminal();
-        UI.setBookmark("BLANK_SCREEN");
+        UI.setBookmarkBlankScreen();
 
         if (!UI.buildStartMenu()) {
 
             numberOfPlayers = UI.askNumberOfPlayers();
-            //TODO: Delete for Release
-            if (numberOfPlayers == 69) {
+            //Ccheatcode to make the phase one for you
+            if (numberOfPlayers == 420) {
                 siedlerGame = new SiedlerGame(7, 2);
                 siedlerGame.placeInitialSettlement(new Point(5, 15), siedlerGame.getPlayers().get(0), board);
                 siedlerGame.placeInitialSettlement(new Point(8, 12), siedlerGame.getPlayers().get(0), board);
@@ -74,7 +74,7 @@ public class PlayGame {
         UI.closeTerminal();
     }
 
-//distribution of first 2 settlements and their roads
+    //distribution of first 2 settlements and their roads
     private void firstPhase() {
 
         for (int i = 0; i < siedlerGame.getPlayers().size(); i++) {
@@ -148,20 +148,20 @@ public class PlayGame {
         UI.promptEnter();
     }
 
-    public void printAllGivenRessourcesOfAllPlayers() {
-        for (Player player : siedlerGame.getPlayers()){
+    private void printAllGivenRessourcesOfAllPlayers() {
+        for (Player player : siedlerGame.getPlayers()) {
             StringBuilder tempOutput = new StringBuilder(player.toString() + " has been given: ");
-            for (Config.Resource resource : player.getResourcesInPossession().keySet()){
+            for (Config.Resource resource : player.getResourcesInPossession().keySet()) {
 
                 tempOutput.append(player.getResourcesInPossession().get(resource)).append(" ").append(resource.toString()).append(", ");
             }
-            String finalOutput = tempOutput.substring(0,tempOutput.length() - 2);
+            String finalOutput = tempOutput.substring(0, tempOutput.length() - 2);
             finalOutput += "\n";
             UI.print(finalOutput);
         }
     }
 
-    private void giveResourcesFromDice(int rolledNumber){
+    private void giveResourcesFromDice(int rolledNumber) {
         for (Point field : board.getFields()) {
             if (board.getField(field) != Config.Land.DESERT && board.getField(field) != Config.Land.WATER && Config.getStandardDiceNumberPlacement().get(field) == rolledNumber) {
                 if (!board.getCornersOfField(field).isEmpty()) {
@@ -203,12 +203,7 @@ public class PlayGame {
         }
     }
 
-    private boolean longestRoad(Player currentPlayer){
-
-        return true;
-    }
-
-    public void secondPhase() {
+    private void secondPhase() {
         UI.refresh(board);
 
         // each player begins their turn with a dice roll and receive the resources corresponding to the fields
@@ -321,7 +316,7 @@ public class PlayGame {
                         break;
                     case CHEATCODE:
                         for (Config.Resource resource : Config.Resource.values()) {
-                            currentPlayer.addWithCheat(resource, 1000);
+                            currentPlayer.addWithCheat(resource);
                         }
                         break;
                     default:
@@ -340,7 +335,7 @@ public class PlayGame {
         CHECK_RESOURCES(5, "Check my resources"),
         END_TURN(6, "End my turn"),
         QUIT(7, "Quit game"),
-        CHEATCODE(420,"");
+        CHEATCODE(420, "");
 
         private final int chosenOptionCode;
         private final String textForUser;

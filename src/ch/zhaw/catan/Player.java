@@ -38,15 +38,15 @@ public class Player {
         }
     }
 
-    public void addWithCheat(Resource resource, int amount){
-        resourcesInPossession.add(resource, amount);
+    void addWithCheat(Resource resource) {
+        resourcesInPossession.add(resource, 1000);
     }
 
     public ArrayList<Settlement> getSettlementsBuilt() {
         return settlementsBuilt;
     }
 
-    public Settlement getSettlementAtPosition(Point point) {
+    Settlement getSettlementAtPosition(Point point) {
         Settlement result = null;
         for (Settlement settlement : settlementsBuilt) {
             if (settlement.getPosition().equals(point))
@@ -55,7 +55,7 @@ public class Player {
         return result;
     }
 
-    public ArrayList<Point> getSettlementsBuiltPoints() {
+    ArrayList<Point> getSettlementsBuiltPoints() {
         ArrayList<Point> points = new ArrayList<>();
         for (Settlement settlements : settlementsBuilt) {
             points.add(settlements.getPosition());
@@ -75,7 +75,7 @@ public class Player {
         return roadsBuilt;
     }
 
-    public ArrayList<Point> getRoadPoints() {
+    ArrayList<Point> getRoadPoints() {
         ArrayList<Point> points = new ArrayList<>();
         for (Road road : roadsBuilt) {
             points.add(road.getStartingAt());

@@ -15,7 +15,6 @@ import java.util.Map;
 public class SiedlerGame {
     private int winPoints;
     private List<Player> players = new ArrayList<>();
-    private int currentPlayer = 0;
     private TextIO textIO = TextIoFactory.getTextIO();
 
     public SiedlerGame(int winPoints, int players) {
@@ -27,15 +26,11 @@ public class SiedlerGame {
         return players;
     }
 
-    public Player getCurrentPlayer() {
-        return players.get(currentPlayer);
+    public Player getfirstPlayer() {
+        return players.get(0);
     }
 
-    public int getCurrentPlayerResourceStock(Resource resource) {
-        return players.get(currentPlayer).getResourcesInPossession().get(resource);
-    }
-
-    public Settlement placeInitialSettlement(Point position, Player player, SiedlerBoard board) {
+    public void placeInitialSettlement(Point position, Player player, SiedlerBoard board) {
         Settlement settlement = null;
         boolean trying;
 
@@ -54,11 +49,10 @@ public class SiedlerGame {
             }
         } while (trying);
         board.setCorner(settlement.getPosition(), settlement);
-        return settlement;
     }
 
     public void placeSettlement(Point position, Player player, SiedlerBoard board, Bank bank) {
-        Settlement settlement = null;
+        Settlement settlement;
         boolean trying;
 
         do {
@@ -102,7 +96,7 @@ public class SiedlerGame {
     }
 
 
-    public void placeCity(Point position, Player player, Bank bank, SiedlerBoard board) { //TODO: test and bugfix
+    void placeCity(Point position, Player player, Bank bank, SiedlerBoard board) { //TODO: test and bugfix
 
         // checks if there is a settlement on the desired position
         if (player.getSettlementsBuiltPoints().contains(position)) {
@@ -135,7 +129,7 @@ public class SiedlerGame {
         }
     }
 
-    public void askPlayerWhatToTrade(Player player, Bank bank) {
+    void askPlayerWhatToTrade(Player player, Bank bank) {
         printAllResources(player);
         int chosenOptionWhatToGive = textIO.newIntInputReader()
                 .withMinVal(1)
@@ -156,7 +150,7 @@ public class SiedlerGame {
     }
 
     // counts the points for each player for their settlements and cities
-    public boolean getWinner(Player player) { //TODO: test and bugfix
+    private boolean getWinner(Player player) { //TODO: test and bugfix
         int winPointCounter = 0;
         for (Settlement settlement : player.getSettlementsBuilt()) {
             if (settlement.getIsCity()) {
@@ -177,7 +171,7 @@ public class SiedlerGame {
     }
 
     // checks if the given point is a corner
-    public Point isPointACorner(Point point) {
+    Point isPointACorner(Point point) {
         boolean running;
         do {
             if (HexBoard.isCornerCoordinate(point)) {
@@ -194,7 +188,7 @@ public class SiedlerGame {
     }
 
     // used in the first phase to place the roads for each player
-    public void placeInitialRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
+    void placeInitialRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
         boolean running;
         do {
             // checks if a road can be placed on the desired location
@@ -283,14 +277,30 @@ public class SiedlerGame {
         return result;
     }
 
-    public boolean verifyWinner(Player currentPlayer){
+    boolean verifyWinner(Player currentPlayer) {
         boolean gameIsRunning = true;
         if (getWinner(currentPlayer)) {
             UI.print("\n\n" + currentPlayer + " has won the game\n");
             gameIsRunning = false;
         }
         return gameIsRunning;
+    }
 
+    private boolean checkIfTwoPointUseSameCorner(Point point1, Point point2) {
+        return
+                point1.getX() == point2.getX() ||
+                        point1.getX() == point2.getY() ||
+                        point1.getY() == point2.getX() ||
+                        point1.getY() == point2.getY();
+    }
+
+    private int getNextConnection(ArrayList<Boolean> roadConnections, ArrayList<Integer> passedRoads) {
+        for (int i = 0; i < roadConnections.size(); i++) {
+            if (roadConnections.get(i) && !passedRoads.contains(i)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }

@@ -16,13 +16,14 @@ public class UI {
 
     private static TextIO textIO = TextIoFactory.getTextIO();
     private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal) textIO.getTextTerminal();
-    public static SiedlerBoard board = new SiedlerBoard();
+    private static SiedlerBoard board = new SiedlerBoard();
     private static SiedlerBoardTextView view = new SiedlerBoardTextView(board);
 
-    public UI() {}
+    public UI() {
+    }
 
     //This function sets up the terminal window and allows to customize font- and size-properties
-    public static void setupTerminal() {
+    static void setupTerminal() {
         ((SwingTextTerminal) textTerminal).setPromptFontSize(11);
         ((SwingTextTerminal) textTerminal).setInputFontSize(11);
         textTerminal.getProperties().setPaneDimension(1040, 890);
@@ -31,11 +32,11 @@ public class UI {
     /**
      * This function closes the terminal window
      */
-    public static void closeTerminal() {
+    static void closeTerminal() {
         textIO.dispose();
     }
 
-    public static boolean buildStartMenu() {
+    static boolean buildStartMenu() {
         boolean exit = false;
         List<String> startMenu = new ArrayList<>();
 
@@ -67,7 +68,7 @@ public class UI {
         return exit;
     }
 
-    public static void initSiedlerBoard() {
+    private static void initSiedlerBoard() {
 
         initBoard();
         Map<Point, Label> lowerFieldLabel = new HashMap<>();
@@ -102,6 +103,7 @@ public class UI {
 
     /**
      * This function prints the gameboard
+     *
      * @param board The gameboard object
      * @return Necessary return for the test class
      */
@@ -111,7 +113,7 @@ public class UI {
         return board;
     }
 
-    protected static void initBoard() {
+    private static void initBoard() {
         Map<Point, Label> lowerFieldLabel = board.getLowerFieldLabels();
         SiedlerBoardTextView view = new SiedlerBoardTextView(board);
 
@@ -122,23 +124,25 @@ public class UI {
 
     /**
      * This functions prompts the user to indicate how many players will be playing
+     *
      * @return The number of players that will be playing
      */
-    public static int askNumberOfPlayers() {
+    static int askNumberOfPlayers() {
         return textIO.newIntInputReader()
-                .withPossibleValues(2,3,4,69)
-                .read("How many players will be playing?");
+                .withPossibleValues(2, 3, 4, 420)
+                .read("How many players will be playing? (420 is for a given phase one; The initial settlements and roads will be placed for you)");
     }
 
     /**
      * This function adds a new line in the terminal window
      */
-    public static void newLine() {
+    static void newLine() {
         textTerminal.printf(System.lineSeparator());
     }
 
     /**
      * This function
+     *
      * @return Is used by the test class
      */
     public static int throwDices() {
@@ -149,17 +153,18 @@ public class UI {
 
     /**
      * This function sets a bookmark in the terminal window
-     * @param bookmark Name of the bookmark that will be set
+     *
      */
-    public static void setBookmark(String bookmark) {
-        textTerminal.setBookmark(bookmark);
+    static void setBookmarkBlankScreen() {
+        textTerminal.setBookmark("BLANK_SCREEN");
     }
 
     /**
      * This function allows the terminal window to jump to a bookmark that has been set before
+     *
      * @param bookmark Name of the bookmark that the window will be reset to
      */
-    public static void resetBookmark(String bookmark) {
+    static void resetBookmark(String bookmark) {
         textTerminal.resetToBookmark(bookmark);
     }
 
@@ -180,7 +185,7 @@ public class UI {
     /**
      * This function prints a prompt in the terminal window that asks the user to press enter
      */
-    public static void promptEnter(){
+    static void promptEnter() {
         textIO.newStringInputReader()
                 .withMinLength(0)
                 .read("\nPress enter to continue");
@@ -190,18 +195,20 @@ public class UI {
      * This function refreshes the gameboard, when e.g. a new settlement has been built.
      * It does so by jumping back to a "blank screen" that has been set in the beginning
      * of the game and prints an instance of the gameboard.
+     *
      * @param board This parameter indicates the gameboard object
      */
-    public static void refresh(SiedlerBoard board){
+    static void refresh(SiedlerBoard board) {
         UI.resetBookmark("BLANK_SCREEN");
         UI.printBoard(board);
     }
 
     /**
      * This option prints the menu for the second phase of the game
+     *
      * @return Prompts the user to indicate his choice
      */
-    public static int printSecondPhaseMenu(){
+    static int printSecondPhaseMenu() {
         PlayGame.ChosenOption[] values = PlayGame.ChosenOption.values();
         for (int i = 1, valuesLength = values.length; i < valuesLength - 1; i++) {
             PlayGame.ChosenOption chosenOption = values[i];
