@@ -174,13 +174,12 @@ public class UI {
     }
 
     public static int printSecondPhaseMenu(){
-        UI.print("1: Trade with bank\n");
-        UI.print("2: Build Settlement\n");
-        UI.print("3: Build Road\n");
-        UI.print("4: Build City\n");
-        UI.print("5: Check my resources\n");
-        UI.print("6: End my turn\n");
-        UI.print("7: Quit game\n");
+        PlayGame.ChosenOption[] values = PlayGame.ChosenOption.values();
+        for (int i = 1, valuesLength = values.length; i < valuesLength - 1; i++) {
+            PlayGame.ChosenOption chosenOption = values[i];
+            UI.print(chosenOption.getChosenOptionCode() + ": " + chosenOption.getTextForUser() + "\n");
+        }
+        UI.print("");
         return textIO.newIntInputReader().read("What would you like to do now?\n");
     }
 }

@@ -231,13 +231,16 @@ public class PlayGame {
                 UI.print("It's " + currentPlayer + "'s turn\n");
                 UI.newLine();
                 int decision = UI.printSecondPhaseMenu();
+                ChosenOption chosenOption = ChosenOption.codeOfOption(decision);
+                assert chosenOption != null;
 
-                switch (decision) {
-                    case 1:
+                // switch case to choose the option
+                switch (chosenOption) {
+                    case TRADE:
                         UI.refresh(board);
                         siedlerGame.askPlayerWhatToTrade(currentPlayer, bank);
                         break;
-                    case 2:
+                    case BUILD_SETTLEMENT:
                         UI.refresh(board);
                         int x = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your settlement\n");
 
@@ -252,7 +255,7 @@ public class PlayGame {
                         UI.promptEnter();
                         UI.refresh(board);
                         break;
-                    case 3:
+                    case BUILD_ROAD:
                         UI.refresh(board);
                         int a = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the start of your road\n");
 
@@ -274,7 +277,7 @@ public class PlayGame {
                         UI.promptEnter();
                         UI.refresh(board);
                         break;
-                    case 4:
+                    case BUILD_CITY:
                         UI.refresh(board);
                         int e = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your city\n");
 
@@ -289,7 +292,7 @@ public class PlayGame {
                         UI.promptEnter();
                         UI.refresh(board);
                         break;
-                    case 5:
+                    case CHECK_RESOURCES:
                         UI.refresh(board);
 
                         for (HashMap.Entry<Config.Resource, Integer> entry : currentPlayer.getResourcesInPossession().entrySet()) {
@@ -301,14 +304,14 @@ public class PlayGame {
 
 
                         break;
-                    case 6:
+                    case END_TURN:
                         UI.refresh(board);
                         String sure = textIO.newStringInputReader().read(currentPlayer + " are you sure you want to end your turn? (Y/N)\n");
                         if (sure.equalsIgnoreCase("Y")) {
                             running = false;
                         }
                         break;
-                    case 7:
+                    case QUIT:
                         UI.refresh(board);
                         String ciao = textIO.newStringInputReader().read("Sure?(Y/N)\n");
                         if (ciao.equalsIgnoreCase("Y")) {
@@ -316,7 +319,7 @@ public class PlayGame {
                             running = false;
                         }
                         break;
-                    case 69:
+                    case CHEATCODE:
                         for (Config.Resource resource : Config.Resource.values()) {
                             currentPlayer.addWithCheat(resource, 1000);
                         }
@@ -328,39 +331,36 @@ public class PlayGame {
         }
     }
 
-    /*
-    UI.print("1: Trade with bank\n");
-        UI.print("2: Build Settlement\n");
-        UI.print("3: Build Road\n");
-        UI.print("4: Build City\n");
-        UI.print("5: Check my resources\n");
-        UI.print("6: End my turn\n");
-        UI.print("7: Quit game\n");
-     */
-
     public enum ChosenOption {
-        STOP("0", "Trade with bank\n"),
-        PRINT_PARAGRAPHS("1", "Print paragraphs"),
-        INSERT_PARAGRAPH("2", "Insert paragraph"),
-        DELETE_PARAGRAPH("3", "Delete paragraph"),
-        REPLACE_WORD("4", "Replace a word in a paragraph"),
-        INDEX_WORDS("5", "Index of words being used"),
-        PRINT_FORMATED_TEXT("6", "Print formatted text"),
-        ENCRYPT("7", "Encrypt a text"),
-        DECRYPT("8", "Decrypt a text"),
-        WRONG_INPUT("ERROR", "");
+        WRONG_INPUT(0, "Wrong Input"),
+        TRADE(1, "Trade with bank"),
+        BUILD_SETTLEMENT(2, "Build Settlement"),
+        BUILD_ROAD(3, "Build Road"),
+        BUILD_CITY(4, "Build City"),
+        CHECK_RESOURCES(5, "Check my resources"),
+        END_TURN(6, "End my turn"),
+        QUIT(7, "Quit game"),
+        CHEATCODE(420,"");
 
-        private final String chosenOptionCode;
+        private final int chosenOptionCode;
         private final String textForUser;
 
-        ChosenOption(String chosenOptionCode, String textForUser) {
+        public int getChosenOptionCode() {
+            return chosenOptionCode;
+        }
+
+        public String getTextForUser() {
+            return textForUser;
+        }
+
+        ChosenOption(int chosenOptionCode, String textForUser) {
             this.chosenOptionCode = chosenOptionCode;
             this.textForUser = textForUser;
         }
 
-        public static ChosenOption codeOfOption(String label) {
+        public static ChosenOption codeOfOption(int label) {
             for (ChosenOption value : values()) {
-                if (value.chosenOptionCode.equals(label)) {
+                if (value.chosenOptionCode == label) {
                     return value;
                 }
             }
