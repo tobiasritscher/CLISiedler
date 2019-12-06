@@ -114,7 +114,7 @@ public class SiedlerGame {
     }
 
 
-    public void placeCity(Point position, Player player, Bank bank, SiedlerBoardTextView view) { //TODO: test and bugfix
+    public void placeCity(Point position, Player player, Bank bank, SiedlerBoardTextView view) {
 
         // checks if there is a settlement on the desired position
         if (player.getSettlementsBuiltPoints().contains(position)) {
@@ -179,7 +179,7 @@ public class SiedlerGame {
      * @param player provides the player object
      * @return returns true if a player has obtained the required amount of winning points
      */
-    public boolean getWinner(Player player) { //TODO: test and bugfix
+    public boolean getWinner(Player player) {
         int winPointCounter = 0;
         for (Settlement settlement : player.getSettlementsBuilt()) {
             if (settlement.getIsCity()) {

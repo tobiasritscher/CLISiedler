@@ -24,14 +24,14 @@ public class Player {
 
     public Map<Resource, Integer> getResourcesInPossession() {
         return resourcesInPossession.getResources();
-    } //TODO: test and bugfix
+    }
 
     public boolean removeResources(Resource resource, int resourceCount, Bank bank) {
         bank.addResources(resource, resourceCount);
         return resourcesInPossession.remove(resource, resourceCount);
     }
 
-    public void addResources(Resource resource, int amount, Bank bank) { //TODO: test and bugfix
+    public void addResources(Resource resource, int amount, Bank bank) {
         if (bank.checkResources(resource, amount)) {
             resourcesInPossession.add(resource, amount);
             bank.removeResources(resource, amount);
