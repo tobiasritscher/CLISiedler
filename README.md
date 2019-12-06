@@ -37,6 +37,10 @@ Then the player that rolled has options to build a new settlement, replace a set
 
 Each settlement gives you a point and each city gives you two points. The first player to reach 7 points wins the game.
 
+## Quick Game
+
+If you want to play a quick game you need to chosse the Option 420 at the start and two players will have already placed settlements and roads. You can start playing the second phase at that point.
+
 # Class Diagram
 
 ![Flowchart](Klassendiagramm.png)
