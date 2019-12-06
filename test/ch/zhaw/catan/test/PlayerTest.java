@@ -120,40 +120,6 @@ class PlayerTest {
     }
 
     @Test
-    void getInitialResources() {
-        testBoard = new SiedlerBoard();
-        Player blue = new Player(Config.Faction.BLUE);
-        Player red = new Player(Config.Faction.RED);
-        Point one = new Point(6, 6);
-        Point two = new Point(10, 6);
-        Point three = new Point(8, 12);
-        Point four = new Point(5, 15);
-        testBoard.setCorner(one, new Settlement(one, blue));
-        testBoard.setCorner(two, new Settlement(two, blue));
-        testBoard.setCorner(three, new Settlement(three, red));
-        testBoard.setCorner(four, new Settlement(four, red));
-        PlayGame playGame = new PlayGame();
-        playGame.giveResourcesAfterFirstPhase(testBoard);
-
-        ResourceStock resourceStockBlue = new ResourceStock();
-        resourceStockBlue.add(Resource.WOOD, 1);
-        resourceStockBlue.add(Resource.WOOL, 1);
-        resourceStockBlue.add(Resource.WOOL, 1);
-        resourceStockBlue.add(Resource.STONE, 1);
-        resourceStockBlue.add(Resource.WOOD, 1);
-
-        ResourceStock resourceStockRed = new ResourceStock();
-        resourceStockRed.add(Resource.STONE, 1);
-        resourceStockRed.add(Resource.WOOD, 1);
-        resourceStockRed.add(Resource.STONE, 1);
-        resourceStockRed.add(Resource.WOOL, 1);
-        resourceStockRed.add(Resource.GRAIN, 1);
-
-        assertEquals(blue.getResourcesInPossession(), resourceStockBlue.getResources());
-        assertEquals(red.getResourcesInPossession(), resourceStockRed.getResources());
-    }
-
-    @Test
     void isCornerConnectedToLandTest() {
         SiedlerBoard testBoard = new SiedlerBoard();
         SiedlerGame game = new SiedlerGame(7, 2);

@@ -22,7 +22,23 @@ public class PlayGame {
     public PlayGame() {
     }
 
-   //starts entire game with both phases
+    public void  siedlerGameTestHelper() {
+        siedlerGame = new SiedlerGame(7, 4);
+    }
+
+    public SiedlerBoard getBoard() {
+        return board;
+    }
+
+    public SiedlerGame getSiedlerGame() {
+        return siedlerGame;
+    }
+
+    public Player getPlayer(int index) {
+        return siedlerGame.getPlayers().get(index);
+    }
+
+    //starts entire game with both phases
     private void run() {
 
         UI.setupTerminal();
