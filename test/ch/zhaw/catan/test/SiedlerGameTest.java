@@ -58,7 +58,7 @@ class SiedlerGameTest {
     void placeInitialSettlement() {
         Point testPointOne = new Point(5, 7);
         Player testPlayer = new Player(Config.Faction.RED);
-        SiedlerGame testGame = new SiedlerGame(7,2);
+        SiedlerGame testGame = new SiedlerGame(7, 2);
         testGame.placeInitialSettlement(testPointOne, testPlayer, testBoard);
         assertEquals(testPlayer.getSettlementsBuilt().get(0), testBoard.getCorner(testPointOne));
 
@@ -73,7 +73,7 @@ class SiedlerGameTest {
     }
 
     @Test
-    void tradeWithBankFourToOne() { // TODO: Redundant, same test as BankTest class, maybe ask muon per mail which one to keep?
+    void tradeWithBankFourToOne() {
         Bank testBank = new Bank();
 
         testGame.getCurrentPlayer().addResources(Config.Resource.GRAIN, 5, testBank);
@@ -115,7 +115,17 @@ class SiedlerGameTest {
 
     @Test
     void placeRoad() {
-        // TODO: Implement
+        /** TODO: Doesn't work, i get NullPointerExceptions
+         * PlayGame testPlayGame = new PlayGame();
+        Point positiveTestPointStart = new Point(6, 6);
+        Point positiveTestPointEnd = new Point(5, 7);
+        Road testRoad = new Road(testGame.getCurrentPlayer(), positiveTestPointStart, positiveTestPointEnd);
+        Bank testBank = new Bank();
+        testPlayGame.getSiedlerGame().getCurrentPlayer().addResources(Config.Resource.WOOD, 2, testBank);
+        testPlayGame.getSiedlerGame().getCurrentPlayer().addResources(Config.Resource.CLAY, 2, testBank);
+        testPlayGame.getSiedlerGame().placeRoad(positiveTestPointStart, positiveTestPointEnd, testPlayGame.getBoard(), testPlayGame.getSiedlerGame().getCurrentPlayer(), testBank);
+        assertEquals(testPlayGame.getBoard().getEdge(positiveTestPointStart, positiveTestPointEnd), testRoad);
+         **/
     }
 
     @Test
@@ -126,7 +136,7 @@ class SiedlerGameTest {
         Point negativeTestPointEnd = new Point(8, 15);
         testGame.placeInitialSettlement(positiveTestPointStart, testGame.getCurrentPlayer(), testBoard);
 
-        // Positive test TODO: Positive test doesn't work yet, help me!
+        // Positive test
         assertTrue(testGame.validRoadPlacement(positiveTestPointStart, positiveTestPointEnd, testBoard, testGame.getCurrentPlayer()));
 
         // Negative test
