@@ -284,7 +284,7 @@ public class SiedlerGame {
     public boolean verifyWinner(Player currentPlayer){
         boolean gameIsRunning = true;
         if (getWinner(currentPlayer)) {
-            UI.print(currentPlayer + " has won the game\n");
+            UI.print("\n\n" + currentPlayer + " has won the game\n");
             gameIsRunning = false;
         }
         return gameIsRunning;

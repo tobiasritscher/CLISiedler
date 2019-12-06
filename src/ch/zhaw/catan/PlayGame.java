@@ -69,10 +69,9 @@ public class PlayGame {
                 siedlerGame = new SiedlerGame(7, numberOfPlayers);
                 firstPhase();
                 secondPhase();
-                UI.closeTerminal();
             }
         }
-
+        UI.closeTerminal();
     }
 
 //distribution of first 2 settlements and their roads
@@ -248,7 +247,8 @@ public class PlayGame {
                         UI.refresh(board);
                         Point position = new Point(x, y);
                         siedlerGame.placeSettlement(position, currentPlayer, board, bank);
-                        siedlerGame.verifyWinner(currentPlayer);
+                        running = siedlerGame.verifyWinner(currentPlayer);
+                        gameIsRunning = running;
                         UI.promptEnter();
                         UI.refresh(board);
                         break;
@@ -268,7 +268,8 @@ public class PlayGame {
 
                         Point roadEnd = new Point(c, d);
                         siedlerGame.placeRoad(roadStart, roadEnd, board, currentPlayer, bank);
-                        siedlerGame.verifyWinner(currentPlayer);
+                        running = siedlerGame.verifyWinner(currentPlayer);
+                        gameIsRunning = running;
 
                         UI.promptEnter();
                         UI.refresh(board);
@@ -283,7 +284,8 @@ public class PlayGame {
                         Point where = new Point(e, f);
                         siedlerGame.placeCity(where, currentPlayer, bank);
 
-                        siedlerGame.verifyWinner(currentPlayer);
+                        running = siedlerGame.verifyWinner(currentPlayer);
+                        gameIsRunning = running;
                         UI.promptEnter();
                         UI.refresh(board);
                         break;
@@ -326,8 +328,18 @@ public class PlayGame {
         }
     }
 
+    /*
+    UI.print("1: Trade with bank\n");
+        UI.print("2: Build Settlement\n");
+        UI.print("3: Build Road\n");
+        UI.print("4: Build City\n");
+        UI.print("5: Check my resources\n");
+        UI.print("6: End my turn\n");
+        UI.print("7: Quit game\n");
+     */
+
     public enum ChosenOption {
-        STOP("0", "Exit the programm (also prints the final text)"),
+        STOP("0", "Trade with bank\n"),
         PRINT_PARAGRAPHS("1", "Print paragraphs"),
         INSERT_PARAGRAPH("2", "Insert paragraph"),
         DELETE_PARAGRAPH("3", "Delete paragraph"),
