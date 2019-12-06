@@ -12,11 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class UITest {
 
     @Test
-    void printBoard() {
-        assertEquals(UI.getBoard(), UI.printBoard(UI.getBoard()));
-    }
-
-    @Test
     void throwDices() {
         for(int index = 0; index <= 100; index++) {
             assertTrue(UI.throwDices() >=1 && UI.throwDices() <=12);
