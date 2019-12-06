@@ -19,7 +19,7 @@ public class Bank {
         return resourceStock.getResources().get(ask) >= amount;
     }
 
-    void addResources(Config.Resource resource, int resourceCount) { //TODO: test and bugfix
+    void addResources(Config.Resource resource, int resourceCount) {
         resourceStock.add(resource, resourceCount);
     }
 

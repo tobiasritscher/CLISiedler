@@ -22,12 +22,12 @@ public class SiedlerGame {
         this.winPoints = winPoints;
     }
 
+    /**
+     * This method returns a list containing all players
+     * @return Returns a Player object
+     */
     public List<Player> getPlayers() {
         return players;
-    }
-
-    public Player getfirstPlayer() {
-        return players.get(0);
     }
 
     public void placeInitialSettlement(Point position, Player player, SiedlerBoard board) {
@@ -51,6 +51,13 @@ public class SiedlerGame {
         board.setCorner(settlement.getPosition(), settlement);
     }
 
+    /**
+     * This function places a settlement on the game board
+     * @param position The position where the player wants to place a settlement
+     * @param player The player in question
+     * @param board The game board object
+     * @param bank The bank object which receives the amount of resources required to build a settlement
+     */
     public void placeSettlement(Point position, Player player, SiedlerBoard board, Bank bank) {
         Settlement settlement;
         boolean trying;
@@ -116,6 +123,13 @@ public class SiedlerGame {
         }
     }
 
+    /**
+     * This function allows the user to exchange resources with the bank in a ratio of 4:1
+     * @param offer The resource that is offered by the user
+     * @param want The resource that is asked by the user
+     * @param player The player that wants to trade with the bank
+     * @param bank gives the resources back to the bank and the bank gives one resource to the player
+     */
     public void tradeWithBankFourToOne(Resource offer, Resource want, Player player, Bank bank) {
         if (bank.checkResources(want, 1)) {
             if (player.removeResources(offer, 4, bank)) {
@@ -162,12 +176,14 @@ public class SiedlerGame {
         return winPointCounter >= winPoints;
     }
 
-
-    public int createPlayers(int numberOfPlayers) {
+    /**
+     * This function creates new player objects
+     * @param numberOfPlayers Number of players that need to be created
+     */
+    public void createPlayers(int numberOfPlayers) {
         for (int i = 0; i < numberOfPlayers; ++i) {
             players.add(new Player(Faction.values()[i]));
         }
-        return numberOfPlayers;
     }
 
     // checks if the given point is a corner
@@ -215,7 +231,14 @@ public class SiedlerGame {
         board.setEdge(road.getStartingAt(), road.getEndingAt(), road);
     }
 
-
+    /**
+     *
+     * @param roadStart where the road starts
+     * @param roadEnd where the road ends
+     * @param board the game board
+     * @param player which player wants to trade
+     * @param bank * @param bank The bank object which receives the amount of resources required to build a road
+     */
     public void placeRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player, Bank bank) {
         boolean running;
         do {
@@ -252,7 +275,14 @@ public class SiedlerGame {
         } while (running);
     }
 
-    // method used to verify the correct position for a road
+    /**
+     * method used to verify the correct position for a road
+     * @param roadStart where the road starts
+     * @param roadEnd where the road ends
+     * @param board the game board
+     * @param player which player wants to trade
+     * @return indicates whether the road placement is valid
+     */
     public boolean validRoadPlacement(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
         if (board.hasCorner(roadStart) && board.hasCorner(roadEnd) && isCornerConnectedToLand(roadStart, board) && isCornerConnectedToLand(roadEnd, board)) {
             boolean rightCoordinates = board.hasEdge(roadStart, roadEnd) && board.hasCorner(roadStart) && board.hasCorner(roadEnd);
@@ -267,6 +297,12 @@ public class SiedlerGame {
         }
     }
 
+    /**
+     * This function verifies whether a given corner is connected to a land parcel
+     * @param corner the corner in question
+     * @param board the game board
+     * @return whether the corner is connected to a land parcel
+     */
     public boolean isCornerConnectedToLand(Point corner, SiedlerBoard board) {
         boolean result = false;
         Land[] lands = {Land.DESERT, Land.MOUNTAIN, Land.MEADOW, Land.GRAINFIELD, Land.FOREST, Land.CLAYSOIL};
