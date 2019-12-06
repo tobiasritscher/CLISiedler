@@ -31,10 +31,6 @@ public class PlayGame {
         return board;
     }
 
-    public SiedlerGame getSiedlerGame() {
-        return siedlerGame;
-    }
-
     public Player getPlayer(int index) {
         return siedlerGame.getPlayers().get(index);
     }
@@ -73,6 +69,7 @@ public class PlayGame {
                 siedlerGame = new SiedlerGame(7, numberOfPlayers);
                 firstPhase();
                 secondPhase();
+                UI.closeTerminal();
             }
         }
 
@@ -287,12 +284,10 @@ public class PlayGame {
 
                         Point where = new Point(e, f);
                         siedlerGame.placeCity(where, currentPlayer, bank);
-                        UI.refresh(board);
-
 
                         siedlerGame.verifyWinner(currentPlayer);
-                        UI.refresh(board);
                         UI.promptEnter();
+                        UI.refresh(board);
                         break;
                     case 5:
                         UI.refresh(board);
@@ -330,6 +325,36 @@ public class PlayGame {
                         UI.print("The number you have selected doesn't exist, please try again\n");
                 }
             } while (running);
+        }
+    }
+
+    public enum ChosenOption {
+        STOP("0", "Exit the programm (also prints the final text)"),
+        PRINT_PARAGRAPHS("1", "Print paragraphs"),
+        INSERT_PARAGRAPH("2", "Insert paragraph"),
+        DELETE_PARAGRAPH("3", "Delete paragraph"),
+        REPLACE_WORD("4", "Replace a word in a paragraph"),
+        INDEX_WORDS("5", "Index of words being used"),
+        PRINT_FORMATED_TEXT("6", "Print formatted text"),
+        ENCRYPT("7", "Encrypt a text"),
+        DECRYPT("8", "Decrypt a text"),
+        WRONG_INPUT("ERROR", "");
+
+        private final String chosenOptionCode;
+        private final String textForUser;
+
+        ChosenOption(String chosenOptionCode, String textForUser) {
+            this.chosenOptionCode = chosenOptionCode;
+            this.textForUser = textForUser;
+        }
+
+        public static ChosenOption codeOfOption(String label) {
+            for (ChosenOption value : values()) {
+                if (value.chosenOptionCode.equals(label)) {
+                    return value;
+                }
+            }
+            return WRONG_INPUT;
         }
     }
 
