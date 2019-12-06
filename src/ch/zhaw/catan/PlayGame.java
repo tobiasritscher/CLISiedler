@@ -261,9 +261,7 @@ public class PlayGame {
 
                         Point roadEnd = new Point(c, d);
                         siedlerGame.placeRoad(roadStart, roadEnd, hexBoard, currentPlayer);
-                        if (siedlerGame.getWinner(currentPlayer)) {
-                            UI.print(currentPlayer + "has won the game\n");
-                        }
+                        verifyWinner(currentPlayer);
 
                         UI.print("Your road has been built");
                         UI.promptEnter();
@@ -273,15 +271,14 @@ public class PlayGame {
                         int e = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your city\n");
 
                         UI.refresh(hexBoard);
-                        int f = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your city\n");
+                        int f = textIO.newIntInputReader().read(currentPlayer + " please pick a y coordinate for your city\n");
 
                         Point where = new Point(e, f);
                         siedlerGame.placeCity(where, currentPlayer);
                         UI.refresh(hexBoard);
 
-                        if (siedlerGame.getWinner(currentPlayer)) {
-                            UI.print(currentPlayer + "has won the game\n");
-                        }
+                        //TODO: Put verifyWinner() here
+                        verifyWinner(currentPlayer);
                         UI.refresh(hexBoard);
                         UI.print("Your settlement has been upgraded to a city");
                         UI.promptEnter();
@@ -327,7 +324,15 @@ public class PlayGame {
         }
     }
 
+    private boolean verifyWinner(Player currentPlayer){
+        boolean gameIsRunning = true;
+        if (siedlerGame.getWinner(currentPlayer)) {
+            UI.print(currentPlayer + " has won the game\n");
+            gameIsRunning = false;
+        }
+        return gameIsRunning;
 
+    }
 
     public static void main(String[] Args) {
         new PlayGame().run();
