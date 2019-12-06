@@ -16,10 +16,6 @@ public class UI {
     private static TextIO textIO = TextIoFactory.getTextIO();
     private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal) textIO.getTextTerminal();
     private static SiedlerBoard board = new SiedlerBoard();
-    private static SiedlerBoardTextView view = new SiedlerBoardTextView(board);
-
-    public UI() {
-    }
 
     /**
      * This function sets up the terminal window and allows to customize font- and size-properties
@@ -41,7 +37,7 @@ public class UI {
      * This function prints the initial menu
      * @return Returns true if the user wants to quit the game
      */
-    static boolean buildStartMenu() {
+    static boolean buildStartMenu(SiedlerBoardTextView view) {
         boolean exit = false;
         List<String> startMenu = new ArrayList<>();
 
@@ -59,7 +55,7 @@ public class UI {
 
         switch (choice) {
             case 1:
-                UI.initSiedlerBoard();
+                UI.initSiedlerBoard(view);
                 exit = false;
                 break;
             case 2:
@@ -72,7 +68,7 @@ public class UI {
         return exit;
     }
 
-    private static void initSiedlerBoard() {
+    private static void initSiedlerBoard(SiedlerBoardTextView view) {
 
         initBoard();
         view.setLowerFieldLabel(new Point(5, 5), new Label('0', '6'));
@@ -108,8 +104,7 @@ public class UI {
      * @param board The gameboard object
      * @return Necessary return for the test class
      */
-    public static SiedlerBoard printBoard(SiedlerBoard board) {
-        view = new SiedlerBoardTextView(board);
+    public static SiedlerBoard printBoard(SiedlerBoardTextView view) {
         textTerminal.println(view.toString());
         return board;
     }
@@ -198,11 +193,12 @@ public class UI {
      * It does so by jumping back to a "blank screen" that has been set in the beginning
      * of the game and prints an instance of the gameboard.
      *
-     * @param board This parameter indicates the gameboard object
+     * @param view This parameter indicates the gameboard object
      */
-    static void refresh(SiedlerBoard board) {
+    static void refresh(SiedlerBoardTextView view) {
+
         UI.resetBookmark("BLANK_SCREEN");
-        UI.printBoard(board);
+        UI.printBoard(view);
     }
 
     /**

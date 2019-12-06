@@ -30,7 +30,11 @@ public class SiedlerGame {
         return players;
     }
 
-    public void placeInitialSettlement(Point position, Player player, SiedlerBoard board) {
+    public Player getfirstPlayer() {
+        return players.get(0);
+    }
+
+    public void placeInitialSettlement(Point position, Player player, SiedlerBoard board, SiedlerBoardTextView view) {
         Settlement settlement = null;
         boolean trying;
 
@@ -41,9 +45,9 @@ public class SiedlerGame {
                 trying = false;
             } else {
                 int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate\n");
-                UI.refresh(board);
+                UI.refresh(view);
                 int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate\n");
-                UI.refresh(board);
+                UI.refresh(view);
                 position = new Point(x, y);
                 trying = true;
             }
@@ -58,7 +62,7 @@ public class SiedlerGame {
      * @param board The game board object
      * @param bank The bank object which receives the amount of resources required to build a settlement
      */
-    public void placeSettlement(Point position, Player player, SiedlerBoard board, Bank bank) {
+    public void placeSettlement(Point position, Player player, SiedlerBoard board, Bank bank, SiedlerBoardTextView view) {
         Settlement settlement;
         boolean trying;
 
@@ -75,7 +79,7 @@ public class SiedlerGame {
                     player.removeResources(Resource.WOOL, 1, bank);
                     player.removeResources(Resource.GRAIN, 1, bank);
                     board.setCorner(settlement.getPosition(), settlement);
-                    UI.refresh(board);
+                    UI.refresh(view);
                     UI.print("Your settlement has been built");
                     trying = false;
                 } else {
@@ -84,11 +88,11 @@ public class SiedlerGame {
                     trying = false;
                 }
             } else {
-                UI.refresh(board);
+                UI.refresh(view);
                 int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate\n");
-                UI.refresh(board);
+                UI.refresh(view);
                 int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate\n");
-                UI.refresh(board);
+                UI.refresh(view);
                 position = new Point(x, y);
                 trying = true;
             }
@@ -103,7 +107,7 @@ public class SiedlerGame {
     }
 
 
-    public void placeCity(Point position, Player player, Bank bank, SiedlerBoard board) { //TODO: test and bugfix
+    public void placeCity(Point position, Player player, Bank bank, SiedlerBoardTextView view) { //TODO: test and bugfix
 
         // checks if there is a settlement on the desired position
         if (player.getSettlementsBuiltPoints().contains(position)) {
@@ -113,7 +117,7 @@ public class SiedlerGame {
                 player.getSettlementAtPosition(position).setToCity();
                 player.removeResources(Resource.STONE, 3, bank);
                 player.removeResources(Resource.GRAIN, 2, bank);
-                UI.refresh(board);
+                UI.refresh(view);
                 UI.print("Your settlement has been upgraded to a city");
             } else {
                 UI.print("You do not have enough resources\n");
@@ -180,10 +184,11 @@ public class SiedlerGame {
      * This function creates new player objects
      * @param numberOfPlayers Number of players that need to be created
      */
-    public void createPlayers(int numberOfPlayers) {
+    public int createPlayers(int numberOfPlayers) {
         for (int i = 0; i < numberOfPlayers; ++i) {
             players.add(new Player(Faction.values()[i]));
         }
+        return players.size();
     }
 
     // checks if the given point is a corner
@@ -204,7 +209,7 @@ public class SiedlerGame {
     }
 
     // used in the first phase to place the roads for each player
-    void placeInitialRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
+    void placeInitialRoad(Point roadStart, Point roadEnd, SiedlerBoard board, SiedlerBoardTextView view, Player player) {
         boolean running;
         do {
             // checks if a road can be placed on the desired location
@@ -212,16 +217,16 @@ public class SiedlerGame {
                 player.buildRoad(player, roadStart, roadEnd);
                 running = false;
             } else {
-                UI.refresh(board);
+                UI.refresh(view);
                 UI.print("Error this points are not on an edge, please try again\n");
-                UI.refresh(board);
+                UI.refresh(view);
                 int a = textIO.newIntInputReader().read("Try again with a new x coordinate for roadstart\n");
-                UI.refresh(board);
+                UI.refresh(view);
                 int b = textIO.newIntInputReader().read("Try again with a new y coordinate for roadstart\n");
                 roadStart = new Point(a, b);
-                UI.refresh(board);
+                UI.refresh(view);
                 int x = textIO.newIntInputReader().read("Try again with a new x coordinate for roadend\n");
-                UI.refresh(board);
+                UI.refresh(view);
                 int y = textIO.newIntInputReader().read("Try again with a new y coordinate for roadend\n");
                 roadEnd = new Point(x, y);
                 running = true;
@@ -239,7 +244,7 @@ public class SiedlerGame {
      * @param player which player wants to trade
      * @param bank * @param bank The bank object which receives the amount of resources required to build a road
      */
-    public void placeRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player, Bank bank) {
+    public void placeRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player, Bank bank, SiedlerBoardTextView view) {
         boolean running;
         do {
             // checks if a road can be placed on the desired location
@@ -257,18 +262,18 @@ public class SiedlerGame {
                     running = true;
                 }
             } else {
-                UI.refresh(board);
+                UI.refresh(view);
                 UI.print("Error this points are not on an edge, please try again\n");
-                UI.refresh(board);
+                UI.refresh(view);
                 int a = textIO.newIntInputReader().read("Try again with a new x coordinate for roadstart\n");
-                UI.refresh(board);
+                UI.refresh(view);
                 int b = textIO.newIntInputReader().read("Try again with a new y coordinate for roadstart\n");
-                UI.refresh(board);
+                UI.refresh(view);
                 roadStart = new Point(a, b);
                 int x = textIO.newIntInputReader().read("Try again with a new x coordinate for roadend\n");
-                UI.refresh(board);
+                UI.refresh(view);
                 int y = textIO.newIntInputReader().read("Try again with a new y coordinate for roadend\n");
-                UI.refresh(board);
+                UI.refresh(view);
                 roadEnd = new Point(x, y);
                 running = true;
             }

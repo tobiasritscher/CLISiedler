@@ -14,13 +14,14 @@ import java.util.Random;
 public class PlayGame {
     private static SiedlerGame siedlerGame;
     private SiedlerBoard board = new SiedlerBoard();
+    private SiedlerBoardTextView view = new SiedlerBoardTextView(board);
     private int numberOfPlayers;
     private static TextIO textIO = TextIoFactory.getTextIO();
     private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal) textIO.getTextTerminal();
     private Bank bank = new Bank();
 
-
-    public PlayGame() {
+    public SiedlerBoardTextView getView() {
+        return view;
     }
 
     public void siedlerGameTestHelper() {
@@ -41,27 +42,27 @@ public class PlayGame {
         UI.setupTerminal();
         UI.setBookmarkBlankScreen();
 
-        if (!UI.buildStartMenu()) {
+        if (!UI.buildStartMenu(view)) {
 
             numberOfPlayers = UI.askNumberOfPlayers();
             //Ccheatcode to make the phase one for you
             if (numberOfPlayers == 420) {
                 numberOfPlayers = 2;
                 siedlerGame = new SiedlerGame(7, numberOfPlayers);
-                siedlerGame.placeInitialSettlement(new Point(6, 16), siedlerGame.getPlayers().get(0), board);
-                siedlerGame.placeInitialSettlement(new Point(9, 13), siedlerGame.getPlayers().get(0), board);
-                siedlerGame.placeInitialSettlement(new Point(6, 6), siedlerGame.getPlayers().get(1), board);
-                siedlerGame.placeInitialSettlement(new Point(6, 10), siedlerGame.getPlayers().get(1), board);
-                siedlerGame.placeInitialRoad(new Point(6, 16), new Point(5, 15), board, siedlerGame.getPlayers().get(0));
-                siedlerGame.placeInitialRoad(new Point(9, 13), new Point(10, 12), board, siedlerGame.getPlayers().get(0));
-                siedlerGame.placeInitialRoad(new Point(6, 6), new Point(7, 7), board, siedlerGame.getPlayers().get(1));
-                siedlerGame.placeInitialRoad(new Point(6, 10), new Point(7, 9), board, siedlerGame.getPlayers().get(1));
+                siedlerGame.placeInitialSettlement(new Point(6, 16), siedlerGame.getPlayers().get(0), board, view);
+                siedlerGame.placeInitialSettlement(new Point(9, 13), siedlerGame.getPlayers().get(0), board, view);
+                siedlerGame.placeInitialSettlement(new Point(6, 6), siedlerGame.getPlayers().get(1), board, view);
+                siedlerGame.placeInitialSettlement(new Point(6, 10), siedlerGame.getPlayers().get(1), board, view);
+                siedlerGame.placeInitialRoad(new Point(6, 16), new Point(5, 15), board, view, siedlerGame.getPlayers().get(0));
+                siedlerGame.placeInitialRoad(new Point(9, 13), new Point(10, 12), board, view, siedlerGame.getPlayers().get(0));
+                siedlerGame.placeInitialRoad(new Point(6, 6), new Point(7, 7), board, view, siedlerGame.getPlayers().get(1));
+                siedlerGame.placeInitialRoad(new Point(6, 10), new Point(7, 9), board, view, siedlerGame.getPlayers().get(1));
 
-                UI.refresh(board);
+                UI.refresh(view);
                 giveResourcesAfterFirstPhase(board);
                 secondPhase();
             } else {
-                UI.refresh(board);
+                UI.refresh(view);
                 UI.print("Ok, there will be " + numberOfPlayers + " players");
                 UI.promptEnter();
 
@@ -98,36 +99,36 @@ public class PlayGame {
 
     private void setInitialSettlementsAndRoads(String currentPlayerFaction, Player currentPlayer, String turn) {
         //ask for first settlement
-        UI.refresh(board);
+        UI.refresh(view);
         int x = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for your " + turn + " settlement\n");
-        UI.refresh(board);
+        UI.refresh(view);
         int y = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for your " + turn + " settlement\n");
         //set first settlement
         Point point = new Point(x, y);
         Point newPoint = siedlerGame.isPointACorner(point);
-        siedlerGame.placeInitialSettlement(newPoint, currentPlayer, board);
-        UI.refresh(board);
+        siedlerGame.placeInitialSettlement(newPoint, currentPlayer, board, view);
+        UI.refresh(view);
 
         //ask for first road start
         int xRoadStart = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for the start of your " + turn + " road\n");
-        UI.refresh(board);
+        UI.refresh(view);
 
         int yRoadStart = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for the start of your " + turn + " road\n");
-        UI.refresh(board);
+        UI.refresh(view);
 
         Point roadStart = new Point(xRoadStart, yRoadStart);
 
         //ask for first road finish
         int xRoadFinish = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a x coordinate for the finish of your " + turn + " road\n");
-        UI.refresh(board);
+        UI.refresh(view);
 
         int yRoadFinish = textIO.newIntInputReader().read(currentPlayerFaction + " please pick a y coordinate for the finish of your " + turn + " road\n");
-        UI.refresh(board);
+        UI.refresh(view);
 
         //set first road
         Point roadEnd = new Point(xRoadFinish, yRoadFinish);
-        siedlerGame.placeInitialRoad(roadStart, roadEnd, board, currentPlayer);
-        UI.refresh(board);
+        siedlerGame.placeInitialRoad(roadStart, roadEnd, board, view, currentPlayer);
+        UI.refresh(view);
     }
 
     public void giveResourcesAfterFirstPhase(SiedlerBoard board) {
@@ -204,7 +205,7 @@ public class PlayGame {
     }
 
     private void secondPhase() {
-        UI.refresh(board);
+        UI.refresh(view);
 
         // each player begins their turn with a dice roll and receive the resources corresponding to the fields
         boolean gameIsRunning = true;
@@ -232,82 +233,82 @@ public class PlayGame {
                 // switch case to choose the option
                 switch (chosenOption) {
                     case TRADE:
-                        UI.refresh(board);
+                        UI.refresh(view);
                         siedlerGame.askPlayerWhatToTrade(currentPlayer, bank);
                         break;
                     case BUILD_SETTLEMENT:
-                        UI.refresh(board);
+                        UI.refresh(view);
                         int x = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your settlement\n");
 
-                        UI.refresh(board);
+                        UI.refresh(view);
                         int y = textIO.newIntInputReader().read(currentPlayer + " please pick a y coordinate for your settlement\n");
 
-                        UI.refresh(board);
+                        UI.refresh(view);
                         Point position = new Point(x, y);
-                        siedlerGame.placeSettlement(position, currentPlayer, board, bank);
+                        siedlerGame.placeSettlement(position, currentPlayer, board, bank, view);
                         running = siedlerGame.verifyWinner(currentPlayer);
                         gameIsRunning = running;
                         UI.promptEnter();
-                        UI.refresh(board);
+                        UI.refresh(view);
                         break;
                     case BUILD_ROAD:
-                        UI.refresh(board);
+                        UI.refresh(view);
                         int a = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the start of your road\n");
 
-                        UI.refresh(board);
+                        UI.refresh(view);
                         int b = textIO.newIntInputReader().read(currentPlayer + " please pick a y coordinate for the start of your road\n");
                         Point roadStart = new Point(a, b);
 
-                        UI.refresh(board);
+                        UI.refresh(view);
                         int c = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the finish of your road\n");
 
-                        UI.refresh(board);
+                        UI.refresh(view);
                         int d = textIO.newIntInputReader().read(currentPlayer + " please pick a y coordinate for the finish of your road\n");
 
                         Point roadEnd = new Point(c, d);
-                        siedlerGame.placeRoad(roadStart, roadEnd, board, currentPlayer, bank);
+                        siedlerGame.placeRoad(roadStart, roadEnd, board, currentPlayer, bank, view);
                         running = siedlerGame.verifyWinner(currentPlayer);
                         gameIsRunning = running;
 
                         UI.promptEnter();
-                        UI.refresh(board);
+                        UI.refresh(view);
                         break;
                     case BUILD_CITY:
-                        UI.refresh(board);
+                        UI.refresh(view);
                         int e = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your city\n");
 
-                        UI.refresh(board);
+                        UI.refresh(view);
                         int f = textIO.newIntInputReader().read(currentPlayer + " please pick a y coordinate for your city\n");
 
                         Point where = new Point(e, f);
-                        siedlerGame.placeCity(where, currentPlayer, bank, board);
+                        siedlerGame.placeCity(where, currentPlayer, bank, view);
 
                         running = siedlerGame.verifyWinner(currentPlayer);
                         gameIsRunning = running;
                         UI.promptEnter();
-                        UI.refresh(board);
+                        UI.refresh(view);
                         break;
                     case CHECK_RESOURCES:
-                        UI.refresh(board);
+                        UI.refresh(view);
 
                         for (HashMap.Entry<Config.Resource, Integer> entry : currentPlayer.getResourcesInPossession().entrySet()) {
                             UI.print(currentPlayer + " has " + entry.getKey() + ": " + entry.getValue() + "\n");
                         }
 
                         UI.promptEnter();
-                        UI.refresh(board);
+                        UI.refresh(view);
 
 
                         break;
                     case END_TURN:
-                        UI.refresh(board);
+                        UI.refresh(view);
                         String sure = textIO.newStringInputReader().read(currentPlayer + " are you sure you want to end your turn? (Y/N)\n");
                         if (sure.equalsIgnoreCase("Y")) {
                             running = false;
                         }
                         break;
                     case QUIT:
-                        UI.refresh(board);
+                        UI.refresh(view);
                         String ciao = textIO.newStringInputReader().read("Sure?(Y/N)\n");
                         if (ciao.equalsIgnoreCase("Y")) {
                             gameIsRunning = false;
