@@ -119,8 +119,10 @@ public class SiedlerGame {
     public boolean placeCity(Point position, Player player) { //TODO: test and bugfix
 
         boolean settlementFound = false;
+        // checks if there is a settlement on the desired position
         if (player.getSettlementsBuiltPoints().contains(position)) {
             Map<Resource, Integer> resources = player.getResourcesInPossession();
+            // checks if the player has the resources needed for a city to be build
             if (resources.get(Resource.STONE) >= 3 && resources.get(Resource.GRAIN) >= 2) {
                 player.getSettlementAtPosition(position).setToCity();
                 settlementFound = true;
@@ -318,6 +320,7 @@ public class SiedlerGame {
         }
     }
 
+    // counts the points for each player for their settlements and cities
     public boolean getWinner(Player player) { //TODO: test and bugfix
         int winPointCounter = 0;
         for (Settlement settlement : player.getSettlementsBuilt()) {
@@ -338,6 +341,7 @@ public class SiedlerGame {
         return numberOfPlayers;
     }
 
+    // checks if the given point is a corner
     public Point isPointACorner(Point point) {
         boolean running;
         do {
@@ -354,9 +358,11 @@ public class SiedlerGame {
         return point;
     }
 
+    // used in the first phase to place the roads for each player
     public Road placeInitialRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
         boolean running;
         do {
+            // checks if a road can be placed on the desired location
             if (validRoadPlacement(roadStart, roadEnd, board, player)) {
                 player.buildRoad(player, roadStart, roadEnd);
                 running = false;
@@ -376,10 +382,13 @@ public class SiedlerGame {
         return road;
     }
 
+
     public void placeRoad(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
         boolean running;
         do {
+            // checks if a road can be placed on the desired location
             if (validRoadPlacement(roadStart, roadEnd, board, player)) {
+                // checks if the player has the necessary resources to build a road
                 if (player.getResourcesInPossession().containsKey(Resource.CLAY) && player.getResourcesInPossession().containsKey(Resource.WOOD)) {
                     player.buildRoad(player, roadStart, roadEnd);
                     running = false;
@@ -403,6 +412,7 @@ public class SiedlerGame {
         } while (running);
     }
 
+    // method used to verify the correct position for a road
     public boolean validRoadPlacement(Point roadStart, Point roadEnd, SiedlerBoard board, Player player) {
         if (board.hasCorner(roadStart) && board.hasCorner(roadEnd) && isCornerConnectedToLand(roadStart, board) && isCornerConnectedToLand(roadEnd, board)) {
             boolean rightCoordinates = board.hasEdge(roadStart, roadEnd) && board.hasCorner(roadStart) && board.hasCorner(roadEnd);
