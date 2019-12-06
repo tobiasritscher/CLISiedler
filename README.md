@@ -51,6 +51,6 @@ If you want to play a quick game you need to choose the Option 420 at the start 
 
 ![Screenshot]({B9B239C4-F7E6-4308-B53A-C57930EB3FB0}.png)
 
-# Klassendiagram
+# Class Diagram
 
 ![Flowchart](Klassendiagramm.gif)
