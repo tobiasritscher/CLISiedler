@@ -17,8 +17,8 @@ public class UI {
     private static TextIO textIO = TextIoFactory.getTextIO();
     private static TextTerminal<SwingTextTerminal> textTerminal = (SwingTextTerminal) textIO.getTextTerminal();
     private static Dice dice = new Dice();
-    public static SiedlerBoard hexboard = new SiedlerBoard();
-    private static SiedlerBoardTextView view = new SiedlerBoardTextView(hexboard);
+    public static SiedlerBoard board = new SiedlerBoard();
+    private static SiedlerBoardTextView view = new SiedlerBoardTextView(board);
     public static SiedlerGame siedlerGame;
 
     public UI() {
@@ -72,25 +72,25 @@ public class UI {
     public static void initSiedlerBoard() {
 
         initBoard();
-        Map<Point, ch.zhaw.hexboard.Label> lowerFieldLabel = new HashMap<>();
-        lowerFieldLabel.put(new Point(5, 5), new ch.zhaw.hexboard.Label('0', '6'));
-        lowerFieldLabel.put(new Point(7, 5), new ch.zhaw.hexboard.Label('0', '3'));
-        lowerFieldLabel.put(new Point(9, 5), new ch.zhaw.hexboard.Label('0', '8'));
-        lowerFieldLabel.put(new Point(4, 8), new ch.zhaw.hexboard.Label('0', '2'));
-        lowerFieldLabel.put(new Point(6, 8), new ch.zhaw.hexboard.Label('0', '4'));
-        lowerFieldLabel.put(new Point(8, 8), new ch.zhaw.hexboard.Label('0', '5'));
-        lowerFieldLabel.put(new Point(10, 8), new ch.zhaw.hexboard.Label('1', '0'));
-        lowerFieldLabel.put(new Point(3, 11), new ch.zhaw.hexboard.Label('0', '5'));
-        lowerFieldLabel.put(new Point(5, 11), new ch.zhaw.hexboard.Label('0', '9'));
-        lowerFieldLabel.put(new Point(9, 11), new ch.zhaw.hexboard.Label('0', '6'));
-        lowerFieldLabel.put(new Point(11, 11), new ch.zhaw.hexboard.Label('0', '9'));
-        lowerFieldLabel.put(new Point(4, 14), new ch.zhaw.hexboard.Label('1', '0'));
-        lowerFieldLabel.put(new Point(6, 14), new ch.zhaw.hexboard.Label('1', '1'));
-        lowerFieldLabel.put(new Point(8, 14), new ch.zhaw.hexboard.Label('0', '3'));
-        lowerFieldLabel.put(new Point(10, 14), new ch.zhaw.hexboard.Label('1', '2'));
-        lowerFieldLabel.put(new Point(5, 17), new ch.zhaw.hexboard.Label('0', '8'));
-        lowerFieldLabel.put(new Point(7, 17), new ch.zhaw.hexboard.Label('0', '4'));
-        lowerFieldLabel.put(new Point(9, 17), new ch.zhaw.hexboard.Label('1', '1'));
+        Map<Point, Label> lowerFieldLabel = new HashMap<>();
+        lowerFieldLabel.put(new Point(5, 5), new Label('0', '6'));
+        lowerFieldLabel.put(new Point(7, 5), new Label('0', '3'));
+        lowerFieldLabel.put(new Point(9, 5), new Label('0', '8'));
+        lowerFieldLabel.put(new Point(4, 8), new Label('0', '2'));
+        lowerFieldLabel.put(new Point(6, 8), new Label('0', '4'));
+        lowerFieldLabel.put(new Point(8, 8), new Label('0', '5'));
+        lowerFieldLabel.put(new Point(10, 8), new Label('1', '0'));
+        lowerFieldLabel.put(new Point(3, 11), new Label('0', '5'));
+        lowerFieldLabel.put(new Point(5, 11), new Label('0', '9'));
+        lowerFieldLabel.put(new Point(9, 11), new Label('0', '6'));
+        lowerFieldLabel.put(new Point(11, 11), new Label('0', '9'));
+        lowerFieldLabel.put(new Point(4, 14), new Label('1', '0'));
+        lowerFieldLabel.put(new Point(6, 14), new Label('1', '1'));
+        lowerFieldLabel.put(new Point(8, 14), new Label('0', '3'));
+        lowerFieldLabel.put(new Point(10, 14), new Label('1', '2'));
+        lowerFieldLabel.put(new Point(5, 17), new Label('0', '8'));
+        lowerFieldLabel.put(new Point(7, 17), new Label('0', '4'));
+        lowerFieldLabel.put(new Point(9, 17), new Label('1', '1'));
 
 
         for (Map.Entry<Point, Label> e : lowerFieldLabel.entrySet()) {
@@ -105,15 +105,15 @@ public class UI {
 
     }
 
-    public static SiedlerBoard printBoard(SiedlerBoard hexBoard) {
-        view = new SiedlerBoardTextView(hexBoard);
+    public static SiedlerBoard printBoard(SiedlerBoard board) {
+        view = new SiedlerBoardTextView(board);
         textTerminal.println(view.toString());
-        return hexBoard;
+        return board;
     }
 
     protected static void initBoard() {
-        Map<Point, Label> lowerFieldLabel = hexboard.getLowerFieldLabels();
-        SiedlerBoardTextView view = new SiedlerBoardTextView(hexboard);
+        Map<Point, Label> lowerFieldLabel = board.getLowerFieldLabels();
+        SiedlerBoardTextView view = new SiedlerBoardTextView(board);
 
         for (Map.Entry<Point, Label> e : lowerFieldLabel.entrySet()) {
             view.setLowerFieldLabel(e.getKey(), e.getValue());
@@ -140,7 +140,7 @@ public class UI {
 
     public static Config.Resource resourceChoice(String prompt){
 
-        Config.Resource choice = null;
+        Config.Resource choice;
             switch (getEnumValue(Config.Resource.class, prompt)){
                 case GRAIN:
                     choice = Config.Resource.GRAIN;
@@ -202,7 +202,7 @@ public class UI {
     }
 
     public static SiedlerBoard getBoard() {
-        return hexboard;
+        return board;
     }
 
     public static void promptEnter(){
@@ -214,9 +214,9 @@ public class UI {
     /*
     *
      */
-    public static void refresh(SiedlerBoard hexBoard){
+    public static void refresh(SiedlerBoard board){
         UI.resetBookmark("BLANK_SCREEN");
-        UI.printBoard(hexBoard);
+        UI.printBoard(board);
     }
 
     public static int printSecondPhaseMenu(){

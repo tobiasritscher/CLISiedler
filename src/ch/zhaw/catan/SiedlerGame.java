@@ -37,34 +37,34 @@ public class SiedlerGame {
         return players.get(currentPlayer).getResourcesInPossession().get(resource);
     }
 
-    public Settlement placeInitialSettlement(Point position, Player player, SiedlerBoard hexBoard) {
+    public Settlement placeInitialSettlement(Point position, Player player, SiedlerBoard board) {
         Settlement settlement = null;
         boolean trying;
 
         do {
-            if (validSettlementPlacing(position, hexBoard)) {
+            if (validSettlementPlacing(position, board)) {
                 settlement = new Settlement(position, player);
                 player.addSettlement(settlement);
                 trying = false;
             } else {
                 int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate\n");
-                UI.refresh(hexBoard);
+                UI.refresh(board);
                 int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate\n");
-                UI.refresh(hexBoard);
+                UI.refresh(board);
                 position = new Point(x, y);
                 trying = true;
             }
         } while (trying);
-        hexBoard.setCorner(settlement.getPosition(), settlement);
+        board.setCorner(settlement.getPosition(), settlement);
         return settlement;
     }
 
-    public void placeSettlement(Point position, Player player, SiedlerBoard hexBoard) {
+    public void placeSettlement(Point position, Player player, SiedlerBoard board) {
         Settlement settlement = null;
         boolean trying;
 
         do {
-            if (validSettlementPlacing(position, hexBoard)) {
+            if (validSettlementPlacing(position, board)) {
                 if (player.getResourcesInPossession().containsKey(Resource.CLAY)
                         && player.getResourcesInPossession().containsKey(Resource.WOOD)
                         && player.getResourcesInPossession().containsKey(Resource.WOOL)
@@ -75,7 +75,7 @@ public class SiedlerGame {
                     player.removeResources(Resource.WOOD, 1);
                     player.removeResources(Resource.WOOL, 1);
                     player.removeResources(Resource.GRAIN, 1);
-                    hexBoard.setCorner(settlement.getPosition(), settlement);
+                    board.setCorner(settlement.getPosition(), settlement);
                     trying = false;
                 } else {
                     textTerminal.print("You don't have enough resources to build a settlement\n");
@@ -83,19 +83,19 @@ public class SiedlerGame {
                 }
             } else {
                 int x = textIO.newIntInputReader().read("Can't place here, try again with another x coordinate\n");
-                UI.refresh(hexBoard);
+                UI.refresh(board);
                 int y = textIO.newIntInputReader().read("Can't place here, try again with another y coordinate\n");
-                UI.refresh(hexBoard);
+                UI.refresh(board);
                 position = new Point(x, y);
                 trying = true;
             }
         } while (trying);
     }
 
-    private boolean validSettlementPlacing(Point position, SiedlerBoard hexBoard) {
-        return hexBoard.getNeighboursOfCorner(position).isEmpty() &&
-                hexBoard.hasCorner(position) &&
-                isCornerConnectedToLand(position, hexBoard);
+    private boolean validSettlementPlacing(Point position, SiedlerBoard board) {
+        return board.getNeighboursOfCorner(position).isEmpty() &&
+                board.hasCorner(position) &&
+                isCornerConnectedToLand(position, board);
     }
 
 
@@ -132,182 +132,15 @@ public class SiedlerGame {
     }
 
     public void askPlayerWhatToTrade(Player player) {
-        for (int i = 0; i < Resource.values().length; ++i){
-            textTerminal.print("" + (i+1) + ": " + Resource.values()[i].name() + " (You have " + player.getResourcesInPossession().get(Resource.values()[i]) + ")\n");
-        }
+        printAllResources();
         int chosenOptionWhatToGive = textIO.newIntInputReader().read("What would you like to trade?\n");
         int chosenOptionWhatToTake = textIO.newIntInputReader().read("What would you like to take?\n");
-        tradeWithBankFourToOne(Resource.values()[chosenOptionWhatToGive-1], Resource.values()[chosenOptionWhatToTake-1], player);
-    }
-
-    public void tradeWithBank(int i) {
-        Player currentPlayer = getPlayers().get(i);
-        for (int j = 0; j < Resource.values().length; ++j){
-            textTerminal.print("" + (j+1) + ": " + Resource.values()[j] + "\n");
-        }
-        int x = textIO.newIntInputReader().read("What would you like to trade?\n");
-        switch (x) {
-            case 1:
-                if (currentPlayer.getResourcesInPossession().get(Resource.WOOD) >= 4) {
-                    printAllResources();
-                    int y = textIO.newIntInputReader().read("What would you like in return?\n");
-                    currentPlayer.removeResources(Resource.WOOD, 4);
-                    switch (y) {
-                        case 1:
-                            currentPlayer.addResources(Resource.WOOD, 1);
-                            break;
-                        case 2:
-                            currentPlayer.addResources(Resource.STONE, 1);
-                            break;
-                        case 3:
-                            currentPlayer.addResources(Resource.GRAIN, 1);
-                            break;
-                        case 4:
-                            currentPlayer.addResources(Resource.CLAY, 1);
-                            break;
-                        case 5:
-                            currentPlayer.addResources(Resource.WOOL, 1);
-                            break;
-                        default:
-                            UI.print("Come on there are only 5 numbers...you can do this!\n");
-                            break;
-                    }
-
-                } else {
-                    textTerminal.print("You do not have enough Wood in your hood.\n");
-                }
-                break;
-
-            case 2:
-                if (getPlayers().get(i).getResourcesInPossession().get(Resource.STONE) >= 4) {
-                    printAllResources();
-                    int y = textIO.newIntInputReader().read("What would you like in return?\n");
-                    getPlayers().get(i).removeResources(Resource.STONE, 4);
-                    switch (y) {
-                        case 1:
-                            getPlayers().get(i).addResources(Resource.WOOD, 1);
-                            break;
-                        case 2:
-                            getPlayers().get(i).addResources(Resource.STONE, 1);
-                            break;
-                        case 3:
-                            getPlayers().get(i).addResources(Resource.GRAIN, 1);
-                            break;
-                        case 4:
-                            getPlayers().get(i).addResources(Resource.CLAY, 1);
-                            break;
-                        case 5:
-                            getPlayers().get(i).addResources(Resource.WOOL, 1);
-                            break;
-                        default:
-                            textTerminal.print("Come on there are only 5 numbers...you can do this!\n");
-                            break;
-                    }
-
-                } else {
-                    textTerminal.print("You do not have enough Stone to bone.\n");
-                }
-                break;
-            case 3:
-                if (getPlayers().get(i).getResourcesInPossession().get(Resource.GRAIN) >= 4) {
-                    printAllResources();
-                    int y = textIO.newIntInputReader().read("What would you like in return?\n");
-                    getPlayers().get(i).removeResources(Resource.GRAIN, 4);
-                    switch (y) {
-                        case 1:
-                            getPlayers().get(i).addResources(Resource.WOOD, 1);
-                            break;
-                        case 2:
-                            getPlayers().get(i).addResources(Resource.STONE, 1);
-                            break;
-                        case 3:
-                            getPlayers().get(i).addResources(Resource.GRAIN, 1);
-                            break;
-                        case 4:
-                            getPlayers().get(i).addResources(Resource.CLAY, 1);
-                            break;
-                        case 5:
-                            getPlayers().get(i).addResources(Resource.WOOL, 1);
-                            break;
-                        default:
-                            textTerminal.print("Come on there are only 5 numbers...you can do this!\n");
-                            break;
-                    }
-
-                } else {
-                    textTerminal.print("You do not have enough Grain to gain.\n");
-                }
-                break;
-            case 4:
-                if (getPlayers().get(i).getResourcesInPossession().get(Resource.CLAY) >= 4) {
-                    printAllResources();
-                    int y = textIO.newIntInputReader().read("What would you like in return?\n");
-                    getPlayers().get(i).removeResources(Resource.CLAY, 4);
-                    switch (y) {
-                        case 1:
-                            getPlayers().get(i).addResources(Resource.WOOD, 1);
-                            break;
-                        case 2:
-                            getPlayers().get(i).addResources(Resource.STONE, 1);
-                            break;
-                        case 3:
-                            getPlayers().get(i).addResources(Resource.GRAIN, 1);
-                            break;
-                        case 4:
-                            getPlayers().get(i).addResources(Resource.CLAY, 1);
-                            break;
-                        case 5:
-                            getPlayers().get(i).addResources(Resource.WOOL, 1);
-                            break;
-                        default:
-                            textTerminal.print("Come on there are only 5 numbers...you can do this!\n");
-                            break;
-                    }
-
-                } else {
-                    textTerminal.print("You do not have enough Clay to stay.\n");
-                }
-                break;
-            case 5:
-                if (getPlayers().get(i).getResourcesInPossession().get(Resource.WOOL) >= 4) {
-                    printAllResources();
-                    int y = textIO.newIntInputReader().read("What would you like in return?\n");
-                    getPlayers().get(i).removeResources(Resource.WOOL, 4);
-                    switch (y) {
-                        case 1:
-                            getPlayers().get(i).addResources(Resource.WOOD, 1);
-                            break;
-                        case 2:
-                            getPlayers().get(i).addResources(Resource.STONE, 1);
-                            break;
-                        case 3:
-                            getPlayers().get(i).addResources(Resource.GRAIN, 1);
-                            break;
-                        case 4:
-                            getPlayers().get(i).addResources(Resource.CLAY, 1);
-                            break;
-                        case 5:
-                            getPlayers().get(i).addResources(Resource.WOOL, 1);
-                            break;
-                        default:
-                            textTerminal.print("Come on there are only 5 numbers...you can do this!\n");
-                            break;
-                    }
-
-                } else {
-                    textTerminal.print("You do not have enough Wool you fool.\n");
-                }
-                break;
-            default:
-                textTerminal.print("Come on there are only 5 numbers...you can do this!\n");
-                break;
-        }
-
+        tradeWithBankFourToOne(Resource.values()[chosenOptionWhatToGive - 1], Resource.values()[chosenOptionWhatToTake - 1], player);
     }
 
     private void printAllResources() {
-        for (int j = 0; j < Resource.values().length; ++j){
-            textTerminal.print("" + (j+1) + ": " + Resource.values()[j] + "\n");
+        for (int j = 0; j < Resource.values().length; ++j) {
+            textTerminal.print("" + (j + 1) + ": " + Resource.values()[j] + "\n");
         }
     }
 
