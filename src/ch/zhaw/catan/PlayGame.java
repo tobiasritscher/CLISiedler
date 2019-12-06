@@ -170,8 +170,15 @@ public class PlayGame {
             if (board.getField(field) != Config.Land.DESERT && board.getField(field) != Config.Land.WATER && Config.getStandardDiceNumberPlacement().get(field) == rolledNumber) {
                 if (!board.getCornersOfField(field).isEmpty()) {
                     for (Settlement settlement : board.getCornersOfField(field)) {
-                        settlement.getPlayer().addResources(board.getField(field).getResource(), 1, bank);
-                        textTerminal.print(settlement.getFaction() + " has recieved 1 " + board.getField(field).getResource() + '\n');
+                        Config.Resource currentResource = board.getField(field).getResource();
+                        Player currentPlayer = settlement.getPlayer();
+                        int amount;
+                        if (settlement.getIsCity())
+                            amount = 2;
+                        else
+                            amount = 1;
+                        currentPlayer.addResources(currentResource, amount, bank);
+                        textTerminal.print(currentPlayer.getFaction() + " has recieved " + amount + " " + currentResource + '\n');
                     }
                 }
             }
