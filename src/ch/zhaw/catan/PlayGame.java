@@ -329,6 +329,7 @@ public class PlayGame {
         if (siedlerGame.getWinner(currentPlayer)) {
             UI.print(currentPlayer + " has won the game\n");
             gameIsRunning = false;
+            UI.closeTerminal();
         }
         return gameIsRunning;
 
