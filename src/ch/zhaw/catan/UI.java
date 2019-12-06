@@ -130,7 +130,7 @@ public class UI {
     static int askNumberOfPlayers() {
         return textIO.newIntInputReader()
                 .withPossibleValues(2, 3, 4, 420)
-                .read("How many players will be playing? (420 is for a given phase one; The initial settlements and roads will be placed for you)");
+                .read("How many players will be playing? (420 is for a given phase one for two players; The initial settlements and roads will be placed for you)");
     }
 
     /**

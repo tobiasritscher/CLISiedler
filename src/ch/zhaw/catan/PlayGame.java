@@ -46,17 +46,17 @@ public class PlayGame {
             numberOfPlayers = UI.askNumberOfPlayers();
             //Ccheatcode to make the phase one for you
             if (numberOfPlayers == 420) {
-                siedlerGame = new SiedlerGame(7, 2);
-                siedlerGame.placeInitialSettlement(new Point(5, 15), siedlerGame.getPlayers().get(0), board);
-                siedlerGame.placeInitialSettlement(new Point(8, 12), siedlerGame.getPlayers().get(0), board);
-                siedlerGame.placeInitialSettlement(new Point(6, 6), siedlerGame.getPlayers().get(1), board);
-                siedlerGame.placeInitialSettlement(new Point(9, 7), siedlerGame.getPlayers().get(1), board);
-                siedlerGame.placeInitialRoad(new Point(5, 15), new Point(6, 16), board, siedlerGame.getPlayers().get(0));
-                siedlerGame.placeInitialRoad(new Point(7, 13), new Point(8, 12), board, siedlerGame.getPlayers().get(0));
-                siedlerGame.placeInitialRoad(new Point(6, 6), new Point(5, 7), board, siedlerGame.getPlayers().get(1));
-                siedlerGame.placeInitialRoad(new Point(10, 6), new Point(9, 7), board, siedlerGame.getPlayers().get(1));
-
                 numberOfPlayers = 2;
+                siedlerGame = new SiedlerGame(7, numberOfPlayers);
+                siedlerGame.placeInitialSettlement(new Point(6, 16), siedlerGame.getPlayers().get(0), board);
+                siedlerGame.placeInitialSettlement(new Point(9, 13), siedlerGame.getPlayers().get(0), board);
+                siedlerGame.placeInitialSettlement(new Point(6, 6), siedlerGame.getPlayers().get(1), board);
+                siedlerGame.placeInitialSettlement(new Point(6, 10), siedlerGame.getPlayers().get(1), board);
+                siedlerGame.placeInitialRoad(new Point(6, 16), new Point(5, 15), board, siedlerGame.getPlayers().get(0));
+                siedlerGame.placeInitialRoad(new Point(9, 13), new Point(10, 12), board, siedlerGame.getPlayers().get(0));
+                siedlerGame.placeInitialRoad(new Point(6, 6), new Point(7, 7), board, siedlerGame.getPlayers().get(1));
+                siedlerGame.placeInitialRoad(new Point(6, 10), new Point(7, 9), board, siedlerGame.getPlayers().get(1));
+
                 UI.refresh(board);
                 giveResourcesAfterFirstPhase(board);
                 secondPhase();
@@ -214,7 +214,7 @@ public class PlayGame {
             UI.print(currentPlayer + " rolled a " + rolledNumber + "\n");
 
             // If the number rolled is 7 all players with more than 7 resources lose randomly half of their resources
-            if (rolledNumber == 7) {
+            if (rolledNumber == Config.MAX_CARDS_IN_HAND_NO_DROP) {
                 divideAllResources();
             } else {
                 giveResourcesFromDice(rolledNumber);
