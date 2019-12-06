@@ -29,3 +29,5 @@ This project is licensed under the ZHAW License - see [ZHAW](http://www.zhaw.ch)
 ## Screenshot
 
 ![Screenshot]({57B1CA07-01C9-4EDD-A920-08E87F946C49}.png)
+
+![Screenshot]({B9B239C4-F7E6-4308-B53A-C57930EB3FB0}.png)
