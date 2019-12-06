@@ -248,9 +248,7 @@ public class PlayGame {
                         UI.refresh(board);
                         Point position = new Point(x, y);
                         siedlerGame.placeSettlement(position, currentPlayer, board, bank);
-                        if (siedlerGame.getWinner(currentPlayer)) {
-                            UI.print(currentPlayer + "has won the game\n");
-                        }
+                        siedlerGame.verifyWinner(currentPlayer);
                         UI.promptEnter();
                         UI.refresh(board);
                         break;
