@@ -117,30 +117,30 @@ public class SiedlerGame {
         }
     }
 
-    public boolean tradeWithBankFourToOne(Resource offer, Resource want, Player player) {
-        boolean result = false;
+    public void tradeWithBankFourToOne(Resource offer, Resource want, Player player) {
         if (bank.checkResources(want)) {
             if (player.removeResources(offer, 4)) {
                 player.addResources(want, 1);
                 bank.trade(offer, want);
-                result = true;
             } else {
                 textTerminal.print("You do not have enough " + offer + ".\n");
             }
+        } else {
+            textTerminal.print("The bank doesn't have enough " + want + ".\n");
         }
-        return result;
     }
 
     public void askPlayerWhatToTrade(Player player) {
-        printAllResources();
+        printAllResources(player);
         int chosenOptionWhatToGive = textIO.newIntInputReader().read("What would you like to trade?\n");
         int chosenOptionWhatToTake = textIO.newIntInputReader().read("What would you like to take?\n");
         tradeWithBankFourToOne(Resource.values()[chosenOptionWhatToGive - 1], Resource.values()[chosenOptionWhatToTake - 1], player);
     }
 
-    private void printAllResources() {
-        for (int j = 0; j < Resource.values().length; ++j) {
-            textTerminal.print("" + (j + 1) + ": " + Resource.values()[j] + "\n");
+    private void printAllResources(Player player) {
+        for (int i = 0; i < Resource.values().length; ++i) {
+            int resourceInPossessionCount = player.getResourcesInPossession().get(Resource.values()[i]);
+            textTerminal.print("" + (i + 1) + ": " + Resource.values()[i] + " (You have " + resourceInPossessionCount + ")\n");
         }
     }
 
