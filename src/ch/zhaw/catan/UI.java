@@ -95,9 +95,11 @@ public class UI {
         for (Map.Entry<Point, Label> e : lowerFieldLabel.entrySet()) {
             view.setLowerFieldLabel(e.getKey(), e.getValue());
         }
+        //Bookmark for a blank screen
         UI.resetBookmark("BLANK_SCREEN");
-        UI.print(view.toString());
 
+        //This prints the map
+        UI.print(view.toString());
 
     }
 
