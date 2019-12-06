@@ -282,7 +282,7 @@ public class PlayGame {
                         int f = textIO.newIntInputReader().read(currentPlayer + " please pick a y coordinate for your city\n");
 
                         Point where = new Point(e, f);
-                        siedlerGame.placeCity(where, currentPlayer, bank);
+                        siedlerGame.placeCity(where, currentPlayer, bank, board);
 
                         running = siedlerGame.verifyWinner(currentPlayer);
                         gameIsRunning = running;
