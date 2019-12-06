@@ -30,9 +30,10 @@ public class PlayGame {
 
             numberOfPlayers = UI.askNumberOfPlayers();
             //Ccheatcode to make the phase one for you
+            int POINTS_TO_WIN = 5;
             if (numberOfPlayers == 420) {
                 numberOfPlayers = 2;
-                siedlerGame = new SiedlerGame(7, numberOfPlayers);
+                siedlerGame = new SiedlerGame(POINTS_TO_WIN, numberOfPlayers);
                 siedlerGame.placeInitialSettlement(new Point(6, 16), siedlerGame.getPlayers().get(0), board, view);
                 siedlerGame.placeInitialSettlement(new Point(9, 13), siedlerGame.getPlayers().get(0), board, view);
                 siedlerGame.placeInitialSettlement(new Point(6, 6), siedlerGame.getPlayers().get(1), board, view);
@@ -51,7 +52,7 @@ public class PlayGame {
                 UI.promptEnter();
 
                 //Creating a new game with both phases
-                siedlerGame = new SiedlerGame(7, numberOfPlayers);
+                siedlerGame = new SiedlerGame(POINTS_TO_WIN, numberOfPlayers);
                 firstPhase();
                 secondPhase();
             }
@@ -216,10 +217,12 @@ public class PlayGame {
 
                 // switch case to choose the option
                 switch (chosenOption) {
+
                     case TRADE:
                         UI.refresh(view);
                         siedlerGame.askPlayerWhatToTrade(currentPlayer, bank);
                         break;
+
                     case BUILD_SETTLEMENT:
                         UI.refresh(view);
                         int x = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your settlement\n");
@@ -235,6 +238,7 @@ public class PlayGame {
                         UI.promptEnter();
                         UI.refresh(view);
                         break;
+
                     case BUILD_ROAD:
                         UI.refresh(view);
                         int a = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for the start of your road\n");
@@ -257,6 +261,7 @@ public class PlayGame {
                         UI.promptEnter();
                         UI.refresh(view);
                         break;
+
                     case BUILD_CITY:
                         UI.refresh(view);
                         int e = textIO.newIntInputReader().read(currentPlayer + " please pick a x coordinate for your city\n");
@@ -272,6 +277,7 @@ public class PlayGame {
                         UI.promptEnter();
                         UI.refresh(view);
                         break;
+
                     case CHECK_RESOURCES:
                         UI.refresh(view);
 
@@ -283,6 +289,7 @@ public class PlayGame {
                         UI.refresh(view);
 
                         break;
+
                     case END_TURN:
                         UI.refresh(view);
                         String sure = textIO.newStringInputReader().read(currentPlayer + " are you sure you want to end your turn? (Y/N)\n");
@@ -290,6 +297,7 @@ public class PlayGame {
                             running = false;
                         }
                         break;
+
                     case QUIT:
                         UI.refresh(view);
                         String ciao = textIO.newStringInputReader().read("Sure?(Y/N)\n");
@@ -298,11 +306,13 @@ public class PlayGame {
                             running = false;
                         }
                         break;
+
                     case CHEATCODE:
                         for (Config.Resource resource : Config.Resource.values()) {
                             currentPlayer.addWithCheat(resource);
                         }
                         break;
+
                     default:
                         UI.print("The number you have selected doesn't exist, please try again\n");
                 }
@@ -326,7 +336,7 @@ public class PlayGame {
 
         /**
          * This function returns the chosen option in the enum ChosenOption
-         * @return
+         * @return The number of the enum
          */
         public int getChosenOptionCode() {
             return chosenOptionCode;
@@ -335,7 +345,7 @@ public class PlayGame {
         /**
          * This function returns the text for the corresponding text for the user
          * specified in the enum ChosenOption
-         * @return
+         * @return the text for the user to print
          */
         public String getTextForUser() {
             return textForUser;
@@ -363,7 +373,7 @@ public class PlayGame {
 
     /**
      * This function calls the run-method, which starts the game
-     * @param Args
+     * @param Args arguments from terminal
      */
     public static void main(String[] Args) {
         new PlayGame().run();
